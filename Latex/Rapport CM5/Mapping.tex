@@ -1,0 +1,102 @@
+\documentclass[10pt,a4paper,landscape]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[francais]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{lmodern}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\title{Rapport Semaine 5 - SINF1225\\Mapping Relationnel}
+\author{Groupe 08}
+\usepackage{pgf}
+\usepackage{tikz}
+\usetikzlibrary{calc,matrix,arrows,decorations.pathmorphing,backgrounds,positioning,fit,petri}
+\begin{document}
+\maketitle
+\section{Commentaires sur le mapping}
+Nous avons pris la liberté de ne pas indiquer les contraintes des valeurs en bas de celles-ci, mais à coté, entre \{ \}, afin d'améliorer la lisibilité du schéma.\\
+\{0-5\} veux dire: tout les entiers $\in [0,5]$, \{0,1\} veux dire 0 ou 1.\\
+\section{Commentaires sur la conversion en tables et colonnes SQL}
+La table image doit pouvoir contenir une référence vers un restaurant ou un plat, et seulement un des deux. Afin d'éviter une multiplication de colonnes, nous avons doté les tables restaurant et plat d'une colonne id (respectivement restoid, platid), et imposé les clés primaires du mapping comme clés uniques. Via ce stratagème, nous avons placé deux colonnes dans la table image, objetType(contenant soit 'plat', soit 'restaurant') et objetId(contenant un lien vers restoid ou platid selon le type).
+\section{Mapping relationnel}
+\begin{tikzpicture}[baseline]
+	\tikzstyle{every node}=[font=\small]
+	\matrix[matrix of nodes, nodes={anchor=base, align=center,minimum height=#1},
+        row sep=0,column sep=0] at (3, 1.5)
+    {
+		Ville( & |(VilleNom)|nom, & |(VillePays)|pays, & [1mm] |(VilleLong)|longitude,& |(VilleLat)|latitude & )\\
+	};
+	\draw[double distance=2pt] let \p1=(VilleNom.south west), \p2=(VillePays.south east) in (\p1) -- (\x2,\y1);
+	\draw let \p1=(VilleLong.south west), \p2=(VilleLat.south east) in (\p1) -- (\x2,\y1);
+	
+	\matrix[matrix of nodes, nodes={anchor=base, align=center,minimum height=#1},
+        row sep=0,column sep=0] at (0,0)
+    {
+		Restaurant( & |(RestoNom)|nom, & |(RestoAdresse)|adresse, & |(RestoVille)|Ville(nom,pays), & longitude, & latitude,
+		& places, & {[description]}, & {[email]}, & {[etoiles\{0-5\}}], & {[telephone]}, 
+		& {[site internet]} & ) \\
+	};
+	\draw[double distance=2pt] let \p1=(RestoNom.south west), \p2=(RestoVille.south east) in (\p1) -- (\x2,\y1);
+	\draw[-to,shorten >=12pt] (RestoVille.north) -- (VilleNom.south east);
+	
+	\matrix[matrix of nodes, nodes={anchor=base, align=center,minimum height=#1},
+        row sep=0,column sep=0] at (-8,5.5)
+    {
+		Reservation( & |(ReservationResto)|Restaurant(nom, adresse, Ville(nom, pays)), 
+		& nom, & |(ReservationDate)|date, & nbReservation & ) \\
+	};
+	\draw[double distance=2pt] let \p1=(ReservationResto.south west), \p2=(ReservationDate.south east) in (\p1) -- (\x2,\y1);
+	\draw[-to,shorten >=12pt] (ReservationResto.south) -- (RestoAdresse.north);
+	
+	\matrix[matrix of nodes, nodes={anchor=base, align=center,minimum height=#1},
+        row sep=0,column sep=0] at (4,-2)
+    {
+		Tranche Horaire( & |(THResto)|Restaurant(nom, adresse, Ville(nom, pays)), 
+		& jour, & debut, & |(THFin)|fin & ) \\
+	};
+	\draw[double distance=2pt] let \p1=(THResto.south west), \p2=(THFin.south east) in (\p1) -- (\x2,\y1);
+	\draw[-to,shorten >=30pt] (THResto.north) -- (RestoAdresse.south);
+	
+	\matrix[matrix of nodes, nodes={anchor=base, align=center,minimum height=#1},
+        row sep=0,column sep=0] at (-3,-6)
+    {
+		Plat( & |(PlatResto)|Restaurant(nom, adresse, Ville(nom, pays)), 
+		& |(PlatNom)|nom, & |(PlatCategorie)|catégorie, & prix, & {[description]}, & {[épicé\{0,1\}]}, 
+		& {[végétarien\{0,1\}]}, & {[allergènes]}, & {[restant]} & )\\
+	};
+	\draw[double distance=2pt] let \p1=(PlatResto.south west), \p2=(PlatCategorie.south east) in (\p1) -- (\x2,\y1);
+	\draw[-to,shorten >=12pt] (PlatResto.north) -- (RestoAdresse.south);
+	
+	\matrix[matrix of nodes, nodes={anchor=base, align=center,minimum height=#1},
+        row sep=0,column sep=0] at (2,-4)
+    {
+		Image( & 
+			|(ImageObjet)|{Objet\{} & |(ImageResto)|Restaurant(nom, adresse, Ville(nom, pays)), & |(ImagePlat)|Plat(Restaurant(...), nom, catégorie) & {\},} & |(ImageChemin)|chemin, & légende &)\\
+	};
+	\draw[double distance=2pt] let \p1=(ImageObjet.south west), \p2=(ImageChemin.south east) in (\p1) -- (\x2,\y1);
+	\draw[-to,shorten >=12pt] (ImageResto.north) -- (RestoAdresse.south);
+	\draw[-to,shorten >=12pt] (ImagePlat.south) -- (PlatNom.north);
+	
+	\matrix[matrix of nodes, nodes={anchor=base, align=center,minimum height=#1},
+        row sep=0,column sep=0] at (4,2.75)
+    {
+		Utilisateur( & |(UserName)|nom/prénom, & |(UserVille)|Ville(nom, pays), & dist. max, & végétarien, & cat. prix &  )\\
+	};
+	\draw[double distance=2pt] let \p1=(UserName.south west), \p2=(UserName.south east) in (\p1) -- (\x2,\y1);
+	\draw[-to,shorten >=12pt] (UserVille.south) -- (VilleNom.north east);
+	
+	\matrix[matrix of nodes, nodes={anchor=base, align=center,minimum height=#1},
+        row sep=0,column sep=0] at (0,4)
+    {
+		Note de Restaurant( 
+		& |(NoteResto)|Restaurant(nom, adresse, Ville(nom, pays)), 
+		& |(NoteUser)|Utilisateur(nom/prénom), 
+		& note &  )\\
+	};
+	\draw[double distance=2pt] let \p1=(NoteResto.south west), \p2=(NoteUser.south east) in (\p1) -- (\x2,\y1);
+	\draw[-to,shorten >=12pt] (NoteResto.south) -- (RestoAdresse.north);
+	\draw[-to,shorten >=12pt] (NoteUser.south) -- (UserName.north);
+\end{tikzpicture}
+\end{document}

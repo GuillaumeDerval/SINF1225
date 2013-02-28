@@ -1,0 +1,111 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[francais]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{lmodern}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\title{Rapport Semaine 5 - SINF1225\\Choix de conception et Faits élémentaires}
+\author{Groupe 08}
+\usepackage{tikz}
+\usepackage{tkz-orm}
+\usepackage{lscape}
+\begin{document}
+\maketitle
+\section{Choix de conception}
+Nous présentons ci-dessous les choix de conception importants:\\
+\\
+Nous avons tout d'abord procédé à une hiérarchisation des éléments importants de l'application: Les plats sont servis par des restaurants qui sont eux-mêmes localisés dans des villes.\\
+\\
+Nous voulions que l'application puisse contenir des restaurants de plusieurs pays différents, nous avons donc localisé les villes dans des pays, et également ajouté une localisation GPS (latitude et longitude), afin de faire des calculs sur ces coordonnées.\\
+Le choix de la clé primaire de l'objet ville fut porté sur la paire Pays-Nom, la localisation GPS étant une paire de nombres flottants, où une modification d'un millième de degré équivaudrait à une ville différente.\\
+\\
+Il nous est apparu assez vite que l'application devait pouvoir retenir les horaires d'ouverture des restaurants. Une contrainte importante était qu'un restaurant pouvait avoir plusieurs tranches horaires (le midi et le soir, par exemple).\\
+Pour les réservations des restaurant, nous considérons qu'en moyenne, une réservation dure deux heures.\\
+\\
+Deux plats, bien que portant le même nom, sont différents s'ils sont servis dans deux restaurants différents: les ingrédients sont différents, notamment. La paire nom-restaurant est donc unique.\\
+Il a été décidé de ne pas placer les catégories de plat dans une table à part: nous souhaitions que chaque restaurant puisse avoir des catégories différentes, mais néanmoins pouvoir faire des requêtes simples et efficaces. Un "SELECT DISTINCT categorie ..." est plus efficace qu'une requête multi-tables. En contrepartie de cette simplicité d'utilisation, une redondance de nom de catégorie peux se présenter dans la table.\\
+\\
+Le dernier choix de conception important fut celui de l'objet image. Nous voulions éviter d'avoir deux objets "image de restaurant" et "image de plat", pour éviter une multiplication de tables dans la base de données finale. Nous avons donc utilisé une structure de type "ou exclusif" (voir schéma ORM).
+\newpage
+\section{Faits élémentaires: exemples représentatifs}
+On distingue les \textbf{entités} suivantes, ainsi que les faits et \textit{valeurs} liées:
+\begin{enumerate}
+\item \textbf{Ville}
+	\begin{itemize}
+		\item est dans un \textit{Pays}
+		\item a une \textit{Localisation GPS}
+		\item a un \textit{Nom}
+		\item peut contenir des \textbf{Restaurants}
+	\end{itemize}
+\item \textbf{Restaurant}
+	\begin{itemize}
+		\item est dans une \textbf{Ville}
+		\item a un \textit{Nom}
+		\item a une \textit{Adresse}, qui désigne le restaurant.
+		\item a une \textit{Localisation GPS}
+		\item peut avoir un \textit{Site Internet}
+		\item peut avoir une \textit{Description}
+		\item peut avoir un \textit{Numéro de téléphone}
+		\item peut avoir une \textit{Catégorie de prix}(fourchette de prix, énumérées, par exemple)
+		\item peut avoir un certain nombre d'\textit{Étoiles}
+		\item peut avoir un \textit{Email}
+		\item a un certain nombre de \textit{Places}
+		\item peut avoir des \textbf{Réservations}
+		\item a des \textbf{Tranches Horaires}
+		\item peut être représenté par des \textbf{Images}
+		\item sert des \textbf{Plats}
+	\end{itemize}
+\item \textbf{Réservation}
+	\begin{itemize}
+		\item est faite sous un \textit{Nom}
+		\item par un certain \textit{Nombre de clients}
+		\item a une certaine \textit{Date et Heure}
+		\item dans un certain \textbf{Restaurant}
+	\end{itemize}
+%\item \textbf{Tranche Horaire}
+%	\begin{itemize}
+%		\item Correspond à un \textit{Jour} (Lundi,...,Dimanche)
+%		\item a une \textit{Heure d'ouverture}
+%		\item et a une \textit{Heure de fermeture}
+%		\item pour un certain \textbf{Restaurant}
+%	\end{itemize}
+\item \textbf{Plat}
+	\begin{itemize}
+		\item est servi par un (et un seul) \textbf{Restaurant}
+		\item a un \textit{Nom}
+		\item est dans une \textit{Catégorie}
+		\item peut avoir une \textit{Description}
+		\item a un \textit{Prix}
+		\item est plus ou moins \textit{Épicé} (valeur entre 1 et 5, par exemple)
+		\item est \textit{Végétarien}, ou pas
+		\item peut encore être servi \textit{Restant} fois.
+		\item contient des \textit{Allergènes} ou pas
+		\item peut être représenté par des \textbf{Images}
+	\end{itemize}
+%\item \textbf{Image}
+%	\begin{itemize}
+%		\item représente un \textit{Objet}(au choix, un \textbf{Restaurant} ou un \textbf{Plat})
+%		\item pointe vers un \textit{Chemin}, où se situe l'image sur le disque
+%		\item a une \textit{Légende}
+%	\end{itemize}
+\item \textbf{Utilisateur}
+	\begin{itemize}
+		\item a un \textit{Nom et Prénom}
+		\item habite dans une \textbf{Ville}
+		\item préfère aller à une certaine \textit{Distance maximale} de chez lui
+		\item est (ou pas) \textit{Végétarien}
+		\item préfère une certaine \textit{Catégorie de prix}
+		\item pose des \textbf{Notes sur des restaurants}
+	\end{itemize}
+%\item \textbf{Notes de Restaurant}
+%	\begin{itemize}
+%		\item d'un \textbf{Utilisateur}
+%		\item sur un \textbf{Restaurant}
+%		\item a une \textit{Note}, entre 0 et 5 par exemple.
+%	\end{itemize}
+\end{enumerate}
+\end{document}

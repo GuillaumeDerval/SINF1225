@@ -1,3 +1,6 @@
+#MacOSX Files
+.DS_Store
+
 # built application files
 *.apk
 *.ap_
@@ -14,3 +17,9 @@ gen/
 
 # Local configuration file (sdk path, etc)
 local.properties
+
+#Latex files
+*.log
+*.aux
+*.tex.bak
+*.synctex.gz

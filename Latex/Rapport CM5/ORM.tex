@@ -1,0 +1,162 @@
+\documentclass[10pt,a4paper,landscape]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[francais]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{lmodern}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\title{Rapport Semaine 5 - SINF1225\\Schéma ORM}
+\author{Groupe 08}
+\usepackage{tikz}
+\usepackage{tkz-orm}
+\usepackage{lscape}
+\begin{document}
+\maketitle
+\section{Préambule}
+Nous nous sommes permis de colorer différemment certains nœuds, de manière à rendre le schéma plus lisible. Les nœuds choisis sont les entités importantes.\\
+Ce schéma ORM utilise la notation ORM 2.\\
+\\
+Commentaires sur le schéma:
+\begin{itemize}
+\item Deux Restaurants ne peuvent pas avoir la même adresse; mais peuvent avoir la même localisation GPS ; par exemple, des restaurants situés dans un building peuvent avoir la même position GPS en longitude et latitude, mais n'auront pas la même adresse.
+\item Nous considérons que deux plats ayant le même nom, dans deux restaurants différents, sont différents. En effet, chaque restaurant à une présentation du plat, et une manière de le faire différente. Le prix peux également varier. Le \tikz \node[constraint=unique] {}; ("unique", en ORM 2) indique que la paire restaurant et nom dans le schéma est unique (Le même nom avec un autre restaurant est donc un plat différent).
+\item Les "Cat. Prix" sont des catégories de prix, énumérées via des entiers positifs (0->peu cher, 1->un peu plus cher, ...).
+\item Même remarque pour au niveau des épices pour les plats.
+\item Si un lien entre 2 noeud ne contient pas deux commentaires("est servi par" au lieu de "sert/est servi par"), le commentaire est à lire dans le sens de la liaison d'unicité.
+\item L'entité image \textbf{doit} représenter \textbf{un} plat \textbf{ou} un restaurant. Ceci est représenté par le \tikz \node[constraint=xor] {}; qui signifie "possède obligatoirement un et un seul" en ORM 2.
+\end{itemize}
+\section{Schéma ORM}
+\begin{tikzpicture}[orm]
+%Ville
+\node[entity,style={draw=blue!50,fill=blue!20}] (Ville) at (-3,6) {Ville};
+\node[value] (VilleNom) at (-1,3) {Nom}
+	edge[required by] node[vroles=2,label=a,unique=2] (p) {} (Ville);
+\node[value] (VilleNom) at (1,6) {Localisation(GPS)}
+	edge[required by] node[roles=2,label=a,unique=1,unique=2] (p) {} (Ville);
+\node[entity] (Pays) at (-5,4) {Pays(Abbr. ISO)}
+	edge[required by] node[vroles=2,label=a,unique=2] (p) {} (Ville);
+	
+%Resto
+\node[entity,style={draw=blue!50,fill=blue!20}] (Restaurant) at (4,0) {Restaurant}
+	edge[mandatory] node[roles=2,label=contient/est dans,unique=2] (p) {} (Ville);
+\node[value] (RestoNom) at (4, -3) {Nom}
+	edge[required by] node[vroles=2,label=a,unique=2] (p) {} (Restaurant);
+\node[value] (RestoLoc) at (2.5, -4) {Localisation(GPS)}
+	edge[required by] node[vroles=2,label=a,unique=2] (p) {} (Restaurant);
+\node[value] (RestoAdresse) at (5.5, -4) {Adresse}
+	edge[required by] node[vroles=2,label=a,unique=1,unique=2] (p) {} (Restaurant);
+\node[value] (RestoDesc) at (4, 3) {Description}
+	edge node[vroles=2,label=a,unique=1] (p) {} (Restaurant);
+\node[value] (RestoPlaces) at (0, 0) {Places}
+	edge node[roles=2,label=a,unique=2] (p) {} (Restaurant);
+\node[entity] (RestoInternet) at (2,4) {Site Internet(URL)}
+	edge node[vroles=2,label=a,unique=1] (p) {} (Restaurant);
+\node[entity] (RestoTelephone) at (6,2) {Téléphone(Nr)}
+	edge node[vroles=2,label=a,unique=1] (p) {} (Restaurant);
+\node[value] (RestoCatPrix) at (0, -5) {Catégorie Prix}
+	edge node[vroles=2,label=a,unique=2] (p) {} (Restaurant);
+
+\node[entity] (RestoEmail) at (7.3, -2) {Email(Addr)}
+	edge node[roles=2,label=a,unique=1] (p) {} (Restaurant);
+%\node[entity] (RestoImage) at (1, 1) {Image}
+%	edge node[roles=2,label=a,unique=1] (p) {} (Restaurant);
+\node[value] (RestoEtoiles) at (1, 1) {Etoiles}
+	edge node[roles=2,label=a,unique=2] (p) {} (Restaurant);
+\node[value] (RestCat) at (8.5,-1) {Cat. Prix}
+	edge node[roles=2,label=a,unique=1] (p) {} (Restaurant);
+	
+% Horaire
+\node[entity,style={draw=blue!50,fill=blue!20}] (Horaire) at (-4,-5) {Tranche Horaire}
+	edge[mandatory] node[roles=2,label=ouvre pendant,unique=1] (p) {} (Restaurant);
+\node[value] (HoraireJour) at (-6,-7) {Jour}
+	edge[required by] node[roles=2,label=de ce jour,unique=2] (p) {} (Horaire);
+\node[value] (HoraireDebut) at (-3, -7) {Debut(Heure:Minute)}
+	edge[required by] node[roles=2,label=commence,unique=1] (p) {} (Horaire);
+\node[value] (HoraireFin) at (2, -7) {Fin(Heure:Minute)}
+	edge[required by] node[roles=2,label=fini,unique=1] (p) {} (Horaire);
+
+%Notes de restaurant
+\node[entity,style={draw=blue!50,fill=blue!20}] (Note) at (-3,-2) {Note de Restaurants}
+	edge[mandatory] node[roles=2,label=sur un,unique=1] (p) {} (Restaurant);
+\node[value] (NoteValeur) at (-5,-4) {Note}
+	edge[required by] node[roles=2,label=a pour valeur,unique=2] (p) {} (Note);
+	
+% Reservation
+\node[entity,style={draw=blue!50,fill=blue!20}] (Reservation) at (9,2) {Réservation}
+	edge[mandatory] node[roles=2,label=a,unique=2] (p) {} (Restaurant);
+\node[value] (ReservationDate) at (8,5) {Date}
+	edge[required by] node[roles=2,label=de ce jour,unique=2] (p) {} (Reservation);
+\node[value] (ReservationDebut) at (11,6) {Debut(Heure:Minute)}
+	edge[required by] node[roles=2,label=commence,unique=1 ] (p) {} (Reservation);
+\node[value] (ReservationFin) at (3,5) {Nom}
+	edge[required by] node[roles=2,label=sous un,unique=2] (p) {} (Reservation);
+\node[value] (ReservationPersonnes) at (5,6) {Nb. Personnes}
+	edge[required by] node[roles=2,label=fini,unique=2] (p) {} (Reservation);
+	
+%Plat
+\node[entity,style={draw=blue!50,fill=blue!20}] (Plat) at (12,0) {Plat};
+\binary[label=est servi par,unique=2] (RestoPlatLink) at (8, 0) {};
+\draw (Plat) -- (RestoPlatLink.two east);
+\draw (Restaurant) -- (RestoPlatLink.one west);
+\node[cdot] at (Plat.west) {};
+\node[value] (PlatNom) at (12, 4) {Nom};
+\vroles[label=a,unique=1] (PlatNomLink) at (12, 2) {};
+\draw (PlatNom) -- (PlatNomLink.one east);
+\draw (Plat) -- (PlatNomLink.two west);
+\node[cdot] at (Plat.north) {};
+\node[constraint=unique] (PlatRestoNameUnique) at (10, 1) {};
+\draw[limits] (PlatNomLink.two north) -- (PlatRestoNameUnique);
+\draw[limits] (RestoPlatLink.one north) -- (PlatRestoNameUnique);
+\node[value] (PlatDesc) at (14, 3) {Description}
+	edge node[vroles=2,label=a,unique=1] (p) {} (Plat);
+\node[value] (PlatPrix) at (16, 2) {Prix}
+	edge[required by] node[roles=2,label=a,unique=1] (p) {} (Plat);
+\node[value] (PlatEpice) at (18, 1) {Epicé (1-5)}
+	edge node[roles=2,label=est,unique=1] (p) {} (Plat);
+\node[value] (PlatVegetarien) at (18, -1) {Végétarien}
+	edge node[roles=2,label=est,unique=1] (p) {} (Plat);
+\node[value] (PlatAllergenes) at (14, -3) {Allergènes}
+	edge node[vroles=2,label=contient,unique=2] (p) {} (Plat);
+%\node[entity] (PlatImages) at (10, -3) {Image}
+%	edge node[vroles=2,label=a,unique=1] (p) {} (Plat);
+\node[entity] (PlatCategorie) at (17, 4) {Catégorie(Nom)}
+	edge[required by] node[vroles=2,label=a,unique=1] (p) {} (Plat);
+\node[value] (PlatRestant) at (18, -3) {Restant}
+	edge[required by] node[roles=2,label=peut être servi x fois,unique=1] (p) {} (Plat);
+	
+%Images
+\node[entity,style={draw=blue!50,fill=blue!20}] (Images) at (10,-6) {Image};
+\binary[label=représente,unique=2] (ImageRestoLink) at (7, -3.5) {};
+\draw (Restaurant) -- (ImageRestoLink.one west);
+\draw (Images) -- (ImageRestoLink.two east);
+\vroles[label=représente,unique=1] (ImagePlatLink) at (11, -3) {};
+\draw (Plat) -- (ImagePlatLink.two east);
+\draw (Images) -- (ImagePlatLink.one west);
+\node[constraint=xor] (ImagePlatRestoXor) at (9, -3.25) {};
+\draw[limits] (ImagePlatRestoXor) -- (ImagePlatLink.one north);
+\draw[limits] (ImagePlatRestoXor) -- (ImageRestoLink.two north);
+
+\node[value] (ImageLegende) at (15,-7) {Légende}
+	edge[required by] node[roles=2,label=a,unique=1] (p) {} (Images);
+\node[value] (ImageChemin) at (15,-5) {Chemin}
+	edge[required by] node[roles=2,label=a pour chemin,unique=1,unique=2] (p) {} (Images);
+
+%Utilisateur
+\node[entity,style={draw=blue!50,fill=blue!20}] (User) at (-2,1) {Utilisateur}
+	edge[required by] node[vroles=2,label=par,unique=1] (p) {} (Note)
+	edge[mandatory] node[vroles=2,label=habite,unique=1] (p) {} (Ville);
+\node[value] (UserName) at (-5,3) {Nom/Prénom}
+	edge[required by] node[vroles=2,label=a un,unique=1,unique=2] (p) {} (User);
+\node[value] (UserDist) at (-5,1) {Dist Max}
+	edge[required by] node[roles=2,label=va a,unique=2] (p) {} (User);
+\node[value] (UserCat) at (-5,-1) {Cat. Prix}
+	edge[required by] node[roles=2,label=préfère,unique=2] (p) {} (User);
+\node[value] (UserEpice) at (0.5,2) {Végétarien}
+	edge[required by] node[roles=2,label=est,unique=1] (p) {} (User);
+	
+
+\end{tikzpicture}
+\end{document}

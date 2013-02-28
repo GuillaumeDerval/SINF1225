@@ -1,0 +1,191 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage [utf8] {inputenc}
+\usepackage [francais]{babel}
+\usepackage {lmodern}
+\usepackage [T1]{fontenc}
+\usepackage [Glenn] {fncychap}
+\usepackage [top = 2cm, bottom = 2cm, right = 2cm, left = 2cm] {geometry}
+\usepackage {textcomp}
+\usepackage {fancybox}
+\usepackage [tc]{titlepic}
+\usepackage {titlesec}
+\usepackage {colortbl}
+\usepackage {color}
+\usepackage {tabularx}
+\usepackage {float}
+\usepackage [french]{varioref}
+\usepackage {upquote}
+\usepackage {eurosym}
+
+\titleformat*{\section}{\color{brique}\bf\large}
+\definecolor{brique}{cmyk}{0,0.65,0.8,0.48}
+\definecolor{bismarck}{cmyk}{0,0.77,0.94,0.35}
+\definecolor{ambre}{cmyk}{0,0.20,0.9,0.10}
+\definecolor{gray}{cmyk}{0,0,0,0.03}
+\definecolor{greengreen}{cmyk}{1,0,1,0.5}
+
+\usepackage{listings}
+\lstset{
+  language=SQL,
+  numbers=left,                  
+  numberstyle=\tiny\color{black},
+  numbersep=5pt,
+  backgroundcolor=\color{gray},
+  tabsize=2,
+  frame=single,
+  breaklines=true,
+  keywordstyle=\color{blue},
+  commentstyle=\color{greengreen},
+  stringstyle=\color{bismarck},
+  escapeinside={\%*}{*)}
+}
+
+\title{\Huge Rapport Semaine 5 - SINF 1225 \\ Requêtes SQL}
+\author{\large Groupe 08}	
+\date{\large\today}
+
+\begin{document}
+\maketitle
+\section*{Requête 1:}
+
+\begin{itemize}
+\item Donnez tous les restaurants à Louvain-la-Neuve où il y a encore de la place pour au moins 8 personnes ce soir à 20h.
+\end{itemize}
+
+\begin{lstlisting} 
+SELECT Rest.nom AS `Restaurants satisfaisants`
+FROM Restaurant Rest
+WHERE
+	Rest.ville_nom = 'Louvain-la-Neuve'
+	AND Rest.place -
+	(SELECT TOTAL (Resv.nbrReservation)
+	FROM Reservation Resv
+	WHERE 
+		Resv.restoid = Rest.restoid
+		AND Resv.`date`> datetime('now','start of day','+18 hours')
+		AND Resv.`date`< datetime('now','start of day','+20 hours') 
+	) >= 8;
+\end{lstlisting}
+
+\section*{Requête 2:}
+
+\begin{itemize}
+\item Trouvez tous les plats qui sont moins chers que \EUR{50} ainsi que les restaurants qui proposent ces plats et qui sont ouverts le midi.
+\end{itemize}
+
+\begin{lstlisting}
+SELECT * FROM Plat P WHERE P.prix <= 50;
+
+SELECT DISTINCT Rest.nom, Rest.ville_nom, Rest.ville_pays
+FROM Plat P
+LEFT JOIN Restaurant Rest ON Rest.restoid = P.restoid
+LEFT JOIN TrancheHoraire TH ON TH.restoid = Rest.restoid
+WHERE P.prix <= 50 AND
+	12*60 BETWEEN TH.debut AND TH.fin;
+\end{lstlisting}
+
+\section*{Requête 3:}
+
+\begin{itemize}
+\item Déterminez, pour un restaurant donné, quels plats ne sont plus disponibles actuellement.
+\end{itemize}
+
+\begin{lstlisting} 
+SELECT P.platid, P.nom 
+FROM Plat P
+LEFT JOIN Restaurant Rest ON Rest.restoid = P.restoid
+WHERE 
+	Rest.nom = 'RestaurantDonne'
+	AND P.restant IS NOT NULL
+	AND P.restant <= 0;
+\end{lstlisting}
+
+\section*{Requête 4:}
+
+\begin{itemize}
+\item Pour un client donné, produisez la liste de restaurants qui correspondent au mieux avec les besoins et les préférences de ce client.
+\end{itemize}
+\emph{Remarque :} Bien que la requête spécifiait qu'il fallait tenir compte des préférences des utilisateurs, il nous a été impossible de limiter la distance d'un utilisateur aux restaurants alentours en raison de l'absence de fonctions mathématiques de base comme la racine carrée (Nous espérons cependant palier ce manque avec l'introduction du langage JAVA dans le projet).
+
+\begin{lstlisting} 
+SELECT DISTINCT Rest.nom, Rest.ville_nom, Rest.ville_pays
+FROM Restaurant Rest, Utilisateur U, Plat P, NotesRestaurant NR
+WHERE U.nom_prenom = 'Kim Mens'
+	AND P.restoid = Rest.restoid
+	AND P.vegetarien = U.vegetarien
+	AND NR.utilisateur_nom_prenom = U.nom_prenom
+	AND NR.restoid = Rest.restoid
+	AND Rest.cat_prix = U.cat_prix
+ORDER BY NR.note DESC
+\end{lstlisting}
+
+\section*{Requête 5:}
+
+\begin{itemize}
+\item Benjamin, comme tout bon étudiant, n'a pas envie de perdre du temps à préparer à manger. Il cherche donc l'adresse et le nom d'un restaurant à Louvain-La-Neuve dans lequel lui et ses 42 kokotteurs pourraient manger du potage \footnote{Le même, car ils sont \textbf{très} copains} aux alentours de 20h, au prix le plus bas possible.
+\end{itemize}
+
+\begin{lstlisting} 
+SELECT DISTINCT Rest.nom, Rest.adresse, P.nom as `plat`, P. prix, P.restant
+FROM Plat P
+LEFT JOIN Restaurant Rest ON P.restoid = Rest.restoid
+WHERE 
+	Rest.ville_nom = 'Louvain-la-Neuve' AND P.nom LIKE '%potage%'
+	AND (P.restant IS NULL OR P.restant >= 42)
+	AND Rest.places -
+	(SELECT TOTAL (Resv.nbrReservation) 
+	FROM Reservation Resv
+	WHERE 
+		Resv.restoid = Rest.restoid
+		AND Resv.date > datetime('now','start of day','+18 hours') 
+		AND Resv.date < datetime('now','start of day','+20 hours')
+	) >= 42
+ORDER BY P.prix
+\end{lstlisting}
+
+\section*{Requête 6:}
+
+\begin{itemize}
+\item Marc et sa famille ont profité d'une magnifique journée de shopping à Namur mails ils commencent à avoir faim. Il ne connaisse pas du tout Namur et ont envie de se faire un petit restaurant gastronomique avec la difficulté que Sophie, la cadette est végétarienne.
+\end{itemize}
+
+\begin{lstlisting} 
+SELECT DISTINCT Rest.nom AS Restaurant
+FROM Plat P
+LEFT JOIN Restaurant Rest ON Rest.restoid = P.restoid
+LEFT JOIN Reservation Resv ON Rest.restoid = Resv.restoid
+WHERE 
+      Rest.cat_prix = 3
+AND 
+       Rest.place -
+ (SELECT TOTAL (Resv.nbrReservation)
+ FROM Reservation Resv
+ WHERE 
+  Resv.restoid = Rest.restoid
+  AND Resv.`date`> datetime('now', '- 2 hours')
+  AND Resv.`date`< datetime('now') 
+ ) >= 5
+AND P.vegetarien = 1
+\end{lstlisting}
+
+\end{document}
+
+\section*{Requête 6:}
+
+\begin{itemize}
+\item Pour le nouvel an chinois, Chang et ses amis aimeraient le fêter dans un bon restaurant à Louvain-la-Neuve. Par contre, ils aimeraient bien ne pas se ruiner, tout en appréciant un menu complet compris d'une entrée, d'un plat, d'un désert et des boissons.
+\end{itemize}
+
+En fait je me dis que ce serait cool de fair eça mais je ne sais pas du tout comment faire :D.
+En gros faudrait pouvoir afficher la Somme des moyennes (AVG()) des prix des plats par catégorie. Donc en gros on fait la moyenne des entrées, des plats et des déserts séparemment, puis on additionne le tout ^^. Faudrait aussi trier le tout à la fin en fonction de cette somme de moyenne.
+
+\begin{lstlisting} 
+-- A COMPLETER
+\end{lstlisting}
+
+SELECT DISTINCT P.nom AS 'Plat disponible'
+FROM Plat P, Restaurant Rest
+WHERE 
+	Rest.nom = 'Restaurant donne'
+	AND P.restant IS NOT NULL
+GROUP BY P.nom
