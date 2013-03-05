@@ -1,0 +1,51 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[francais]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{lmodern}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\title{User stories}
+\author{Groupe 08}
+\usepackage{tikz}
+\usepackage{tkz-orm}
+\usepackage{lscape}
+\begin{document}
+\maketitle
+\section{Roles}
+\begin{itemize}
+\item Client: utilisateur souhaitant se restaurer dans un restaurant.
+\item Restaurant: utilisateur possédant/dirigeant un restaurant.
+\end{itemize}
+\section{Stories}
+\subsection{Gestion des utilisateurs}
+\begin{itemize}
+\item \textbf{Coter un restaurant} En tant qu'utilisateur, je souhaite pouvoir donner une côte à un restaurant, afin de guider les autres utilisateurs.
+\item \textbf{Mes préférences} En tant qu'utilisateur utilisant l'application, je souhaite pouvoir modifier les préférences associées à mon profil, afin de mieux faire correspondre l'application à mes envies
+\item \textbf{Second utilisateur} En tant que second utilisateur de l'application, je souhaite avoir un profil distinct de l'utilisateur principal du téléphone/de la tablette, afin d'avoir moi aussi une application correspondant a mes envies.
+\end{itemize}
+\subsection{Gestion des restaurants}
+\begin{itemize}
+\item \textbf{Etre restaurateur} En tant que restaurateur, je souhaite avoir la possibilité d'éditer les informations et plats disponibles dans mon restaurant, afin d'avoir des informations correcte et de mettre à jour le profil de mon restaurant.
+\item \textbf{Modification} En tant qu'utilisateur ou restaurateur, je veux que quand j'édite ou je réserve sur un téléphone, mes modifications soient également présente sur tout les autres téléphones.
+\end{itemize}
+\subsection{Sélection et affichage}
+\begin{itemize}
+\item \textbf{Sélectionner une ville automatiquement} En tant que client utilisant l'application, lors de démarrage de celle-ci, je veux obtenir une liste des villes proches de moi, afin de sélectionner ensuite les restaurants les plus proches.
+\item \textbf{Sélectionner une ville manuellement} En tant que client utilisant l'application, lors du démarrage de l'application, afin de pouvoir obtenir une liste de tous les restaurants proche de moi, si les services de localisation (GPS) sont inactifs, je dois sélectionner une ville parmis une liste de toutes les villes connues par l'application
+\item \textbf{Sélectionner un restaurant} En tant que client utilisant l'application, après avoir sélectionné une ville, je veux avoir la liste des restaurants dans celle-ci, afin de pouvoir le sélectionner.
+\item \textbf{Ordonner les restaurants} En tant que client utilisant l'application, lors de la sélection d'un restaurant, je veux pouvoir ordonner les restaurants, selon leur proximité, leur catégorie de prix, etc., afin de mieux m'y retrouver.
+\item \textbf{Obtenir les informations d'un restaurant} En tant que client utilisant l'application, après avoir sélectionné un restaurant, je veux obtenir plus d'information sur ce dernier, notamment une description, des photos, etc., afin de savoir si il me plait.
+\item \textbf{Affichage des menus} En tant que client utilisant l'application, je souhaite pouvoir voir les menus et les plats encore disponibles dans un restaurant(après l'avoir sélectionné et affiché ses informations), afin de pouvoir choisir un plat.
+\item \textbf{Trier les plats} En tant que client, je veux pouvoir trier et filtrer les plats disponibles dans un restaurant, selon mes préférences, le prix, les promos, etc., afin de faire mon choix.
+\item \textbf{Information sur un plat} En tant que client, après avoir sélectionné un plat, je veux que des informations sur celui-ci s'affiche (description, photo, prix,...), afin de faire mon choix sur ce plat.
+\item \textbf{Être guidé vers le restaurant} En tant que client, je suis pouvoir être guidé via le GPS intégré à mon téléphone vers le restaurant que j'ai sélectionné.
+\end{itemize}
+\subsection{Réservations}
+\begin{itemize}
+\item \textbf{Réserver} En tant que client, je souhaite pouvoir réserver dans un restaurant, après avoir sélectionné celui-ci, et choisir les plats que je souhaiterai. Je veux également pouvoir définir ma date et heure d'arrivée au restaurant.
+\end{itemize}
+\end{document}
