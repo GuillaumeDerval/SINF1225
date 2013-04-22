@@ -5,13 +5,13 @@
     android:layout_height="wrap_content"
     >
  
-    <!--<ImageView
-		android:id="@+id/cityListRowImg"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-	   	android:layout_gravity="center_vertical"
-	   	android:padding="10dp"
-		/>-->
+    <ImageView
+        android:id="@+id/cityListRowImg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:padding="10dp"
+        android:src="@drawable/belgique" />
  
 	<LinearLayout
 	    android:orientation="vertical"

@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Filter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class CityAdapter extends ArrayAdapter<City>
@@ -25,6 +26,7 @@ public class CityAdapter extends ArrayAdapter<City>
     	TextView name;
     	TextView distance;
         TextView restaurantCount;
+        ImageView image;
     }
 	
 	public class CityComparator implements Comparator<City>
@@ -177,7 +179,7 @@ public class CityAdapter extends ArrayAdapter<City>
             viewIds.name = (TextView)row.findViewById(R.id.cityListRowName);
             viewIds.distance = (TextView)row.findViewById(R.id.cityListRowDist);
             viewIds.restaurantCount = (TextView)row.findViewById(R.id.cityListRowRestos);
-            
+            viewIds.image = (ImageView)row.findViewById(R.id.cityListRowImg);
             row.setTag(viewIds);
         }
         else
@@ -195,6 +197,7 @@ public class CityAdapter extends ArrayAdapter<City>
         else
         	viewIds.distance.setText("");
         viewIds.restaurantCount.setText(""+city.getRestaurantCount()+ " restaurant(s)");
+        viewIds.image.setImageResource(city.getCountry().equalsIgnoreCase("belgique") ? R.drawable.belgique : R.drawable.france);
         return row;
     }
 }

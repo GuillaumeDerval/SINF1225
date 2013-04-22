@@ -61,10 +61,11 @@ public class CityListActivity extends Activity implements GourmetLocationReceive
 		}
 		else //si on en a une
 		{
-			adapter.setSort("distance", false); //on trie par distance
+			adapter.setSort("distance", true); //on trie par distance
 			sortType.setSelection(1); //le second est la distance
 			sortDirection.check(R.id.CityListSortDirectionAsc); //desc
 		}
+		
 		cityList.setAdapter(adapter);
 		cityList.setTextFilterEnabled(true);
 		cityList.setOnItemClickListener(new OnItemClickListener()
