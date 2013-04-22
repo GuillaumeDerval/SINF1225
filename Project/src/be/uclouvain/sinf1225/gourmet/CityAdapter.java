@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.location.Location;
@@ -44,12 +46,12 @@ public class CityAdapter extends ArrayAdapter<City>
 	}
 	
 	private class CityFilter extends Filter
-	{	
+	{
 		@Override
 		protected FilterResults performFiltering(CharSequence constraint)
 		{
 			FilterResults results = new FilterResults();
-            String prefix = constraint.toString().toLowerCase();
+            String prefix = constraint.toString().toLowerCase(Locale.FRENCH);
 
             if (prefix == null || prefix.length() == 0)
             {
@@ -59,14 +61,14 @@ public class CityAdapter extends ArrayAdapter<City>
             }
             else
             {
-                final ArrayList<City> list =new ArrayList<City>(cities);
+                final ArrayList<City> list = new ArrayList<City>(cities);
                 final ArrayList<City> nlist = new ArrayList<City>();
 
                 for (int i = 0; i < list.size(); i++)
                 {
                     final City city = list.get(i);
 
-                    if (city.getName().toLowerCase().startsWith(prefix))
+                    if (city.getName().toLowerCase(Locale.FRENCH).startsWith(prefix))
                     {
                         nlist.add(city);
                     }
@@ -141,6 +143,13 @@ public class CityAdapter extends ArrayAdapter<City>
     public void setSort(String sort)
     {
     	orderby = sort;
+    	sort();
+    }
+    
+    public void setSort(String sort, boolean sortorder)
+    {
+    	orderby = sort;
+    	orderasc = sortorder;
     	sort();
     }
     

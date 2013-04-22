@@ -6,8 +6,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import android.content.Context;
-import android.location.Location;
-import android.location.LocationManager;
 
 public class GourmetUtils
 {

@@ -1,6 +1,5 @@
 package be.uclouvain.sinf1225.gourmet;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import be.uclouvain.sinf1225.gourmet.utils.GourmetDatabase;
@@ -8,11 +7,8 @@ import be.uclouvain.sinf1225.gourmet.utils.GourmetLocationListener;
 import be.uclouvain.sinf1225.gourmet.utils.GourmetLocationReceiver;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -20,14 +16,14 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.Filter;
-import android.widget.ListAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Spinner;
-import android.widget.Toast;
+import android.widget.ToggleButton;
 
 public class CityListActivity extends Activity implements GourmetLocationReceiver
 {
@@ -49,11 +45,26 @@ public class CityListActivity extends Activity implements GourmetLocationReceive
 		List<City> cities = db.getAllCities();
 		db.close();
 		
+		//On recupere les boutons pour le tri
+		final Spinner sortType = (Spinner) this.findViewById(R.id.CityListSort);
+		final RadioGroup sortDirection = (RadioGroup) findViewById(R.id.CityListSortDirection);
+		
 		//On récupère la vue "liste"
 		final ListView cityList = (ListView) this.findViewById(R.id.CityListView);
 		//On crée un adapter qui va mettre dans la liste les donnes adequates des villes
 		CityAdapter adapter = new CityAdapter(this, R.layout.city_list_row, cities, locationListener.getLastLocation());
-		adapter.sort();
+		if(locationListener.getLastLocation() == null) //si on a pas de position GPS
+		{
+			adapter.setSort("name"); //on trie par nom
+			sortType.setSelection(0); //le premier est le nom
+			sortDirection.check(R.id.CityListSortDirectionAsc); //asc
+		}
+		else //si on en a une
+		{
+			adapter.setSort("distance", false); //on trie par distance
+			sortType.setSelection(1); //le second est la distance
+			sortDirection.check(R.id.CityListSortDirectionAsc); //desc
+		}
 		cityList.setAdapter(adapter);
 		cityList.setTextFilterEnabled(true);
 		cityList.setOnItemClickListener(new OnItemClickListener()
@@ -91,7 +102,17 @@ public class CityListActivity extends Activity implements GourmetLocationReceive
 			}
 		});
 		
-		final Spinner sortType = (Spinner) this.findViewById(R.id.CityListSort);
+		final ToggleButton sortActivate = (ToggleButton) this.findViewById(R.id.CityListSortActivate);
+		sortActivate.setOnCheckedChangeListener(new ToggleButton.OnCheckedChangeListener()
+		{
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+			{
+				final LinearLayout layout = (LinearLayout) findViewById(R.id.CityListSortContainer);
+				layout.setVisibility(isChecked ? ToggleButton.VISIBLE : ToggleButton.GONE);
+			}
+		});
+		
 		sortType.setOnItemSelectedListener(new OnItemSelectedListener()
 		{
 			@Override
@@ -108,7 +129,6 @@ public class CityListActivity extends Activity implements GourmetLocationReceive
 			public void onNothingSelected(AdapterView<?> arg0) { }
 		});
 		
-		final RadioGroup sortDirection = (RadioGroup) findViewById(R.id.CityListSortDirection);
 		sortDirection.setOnCheckedChangeListener(new OnCheckedChangeListener()
 		{
 			@Override
