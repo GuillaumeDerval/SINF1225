@@ -1,0 +1,256 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[francais]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{lmodern}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\author{Guillaume Derval}
+\begin{document}
+
+\begin{tabular}{|p{0.45\linewidth}|p{0.45\linewidth}|}
+  \hline
+  \multicolumn{2}{|l|}{\begin{large}
+  	Classe: User
+  \end{large}}\\
+  \hline
+  \multicolumn{2}{|l|}{\begin{normalsize}
+  	Description: Gère les utilisateurs
+  \end{normalsize}}\\[0.05\linewidth]
+  \hline
+  \begin{normalsize}
+  	Responsabilités:
+  	\begin{enumerate}
+  		\item Connexion - Déconnexion
+  		\item Gestion des préférences utilisateur
+  		\item Gestion des données générales de l'utilisateur
+  		\item Permet de récupérer les réservation de cet utilisateur
+  		\item Ainsi que les notes émises sur les restaurants
+  	\end{enumerate}
+  \end{normalsize} & 
+  \begin{normalsize}{
+  	Collabore avec:
+  	\begin{enumerate}
+  		\item Restaurant
+  		\item City
+  		\item Reservation
+  		\item Vote
+  	\end{enumerate}
+  }\end{normalsize}\\[0.6\linewidth]
+  \hline
+\end{tabular}
+
+\begin{tabular}{|p{0.45\linewidth}|p{0.45\linewidth}|}
+  \hline
+  \multicolumn{2}{|l|}{\begin{large}
+  	Classe: Restaurator
+  \end{large}}\\
+  \hline
+  \multicolumn{2}{|l|}{\begin{normalsize}
+  	Description: Représente un restaurateur. Est aussi un utilisateur
+  \end{normalsize}}\\[0.05\linewidth]
+  \hline
+  \begin{normalsize}
+  	Responsabilités:
+  	\begin{enumerate}
+  		\item Identique à User + Gestion des droits sur les Restaurants (modification, etc.)
+  		\item Doit permettre de récupérer les restaurants gérés
+  	\end{enumerate}
+  \end{normalsize} & 
+  \begin{normalsize}{
+  	Collabore avec:
+  	\begin{enumerate}
+  		\item Idem à User et...
+  		\item Restaurant
+  	\end{enumerate}
+  }\end{normalsize}\\[0.6\linewidth]
+  \hline
+\end{tabular}
+
+\begin{tabular}{|p{0.45\linewidth}|p{0.45\linewidth}|}
+  \hline
+  \multicolumn{2}{|l|}{\begin{large}
+  	Classe: City
+  \end{large}}\\
+  \hline
+  \multicolumn{2}{|l|}{\begin{normalsize}
+  	Description: Gère une ville
+  \end{normalsize}}\\[0.05\linewidth]
+  \hline
+  \begin{normalsize}
+  	Responsabilités:
+  	\begin{enumerate}
+  		\item Calculer la distance de la ville par rapport à un Utilisateur(plus précisement, à sa localisation)
+  		\item Maintient une liste de restaurant et permet d'obtenir les restaurant les plus proche d'une localisation
+  	\end{enumerate}
+  \end{normalsize} & 
+  \begin{normalsize}{
+  	Collabore avec:
+  	\begin{enumerate}
+  		\item Restaurant
+  		\item User
+  	\end{enumerate}
+  }\end{normalsize}\\[0.6\linewidth]
+  \hline
+\end{tabular}
+
+\begin{tabular}{|p{0.45\linewidth}|p{0.45\linewidth}|}
+  \hline
+  \multicolumn{2}{|l|}{\begin{large}
+  	Classe: Restaurant
+  \end{large}}\\
+  \hline
+  \multicolumn{2}{|l|}{\begin{normalsize}
+  	Description: Gère un restaurant
+  \end{normalsize}}\\[0.05\linewidth]
+  \hline
+  \begin{normalsize}
+  	Responsabilités:
+  	\begin{enumerate}
+  		\item Liste des plats
+  		\item Liste des notations faites par les utilisateurs sur ce restaurant
+  		\item Permet d'obtenir la moyenne des cotations sur le restaurant
+  		\item Liste des photos
+  		\item Gestion des places dans le restaurant (doit répondre à la question "y a t'il des places a tel moment?")
+  		\item Ajout et modification de plats dans le restaurant par le restaurateur
+  		\item Ajout et modification des informations(et photos) du le restaurant par le restaurateur
+  		\item Permet aux visiteurs de coter le restaurant
+  		\item Permet de créer des réservations
+  		\item Donner un ordre de préférence de l'utilisateur
+  		\item Doit permettre de récupérer le restaurateur associée, si il existe
+  	\end{enumerate}
+  \end{normalsize} & 
+  \begin{normalsize}{
+  	Collabore avec:
+  	\begin{enumerate}
+  		\item Dish
+    		\item City
+    		\item User
+    		\item Reservation
+    		\item Vote
+    		\item Photo
+  	\end{enumerate}
+  }\end{normalsize}\\[0.6\linewidth]
+  \hline
+\end{tabular}
+
+\begin{tabular}{|p{0.45\linewidth}|p{0.45\linewidth}|}
+  \hline
+  \multicolumn{2}{|l|}{\begin{large}
+  	Classe: Dish
+  \end{large}}\\
+  \hline
+  \multicolumn{2}{|l|}{\begin{normalsize}
+  	Description: Gère un plat
+  \end{normalsize}}\\[0.05\linewidth]
+  \hline
+  \begin{normalsize}
+  	Responsabilités:
+  	\begin{enumerate}
+  		\item Gère la liste des photos
+  		\item Gère les informations du plat
+  		\item Peut être créé, modifié et supprimé par un Utilisateur via le restaurant concerné
+  		\item Permet de récupérer le restaurant auquel le plat appartient
+  		\item Permet de récupérer la côte moyenne des repas dans lequel ce plat était compris ainsi que toutes les notes liées à ce plat
+  	\end{enumerate}
+  \end{normalsize} & 
+  \begin{normalsize}{
+  	Collabore avec:
+  	\begin{enumerate}
+  		\item Dish
+    		\item User
+    		\item Reservation
+    		\item Vote
+    		\item Photo
+  	\end{enumerate}
+  }\end{normalsize}\\[0.6\linewidth]
+  \hline
+\end{tabular}
+
+\begin{tabular}{|p{0.45\linewidth}|p{0.45\linewidth}|}
+  \hline
+  \multicolumn{2}{|l|}{\begin{large}
+  	Classe: Reservation
+  \end{large}}\\
+  \hline
+  \multicolumn{2}{|l|}{\begin{normalsize}
+  	Description: Gère une réservation
+  \end{normalsize}}\\[0.05\linewidth]
+  \hline
+  \begin{normalsize}
+  	Responsabilités:
+  	\begin{enumerate}
+  		\item Gère la liste des personnes concernée par la réservation (qui peuvent être des utilisateurs, ou pas)
+  		\item Permet de récupérer et modifier les diverses informations sur la réservation
+  		\item Y compris le restaurant concerné
+  	\end{enumerate}
+  \end{normalsize} & 
+  \begin{normalsize}{
+  	Collabore avec:
+  	\begin{enumerate}
+  		\item Dish
+    		\item User
+    		\item Reservation
+  	\end{enumerate}
+  }\end{normalsize}\\[0.6\linewidth]
+  \hline
+\end{tabular}
+
+\begin{tabular}{|p{0.45\linewidth}|p{0.45\linewidth}|}
+  \hline
+  \multicolumn{2}{|l|}{\begin{large}
+  	Classe: Photo
+  \end{large}}\\
+  \hline
+  \multicolumn{2}{|l|}{\begin{normalsize}
+  	Description: Gère une photo
+  \end{normalsize}}\\[0.05\linewidth]
+  \hline
+  \begin{normalsize}
+  	Responsabilités:
+  	\begin{enumerate}
+  		\item Doit pouvoir retourner le lien(sur le disque) vers l'image ainsi que sa légende
+  	\end{enumerate}
+  \end{normalsize} & 
+  \begin{normalsize}{
+  	Collabore avec:
+  	\begin{enumerate}
+  		\item Restaurant
+  		\item Dish
+  	\end{enumerate}
+  }\end{normalsize}\\[0.6\linewidth]
+  \hline
+\end{tabular}
+
+\begin{tabular}{|p{0.45\linewidth}|p{0.45\linewidth}|}
+  \hline
+  \multicolumn{2}{|l|}{\begin{large}
+  	Classe: Vote
+  \end{large}}\\
+  \hline
+  \multicolumn{2}{|l|}{\begin{normalsize}
+  	Description: Gère un vote
+  \end{normalsize}}\\[0.05\linewidth]
+  \hline
+  \begin{normalsize}
+  	Responsabilités:
+  	\begin{enumerate}
+  		\item Réprésenter un vote
+  		\item Permet de récupérer l'utilisateur, le restaurant concerné ainsi que les plats.
+  	\end{enumerate}
+  \end{normalsize} & 
+  \begin{normalsize}{
+  	Collabore avec:
+  	\begin{enumerate}
+  		\item Restaurant
+  		\item Dish
+  	\end{enumerate}
+  }\end{normalsize}\\[0.6\linewidth]
+  \hline
+\end{tabular}
+\end{document}
