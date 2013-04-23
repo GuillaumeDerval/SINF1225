@@ -30,4 +30,5 @@ public class Restaurant
 	 * + getPhotos(): Photo[*]
 	 * + getRestaurator(): Restaurator[0..1]
      */
+	public Location getLocation() { return location; }
 }

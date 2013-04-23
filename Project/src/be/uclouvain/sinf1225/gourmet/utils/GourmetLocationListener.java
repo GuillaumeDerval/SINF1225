@@ -6,18 +6,31 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 
+/**
+ * Manage GPS information
+ * @author Guillaume Derval
+ */
 public class GourmetLocationListener implements LocationListener
 {
 	private LocationManager locationManager = null;
 	private Location lastLocation = null;
 	private GourmetLocationReceiver callbackObjet = null;
 	
+	/**
+	 * Create GourmetLocationListener. You have to call init/close on the object to begin/stop updates.
+	 * @param c context from which GourmetLocationReceiver is called
+	 * @param r GourmetLocationReceiver object callback
+	 */
 	public GourmetLocationListener(Context c, GourmetLocationReceiver r)
 	{
 		locationManager = (LocationManager) c.getSystemService(Context.LOCATION_SERVICE);
 		callbackObjet = r;
 	}
 	
+	/**
+	 * Init location updates.
+	 * @return this object
+	 */
 	public GourmetLocationListener init()
 	{
 		if(locationManager.getProvider(LocationManager.NETWORK_PROVIDER) != null)
@@ -34,11 +47,18 @@ public class GourmetLocationListener implements LocationListener
 		return this;
 	}
 	
+	/**
+	 * Stop location updates
+	 */
 	public void close()
 	{
 		locationManager.removeUpdates(this);
 	}
 	
+	/**
+	 * Return the more precise location available
+	 * @return more precise location available
+	 */
 	public Location getLastLocation()
 	{
 		return lastLocation;
@@ -112,7 +132,6 @@ public class GourmetLocationListener implements LocationListener
 		return false;
 	}
 
-	/** Checks whether two providers are the same */
 	private boolean isSameProvider(String provider1, String provider2)
 	{
 		if (provider1 == null)

@@ -19,10 +19,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.location.Location;
 
-/*
+/**
  * Layer between the models classes and the database.
  * ONLY models should access to this class!
  * NO verification will be done on rights!
+ * @author guillaumederval
  */
 public class GourmetDatabase extends SQLiteOpenHelper
 {
@@ -30,12 +31,19 @@ public class GourmetDatabase extends SQLiteOpenHelper
     private static final String DATABASE_NAME = "gourmet";
     private Context context;
     
+    /**
+     * Initialize database
+     * @param context Context which call the database
+     */
 	public GourmetDatabase(Context context)
 	{
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 		this.context = context;
 	}
 	
+	/**
+	 * Initialize database
+	 */
 	public GourmetDatabase()
 	{
 		super(Gourmet.getAppContext(), DATABASE_NAME, null, DATABASE_VERSION);
@@ -105,6 +113,11 @@ public class GourmetDatabase extends SQLiteOpenHelper
 	//public void deleteRestaurant(Restaurant restaurant) {}
 	
 	/* Cities */
+	
+	/**
+	 * Add a city to the database
+	 * @param city
+	 */
 	public void addCity(City city)
 	{
 		SQLiteDatabase db = this.getWritableDatabase();
@@ -112,13 +125,19 @@ public class GourmetDatabase extends SQLiteOpenHelper
 	    ContentValues values = new ContentValues();
 	    values.put("name", city.getName());
 	    values.put("country", city.getCountry());
-	    values.put("longitude", city.getLongitude());
-	    values.put("latitude", city.getLatitude());
+	    values.put("longitude", city.getLocation().getLongitude());
+	    values.put("latitude", city.getLocation().getLatitude());
 	    db.insert("city", null, values);
 	    
 	    db.close(); // Closing database connection
 	}
 	
+	/**
+	 * Get a city from the database
+	 * @param name Name of the city
+	 * @param country Country of the city
+	 * @return a City object if object exists, null else
+	 */
 	public City getCity(String name, String country)
 	{
 		SQLiteDatabase db = this.getReadableDatabase();
@@ -132,6 +151,7 @@ public class GourmetDatabase extends SQLiteOpenHelper
 				null); //orderby
 		if(cursor == null)
 			return null;
+		
 		cursor.moveToFirst();
 		
 		Location loc = new Location("Database");
@@ -153,6 +173,10 @@ public class GourmetDatabase extends SQLiteOpenHelper
 		return new City(name,country,loc, restaurantsID);
 	}
 	
+	/**
+	 * Return all cities available in database
+	 * @return all cities available in database
+	 */
 	public List<City> getAllCities()
 	{
 		SQLiteDatabase db = this.getReadableDatabase();
@@ -193,6 +217,10 @@ public class GourmetDatabase extends SQLiteOpenHelper
 		return cities;
 	}
 	
+	/**
+	 * Return number of cities available in the database
+	 * @return number of cities available in the database
+	 */
 	public int getCitiesCount()
 	{
 		SQLiteDatabase db = this.getReadableDatabase();
@@ -209,6 +237,11 @@ public class GourmetDatabase extends SQLiteOpenHelper
 		return cursor.getCount();
 	}
 	
+	/**
+	 * Update city 
+	 * @param city
+	 * @return number of row updated
+	 */
 	public int updateCity(City city)
 	{
 		SQLiteDatabase db = this.getWritableDatabase();
@@ -216,13 +249,17 @@ public class GourmetDatabase extends SQLiteOpenHelper
 	    ContentValues values = new ContentValues();
 	    values.put("name", city.getName());
 	    values.put("country", city.getCountry());
-	    values.put("longitude", city.getLongitude());
-	    values.put("latitude", city.getLatitude());
+	    values.put("longitude", city.getLocation().getLongitude());
+	    values.put("latitude", city.getLocation().getLatitude());
 	    db.insert("city", null, values);
 	    
 	    return db.update("city", values, "`name` = ? AND `country` = ?", new String[] {city.getName(), city.getCountry()});
 	}
 	
+	/**
+	 * Delete a city
+	 * @param city
+	 */
 	public void deleteCity(City city)
 	{
 		SQLiteDatabase db = this.getWritableDatabase();

@@ -23,6 +23,10 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Spinner;
 import android.widget.ToggleButton;
 
+/**
+ * CityList activity.
+ * @author guillaumederval
+ */
 public class CityListActivity extends Activity implements GourmetLocationReceiver
 {
 	GourmetLocationListener locationListener = null;
@@ -139,6 +143,11 @@ public class CityListActivity extends Activity implements GourmetLocationReceive
 		});
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see android.app.Activity#onStop()
+	 * Remember to close locationListener as it consumes lot of battery
+	 */
 	@Override
 	protected void onStop()
 	{
@@ -147,6 +156,11 @@ public class CityListActivity extends Activity implements GourmetLocationReceive
 		super.onStop();
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see android.app.Activity#onRestart()
+	 * Remember to restart locationListener
+	 */
 	@Override
 	protected void onRestart()
 	{

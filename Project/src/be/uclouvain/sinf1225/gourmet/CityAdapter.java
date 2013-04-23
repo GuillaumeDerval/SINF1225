@@ -18,6 +18,10 @@ import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+/**
+ * Adapter for displaying Cities in CityListActivity
+ * @author Guillaume Derval
+ */
 public class CityAdapter extends ArrayAdapter<City>
 {
 	static class ViewIds
@@ -28,7 +32,11 @@ public class CityAdapter extends ArrayAdapter<City>
         ImageView image;
     }
 	
-	public class CityComparator implements Comparator<City>
+	/**
+	 * Compare cities
+	 * @author Guillaume Derval
+	 */
+	private class CityComparator implements Comparator<City>
 	{
 	    @Override
 	    public int compare(City city1, City city2)
@@ -46,6 +54,10 @@ public class CityAdapter extends ArrayAdapter<City>
 	    }
 	}
 	
+	/**
+	 * Filter cities
+	 * @author Guillaume Derval
+	 */
 	private class CityFilter extends Filter
 	{
 		@Override
@@ -106,6 +118,13 @@ public class CityAdapter extends ArrayAdapter<City>
     protected String orderby = "name";
     protected boolean orderasc = true;
 	
+    /**
+     * Create a new CityAdapter
+     * @param context Context associated with this Adapter
+     * @param layoutResourceId Ressource of the layout of a line
+     * @param cities cities to display
+     * @param loc base location from which calculate distance
+     */
     public CityAdapter(Context context, int layoutResourceId, List<City> cities, Location loc)
     {
         super(context, layoutResourceId, new ArrayList<City>(cities));
@@ -116,6 +135,10 @@ public class CityAdapter extends ArrayAdapter<City>
         this.lastLocation = loc;
     }
 
+    /**
+     * Update location of the reference point, and update distances of each cities
+     * @param loc base location from which calculate distance
+     */
     public void updateLocation(Location loc)
     {
     	lastLocation = loc;
@@ -132,6 +155,9 @@ public class CityAdapter extends ArrayAdapter<City>
         return filter;
     }
     
+    /**
+     * re-sort lines
+     */
     public void sort()
     {
     	Collections.sort(filteredCities, new CityComparator());
@@ -141,12 +167,21 @@ public class CityAdapter extends ArrayAdapter<City>
             add(filteredCities.get(i));
     }
     
+    /**
+     * Sort lines
+     * @param sort Type of sort. Must be "distance","restaurants" or "name"
+     */
     public void setSort(String sort)
     {
     	orderby = sort;
     	sort();
     }
     
+    /**
+     * Sort lines
+     * @param sort Type of sort. Must be "distance","restaurants" or "name"
+     * @param sortorder true if order is Asc
+     */
     public void setSort(String sort, boolean sortorder)
     {
     	orderby = sort;
@@ -154,6 +189,10 @@ public class CityAdapter extends ArrayAdapter<City>
     	sort();
     }
     
+    /**
+     * Sort lines
+     * @param sort true if order is Asc
+     */
     public void setSortOrder(boolean sort)
     {
     	orderasc = sort;
@@ -161,7 +200,7 @@ public class CityAdapter extends ArrayAdapter<City>
     }
     
     @Override
-    public View getView(int position, View convertView, ViewGroup p)
+	public View getView(int position, View convertView, ViewGroup p)
     {
         View row = convertView;
         ViewIds viewIds = null;

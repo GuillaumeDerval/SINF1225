@@ -7,9 +7,18 @@ import java.io.InputStreamReader;
 
 import android.content.Context;
 
+/**
+ * Utilities
+ * @author Guillaume Derval
+ */
 public class GourmetUtils
 {
-	/* Files */
+	/**
+	 * Read raw ressource
+	 * @param context Context from which function is called
+	 * @param ressourceId Raw ressource id to read
+	 * @return string containing all text inside the ressource
+	 */
 	public static String readRawTextFile(Context context, int ressourceId)
     {
 		InputStream inputStream = context.getResources().openRawResource(ressourceId);
