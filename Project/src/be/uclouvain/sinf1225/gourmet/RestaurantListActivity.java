@@ -2,7 +2,6 @@ package be.uclouvain.sinf1225.gourmet;
 
 import java.text.DecimalFormat;
 
-import be.uclouvain.sinf1225.gourmet.utils.GourmetDatabase;
 import be.uclouvain.sinf1225.gourmet.utils.GourmetLocationListener;
 import be.uclouvain.sinf1225.gourmet.utils.GourmetLocationReceiver;
 import android.app.Activity;
@@ -27,8 +26,7 @@ public class RestaurantListActivity extends Activity implements GourmetLocationR
 		locationListener = new GourmetLocationListener(this,this).init();
 				
 		Intent intent = getIntent();
-		GourmetDatabase db = new GourmetDatabase(this);
-		City city = db.getCity(intent.getStringExtra("name"), intent.getStringExtra("country"));
+		City city = City.getCity(intent.getStringExtra("name"), intent.getStringExtra("country"));
 		
 		setContentView(R.layout.activity_restaurant_list);
 		((TextView)findViewById(R.id.RestaurantListName)).setText(city.getName());

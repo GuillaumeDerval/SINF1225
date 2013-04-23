@@ -1,11 +1,17 @@
 package be.uclouvain.sinf1225.gourmet.utils;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.StringTokenizer;
 
 import be.uclouvain.sinf1225.gourmet.City;
+import be.uclouvain.sinf1225.gourmet.Dish;
+import be.uclouvain.sinf1225.gourmet.Gourmet;
 import be.uclouvain.sinf1225.gourmet.R;
+import be.uclouvain.sinf1225.gourmet.Reservation;
+import be.uclouvain.sinf1225.gourmet.Restaurant;
+import be.uclouvain.sinf1225.gourmet.User;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -13,6 +19,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.location.Location;
 
+/*
+ * Layer between the models classes and the database.
+ * ONLY models should access to this class!
+ * NO verification will be done on rights!
+ */
 public class GourmetDatabase extends SQLiteOpenHelper
 {
 	private static final int DATABASE_VERSION = 1;
@@ -23,6 +34,12 @@ public class GourmetDatabase extends SQLiteOpenHelper
 	{
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 		this.context = context;
+	}
+	
+	public GourmetDatabase()
+	{
+		super(Gourmet.getAppContext(), DATABASE_NAME, null, DATABASE_VERSION);
+		this.context = Gourmet.getAppContext();
 	}
 
 	//TODO delete this
@@ -50,6 +67,43 @@ public class GourmetDatabase extends SQLiteOpenHelper
 		onCreate(db);
 	}
 
+	/* User */
+	//TODO implement. Commented lines are not essential
+	//Must handle the case if the User is a Restaurator!
+	public void addUser(User user) {}
+	public User getUser(String username) { return null; }
+	//public List<User> getAllUsers() { return null; }
+	public void updateUser(User user) {}
+	//public void deleteUser(User user) {}
+	
+	/* Reservation */
+	//TODO implement. Commented lines are not essential
+	public void addReservation(Reservation reservation) {}
+	public Reservation getReservation(User user, Restaurant restaurant, Date date) { return null; }
+	//public List<Reservation> getAllReservations() { return null; }
+	public List<Reservation> getReservationInRestaurant(Restaurant restaurant) { return null; }
+	public List<Reservation> getReservationByUser(User user) { return null; }
+	public void updateReservation(Reservation reservation) {}
+	public void deleteReservation(Reservation reservation) {}
+	
+	/* Dish */
+	//TODO implement. Commented lines are not essential
+	public void addDish(Dish dish) {}
+	public Dish getDish(int dishId) { return null;}
+	//public List<Dish> getAllDishes() { return null; }
+	public List<Dish> getDishInRestaurant(Restaurant restaurant) { return null; }
+	public void updateDish(Dish dish) {}
+	public void deleteDish(Dish dish) {}
+	
+	/* Restaurant */
+	//TODO implement. Commented lines are not essential
+	//public void addRestaurant(Restaurant restaurant) {}
+	public Restaurant getRestaurant(int restoId) { return null; }
+	//public List<Restaurant> getAllRestaurants() { return null; }
+	public List<Restaurant> getRestaurantsInCity(City city) { return null; }
+	public void updateRestaurant(Restaurant restaurant) { }
+	//public void deleteRestaurant(Restaurant restaurant) {}
+	
 	/* Cities */
 	public void addCity(City city)
 	{

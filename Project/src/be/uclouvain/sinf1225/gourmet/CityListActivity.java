@@ -2,10 +2,8 @@ package be.uclouvain.sinf1225.gourmet;
 
 import java.util.List;
 
-import be.uclouvain.sinf1225.gourmet.utils.GourmetDatabase;
 import be.uclouvain.sinf1225.gourmet.utils.GourmetLocationListener;
 import be.uclouvain.sinf1225.gourmet.utils.GourmetLocationReceiver;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.location.Location;
@@ -41,9 +39,7 @@ public class CityListActivity extends Activity implements GourmetLocationReceive
 		setContentView(R.layout.activity_city_list);
 		
 		//Recuperons les villes.
-		GourmetDatabase db = new GourmetDatabase(this);
-		List<City> cities = db.getAllCities();
-		db.close();
+		List<City> cities = City.getAllCities();
 		
 		//On recupere les boutons pour le tri
 		final Spinner sortType = (Spinner) this.findViewById(R.id.CityListSort);

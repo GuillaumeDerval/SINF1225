@@ -22,22 +22,26 @@
 	    android:layout_weight="1"
 	    >
  
-	    <TextView android:id="@+id/cityListRowName"
-	         android:layout_width="fill_parent"
-	         android:layout_height="fill_parent"
-	         android:textSize="16sp"
-	         android:textStyle="bold"
-	         />
+	    <TextView
+	        android:id="@+id/cityListRowName"
+	        android:layout_width="fill_parent"
+	        android:layout_height="fill_parent"
+	        android:text="City Name"
+	        android:textSize="16sp"
+	        android:textStyle="bold" />
  
-	    <TextView android:id="@+id/cityListRowDist"
-	         android:layout_width="fill_parent"
-	         android:layout_height="fill_parent"
-	         />
+	    <TextView
+	        android:id="@+id/cityListRowDist"
+	        android:layout_width="fill_parent"
+	        android:layout_height="fill_parent"
+	        android:text="Distance" />
  
-	    <TextView android:id="@+id/cityListRowRestos"
-	         android:layout_width="fill_parent"
-	         android:layout_height="fill_parent"
-	         />
+	    <TextView
+	        android:id="@+id/cityListRowRestos"
+	        android:layout_width="fill_parent"
+	        android:layout_height="fill_parent"
+	        android:text="Restaurant(s)" />
+
     </LinearLayout>
  
 </LinearLayout>
