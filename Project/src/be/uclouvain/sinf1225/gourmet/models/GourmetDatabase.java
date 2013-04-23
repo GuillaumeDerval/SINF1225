@@ -1,4 +1,4 @@
-package be.uclouvain.sinf1225.gourmet.utils;
+package be.uclouvain.sinf1225.gourmet.models;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -7,11 +7,7 @@ import java.util.StringTokenizer;
 
 import be.uclouvain.sinf1225.gourmet.Gourmet;
 import be.uclouvain.sinf1225.gourmet.R;
-import be.uclouvain.sinf1225.gourmet.models.City;
-import be.uclouvain.sinf1225.gourmet.models.Dish;
-import be.uclouvain.sinf1225.gourmet.models.Reservation;
-import be.uclouvain.sinf1225.gourmet.models.Restaurant;
-import be.uclouvain.sinf1225.gourmet.models.User;
+import be.uclouvain.sinf1225.gourmet.utils.GourmetUtils;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -25,7 +21,7 @@ import android.location.Location;
  * NO verification will be done on rights!
  * @author guillaumederval
  */
-public class GourmetDatabase extends SQLiteOpenHelper
+class GourmetDatabase extends SQLiteOpenHelper
 {
 	private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "gourmet";
