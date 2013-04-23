@@ -7,6 +7,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
+import be.uclouvain.sinf1225.gourmet.models.City;
+
 import android.app.Activity;
 import android.content.Context;
 import android.location.Location;
@@ -45,7 +47,10 @@ public class CityAdapter extends ArrayAdapter<City>
 	        if(orderby.equals("name"))
 	        	ret = city1.getName().compareTo(city2.getName());
 	        else if(orderby.equals("distance"))
+	        {
+	        	if(lastLocation == null) return 0;
 	        	ret = Double.valueOf(city1.getLocation().distanceTo(lastLocation)).compareTo((double) city2.getLocation().distanceTo(lastLocation));
+	        }
 	        else if(orderby.equals("restaurants"))
 	        	ret = Integer.valueOf(city1.getRestaurantCount()).compareTo(city2.getRestaurantCount());
 	        

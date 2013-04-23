@@ -5,13 +5,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.StringTokenizer;
 
-import be.uclouvain.sinf1225.gourmet.City;
-import be.uclouvain.sinf1225.gourmet.Dish;
 import be.uclouvain.sinf1225.gourmet.Gourmet;
 import be.uclouvain.sinf1225.gourmet.R;
-import be.uclouvain.sinf1225.gourmet.Reservation;
-import be.uclouvain.sinf1225.gourmet.Restaurant;
-import be.uclouvain.sinf1225.gourmet.User;
+import be.uclouvain.sinf1225.gourmet.models.City;
+import be.uclouvain.sinf1225.gourmet.models.Dish;
+import be.uclouvain.sinf1225.gourmet.models.Reservation;
+import be.uclouvain.sinf1225.gourmet.models.Restaurant;
+import be.uclouvain.sinf1225.gourmet.models.User;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;

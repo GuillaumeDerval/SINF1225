@@ -1,4 +1,4 @@
-package be.uclouvain.sinf1225.gourmet;
+package be.uclouvain.sinf1225.gourmet.models;
 
 import android.location.Location;
 import be.uclouvain.sinf1225.gourmet.enums.PriceCategory;

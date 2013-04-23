@@ -2,15 +2,18 @@ package be.uclouvain.sinf1225.gourmet;
 
 import java.util.List;
 
+import be.uclouvain.sinf1225.gourmet.models.City;
 import be.uclouvain.sinf1225.gourmet.utils.GourmetLocationListener;
 import be.uclouvain.sinf1225.gourmet.utils.GourmetLocationReceiver;
-import android.app.Activity;
-import android.content.Intent;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.location.Location;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -25,34 +28,44 @@ import android.widget.ToggleButton;
 
 /**
  * CityList activity.
- * @author guillaumederval
+ * @author Guillaume Derval
  */
-public class CityListActivity extends Activity implements GourmetLocationReceiver
+public class CityListView extends Fragment implements GourmetLocationReceiver
 {
 	GourmetLocationListener locationListener = null;
 	
+	/**
+	 * Called on the creation of the view; Inflate xml
+	 */
 	@Override
-	protected void onCreate(Bundle savedInstanceState)
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
-		super.onCreate(savedInstanceState);
+        //On défini le layout de ce fragment
+        return inflater.inflate(R.layout.activity_city_list, container, false);
+    }
+	
+	/**
+	 * Called on the creation of the activity(*after* the creation of fragment's view)
+	 */
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState)
+	{
+		super.onActivityCreated(savedInstanceState);
 		
 		// Initialisation des services de localisation
-		locationListener = new GourmetLocationListener(this,this).init();
-		
-		//On défini la vue en cours
-		setContentView(R.layout.activity_city_list);
+		locationListener = new GourmetLocationListener(this.getActivity(),this).init();
 		
 		//Recuperons les villes.
 		List<City> cities = City.getAllCities();
 		
 		//On recupere les boutons pour le tri
-		final Spinner sortType = (Spinner) this.findViewById(R.id.CityListSort);
-		final RadioGroup sortDirection = (RadioGroup) findViewById(R.id.CityListSortDirection);
+		final Spinner sortType = (Spinner) getActivity().findViewById(R.id.CityListSort);
+		final RadioGroup sortDirection = (RadioGroup) getActivity().findViewById(R.id.CityListSortDirection);
 		
 		//On récupère la vue "liste"
-		final ListView cityList = (ListView) this.findViewById(R.id.CityListView);
+		final ListView cityList = (ListView) getActivity().findViewById(R.id.CityListView);
 		//On crée un adapter qui va mettre dans la liste les donnes adequates des villes
-		CityAdapter adapter = new CityAdapter(this, R.layout.city_list_row, cities, locationListener.getLastLocation());
+		CityAdapter adapter = new CityAdapter(getActivity(), R.layout.city_list_row, cities, locationListener.getLastLocation());
 		if(locationListener.getLastLocation() == null) //si on a pas de position GPS
 		{
 			adapter.setSort("name"); //on trie par nom
@@ -72,21 +85,32 @@ public class CityListActivity extends Activity implements GourmetLocationReceive
 		{
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id)
 			{
-				final ListView cityList = (ListView) findViewById(R.id.CityListView);
+				final ListView cityList = (ListView) getActivity().findViewById(R.id.CityListView);
 				final CityAdapter adapter = (CityAdapter)cityList.getAdapter();
 				
 			    City city = adapter.getItem(position);
 			    
-			    //On change d'activité
-			    Intent intent = new Intent(CityListActivity.this, RestaurantListActivity.class);
-			    intent.putExtra("name",city.getName());
-			    intent.putExtra("country", city.getCountry());
-			    startActivityForResult(intent, 0);
+			    /*
+			     * On change de fragment
+			     */
+			    
+			   
+			    Fragment restaurantList = new RestaurantListView(); //On crée le fragment
+			    Bundle args = new Bundle(); //un conteneur pour ses arguments
+			    args.putString("name", city.getName());
+			    args.putString("country", city.getCountry());
+			    restaurantList.setArguments(args); //on lui assigne le conteneur
+			    
+			    FragmentTransaction transaction = getFragmentManager().beginTransaction(); //et on change de fragment.
+			    transaction.replace(android.R.id.content, restaurantList);
+			    transaction.addToBackStack(null);
+			    transaction.commit();
+			    
 			}
 		});
 		
 		//Les filtres
-		final EditText filter = (EditText) this.findViewById(R.id.CityListFilter);
+		final EditText filter = (EditText) getActivity().findViewById(R.id.CityListFilter);
 		filter.addTextChangedListener(new TextWatcher()
 		{
 			@Override
@@ -97,19 +121,19 @@ public class CityListActivity extends Activity implements GourmetLocationReceive
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before, int count)
 			{
-				final ListView cityList = (ListView) findViewById(R.id.CityListView);
+				final ListView cityList = (ListView) getActivity().findViewById(R.id.CityListView);
 				final CityAdapter adapter = (CityAdapter)cityList.getAdapter();
 				adapter.getFilter().filter(s);
 			}
 		});
 		
-		final ToggleButton sortActivate = (ToggleButton) this.findViewById(R.id.CityListSortActivate);
+		final ToggleButton sortActivate = (ToggleButton) getActivity().findViewById(R.id.CityListSortActivate);
 		sortActivate.setOnCheckedChangeListener(new ToggleButton.OnCheckedChangeListener()
 		{
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
 			{
-				final LinearLayout layout = (LinearLayout) findViewById(R.id.CityListSortContainer);
+				final LinearLayout layout = (LinearLayout) getActivity().findViewById(R.id.CityListSortContainer);
 				layout.setVisibility(isChecked ? ToggleButton.VISIBLE : ToggleButton.GONE);
 			}
 		});
@@ -119,7 +143,7 @@ public class CityListActivity extends Activity implements GourmetLocationReceive
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
 			{
-				final ListView cityList = (ListView) findViewById(R.id.CityListView);
+				final ListView cityList = (ListView) getActivity().findViewById(R.id.CityListView);
 				final CityAdapter adapter = (CityAdapter)cityList.getAdapter();
 				if(pos == 0) adapter.setSort("name");
 				else if(pos == 1) adapter.setSort("distance");
@@ -135,21 +159,21 @@ public class CityListActivity extends Activity implements GourmetLocationReceive
 			@Override
 			public void onCheckedChanged(RadioGroup group, int checkedId)
 			{
-				final ListView cityList = (ListView) findViewById(R.id.CityListView);
+				final ListView cityList = (ListView) getActivity().findViewById(R.id.CityListView);
 				final CityAdapter adapter = (CityAdapter)cityList.getAdapter();
 				if(checkedId == R.id.CityListSortDirectionAsc) adapter.setSortOrder(true);
 				else if(checkedId == R.id.CityListSortDirectionDesc) adapter.setSortOrder(false);
 			}
 		});
 	}
-
+	
 	/*
 	 * (non-Javadoc)
 	 * @see android.app.Activity#onStop()
 	 * Remember to close locationListener as it consumes lot of battery
 	 */
 	@Override
-	protected void onStop()
+	public void onStop()
 	{
 		locationListener.close();
 		locationListener = null;
@@ -162,17 +186,17 @@ public class CityListActivity extends Activity implements GourmetLocationReceive
 	 * Remember to restart locationListener
 	 */
 	@Override
-	protected void onRestart()
+	public void onResume()
 	{
 		if(locationListener == null)
-			locationListener = new GourmetLocationListener(this,this);
-		super.onRestart();
+			locationListener = new GourmetLocationListener(getActivity(),this);
+		super.onResume();
 	}
 	
 	@Override
 	public void onLocationUpdate(Location loc)
 	{
-		final ListView cityList = (ListView) this.findViewById(R.id.CityListView);
+		final ListView cityList = (ListView) getActivity().findViewById(R.id.CityListView);
 		CityAdapter a = (CityAdapter)cityList.getAdapter();
 		a.updateLocation(loc);
 	}
