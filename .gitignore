@@ -23,6 +23,3 @@ local.properties
 *.aux
 *.tex.bak
 *.synctex.gz
-
-#SQL files
-*.sql
