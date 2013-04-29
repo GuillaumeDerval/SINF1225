@@ -258,70 +258,68 @@ class GourmetDatabase extends SQLiteOpenHelper
 	 * Add a reservation in the database
 	 * @param reservation
 	 */
-	public void addReservation(Reservation reservation)
+	public int addReservation(Reservation reservation)
 	{
 		// ouverture de la base de donnes
-		SQLiteDatabase db = this.getWritableDatabase();
-	    ContentValues values = new ContentValues();
+		SQLiteDatabase dbw = this.getWritableDatabase();
+	    ContentValues values1 = new ContentValues();
 	    
 	    // valeur des diffrents champs
-	    values.put("user", reservation.getUser());
-	    values.put("resto", reservation.getRestaurant());
-	    values.put("nbrReservation", reservation.getNbrReservation());
-	    values.put("date", reservation.getDate());
+	    values1.put("user", reservation.getUser().getName());
+	    values1.put("resto", reservation.getRestaurant().getName());
+	    values1.put("nbrReservation", Integer.toString(reservation.getnbrReservation()));
+	    values1.put("date", reservation.getDate().toString());
 	    
 	    // insertion dans la base de donnes
-	    db.insert("reservation", null, values);
+	    dbw.insert("reservation", null, values1);
 	    
 	    // fermeture de la base de donnes
-	    db.close();
+	    dbw.close();
 	    
 	    // resvId de la rservation
-	    SQLiteDatabase db = this.getReadableDatabase();
-	    String str[] = new string[] {(reservation.getUser()).getName(), (reservation.getRestaurant()).getName(), reservation.getDate()};
-	    Cursor cursor = db.rawQuery("select resvId from reservation where user = ? AND resto = ? AND date = ?", str);
-	    if(Cursor == null || cursor.getCount() != 1) return null;
+	    SQLiteDatabase dbr = this.getReadableDatabase();
+	    String str[] = new String[] {reservation.getUser().getName(), reservation.getRestaurant().getName(), reservation.getDate().toString()};
+	    Cursor cursor = dbr.rawQuery("select resvId from reservation where user = ? AND resto = ? AND date = ?", str);
+	    if(cursor == null || cursor.getCount() != 1) return 0;
 	    cursor.moveToFirst();
-	    int RESVID = cursor.getInteger(0);
-	    db.close();
+	    int RESVID = cursor.getInt(0);
+	    dbr.close();
 	    
 	    // insertion des diffrents plats commands dans la base de donnes
 	    SQLiteDatabase db = this.getWritableDatabase();
-	    ContentValues values = new ContentValues();
-	    for(dishNode node : reservation.dishes)
+	    ContentValues values2 = new ContentValues();
+	    for(Reservation.DishNode node : reservation.getDish())
 	    {
-	    	values.put("nameDish", node.dish.name);
-	    	values.put("nbrDish", node.nbrDishes);
-	    	values.put("resvId", RESVID);
-	    	db.insert("reservationDish", null, values);
+	    	values2.put("nameDish", node.dish.getName());
+	    	values2.put("nbrDish", node.nbrDishes);
+	    	values2.put("resvId", RESVID);
+	    	db.insert("reservationDish", null, values2);
 	    }
-	    db.close();	    
+	    db.close();
+	    return 1;
 	}
 	/**
 	 * Supprime la rservation correspondant au triplet (user,resto,date) dans la table rservation
 	 * et surpprime tt les plats commands dans la table reservationDish
 	 */
 	
-	public void deleteReservation(User user, Restaurant resto, Date date)
+	public int deleteReservation(User user, Restaurant resto, Date date)
 	{
 	    // resvId de la rservation
 	    SQLiteDatabase db = this.getReadableDatabase();
-	    String str[] = new string[] {user.getName(), resto.getName(), date};
+	    String str[] = new String[] {user.getName(), resto.getName(), date.toString()};
 	    Cursor cursor = db.rawQuery("select resvId from reservation where user = ? AND resto = ? AND date = ?", str);
-	    if(Cursor == null || cursor.getCount() != 1) return null;
+	    if(cursor == null || cursor.getCount() != 1) return 0;
 	    cursor.moveToFirst();
-	    int RESVID = cursor.getInteger(0);
+	    int RESVID = cursor.getInt(0);
 	    db.close();
 	    
 	    // suppression des plats rservs dans la table reservationDish
-	    SQLiteDatabase db = this.getWritableDatabase();
-	    db.delete("reservationDish", "`resvId` = ?", new String[] {RESVID});
-	    
-	    // suppression de la rservation dans la table reservation
-	    db.delete("reservation","`resvId`= ?", new string[] {RESVID});
-	    db.close();
+	    SQLiteDatabase dbw = this.getWritableDatabase();
+	    dbw.delete("reservationDish", "`resvId` = ?", new String[] {"" + RESVID});
+	    dbw.close();
+	    return 1;
 	}
-	
 	// retourner ttes lesrservtaion d'un mme user => database
 	// retourner ttes les users ayant effectus une rservation dans un restaurant => database
 	// retourner toutes les rservation d'un mme plat => database

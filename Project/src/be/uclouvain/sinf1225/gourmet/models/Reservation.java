@@ -1,5 +1,6 @@
-package be.uclouvain.sinf1225.gourmet;
-import java.util;
+package be.uclouvain.sinf1225.gourmet.models;
+import java.util.Date;
+import java.util.List;
 
 /**
  * @author Alex
@@ -11,14 +12,14 @@ public class Reservation
 {
 	private User user;
 	private Restaurant restaurant;
-	private int nbrReservtion;
+	private int nbrReservation;
 	private List<DishNode> dishes;
 	private Date date;
 	
 	public Reservation(User user, Restaurant restaurant, int nbrReservation, List<DishNode> dishes, Date date)
 	{
 		this.user = user;
-		this. restaurant = restaurant;
+		this.restaurant = restaurant;
 		this.nbrReservation = nbrReservation;
 		this.dishes = dishes;
 		this.date = date;
@@ -34,7 +35,7 @@ public class Reservation
 	/* Modification des variables d'instances */
 	public void setRestaurant (Restaurant resto) {this.restaurant = resto;}
 	public void setNbrReservation (int nbr) {this.nbrReservation = nbr;}
-	public void setDate (string date) {this.date = date;}
+	public void setDate (Date date) {this.date = date;}
 	
 	/**
 	 * Modification du nombre de plats souhaités
@@ -43,14 +44,9 @@ public class Reservation
 	 */
 	public void setDishNodeNbr (Dish dish, int nbr)
 	{
-		boolean boucle = true;
-		for(int i = 0; i< this.dishes.size() && boucle; i++)
+		for(DishNode node : this.dishes)
 		{
-			if(node.dish == dish) 
-			{
-				node.nbrDishes = nbr;
-				boucle = false;
-			}
+			if(node.dish == dish) node.nbrDishes = nbr;
 		}
 	}
 	
@@ -67,17 +63,10 @@ public class Reservation
 	 */
 	public void deleteDishNode (Dish dish)
 	{
-		int index;
-		boolean boucle = true;
-		for(int i = 0; i < this.dishes.size() && boucle; i++)
+		for(DishNode node : this.dishes)
 		{
-			if(node.dish == dish) 
-			{
-				index = i;
-				boucle = false;
-			}
+			if (node.dish == dish) this.dishes.remove(node);			
 		}
-		this.dishes.remove(index);
 	}
 	
 	/**
