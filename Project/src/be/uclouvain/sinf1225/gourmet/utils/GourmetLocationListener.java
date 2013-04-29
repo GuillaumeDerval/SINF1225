@@ -70,7 +70,8 @@ public class GourmetLocationListener implements LocationListener
 		if(isBetterLocation(location, lastLocation))
 		{
 			lastLocation = location;
-			callbackObjet.onLocationUpdate(location);
+			if(callbackObjet != null)
+				callbackObjet.onLocationUpdate(location);
 		}
 	}
 	

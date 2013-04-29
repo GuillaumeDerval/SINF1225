@@ -13,10 +13,12 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -138,6 +140,23 @@ public class CityListView extends Fragment implements GourmetLocationReceiver
 			}
 		});
 		
+		final Button mapActivate = (Button) getActivity().findViewById(R.id.CityListMapActivate);
+		mapActivate.setOnClickListener(new OnClickListener()
+		{
+			@Override
+			public void onClick(View v)
+			{
+				Fragment restaurantList = new CityMapView(); //On crée le fragment
+			    Bundle args = new Bundle(); //un conteneur pour ses arguments
+			    restaurantList.setArguments(args); //on lui assigne le conteneur
+			    
+			    FragmentTransaction transaction = getFragmentManager().beginTransaction(); //et on change de fragment.
+			    transaction.replace(android.R.id.content, restaurantList);
+			    transaction.addToBackStack(null);
+			    transaction.commit();
+			}
+		});
+		
 		sortType.setOnItemSelectedListener(new OnItemSelectedListener()
 		{
 			@Override
@@ -173,7 +192,7 @@ public class CityListView extends Fragment implements GourmetLocationReceiver
 	 * Remember to close locationListener as it consumes lot of battery
 	 */
 	@Override
-	public void onStop()
+	public void onPause()
 	{
 		locationListener.close();
 		locationListener = null;

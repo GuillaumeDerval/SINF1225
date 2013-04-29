@@ -51,7 +51,7 @@ public class RestaurantListView extends Fragment implements GourmetLocationRecei
 	}
 
 	@Override
-	public void onStop()
+	public void onPause()
 	{
 		locationListener.close();
 		locationListener = null;
