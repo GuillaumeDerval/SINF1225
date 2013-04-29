@@ -56,12 +56,19 @@ class GourmetDatabase extends SQLiteOpenHelper
 	@Override
 	public void onCreate(SQLiteDatabase db)
 	{
-		String sql = GourmetUtils.readRawTextFile(this.context, R.raw.dbv1);
-		StringTokenizer st = new StringTokenizer(sql, ";");
-		while(st.hasMoreElements())
+		if(db.isReadOnly())
 		{
-			String t = st.nextToken();
-			db.execSQL(t);
+			return;
+		}
+		else
+		{
+			String sql = GourmetUtils.readRawTextFile(this.context, R.raw.dbv1);
+			StringTokenizer st = new StringTokenizer(sql, ";");
+			while(st.hasMoreElements())
+			{
+				String t = st.nextToken();
+				db.execSQL(t);
+			}
 		}
 	}
 
