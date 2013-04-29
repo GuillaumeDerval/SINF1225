@@ -66,11 +66,32 @@
         android:text="Max seats" >
   
     </EditText>
+        <EditText
+        android:id="@+id/EditDescription"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:lines="3"  
+        android:text="Description" >
+  
+    </EditText> 
+            <EditText
+        android:id="@+id/EditWebitsite"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Website" >
+  
+    </EditText> 
 
-               <RatingBar
+   	<RatingBar
                    android:id="@+id/restaurantStars"
                    android:layout_width="280dp"
                    android:layout_height="wrap_content" />
+
+   	<Button
+   	    android:id="@+id/buttonApply"
+   	    android:layout_width="wrap_content"
+   	    android:layout_height="wrap_content"
+   	    android:text="Apply" />
  
     </LinearLayout>  
 </ScrollView> 

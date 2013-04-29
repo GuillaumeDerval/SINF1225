@@ -15,7 +15,13 @@ public class Dish
 	private Restaurant restaurant;
 	private int dishId;
 	
-
+	public static Dish getDish(int dishId)
+	{
+		GourmetDatabase db = new GourmetDatabase();
+		Dish dish = db.getDish(dishId);
+		db.close();
+		return dish;
+	}
 	public String getCategory() {
 		return category;
 	}
