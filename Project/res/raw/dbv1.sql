@@ -81,4 +81,4 @@ CREATE TABLE "reservationDish"
    La query non conteneva punto e virgola!!!
    De query geen puntkomma bevatten!!!
    La demando ne havas punktokomon!!! */
-PRAGMA foreign_keys = OFF
+PRAGMA foreign_keys = ON
