@@ -7,6 +7,7 @@ import java.util.StringTokenizer;
 
 import be.uclouvain.sinf1225.gourmet.Gourmet;
 import be.uclouvain.sinf1225.gourmet.R;
+import be.uclouvain.sinf1225.gourmet.enums.PriceCategory;
 import be.uclouvain.sinf1225.gourmet.utils.GourmetUtils;
 import android.content.ContentValues;
 import android.content.Context;
@@ -89,75 +90,13 @@ class GourmetDatabase extends SQLiteOpenHelper
 
 	
 	/* Dish */
-	//TODO implement. Commented lines are not essential
-	public Dish getDish(int dishId) { return null;}
-	//public List<Dish> getAllDishes() { return null; }
-	public List<Dish> getDishInRestaurant(Restaurant restaurant) { return null; }
-
-	
-	/* Restaurant */
-	//TODO implement. Commented lines are not essential
-	//public void addRestaurant(Restaurant restaurant) {}
-	//public List<Restaurant> getAllRestaurants() { return null; }
-	public List<Restaurant> getRestaurantsInCity(City city) { return null; }
-	//public void deleteRestaurant(Restaurant restaurant) {}
-	
-	/* Cities */
 	
 	/**
-	 * Add a city to the database
-	 * @param city
+	 * Add a dish to database
+	 * @param dish
 	 */
-	public Restaurant getRestaurant(int restoId){
-		SQLiteDatabase db = this.getReadableDatabase();
-		Restaurant resto = new Restaurant();
-		Cursor cursor = db.query("restaurant", //table to select on
-				null,//column to get
-				"`restoId` = ?", //where clause, ?s will be replaced by...
-				new String[]{""+restoId}, //... these values
-				null, //group by
-				null, //having
-				null); //orderby
-		if(cursor == null)
-			return null;
-		
-		cursor.moveToFirst();
-		Location loc = new Location("Database");
-		loc.setLongitude(cursor.getDouble(5));
-		loc.setLatitude(cursor.getDouble(6));
-		resto.setLocation(loc);
-		
-		resto.setId(cursor.getInt(0));
-		resto.setName(cursor.getString(1));
-		resto.setCity(cursor.getString(2));
-		resto.setAddress(cursor.getString(4));
-		resto.setDescription( cursor.getString(7));
-		resto.setEmail(cursor.getString(8));
-		resto.setStars(cursor.getInt(9));
-		resto.setPhone(cursor.getString(10));
-		resto.setWebsite(cursor.getString(11));
-		resto.setSeats(cursor.getInt(12));
-		resto.setPriceCate(cursor.getInt(13));
-		
-		return resto;
-		/*
-		0"restoId" integer NOT NULL PRIMARY KEY AUTOINCREMENT,
-		1"name" text NOT NULL,
-		2"cityName" text NOT NULL,
-		3"cityCountry" text NOT NULL,
-		4"address" text NOT NULL,
-		5"longitude" real NOT NULL,
-		6"latitude" real NOT NULL,
-		7"description" text,
-		8"email" text,
-		9"stars" integer,
-		10"phone" integer,
-		11"website" integer,
-		12"seats" integer NOT NULL,
-		13"priceCat" integer NOT NULL,*/
-
-	}
-	public void addDish(Dish dish) {
+	public void addDish(Dish dish)
+	{
 		SQLiteDatabase db = this.getWritableDatabase();
 		 
 	    ContentValues values = new ContentValues();
@@ -172,9 +111,14 @@ class GourmetDatabase extends SQLiteOpenHelper
 	    db.insert("dish", null, values);
 	    
 	    db.close(); // Closing database connection
-		
 	}
-	public void updateDish(Dish dish) {
+	
+	/**
+	 * Update a dish in database
+	 * @param dish
+	 */
+	public void updateDish(Dish dish)
+	{
 		SQLiteDatabase db = this.getWritableDatabase();
 		 
 	    ContentValues values = new ContentValues();
@@ -189,9 +133,123 @@ class GourmetDatabase extends SQLiteOpenHelper
 	    db.update("dish", values, "'dishId'= ? " , new String[] {""+dish.getDishId()});
 	    
 	    db.close(); // Closing database connection
-		
+	}
+	
+	/**
+	 * Delete a dish from database
+	 * @param dish
+	 */
+	public void deleteDish(Dish dish)
+	{
+		SQLiteDatabase db = this.getWritableDatabase();
+	    db.delete("dish", "`name` = ?", new String[] {""+dish.getDishId()});
+	    db.close();
+	}
+	
+	/**
+	 * Get a dish from the database by its dishId
+	 * @param dishId
+	 * @return dish object or null
+	 */
+	public Dish getDish(int dishId)
+	{
+		return null;
+	}
+	
+	/**
+	 * Return all dishes availables in a certain restaurant
+	 * @param restaurant
+	 * @return List of dishes
+	 */
+	public List<Dish> getDishInRestaurant(Restaurant restaurant)
+	{
+		return null;
 	}
 
+	
+	/* Restaurant */
+	
+	/**
+	 * Get a restaurant by its id
+	 * @param restoId
+	 * @return a Restaurant object, or null if it does not exist in database
+	 */
+	public Restaurant getRestaurant(int restoId)
+	{
+		SQLiteDatabase db = this.getReadableDatabase();
+		
+		Cursor cursor = db.query("restaurant", //table to select on
+				new String[]{"restoId","name","cityName","cityCountry","address", "priceCat","longitude","latitude","phone","seats","website","description","stars","email"},//column to get
+				"`restoId` = ?", //where clause, ?s will be replaced by...
+				new String[]{""+restoId}, //... these values
+				null, //group by
+				null, //having
+				null); //orderby
+		if(cursor == null)
+			return null;
+		
+		cursor.moveToFirst();
+		Location loc = new Location("Database");
+		loc.setLongitude(cursor.getDouble(6));
+		loc.setLatitude(cursor.getDouble(7));
+		
+		Restaurant resto = new Restaurant(
+				cursor.getInt(0), //id
+				City.getCity(cursor.getString(2), cursor.getString(3)), //city 
+				cursor.getString(1), //name
+				cursor.getString(4), // address
+				PriceCategory.values()[cursor.getInt(5)], //priceCategory
+				loc, //location
+				cursor.getString(8), //phone
+				cursor.getInt(9), //seats
+				cursor.getString(10), //website
+				cursor.getString(11), //description
+				cursor.getInt(12), //stars
+				cursor.getString(13)); //email
+		
+		return resto;
+	}
+	
+	/**
+	 * Update restaurant in database
+	 * @param restaurant
+	 */
+	public void updateRestaurant(Restaurant restaurant)
+	{
+		SQLiteDatabase db = this.getWritableDatabase();
+		ContentValues values = new ContentValues();
+		values.put("name", restaurant.getName());
+		values.put("cityName", restaurant.getCity().getName());
+		values.put("adress", restaurant.getAddress());
+		values.put("longitude", restaurant.getLocation().getLongitude());
+		values.put("latitude", restaurant.getLocation().getLatitude());
+		values.put("description", restaurant.getDescription());
+		values.put("email", restaurant.getEmail());
+		values.put("stars", restaurant.getStars());
+		values.put("phone", restaurant.getPhone());
+		values.put("website", restaurant.getName());
+		values.put("seats", restaurant.getSeats());
+		values.put("priceCat", restaurant.getPriceCategory().ordinal());
+		db.update("restaurant", values, "'restoId' = ?", new String[]{ ""+restaurant.getId()});
+	}
+	
+	/**
+	 * Get all restaurant available in a certain city
+	 * @param city
+	 * @return List of restaurants in city
+	 */
+	public List<Restaurant> getRestaurantsInCity(City city)
+	{
+		//TODO implement.
+		return null;
+	}
+	
+	/* Cities */
+	
+	/**
+	 * Add a city to the database
+	 * @param city
+	 */
 	public void addCity(City city)
 	{
 		SQLiteDatabase db = this.getWritableDatabase();
@@ -212,7 +270,6 @@ class GourmetDatabase extends SQLiteOpenHelper
 	 * @param country Country of the city
 	 * @return a City object if object exists, null else
 	 */
-
 	public City getCity(String name, String country)
 	{
 		SQLiteDatabase db = this.getReadableDatabase();
@@ -312,24 +369,6 @@ class GourmetDatabase extends SQLiteOpenHelper
 		return cursor.getCount();
 	}
 	
-	
-	public void updateRestaurant(Restaurant restaurant) {
-		SQLiteDatabase db = this.getWritableDatabase();
-		ContentValues values = new ContentValues();
-		values.put("name", restaurant.getName());
-		values.put("cityName", restaurant.getCity());
-		values.put("adress", restaurant.getAddress());
-		values.put("longitude", restaurant.getLocation().getLongitude());
-		values.put("latitude", restaurant.getLocation().getLatitude());
-		values.put("description", restaurant.getDescription());
-		values.put("email", restaurant.getEmail());
-		values.put("stars", restaurant.getStars());
-		values.put("phone", restaurant.getPhone());
-		values.put("website", restaurant.getName());
-		values.put("seats", restaurant.getSeats());
-		values.put("priceCat", restaurant.getPriceCate());
-		db.update("restaurant", values, "'restoId' = ?", new String[]{ ""+restaurant.getId()});
-	}
 	/**
 	 * Update city 
 	 * @param city
@@ -349,23 +388,18 @@ class GourmetDatabase extends SQLiteOpenHelper
 	    return db.update("city", values, "`name` = ? AND `country` = ?", new String[] {city.getName(), city.getCountry()});
 	}
 	
-
-	public void deleteDish(Dish dish) {
-		SQLiteDatabase db = this.getWritableDatabase();
-	    db.delete("dish", "`name` = ?", new String[] {""+dish.getDishId()});
-	    db.close();
-	}
 	/**
 	 * Delete a city
 	 * @param city
 	 */
-	
 	public void deleteCity(City city)
 	{
 		SQLiteDatabase db = this.getWritableDatabase();
 	    db.delete("city", "`name` = ? AND `country` = ?", new String[] {city.getName(), city.getCountry()});
 	    db.close();
 	}
+	
+	/* Reservation */
 	
 	/** 
 	 * Add a reservation in the database
@@ -399,10 +433,7 @@ class GourmetDatabase extends SQLiteOpenHelper
 	    return 1;
 	}
 	
-	/**
-	 * Supprime la rŽservation correspondant au triplet (user,resto,date) dans la table rŽservation
-	 * et surpprime tt les plats commandŽs dans la table reservationDish
-	 */
+	//TODO Documentation.
 	public int deleteReservation(User user, Restaurant resto, Date date)
 	{
 	    // resvId de la rŽservation
@@ -424,7 +455,6 @@ class GourmetDatabase extends SQLiteOpenHelper
 	// retourner ttes les users ayant effectuŽs une rŽservation dans un restaurant => database
 	// retourner toutes les rŽservation d'un m�me plat => database
 	
-	/* Reservation */
 	//TODO implement. Commented lines are not essential
 	public Reservation getReservation(User user, Restaurant restaurant, Date date) {return null;}
 	//public List<Reservation> getAllReservations() { return null; }

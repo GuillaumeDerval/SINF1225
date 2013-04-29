@@ -2,12 +2,15 @@ package be.uclouvain.sinf1225.gourmet.models;
 import java.util.Date;
 import java.util.List;
 
-/**
- * @author Alex
- */
-// REMARQUES : 
+//REMARQUES : 
 /* faire une table reservationDish avec les plats (+ le nombre souhaité) et le resvId de la réservation */
 
+
+//TODO Documentation (in english, of course).
+/**
+ * Represents a Reservation
+ * @author Alexandre Laterre
+ */
 public class Reservation
 {
 	private User user;
