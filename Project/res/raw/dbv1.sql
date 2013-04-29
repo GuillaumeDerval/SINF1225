@@ -33,3 +33,26 @@ CREATE UNIQUE INDEX "resto_p_key" ON "restaurant" ("name" ASC, "cityName" ASC, "
 
 INSERT INTO "restaurant" VALUES (null,'THE Restot', 'Louvain-la-Neuve', 'Belgique', 'Rue du lol, 1001', 50.668081, 4.611832, 'Un restaurant de test', 'test@itself.be', 5, '81680085', 'http://www.guillaumederval.be', 10, 0)
 /* La dernière requete ne doit pas contenir de point-virgule!!! */
+
+DROP TABLE IF EXISTS "reservation";
+CREATE TABlE "reservation"
+(
+	"resvId" integer NOT NULL PRIMARY KEY AUTOINCREMENT,
+	"user" text NOT NULL,
+	"resto" text NOT NULL,
+	"nbrReservation" integer NOT NULL,
+	"date" text NOT NULL,
+	CONSTRAINT "resto_name_contrainte" FOREIGN KEY ("resto") REFERENCES "restaurant" ("name"),
+	CONSTRAINT "user_contrainte" FOREIGN KEY ("user") REFERENCES "user" ("name"),
+	CONSTRAINT "Dish_name_contrainte" FOREIGN kEY ("resto","dish") REFERENCES "dish" ("resto","name")
+);
+
+DROP Table IF EXISTS "reservationDish"
+CREATE TABLE "reservationDish"
+(
+	"nameDish" text NOT NULL,
+	"nbrDish" integer NOT NULL,
+	"resvId" integer NOT NULL,
+	CONSTRAINT "resvID_contrainte" FOREIGN KEY "resvId" REFERENCES "reservation" ("resvId"),
+	CONSTRAINT "nameDish_contrainte" FOREIGN KEY "nameDish" REFERENCES "dish" ("name")
+);
