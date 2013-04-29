@@ -32,7 +32,7 @@ CREATE TABLE "restaurant" (
 CREATE UNIQUE INDEX "resto_p_key" ON "restaurant" ("name" ASC, "cityName" ASC, "cityCountry" ASC, "address" ASC);
 
 INSERT INTO "restaurant" VALUES (null,'THE Restot', 'Louvain-la-Neuve', 'Belgique', 'Rue du lol, 1001', 50.668081, 4.611832, 'Un restaurant de test', 'test@itself.be', 5, '81680085', 'http://www.guillaumederval.be', 10, 0)
-/* La derni�re requete ne doit pas contenir de point-virgule!!! */
+
 DROP TABLE IF EXISTS "dish";
 CREATE TABLE "dish" (
 	 "dishId" integer NOT NULL PRIMARY KEY AUTOINCREMENT,
@@ -72,4 +72,10 @@ CREATE TABLE "reservationDish"
 	"resvId" integer NOT NULL,
 	CONSTRAINT "resvID_contrainte" FOREIGN KEY "resvId" REFERENCES "reservation" ("resvId"),
 	CONSTRAINT "nameDish_contrainte" FOREIGN KEY "nameDish" REFERENCES "dish" ("name")
-);
+)
+/* La derniere requete ne doit pas contenir de point-virgule!!!
+   Last request should not contain semicolon!!!
+   La consulta no contiene punto y coma!!!
+   La query non conteneva punto e virgola!!!
+   De query geen puntkomma bevatten!!!
+   La demando ne havas punktokomon!!! */
