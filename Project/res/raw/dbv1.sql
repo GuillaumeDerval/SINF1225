@@ -49,7 +49,7 @@ CREATE TABLE "dish" (
 );
 CREATE UNIQUE INDEX "dish_p_key" ON "dish" ("name" ASC, "restoId" ASC, "description" ASC, "price" ASC, "spicy" ASC, "vegetarian" ASC,"allergies" ASC);
 
-INSERT INTO "dish" VALUES (null,'Courgette ', null, 'Green', 10, 1, 1, 1, 1, 'Entree')
+INSERT INTO "dish" VALUES (null,'Courgette ', null, 'Green', 10, 1, 1, 1, 1, 'Entree');
 
 DROP TABLE IF EXISTS "reservation";
 CREATE TABlE "reservation"
