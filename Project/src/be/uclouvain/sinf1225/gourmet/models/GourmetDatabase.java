@@ -169,7 +169,7 @@ class GourmetDatabase extends SQLiteOpenHelper
 	    values.put("vegan", dish.getVegan());
 	    values.put("available", dish.getAvailable());
 	    values.put("allergen", dish.getAllergen());
-	    db.insert("city", null, values);
+	    db.insert("dish", null, values);
 	    
 	    db.close(); // Closing database connection
 		
@@ -186,7 +186,7 @@ class GourmetDatabase extends SQLiteOpenHelper
 	    values.put("vegan", dish.getVegan());
 	    values.put("available", dish.getAvailable());
 	    values.put("allergen", dish.getAllergen());
-	    db.insert("city", null, values);
+	    db.update("dish", values, "'dishId'= ? " , new String[] {""+dish.getDishId()});
 	    
 	    db.close(); // Closing database connection
 		
@@ -328,7 +328,7 @@ class GourmetDatabase extends SQLiteOpenHelper
 		values.put("website", restaurant.getName());
 		values.put("seats", restaurant.getSeats());
 		values.put("priceCat", restaurant.getPriceCate());
-		db.insert("restaurant", null, values);
+		db.update("restaurant", values, "'restoId' = ?", new String[]{ ""+restaurant.getId()});
 	}
 	/**
 	 * Update city 
@@ -349,15 +349,16 @@ class GourmetDatabase extends SQLiteOpenHelper
 	    return db.update("city", values, "`name` = ? AND `country` = ?", new String[] {city.getName(), city.getCountry()});
 	}
 	
-	/**
-	 * Delete a city
-	 * @param city
-	 */
+
 	public void deleteDish(Dish dish) {
 		SQLiteDatabase db = this.getWritableDatabase();
 	    db.delete("dish", "`name` = ?", new String[] {""+dish.getDishId()});
 	    db.close();
 	}
+	/**
+	 * Delete a city
+	 * @param city
+	 */
 	
 	public void deleteCity(City city)
 	{
