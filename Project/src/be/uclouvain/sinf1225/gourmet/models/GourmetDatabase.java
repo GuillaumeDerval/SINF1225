@@ -261,7 +261,7 @@ class GourmetDatabase extends SQLiteOpenHelper
 	public int addReservation(Reservation reservation)
 	{
 		// ouverture de la base de données
-		SQLiteDatabase dbw = this.getWritableDatabase();
+		SQLiteDatabase db = this.getWritableDatabase();
 	    ContentValues values1 = new ContentValues();
 	    
 	    // valeur des différents champs
@@ -271,38 +271,25 @@ class GourmetDatabase extends SQLiteOpenHelper
 	    values1.put("date", reservation.getDate().toString());
 	    
 	    // insertion dans la base de données
-	    dbw.insert("reservation", null, values1);
-	    
-	    // fermeture de la base de données
-	    dbw.close();
-	    
-	    // resvId de la réservation
-	    SQLiteDatabase dbr = this.getReadableDatabase();
-	    String str[] = new String[] {reservation.getUser().getName(), reservation.getRestaurant().getName(), reservation.getDate().toString()};
-	    Cursor cursor = dbr.rawQuery("select resvId from reservation where user = ? AND resto = ? AND date = ?", str);
-	    if(cursor == null || cursor.getCount() != 1) return 0;
-	    cursor.moveToFirst();
-	    int RESVID = cursor.getInt(0);
-	    dbr.close();
+	    long resvId = db.insert("reservation", null, values1);
 	    
 	    // insertion des différents plats commandés dans la base de données
-	    SQLiteDatabase db = this.getWritableDatabase();
 	    ContentValues values2 = new ContentValues();
 	    for(Reservation.DishNode node : reservation.getDish())
 	    {
 	    	values2.put("nameDish", node.dish.getName());
 	    	values2.put("nbrDish", node.nbrDishes);
-	    	values2.put("resvId", RESVID);
+	    	values2.put("resvId", resvId);
 	    	db.insert("reservationDish", null, values2);
 	    }
 	    db.close();
 	    return 1;
 	}
+	
 	/**
 	 * Supprime la réservation correspondant au triplet (user,resto,date) dans la table réservation
 	 * et surpprime tt les plats commandés dans la table reservationDish
 	 */
-	
 	public int deleteReservation(User user, Restaurant resto, Date date)
 	{
 	    // resvId de la réservation
