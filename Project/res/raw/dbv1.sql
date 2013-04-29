@@ -32,8 +32,8 @@ CREATE TABLE "restaurant" (
 CREATE UNIQUE INDEX "resto_p_key" ON "restaurant" ("name" ASC, "cityName" ASC, "cityCountry" ASC, "address" ASC);
 
 INSERT INTO "restaurant" VALUES (null,'THE Restot', 'Louvain-la-Neuve', 'Belgique', 'Rue du lol, 1001', 50.668081, 4.611832, 'Un restaurant de test', 'test@itself.be', 5, '81680085', 'http://www.guillaumederval.be', 10, 0)
-/* La dernière requete ne doit pas contenir de point-virgule!!! */
-
+/* La derniÔøΩre requete ne doit pas contenir de point-virgule!!! */
+/* coucou */
 DROP TABLE IF EXISTS "reservation";
 CREATE TABlE "reservation"
 (
