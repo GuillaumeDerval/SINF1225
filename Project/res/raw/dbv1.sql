@@ -43,13 +43,13 @@ CREATE TABLE "dish" (
 	 "description" text,
 	 "price" integer NOT NULL,
 	 "spicy" integer NOT NULL,
-	 "vegetarian" integer NOT NULL,
-	 "left" integer,
-	 "allergies" integer NOT NULL,
+	 "vegan" integer NOT NULL,
+	 "available" integer,
+	 "allergen" integer NOT NULL,
 	 "category" text NOT NULL,
 	CONSTRAINT "Link_Dish_Resto" FOREIGN KEY ("restoId") REFERENCES "restaurant" ("restoId")
 );
-CREATE UNIQUE INDEX "dish_p_key" ON "dish" ("name" ASC, "restoId" ASC, "description" ASC, "price" ASC, "spicy" ASC, "vegetarian" ASC,"allergies" ASC);
+CREATE UNIQUE INDEX "dish_p_key" ON "dish" ("name" ASC, "restoId" ASC, "description" ASC, "price" ASC, "spicy" ASC, "vegan" ASC,"allergen" ASC);
 
 INSERT INTO "dish" VALUES (1,'Courgette ', 1, 'Green', 10, 1, 1, 1, 1, 'Entree');
 
