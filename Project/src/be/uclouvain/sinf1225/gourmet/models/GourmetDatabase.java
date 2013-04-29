@@ -79,16 +79,7 @@ class GourmetDatabase extends SQLiteOpenHelper
 	//public List<User> getAllUsers() { return null; }
 	public void updateUser(User user) {}
 	//public void deleteUser(User user) {}
-	
-	/* Reservation */
-	//TODO implement. Commented lines are not essential
-	public void addReservation(Reservation reservation) {}
-	public Reservation getReservation(User user, Restaurant restaurant, Date date) { return null; }
-	//public List<Reservation> getAllReservations() { return null; }
-	public List<Reservation> getReservationInRestaurant(Restaurant restaurant) { return null; }
-	public List<Reservation> getReservationByUser(User user) { return null; }
-	public void updateReservation(Reservation reservation) {}
-	public void deleteReservation(Reservation reservation) {}
+
 	
 	/* Dish */
 	//TODO implement. Commented lines are not essential
@@ -262,4 +253,82 @@ class GourmetDatabase extends SQLiteOpenHelper
 	    db.delete("city", "`name` = ? AND `country` = ?", new String[] {city.getName(), city.getCountry()});
 	    db.close();
 	}
+	
+	/** 
+	 * Add a reservation in the database
+	 * @param reservation
+	 */
+	public int addReservation(Reservation reservation)
+	{
+		// ouverture de la base de donnŽes
+		SQLiteDatabase dbw = this.getWritableDatabase();
+	    ContentValues values1 = new ContentValues();
+	    
+	    // valeur des diffŽrents champs
+	    values1.put("user", reservation.getUser().getName());
+	    values1.put("resto", reservation.getRestaurant().getName());
+	    values1.put("nbrReservation", Integer.toString(reservation.getnbrReservation()));
+	    values1.put("date", reservation.getDate().toString());
+	    
+	    // insertion dans la base de donnŽes
+	    dbw.insert("reservation", null, values1);
+	    
+	    // fermeture de la base de donnŽes
+	    dbw.close();
+	    
+	    // resvId de la rŽservation
+	    SQLiteDatabase dbr = this.getReadableDatabase();
+	    String str[] = new String[] {reservation.getUser().getName(), reservation.getRestaurant().getName(), reservation.getDate().toString()};
+	    Cursor cursor = dbr.rawQuery("select resvId from reservation where user = ? AND resto = ? AND date = ?", str);
+	    if(cursor == null || cursor.getCount() != 1) return 0;
+	    cursor.moveToFirst();
+	    int RESVID = cursor.getInt(0);
+	    dbr.close();
+	    
+	    // insertion des diffŽrents plats commandŽs dans la base de donnŽes
+	    SQLiteDatabase db = this.getWritableDatabase();
+	    ContentValues values2 = new ContentValues();
+	    for(Reservation.DishNode node : reservation.getDish())
+	    {
+	    	values2.put("nameDish", node.dish.getName());
+	    	values2.put("nbrDish", node.nbrDishes);
+	    	values2.put("resvId", RESVID);
+	    	db.insert("reservationDish", null, values2);
+	    }
+	    db.close();
+	    return 1;
+	}
+	/**
+	 * Supprime la rŽservation correspondant au triplet (user,resto,date) dans la table rŽservation
+	 * et surpprime tt les plats commandŽs dans la table reservationDish
+	 */
+	
+	public int deleteReservation(User user, Restaurant resto, Date date)
+	{
+	    // resvId de la rŽservation
+	    SQLiteDatabase db = this.getReadableDatabase();
+	    String str[] = new String[] {user.getName(), resto.getName(), date.toString()};
+	    Cursor cursor = db.rawQuery("select resvId from reservation where user = ? AND resto = ? AND date = ?", str);
+	    if(cursor == null || cursor.getCount() != 1) return 0;
+	    cursor.moveToFirst();
+	    int RESVID = cursor.getInt(0);
+	    db.close();
+	    
+	    // suppression des plats rŽservŽs dans la table reservationDish
+	    SQLiteDatabase dbw = this.getWritableDatabase();
+	    dbw.delete("reservationDish", "`resvId` = ?", new String[] {"" + RESVID});
+	    dbw.close();
+	    return 1;
+	}
+	// retourner ttes lesrŽservtaion d'un mme user => database
+	// retourner ttes les users ayant effectuŽs une rŽservation dans un restaurant => database
+	// retourner toutes les rŽservation d'un mme plat => database
+	
+	/* Reservation */
+	//TODO implement. Commented lines are not essential
+	public Reservation getReservation(User user, Restaurant restaurant, Date date) {return null;}
+	//public List<Reservation> getAllReservations() { return null; }
+	public List<Reservation> getReservationInRestaurant(Restaurant restaurant) { return null; }
+	public List<Reservation> getReservationByUser(User user) { return null; }
+	public void updateReservation(Reservation reservation) {}	
 }
