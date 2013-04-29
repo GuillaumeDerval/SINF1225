@@ -2,6 +2,9 @@ package be.uclouvain.sinf1225.gourmet;
 
 import java.util.List;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+
 import be.uclouvain.sinf1225.gourmet.models.City;
 import be.uclouvain.sinf1225.gourmet.utils.GourmetLocationListener;
 import be.uclouvain.sinf1225.gourmet.utils.GourmetLocationReceiver;
@@ -141,6 +144,9 @@ public class CityListView extends Fragment implements GourmetLocationReceiver
 		});
 		
 		final Button mapActivate = (Button) getActivity().findViewById(R.id.CityListMapActivate);
+		if(GooglePlayServicesUtil.isGooglePlayServicesAvailable(this.getActivity()) != ConnectionResult.SUCCESS)
+			mapActivate.setVisibility(View.GONE);
+		
 		mapActivate.setOnClickListener(new OnClickListener()
 		{
 			@Override
