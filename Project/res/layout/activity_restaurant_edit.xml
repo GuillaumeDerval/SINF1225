@@ -75,7 +75,7 @@
   
     </EditText> 
             <EditText
-        android:id="@+id/EditWebitsite"
+        android:id="@+id/EditWebsite"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Website" >

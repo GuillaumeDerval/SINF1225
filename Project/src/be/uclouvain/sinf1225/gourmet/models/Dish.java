@@ -15,6 +15,32 @@ public class Dish
 	private Restaurant restaurant;
 	private int dishId;
 	
+	/**
+	 * Delete dish in database
+	 * @param dish
+	 */
+	public void deleteDish( Dish dish)
+	{
+		GourmetDatabase db = new GourmetDatabase();
+		db.deleteDish(dish);
+		db.close();
+	}
+	/**
+	 * update dish in data base
+	 * @param dish
+	 */
+	public void updateDish( Dish dish)
+	{
+		GourmetDatabase db = new GourmetDatabase();
+		db.updateDish(dish);
+		db.close();
+		
+	}
+	/**
+	 * get dish in database
+	 * @param dishId
+	 * @return
+	 */
 	public static Dish getDish(int dishId)
 	{
 		GourmetDatabase db = new GourmetDatabase();
@@ -72,16 +98,20 @@ public class Dish
 	{
 		this.name = name;
 	}
-	public Restaurant getRestaurant() {
+	public Restaurant getRestaurant() 
+	{
 		return restaurant;
 	}
-	public void setRestaurant(Restaurant restaurant) {
+	public void setRestaurant(Restaurant restaurant) 
+	{
 		this.restaurant = restaurant;
 	}
-	public int getDishId() {
+	public int getDishId() 
+	{
 		return dishId;
 	}
-	public void setDishId(int dishId) {
+	public void setDishId(int dishId) 
+	{
 		this.dishId = dishId;
 	}
 	

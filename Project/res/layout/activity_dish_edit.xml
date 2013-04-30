@@ -14,7 +14,7 @@
 <!--Put form controls here-->  
 
     <EditText
-        android:id="@+id/EditName"
+        android:id="@+id/EditDishName"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
@@ -22,44 +22,44 @@
   
     </EditText> 
     <EditText  
-    android:id="@+id/EditCategory"  
+    android:id="@+id/EditDishCategory"  
     android:layout_height="wrap_content"    
     android:layout_width="fill_parent"
     android:text="Category" >  
 </EditText> 
 
         <EditText
-        android:id="@+id/EditPrice"
+        android:id="@+id/EditDishPrice"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Price" >
   
     </EditText>
            <EditText  
-        android:id="@+id/EditAvailable"  
+        android:id="@+id/EditDishAvailable"  
         android:layout_height="wrap_content"  
         android:layout_width="fill_parent"
         android:text="Available">  
     </EditText>
                <EditText  
-        android:id="@+id/EditDescription"  
+        android:id="@+id/EditDishDescription"  
         android:layout_height="wrap_content"  
         android:layout_width="fill_parent"
          android:lines="3"  
         android:text="Description">  
     </EditText>
             <CheckBox
-                android:id="@+id/EditSpicy"
+                android:id="@+id/EditDishSpicy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Spicy" />
             <CheckBox
-                android:id="@+id/EditVegan"
+                android:id="@+id/EditDishVegan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Vegan" />
             <CheckBox
-                android:id="@+id/EditAllegern"
+                android:id="@+id/EditDishAllergen"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Allergen" />
@@ -69,13 +69,13 @@
                 android:layout_height="wrap_content" >
 
                 <Button
-                    android:id="@+id/buttonApply"
+                    android:id="@+id/buttonDishApply"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Apply" />
 
                 <Button
-                    android:id="@+id/buttonDelete"
+                    android:id="@+id/buttonDishDelete"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Delete" />

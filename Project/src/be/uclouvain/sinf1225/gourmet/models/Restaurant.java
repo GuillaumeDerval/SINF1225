@@ -41,6 +41,8 @@ public class Restaurant
 	 * @param reservations
 	 * @param dishes
 	 */
+	
+	public Restaurant(){}
 	public Restaurant(int id, City city, String name, String address, PriceCategory priceCategory, 
 			Location location, String phone, int seats, String website, String description,
 			int stars, String email)
@@ -60,7 +62,21 @@ public class Restaurant
 		this.reservations = null;
 		this.dishes = null;
 	}
-	
+	/**
+	 * update restaurant in DB
+	 * @param restaurant
+	 */
+	public void updateRestaurant( Restaurant restaurant){
+		GourmetDatabase db = new GourmetDatabase();
+		db.updateRestaurant(restaurant);
+		db.close();
+		
+	}
+	/**
+	 * getRestaurant in DB
+	 * @param restoId
+	 * @return
+	 */
 	public static Restaurant getRestaurant(int restoId)
 	{
 		GourmetDatabase db = new GourmetDatabase();
