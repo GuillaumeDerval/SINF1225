@@ -1,20 +1,56 @@
 package be.uclouvain.sinf1225.gourmet.models;
-
 public class Dish
 {
 	//TODO implement.
-	
+	private int dishId;
 	private String name;
-	private String category;
+	private int restoId;
 	private String description;
 	private double price;
 	private int spicy;
 	private int vegan;
 	private int available;
 	private int allergen;
+	private String category;
 	private Restaurant restaurant;
-	private int dishId;
-	
+	private Image img; // 1 dish = 1 picture
+	/**
+	 * 
+	 * @param dishId
+	 * @param name
+	 * @param restoId
+	 * @param description
+	 * @param price
+	 * @param spicy
+	 * @param vegan
+	 * @param available
+	 * @param allergen
+	 * @param category
+	 * @param restaurant
+	 * @param img
+	 */
+	public Dish(int dishId, String name, int restoId, String description,
+			double price, int spicy, int vegan, int available, int allergen,
+			String category, Restaurant restaurant, Image img) 
+	{
+		super();
+		this.dishId = dishId;
+		this.name = name;
+		this.restoId = restoId;
+		this.description = description;
+		this.price = price;
+		this.spicy = spicy;
+		this.vegan = vegan;
+		this.available = available;
+		this.allergen = allergen;
+		this.category = category;
+		this.restaurant = restaurant;
+		this.img = img;
+	}
+	public Dish() 
+	{
+		super();
+	}
 	/**
 	 * Delete dish in database
 	 * @param dish
@@ -48,46 +84,60 @@ public class Dish
 		db.close();
 		return dish;
 	}
-	public String getCategory() {
+	public String getCategory() 
+	{
 		return category;
 	}
-	public void setCategory(String category) {
+	public void setCategory(String category) 
+	{
 		this.category = category;
 	}
-	public String getDescription() {
+	public String getDescription() 
+	{
 		return description;
 	}
-	public void setDescription(String description) {
+	public void setDescription(String description) 
+	{
 		this.description = description;
 	}
-	public double getPrice() {
+	public double getPrice() 
+	{
 		return price;
 	}
-	public void setPrice(double price) {
+	public void setPrice(double price) 
+	{
 		this.price = price;
 	}
-	public int getSpicy() {
+	public int getSpicy() 
+	{
 		return spicy;
 	}
-	public void setSpicy(int spicy) {
+	public void setSpicy(int spicy) 
+	{
 		this.spicy = spicy;
 	}
-	public int getVegan() {
+	public int getVegan() 
+	{
 		return vegan;
 	}
-	public void setVegan(int vegan) {
+	public void setVegan(int vegan) 
+	{
 		this.vegan = vegan;
 	}
-	public int getAvailable() {
+	public int getAvailable() 
+	{
 		return available;
 	}
-	public void setAvailable(int available) {
+	public void setAvailable(int available) 
+	{
 		this.available = available;
 	}
-	public int getAllergen() {
+	public int getAllergen() 
+	{
 		return allergen;
 	}
-	public void setAllergen(int allergen) {
+	public void setAllergen(int allergen) 
+	{
 		this.allergen = allergen;
 	}
 	public String getName() 
@@ -114,7 +164,16 @@ public class Dish
 	{
 		this.dishId = dishId;
 	}
-	
-	
-	
+	public Image getImg() 
+	{
+		return img;
+	}
+	public void setImg(Image img) 
+	{
+		this.img = img;
+	}
+	public int getRestoId()
+	{
+		return restoId;
+	}
 }

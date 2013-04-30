@@ -180,9 +180,144 @@ class GourmetDatabase extends SQLiteOpenHelper
 	{
 		//TODO implement. Must works with Restaurator too.
 	}
+	//TODO implement. Commented lines are not essential
+
+	public User getUser(String username) { return null; }
+	//public List<User> getAllUsers() { return null; }
+	//public void deleteUser(User user) {}
+
 	
+	/*Image*/
+	/**
+	 * add an image
+	 * @param img
+	 */
+	public void addImage(Image img)
+	{
+		SQLiteDatabase db = this.getWritableDatabase();
+		 
+	    ContentValues values = new ContentValues();
+	    values.put("objectType", img.getObjectType());
+	    values.put("objectId", img.getObjectId());
+	    values.put("chemin", img.getPath());
+	    values.put("legende", img.getLegend());
+	    db.insert("image", null, values);
+	    
+	    db.close(); // Closing database connection
+	}
+	/**
+	 * YOU CAN ONLY USE THIS METHOD WITH A DISH! A RESTAURANT CAN HAVE MORE THAN ONE IMAGE
+	 * @param type
+	 * @param id
+	 */
+	public void deleteImage(String type, int id)
+	{
+		SQLiteDatabase db = this.getWritableDatabase();
+	    db.delete("image", "`objectType` = ? AND `objectId` = ?", new String[] {type, ""+id});
+	    db.close();
+	}
+	/**
+	 * delete one image from the path
+	 * @param path
+	 */
+	public void deleteImage(String path)
+	{
+		SQLiteDatabase db = this.getWritableDatabase();
+	    db.delete("image", "`chemin` = ?", new String[] {path});
+	    db.close();
+	}
+	/**
+	 * 
+	 * @return imageList
+	 */
+	public List<Image> getAllImages(String type, int id)
+	{
+		SQLiteDatabase db = this.getReadableDatabase();
+		
+		Cursor cursor = db.query("image", //table to select on
+				new String[]{"legende","chemin","objetType","objectId"}, //column to get
+				 "`objectType` = ? AND `objectId` = ?", //where
+				new String[] {type, ""+id}, //where string
+				null, //group by
+				null, //having
+				null); //orderby
+		if(cursor == null)
+			return null;
+		cursor.moveToFirst();
+		
+		List<Image> images = new ArrayList<Image>();
+		for(int j = 0; j < cursor.getCount(); j++)
+		{
+			Image image = new Image(
+					cursor.getString(0),
+					cursor.getString(1),
+					cursor.getString(2),
+					cursor.getInt(3));
+
+		
+			images.add(image);
+			cursor.moveToNext();
+		}
+		return images;
+	}
+	/**
+	 * 
+	 * @param objectId
+	 * @param objectType
+	 * @return image link to an object
+	 */
+	public Image getImage(int objectId, String objectType)
+	{
+		SQLiteDatabase db = this.getReadableDatabase();
+		
+		Cursor cursor = db.query("image", //table to select on
+				new String[]{"legende","chemin","objetType","objectId"}, //column to get
+				 "`objectId` = ? AND `objectType` = ? ", //where
+				new String[] {""+objectId, objectType}, //where string
+				null, //group by
+				null, //having
+				null); //orderby
+		if(cursor == null)
+			return null;
+		cursor.moveToFirst();
+		Image image = new Image(
+				cursor.getString(0),
+				cursor.getString(1),
+				cursor.getString(2),
+				cursor.getInt(3)
+				);
+		
+		return image;
+	}
+	/**
+	 * 
+	 * @param imageId
+	 * @return image with the id
+	 */
+	public Image getImage(int imageId)
+	{
+		SQLiteDatabase db = this.getReadableDatabase();
+		
+		Cursor cursor = db.query("image", //table to select on
+				new String[]{"legende","chemin","objetType","objectId"}, //column to get
+				 "`rowId` = ?", //where
+				new String[] {""+imageId}, //where string
+				null, //group by
+				null, //having
+				null); //orderby
+		if(cursor == null)
+			return null;
+		cursor.moveToFirst();
+		Image image = new Image(
+				cursor.getString(0),
+				cursor.getString(1),
+				cursor.getString(2),
+				cursor.getInt(3)
+				);
+		
+		return image;
+	}
 	/* Dish */
-	
 	/**
 	 * Add a dish to database
 	 * @param dish
@@ -246,7 +381,36 @@ class GourmetDatabase extends SQLiteOpenHelper
 	public Dish getDish(int dishId)
 	{
 		//TODO implements
-		return null;
+		SQLiteDatabase db = this.getReadableDatabase();
+		
+		Cursor cursor = db.query("Plat", //table to select on
+				new String[]{"platId","name","restoId","description","price", "spicy","vegan","available","allergen","category"},//column to get
+				"`platId` = ?", //where clause, ?s will be replaced by...
+				new String[]{""+dishId}, //... these values
+				null, //group by
+				null, //having
+				null); //orderby
+		if(cursor == null)
+			return null;
+		
+		cursor.moveToFirst();
+		Restaurant resto = getRestaurant(cursor.getInt(2));
+		Image img = getImage(cursor.getInt(0), "Plat");
+		Dish dish= new Dish(
+				cursor.getInt(0), //dishId
+				cursor.getString(1), //name
+				cursor.getInt(2), // restoId
+				cursor.getString(3), //description
+				cursor.getDouble(4), //price
+				cursor.getInt(5), //spicy
+				cursor.getInt(6), //vegan
+				cursor.getInt(7), //available
+				cursor.getInt(8), //allergen
+				cursor.getString(9),//category
+				resto, // restaurant
+				img); // image
+		
+		return dish;
 	}
 	
 	/**

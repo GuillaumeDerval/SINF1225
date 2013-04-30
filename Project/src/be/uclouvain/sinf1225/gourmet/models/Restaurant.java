@@ -22,6 +22,7 @@ public class Restaurant
 	private String email;
 	private List<Reservation> reservations;
 	private List<Dish> dishes;
+	private List<Image> images;
 	
 	
 	/**
@@ -66,7 +67,7 @@ public class Restaurant
 	 * update restaurant in DB
 	 * @param restaurant
 	 */
-	public void updateRestaurant( Restaurant restaurant){
+	public static void updateRestaurant( Restaurant restaurant){
 		GourmetDatabase db = new GourmetDatabase();
 		db.updateRestaurant(restaurant);
 		db.close();
@@ -215,6 +216,14 @@ public class Restaurant
 			db.close();
 		}
 		return dishes;
+	}
+	public void addImage(Image image)
+	{
+		this.images.add(image);
+	}
+	public void deleteImage(Image image)
+	{
+		this.images.remove(image);
 	}
 	
 	//...
