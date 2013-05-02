@@ -12,4 +12,10 @@
 		<item>Distance</item>
 		<item>Restaurants</item>
     </string-array>
+		<string name="hello_world">hello_world</string>
+		<string name="salut">salut</string>
+		<string name="send">Send</string>
+		<string name="restaurant">restaurant</string>
+		<string name="datetime">datetime</string>
+		<string name="add">Add</string>
 </resources>
