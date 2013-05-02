@@ -32,6 +32,10 @@
         <activity
             android:name="be.uclouvain.sinf1225.gourmet.TabLayoutActivity"
             android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="be.uclouvain.sinf1225.gourmet.LoginView"
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
