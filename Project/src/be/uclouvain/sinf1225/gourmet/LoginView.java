@@ -1,9 +1,11 @@
 package be.uclouvain.sinf1225.gourmet;
 
 import be.uclouvain.sinf1225.gourmet.models.User;
+import be.uclouvain.sinf1225.gourmet.utils.GourmetUtils;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -20,6 +22,13 @@ public class LoginView extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		
+		//If we are here, the user is not yet connected.
+		SharedPreferences sp = getSharedPreferences("gourmetLogin",Context.MODE_PRIVATE);
+		String emailP = sp.getString("email", "");
+		String passwordHashP = sp.getString("passwordHash", "");
+		if(!emailP.equals("") && !passwordHashP.equals(""))
+			User.loginUser(emailP, passwordHashP, true); //return value is not important
+		
 		if(User.isUserConnected())
 		{
 			Intent intent = new Intent(this, TabLayoutActivity.class);
@@ -28,6 +37,8 @@ public class LoginView extends Activity
 		}
 		else
 		{
+			sp.edit().putString("email", "").putString("passwordHash", "").commit();
+			
 			setContentView(R.layout.activity_connexion);
 			
 			final EditText name = (EditText)this.findViewById(R.id.loginName);
@@ -70,6 +81,11 @@ public class LoginView extends Activity
 					
 					if(ret == User.UserManagerReturn.LOGIN_OK)
 					{
+						//Update last login values
+						SharedPreferences sp = getSharedPreferences("gourmetLogin",Context.MODE_PRIVATE);
+						sp.edit().putString("email", email.getText().toString()).putString("passwordHash", GourmetUtils.sha1(password.getText().toString())).commit();
+						
+						//Start tab activity
 						Intent intent = new Intent(LoginView.this, TabLayoutActivity.class);
 						startActivity(intent);
 						finish();
