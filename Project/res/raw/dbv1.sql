@@ -65,7 +65,7 @@ CREATE TABlE "reservation"
 	CONSTRAINT "user_contrainte" FOREIGN KEY ("user") REFERENCES "user" ("name")
 );
 
-DROP Table IF EXISTS "reservationDish";
+DROP TABLE IF EXISTS "reservationDish";
 CREATE TABLE "reservationDish"
 (
 	"nameDish" text NOT NULL,
@@ -73,6 +73,25 @@ CREATE TABLE "reservationDish"
 	"resvId" integer NOT NULL,
 	CONSTRAINT "resvID_contrainte" FOREIGN KEY ("resvId") REFERENCES "reservation" ("resvId"),
 	CONSTRAINT "nameDish_contrainte" FOREIGN KEY ("nameDish") REFERENCES "dish" ("name")
+);
+
+DROP TABLE IF EXISTS "users";
+CREATE TABLE "users"
+(
+	"email" text NOT NULL,
+	"password" text NOT NULL,
+	"name" text NOT NULL,
+	"surname" text NOT NULL,
+	PRIMARY KEY("email")
+);
+
+DROP TABLE IF EXISTS "users_manages";
+CREATE TABLE "users_manages"
+(
+	"email"  NOT NULL,
+	 "restoId"  NOT NULL,
+	PRIMARY KEY("email","restoId"),
+	CONSTRAINT "users_manages_resto" FOREIGN KEY ("restoId") REFERENCES "restaurant" ("restoId")
 );
 
 /* La derniere requete ne doit pas contenir de point-virgule!!!

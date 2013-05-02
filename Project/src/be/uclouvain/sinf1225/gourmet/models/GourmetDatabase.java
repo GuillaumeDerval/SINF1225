@@ -24,7 +24,7 @@ import android.location.Location;
  */
 class GourmetDatabase extends SQLiteOpenHelper
 {
-	private static final int DATABASE_VERSION = 1;
+	private static final int DATABASE_VERSION = 2;
     private static final String DATABASE_NAME = "gourmet";
     private Context context;
     
@@ -45,13 +45,6 @@ class GourmetDatabase extends SQLiteOpenHelper
 	{
 		super(Gourmet.getAppContext(), DATABASE_NAME, null, DATABASE_VERSION);
 		this.context = Gourmet.getAppContext();
-	}
-
-	//TODO delete this
-	@Override
-	public void onOpen(SQLiteDatabase db)
-	{
-		onCreate(db);
 	}
 	
 	@Override
@@ -80,14 +73,113 @@ class GourmetDatabase extends SQLiteOpenHelper
 	}
 
 	/* User */
-	//TODO implement. Commented lines are not essential
-	//Must handle the case if the User is a Restaurator!
-	public void addUser(User user) {}
-	public User getUser(String username) { return null; }
-	//public List<User> getAllUsers() { return null; }
-	public void updateUser(User user) {}
-	//public void deleteUser(User user) {}
+	/**
+	 * Return true if an user with this email exists in database
+	 */
+	public boolean haveUserWithEmail(String email)
+	{
+		SQLiteDatabase db = this.getReadableDatabase();
+		
+		Cursor cursor = db.query("users", //table to select on
+				new String[]{"email"}, //TODO add missing columns
+				"`email` = ?", //where clause, ?s will be replaced by...
+				new String[]{email}, //... these values
+				null, //group by
+				null, //having
+				null); //orderby
+		return cursor != null && cursor.getCount() != 0;
+	}
+	
+	/**
+	 * Add an user to the database
+	 * @param user the user to add
+	 */
+	public void addUser(User user)
+	{
+		SQLiteDatabase db = this.getWritableDatabase();
+		 
+	    ContentValues values = new ContentValues();
+	    values.put("email", user.getEmail());
+	    values.put("password", user.getPasswordHash());
+	    values.put("name", user.getName());
+	    values.put("surname", user.getSurname());
+	    db.insert("users", null, values);
+	    
+	    db.delete("users_manages", "`email` = ?", new String[] {user.getEmail()});
+	    db.close();
+	    
+	    if(user instanceof Restaurator)
+	    {
+	    	Restaurator r = (Restaurator)user;
+	    	for(Integer v : r.getRestoIds())
+	    	{
+	    		ContentValues v2 = new ContentValues();
+	    		v2.put("email", r.getEmail());
+	    		v2.put("restoId", v);
+	    		db.insert("users_manages", null, v2);
+	    	}
+	    }
+	    
+	    db.close(); // Closing database connection
+	}
+	
+	/**
+	 * Get the user with this email and password
+	 * @param email
+	 * @param password
+	 * @return User object if a correspondent user exists, null else.
+	 */
+	public User getUser(String email, String password)
+	{
+		SQLiteDatabase db = this.getReadableDatabase();
+		
+		Cursor cursor = db.query("users", //table to select on
+				new String[]{"name","surname"}, //TODO add missing columns
+				"`email` = ? AND `password` = ?", //where clause, ?s will be replaced by...
+				new String[]{email, GourmetUtils.sha1(password)}, //... these values
+				null, //group by
+				null, //having
+				null); //orderby
+		if(cursor == null || cursor.getCount() == 0)
+			return null;
+		
+		cursor.moveToFirst();
+		
+		Cursor cursorResto = db.query("users_manages", //table to select on
+				new String[]{"restoId"}, //TODO add missing columns
+				"`email` = ?", //where clause, ?s will be replaced by...
+				new String[]{email}, //... these values
+				null, //group by
+				null, //having
+				null); //orderby
+		
+		User user = null;
+		if(cursorResto == null || cursorResto.getCount() == 0)
+		{
+			user = new User(email, password, cursor.getString(0), cursor.getString(1));
+		}
+		else
+		{
+			List<Integer> restoIds = new ArrayList<Integer>();
+			cursorResto.moveToFirst();
+			for(int i = 0; i < cursorResto.getCount(); i++)
+			{
+				restoIds.add(cursorResto.getInt(0));
+				cursorResto.moveToNext();
+			}
+			user = new Restaurator(email, password, cursor.getString(0), cursor.getString(1),restoIds);
+		}
+		return user;
+	}
 
+	/**
+	 * Update an existing user in database.
+	 * @param user
+	 */
+	public void updateUser(User user)
+	{
+		//TODO implement. Must works with Restaurator too.
+	}
 	
 	/* Dish */
 	
@@ -153,6 +245,7 @@ class GourmetDatabase extends SQLiteOpenHelper
 	 */
 	public Dish getDish(int dishId)
 	{
+		//TODO implements
 		return null;
 	}
 	
@@ -163,6 +256,7 @@ class GourmetDatabase extends SQLiteOpenHelper
 	 */
 	public List<Dish> getDishInRestaurant(Restaurant restaurant)
 	{
+		//TODO implements.
 		return null;
 	}
 
@@ -185,7 +279,7 @@ class GourmetDatabase extends SQLiteOpenHelper
 				null, //group by
 				null, //having
 				null); //orderby
-		if(cursor == null)
+		if(cursor == null || cursor.getCount() == 0)
 			return null;
 		
 		cursor.moveToFirst();
@@ -281,7 +375,7 @@ class GourmetDatabase extends SQLiteOpenHelper
 				null, //group by
 				null, //having
 				null); //orderby
-		if(cursor == null)
+		if(cursor == null || cursor.getCount() == 0)
 			return null;
 		
 		cursor.moveToFirst();
@@ -292,7 +386,7 @@ class GourmetDatabase extends SQLiteOpenHelper
 		
 		List<Integer> restaurantsID = new ArrayList<Integer>();
 		cursor = db.query(true, "restaurant", new String[]{"restoId"}, "`cityName` = ? AND `cityCountry` = ?", new String[]{name, country}, null, null, null,null);
-		if(cursor != null)
+		if(cursor != null && cursor.getCount() != 0)
 		{
 			cursor.moveToFirst();
 			for(int i = 0; i < cursor.getCount(); i++)
@@ -320,7 +414,7 @@ class GourmetDatabase extends SQLiteOpenHelper
 				null, //group by
 				null, //having
 				null); //orderby
-		if(cursor == null)
+		if(cursor == null || cursor.getCount() == 0)
 			return null;
 		cursor.moveToFirst();
 		
@@ -333,7 +427,7 @@ class GourmetDatabase extends SQLiteOpenHelper
 		
 			List<Integer> restaurantsID = new ArrayList<Integer>();
 			Cursor restos = db.query(true, "restaurant", new String[]{"restoId"}, "`cityName` = ? AND `cityCountry` = ?", new String[]{cursor.getString(0),cursor.getString(1)}, null, null, null,null);
-			if(restos != null)
+			if(restos != null && cursor.getCount() != 0)
 			{
 				restos.moveToFirst();
 				for(int i = 0; i < restos.getCount(); i++)
