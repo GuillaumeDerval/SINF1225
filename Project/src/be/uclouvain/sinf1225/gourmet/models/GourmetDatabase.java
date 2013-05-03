@@ -127,16 +127,17 @@ class GourmetDatabase extends SQLiteOpenHelper
 	 * Get the user with this email and password
 	 * @param email
 	 * @param password
+	 * @param isHash is password a SHA1 hash?
 	 * @return User object if a correspondent user exists, null else.
 	 */
-	public User getUser(String email, String password)
+	public User getUser(String email, String password, boolean isHash)
 	{
 		SQLiteDatabase db = this.getReadableDatabase();
 		
 		Cursor cursor = db.query("users", //table to select on
 				new String[]{"name","surname"}, //TODO add missing columns
 				"`email` = ? AND `password` = ?", //where clause, ?s will be replaced by...
-				new String[]{email, GourmetUtils.sha1(password)}, //... these values
+				new String[]{email, (isHash ? password : GourmetUtils.sha1(password))}, //... these values
 				null, //group by
 				null, //having
 				null); //orderby

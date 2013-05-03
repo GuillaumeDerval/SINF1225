@@ -47,11 +47,24 @@ public class User
 	 */
 	public static UserManagerReturn loginUser(String email, String password)
 	{
+		return loginUser(email, password, false);
+	}
+	
+	/**
+	 * Log a user by checking if an email with this password exists in database.
+	 * @param email
+	 * @param password
+	 * @param isHash is password a hash?
+	 * @return LOGIN_OK if success, other values of User.UserManagerReturn else.
+	 */
+	public static UserManagerReturn loginUser(String email, String password, boolean isHash)
+	{
 		if(email.equals("") || password.equals(""))
 			return UserManagerReturn.NOT_FULL;
 		
 		GourmetDatabase db = new GourmetDatabase();
-		loggedUser = db.getUser(email,password);
+		loggedUser = db.getUser(email,password, isHash);
+		db.close();
 		
 		return loggedUser == null ? UserManagerReturn.LOGIN_ERR : UserManagerReturn.LOGIN_OK;
 	}

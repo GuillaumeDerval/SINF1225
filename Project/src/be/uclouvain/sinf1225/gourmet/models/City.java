@@ -73,6 +73,7 @@ public class City
 		{
 			GourmetDatabase db = new GourmetDatabase();
 			restaurants = db.getRestaurantsInCity(this);
+			db.close();
 		}
 		return restaurants;
 	}

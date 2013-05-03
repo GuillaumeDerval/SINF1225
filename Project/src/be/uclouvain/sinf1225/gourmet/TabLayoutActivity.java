@@ -1,11 +1,18 @@
 package be.uclouvain.sinf1225.gourmet;
 
+import be.uclouvain.sinf1225.gourmet.models.User;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 /**
  * Tab activity
@@ -14,6 +21,35 @@ import android.os.Bundle;
  */
 public class TabLayoutActivity extends Activity
 {
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu)
+	{
+		MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.tablayoutmenu, menu);
+	    return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+	    // Handle item selection
+	    switch (item.getItemId())
+	    {
+	        case R.id.logout:
+	        	//Update last login values
+	        	SharedPreferences sp = getSharedPreferences("gourmetLogin",Context.MODE_PRIVATE);
+	        	sp.edit().putString("email", "").putString("passwordHash", "").commit();
+	        	
+	        	User.logoutUser();
+	        	Intent intent = new Intent(this, LoginView.class);
+				startActivity(intent);
+				finish();
+	        	return true;
+	        default:
+	            return super.onOptionsItemSelected(item);
+	    }
+	}
+	
 	protected void onCreate(Bundle savedInstanceState)
 	{
 	    super.onCreate(savedInstanceState);

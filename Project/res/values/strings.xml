@@ -1,23 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="app_name">Gourmet</string>
-    <string name="restaurantListActivityLabel">Sélectionner un restaurant</string>
     <string name="action_search_restaurant">Rechercher</string>
     <string name="action_reservation">Réservations</string>
     <string name="action_user">Paramètres</string>
     <string name="sort_by">Trier par</string>
-    
+    <string name="logout">Déconnexion</string>
 	<string-array name="city_sort">
 		<item>Nom</item>
 		<item>Distance</item>
 		<item>Restaurants</item>
     </string-array>
-		<string name="hello_world">hello_world</string>
-		<string name="salut">salut</string>
-		<string name="send">Send</string>
-		<string name="restaurant">restaurant</string>
-		<string name="datetime">datetime</string>
-		<string name="add">Add</string>
-		<string name="ok_dialog_string">Ok</string>
-		<string name="cancel_dialog_string">Cancel</string>
+	<string name="hello_world">hello_world</string> <!-- TODO what? -->
+	<string name="salut">salut</string> <!-- TODO what? -->
+	<string name="send">Envoyer</string>
+	<string name="restaurant">restaurant</string>
+	<string name="datetime">datetime</string>
+	<string name="add">Ajouter</string>
+	<string name="cancel_dialog_string">Annuler</string>
 </resources>
