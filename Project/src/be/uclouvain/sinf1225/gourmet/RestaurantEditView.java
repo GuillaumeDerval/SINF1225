@@ -101,7 +101,8 @@ public class RestaurantEditView extends Activity
 				resto.setStars((int) Double.parseDouble("" + Stars.getRating())); // to be checked
 
 				Restaurant.updateRestaurant(resto); // to be checked
-				getFragmentManager().popBackStack(); // back to the previous view
+				finish();
+				//getFragmentManager().popBackStack(); // back to the previous view
 			}
 		});
 

@@ -26,7 +26,7 @@
         android:theme="@style/AppTheme"
         android:name="be.uclouvain.sinf1225.gourmet.Gourmet"
         android:clearTaskOnLaunch="true"
-        >
+        android:debuggable="true">
         <meta-data
     		android:name="com.google.android.maps.v2.API_KEY"
     		android:value="AIzaSyDOV0dZeIM3-f3cOGOV4gExvg0gVH5GOiY"/>
