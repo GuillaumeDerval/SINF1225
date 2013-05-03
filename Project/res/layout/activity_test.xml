@@ -10,4 +10,9 @@
         android:layout_height="wrap_content"
         android:text="Test Resto Edit" />
 
+    <Button
+        android:id="@+id/testRestoView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Test Resto View" />
 </LinearLayout>

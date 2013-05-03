@@ -77,7 +77,17 @@ public class TabLayoutActivity extends Activity
 	    actionBar.addTab(actionBar.newTab()
 	            .setText("Test")
 	            .setTabListener(new TabListener<TestView>(this, "test", TestView.class)));
+	    
+	    if (savedInstanceState != null)
+            actionBar.setSelectedNavigationItem(savedInstanceState.getInt("tab", 0));
 	}
+	
+	@Override
+    protected void onSaveInstanceState(Bundle outState)
+	{
+        super.onSaveInstanceState(outState);
+        outState.putInt("tab", getActionBar().getSelectedNavigationIndex());
+    }
 	
 	/**
 	 * Listener for tab changes
@@ -104,6 +114,7 @@ public class TabLayoutActivity extends Activity
 	        mTag = tag;
 	        mClass = clz;
 	        wasActive = false;
+	        mFragment = null;
 	    }
 
 	    /* The following are each of the ActionBar.TabListener callbacks */
@@ -116,9 +127,8 @@ public class TabLayoutActivity extends Activity
 	    		FragmentManager fm = mActivity.getFragmentManager();
 	    		prevFragment = fm.findFragmentByTag(mTag); 
 	    		if (prevFragment != null)
-	    		{ 
-	    			mFragment = prevFragment; 
-	    		}
+	    			mFragment = prevFragment;
+	    		
 	    	}
 	        
 	        if (mFragment == null)

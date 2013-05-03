@@ -39,5 +39,23 @@ public class TestView extends Fragment
 			    transaction.commit();
 			}	
 		});
+		
+		Button testRestoView = (Button)getActivity().findViewById(R.id.testRestoView);
+		testRestoView.setOnClickListener(new OnClickListener()
+		{
+			@Override
+			public void onClick(View arg0)
+			{
+				Fragment restaurantList = new RestaurantView(); //On crée le fragment
+			    Bundle args = new Bundle(); //un conteneur pour ses arguments
+			    args.putInt("restoId", 1);
+			    restaurantList.setArguments(args); //on lui assigne le conteneur
+			    
+			    FragmentTransaction transaction = getFragmentManager().beginTransaction(); //et on change de fragment.
+			    transaction.replace(android.R.id.content, restaurantList);
+			    transaction.addToBackStack(null);
+			    transaction.commit();
+			}	
+		});
 	}
 }
