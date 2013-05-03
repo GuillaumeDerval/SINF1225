@@ -45,7 +45,7 @@ public class CityListView extends Fragment implements GourmetLocationReceiver
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
-        //On défini le layout de ce fragment
+        //On dÔøΩfini le layout de ce fragment
         return inflater.inflate(R.layout.activity_city_list, container, false);
     }
 	
@@ -67,9 +67,9 @@ public class CityListView extends Fragment implements GourmetLocationReceiver
 		final Spinner sortType = (Spinner) getActivity().findViewById(R.id.CityListSort);
 		final RadioGroup sortDirection = (RadioGroup) getActivity().findViewById(R.id.CityListSortDirection);
 		
-		//On récupère la vue "liste"
+		//On rÔøΩcupÔøΩre la vue "liste"
 		final ListView cityList = (ListView) getActivity().findViewById(R.id.CityListView);
-		//On crée un adapter qui va mettre dans la liste les donnes adequates des villes
+		//On crÔøΩe un adapter qui va mettre dans la liste les donnes adequates des villes
 		CityAdapter adapter = new CityAdapter(getActivity(), R.layout.city_list_row, cities, locationListener.getLastLocation());
 		if(locationListener.getLastLocation() == null) //si on a pas de position GPS
 		{
@@ -100,7 +100,7 @@ public class CityListView extends Fragment implements GourmetLocationReceiver
 			     */
 			    
 			   
-			    Fragment restaurantList = new RestaurantListView(); //On crée le fragment
+			    Fragment restaurantList = new RestaurantListView(); //On crÔøΩe le fragment
 			    Bundle args = new Bundle(); //un conteneur pour ses arguments
 			    args.putString("name", city.getName());
 			    args.putString("country", city.getCountry());
@@ -152,7 +152,7 @@ public class CityListView extends Fragment implements GourmetLocationReceiver
 			@Override
 			public void onClick(View v)
 			{
-				Fragment restaurantList = new CityMapView(); //On crée le fragment
+				Fragment restaurantList = new CityMapView(); //On crÔøΩe le fragment
 			    Bundle args = new Bundle(); //un conteneur pour ses arguments
 			    restaurantList.setArguments(args); //on lui assigne le conteneur
 			    
