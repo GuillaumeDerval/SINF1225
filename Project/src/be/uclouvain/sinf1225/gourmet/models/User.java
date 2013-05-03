@@ -64,6 +64,7 @@ public class User
 		
 		GourmetDatabase db = new GourmetDatabase();
 		loggedUser = db.getUser(email,password, isHash);
+		db.close();
 		
 		return loggedUser == null ? UserManagerReturn.LOGIN_ERR : UserManagerReturn.LOGIN_OK;
 	}
