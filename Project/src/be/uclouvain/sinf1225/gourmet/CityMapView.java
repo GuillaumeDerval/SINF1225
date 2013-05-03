@@ -3,6 +3,7 @@ package be.uclouvain.sinf1225.gourmet;
 import java.util.HashMap;
 import java.util.List;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
@@ -17,23 +18,32 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class CityMapView extends MapFragment implements GourmetLocationReceiver
+
+public class CityMapView extends Activity implements GourmetLocationReceiver
 {
 	private GourmetLocationListener locationListener;
 	private HashMap<Marker,City> markerToCity = null;
 	
-	@Override
-	public void onActivityCreated(Bundle savedInstanceState)
+	protected GoogleMap getMap()
 	{
-		super.onActivityCreated(savedInstanceState);
+		return ((MapFragment) getFragmentManager().findFragmentById(R.id.CityListMap)).getMap();
+	}
+	
+	@Override
+	public void onCreate(Bundle savedInstanceState)
+	{
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_city_list_map);
 		
 		// Initialisation des services de localisation
-		locationListener = new GourmetLocationListener(getActivity(),this).init();
-				
+		locationListener = new GourmetLocationListener(this,this).init();
+		
+		GoogleMap map = getMap();
+		
 		if(markerToCity == null)
 		{
 			markerToCity = new HashMap<Marker,City>();
-			this.getMap().setMapType(GoogleMap.MAP_TYPE_HYBRID);
+			map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
 		
 			List<City> cities = City.getAllCities();
 			for(City city : cities)
@@ -44,14 +54,14 @@ public class CityMapView extends MapFragment implements GourmetLocationReceiver
 				markerToCity.put(marker, city);
 			}
 			
-			this.getMap().setOnMarkerClickListener(new OnMarkerClickListener()
+			map.setOnMarkerClickListener(new OnMarkerClickListener()
 			{
 				@Override
 				public boolean onMarkerClick(Marker arg0)
 				{
 					City city = markerToCity.get(arg0);
 					
-					Intent intent = new Intent(CityMapView.this.getActivity(), RestaurantListView.class);
+					Intent intent = new Intent(CityMapView.this, RestaurantListView.class);
 				    intent.putExtra("name", city.getName());
 				    intent.putExtra("country", city.getCountry());
 				    startActivity(intent);
@@ -65,16 +75,26 @@ public class CityMapView extends MapFragment implements GourmetLocationReceiver
 	@Override
 	public void onPause()
 	{
-		locationListener.close();
+		if(locationListener != null)
+			locationListener.close();
 		locationListener = null;
-		super.onStop();
+		super.onPause();
+	}
+	
+	@Override
+	public void onStop()
+	{
+		if(locationListener != null)
+			locationListener.close();
+		locationListener = null;
+		super.onPause();
 	}
 	
 	@Override
 	public void onResume()
 	{
 		if(locationListener == null)
-			locationListener = new GourmetLocationListener(getActivity(),this);
+			locationListener = new GourmetLocationListener(this,this);
 		super.onResume();
 	}
 	
