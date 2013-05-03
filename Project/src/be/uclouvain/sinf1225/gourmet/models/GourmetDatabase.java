@@ -24,7 +24,7 @@ import android.location.Location;
  */
 class GourmetDatabase extends SQLiteOpenHelper
 {
-	private static final int DATABASE_VERSION = 11;
+	private static final int DATABASE_VERSION = 14;
     private static final String DATABASE_NAME = "gourmet";
     private Context context;
     
@@ -198,9 +198,9 @@ class GourmetDatabase extends SQLiteOpenHelper
 		SQLiteDatabase db = this.getWritableDatabase();
 		 
 	    ContentValues values = new ContentValues();
+	    values.put("path", img.getPath());
 	    values.put("objectType", img.getObjectType());
 	    values.put("objectId", img.getObjectId());
-	    values.put("path", img.getPath());
 	    values.put("legend", img.getLegend());
 	    db.insert("image", null, values);
 	    

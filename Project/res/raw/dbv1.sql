@@ -71,11 +71,11 @@ CREATE TABLE "image"
 (
 	"path" text NOT NULL,
 	"objectType" text NOT NULL,
-	"legend" text NOT NULL,
+	"legend" text,
 	"objectId" integer NOT NULL,
 	PRIMARY KEY("path")
 );
-INSERT INTO "image" VALUES ('pathbidon','restaurant', '1',1);
+INSERT INTO "image" VALUES ('pathbidon','restaurant', 'superbephoto',1);
 DROP TABLE IF EXISTS "reservationDish";
 CREATE TABLE "reservationDish"
 (

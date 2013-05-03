@@ -3,6 +3,7 @@ package be.uclouvain.sinf1225.gourmet;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -95,9 +96,7 @@ public class RestaurantEditView extends Activity
 				resto.setSeats(Integer.parseInt(EditSeats.getText().toString()));
 				resto.setDescription(EditDescription.getText().toString());
 				resto.setWebsite(EditWebsite.getText().toString());
-				resto.setName(EditName.getText().toString());
 				resto.setStars((int)Stars.getRating()); // to be checked
-
 				Restaurant.updateRestaurant(resto); // to be checked
 				finish();
 			}
