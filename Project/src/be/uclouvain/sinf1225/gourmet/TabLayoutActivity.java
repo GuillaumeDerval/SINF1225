@@ -72,6 +72,10 @@ public class TabLayoutActivity extends Activity
 	    actionBar.addTab(actionBar.newTab()
 	            .setText(R.string.action_user)
 	            .setTabListener(new TabListener<PreferenceManagerView>(this, "preference", PreferenceManagerView.class)));
+	    
+	    actionBar.addTab(actionBar.newTab()
+	            .setText("Test")
+	            .setTabListener(new TabListener<TestView>(this, "test", TestView.class)));
 	}
 	
 	/**
