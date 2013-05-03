@@ -53,6 +53,8 @@ CREATE UNIQUE INDEX "dish_p_key" ON "dish" ("name" ASC, "restoId" ASC, "descript
 
 INSERT INTO "dish" VALUES (1,'Courgette ', 1, 'Green', 10, 1, 1, 1, 1, 'Entree');
 
+
+
 DROP TABLE IF EXISTS "reservation";
 CREATE TABlE "reservation"
 (
@@ -64,7 +66,16 @@ CREATE TABlE "reservation"
 	CONSTRAINT "resto_name_contrainte" FOREIGN KEY ("resto") REFERENCES "restaurant" ("name"),
 	CONSTRAINT "user_contrainte" FOREIGN KEY ("user") REFERENCES "user" ("name")
 );
-
+DROP TABLE IF EXISTS "image";
+CREATE TABLE "image"
+(
+	"path" text NOT NULL,
+	"objectType" text NOT NULL,
+	"legend" text NOT NULL,
+	"objectId" integer NOT NULL,
+	PRIMARY KEY("path")
+);
+INSERT INTO "image" VALUES ('pathbidon','restaurant', '1',1);
 DROP TABLE IF EXISTS "reservationDish";
 CREATE TABLE "reservationDish"
 (

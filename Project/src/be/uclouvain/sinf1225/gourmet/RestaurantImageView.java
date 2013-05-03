@@ -97,7 +97,7 @@ public class RestaurantImageView extends Activity
             @Override
 			public void onClick(View v) 
             {
-            	getFragmentManager().popBackStack(); // back to the previous view 
+            	finish(); // back to the previous view 
             }
         });
 	}

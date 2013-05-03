@@ -62,7 +62,7 @@ public class ViewRestaurantImage extends Activity
 					imgFile.delete(); // delete the file
 				}
 				Image.deleteImage(getIntent().getExtras().getString("path")); // delete the image in the database
-				getFragmentManager().popBackStack();
+				finish();
 			}
 		});
 	}

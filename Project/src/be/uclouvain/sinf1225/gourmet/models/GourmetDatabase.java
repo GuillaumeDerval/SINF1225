@@ -24,7 +24,7 @@ import android.location.Location;
  */
 class GourmetDatabase extends SQLiteOpenHelper
 {
-	private static final int DATABASE_VERSION = 2;
+	private static final int DATABASE_VERSION = 11;
     private static final String DATABASE_NAME = "gourmet";
     private Context context;
     
@@ -200,8 +200,8 @@ class GourmetDatabase extends SQLiteOpenHelper
 	    ContentValues values = new ContentValues();
 	    values.put("objectType", img.getObjectType());
 	    values.put("objectId", img.getObjectId());
-	    values.put("chemin", img.getPath());
-	    values.put("legende", img.getLegend());
+	    values.put("path", img.getPath());
+	    values.put("legend", img.getLegend());
 	    db.insert("image", null, values);
 	    
 	    db.close(); // Closing database connection
@@ -224,7 +224,7 @@ class GourmetDatabase extends SQLiteOpenHelper
 	public void deleteImage(String path)
 	{
 		SQLiteDatabase db = this.getWritableDatabase();
-	    db.delete("image", "`chemin` = ?", new String[] {path});
+	    db.delete("image", "`path` = ?", new String[] {path});
 	    db.close();
 	}
 	/**
@@ -236,7 +236,7 @@ class GourmetDatabase extends SQLiteOpenHelper
 		SQLiteDatabase db = this.getReadableDatabase();
 		
 		Cursor cursor = db.query("image", //table to select on
-				new String[]{"legende","chemin","objetType","objectId"}, //column to get
+				new String[]{"legend","path","objectType","objectId"}, //column to get
 				 "`objectType` = ? AND `objectId` = ?", //where
 				new String[] {type, ""+id}, //where string
 				null, //group by
@@ -272,7 +272,7 @@ class GourmetDatabase extends SQLiteOpenHelper
 		SQLiteDatabase db = this.getReadableDatabase();
 		
 		Cursor cursor = db.query("image", //table to select on
-				new String[]{"legende","chemin","objetType","objectId"}, //column to get
+				new String[]{"legend","path","objectType","objectId"}, //column to get
 				 "`objectId` = ? AND `objectType` = ? ", //where
 				new String[] {""+objectId, objectType}, //where string
 				null, //group by
@@ -300,7 +300,7 @@ class GourmetDatabase extends SQLiteOpenHelper
 		SQLiteDatabase db = this.getReadableDatabase();
 		
 		Cursor cursor = db.query("image", //table to select on
-				new String[]{"legende","chemin","objetType","objectId"}, //column to get
+				new String[]{"legend","path","objectType","objectId"}, //column to get
 				 "`rowId` = ?", //where
 				new String[] {""+imageId}, //where string
 				null, //group by
@@ -479,7 +479,7 @@ class GourmetDatabase extends SQLiteOpenHelper
 		ContentValues values = new ContentValues();
 		values.put("name", restaurant.getName());
 		values.put("cityName", restaurant.getCity().getName());
-		values.put("adress", restaurant.getAddress());
+		values.put("address", restaurant.getAddress());
 		values.put("longitude", restaurant.getLocation().getLongitude());
 		values.put("latitude", restaurant.getLocation().getLatitude());
 		values.put("description", restaurant.getDescription());
