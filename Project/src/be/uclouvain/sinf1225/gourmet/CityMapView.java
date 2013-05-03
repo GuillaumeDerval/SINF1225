@@ -3,8 +3,7 @@ package be.uclouvain.sinf1225.gourmet;
 import java.util.HashMap;
 import java.util.List;
 
-import android.app.Fragment;
-import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import be.uclouvain.sinf1225.gourmet.models.City;
@@ -52,16 +51,10 @@ public class CityMapView extends MapFragment implements GourmetLocationReceiver
 				{
 					City city = markerToCity.get(arg0);
 					
-					Fragment restaurantList = new RestaurantListView(); //On crée le fragment
-				    Bundle args = new Bundle(); //un conteneur pour ses arguments
-				    args.putString("name", city.getName());
-				    args.putString("country", city.getCountry());
-				    restaurantList.setArguments(args); //on lui assigne le conteneur
-				    
-				    FragmentTransaction transaction = getFragmentManager().beginTransaction(); //et on change de fragment.
-				    transaction.replace(android.R.id.content, restaurantList);
-				    transaction.addToBackStack(null);
-				    transaction.commit();
+					Intent intent = new Intent(CityMapView.this.getActivity(), RestaurantListView.class);
+				    intent.putExtra("name", city.getName());
+				    intent.putExtra("country", city.getCountry());
+				    startActivity(intent);
 				    
 					return true;
 				}

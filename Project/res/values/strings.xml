@@ -18,4 +18,7 @@
 	<string name="datetime">datetime</string>
 	<string name="add">Ajouter</string>
 	<string name="cancel_dialog_string">Annuler</string>
+	<string name="search">Restaurants</string>
+	<string name="reservations">Réservations</string>
+	<string name="preferences">Préférences</string>
 </resources>

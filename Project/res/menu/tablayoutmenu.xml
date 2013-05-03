@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:id="@+id/search"
+          android:title="@string/search" android:menuCategory="container" android:showAsAction="always">
+    </item>
+    <item android:id="@+id/reservations"
+          android:title="@string/reservations" android:menuCategory="container" android:showAsAction="always">
+    </item>
+    <item android:id="@+id/preferences"
+          android:title="@string/preferences" android:menuCategory="container" android:showAsAction="always">
+    </item>
     <item android:id="@+id/logout"
           android:title="@string/logout" android:menuCategory="secondary">
+    </item>
+    <item android:id="@+id/test"
+          android:title="Test" android:menuCategory="secondary">
     </item>
 </menu>

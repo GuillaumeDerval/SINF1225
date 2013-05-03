@@ -1,61 +1,55 @@
 package be.uclouvain.sinf1225.gourmet;
 
-import android.app.Fragment;
-import android.app.FragmentTransaction;
+import be.uclouvain.sinf1225.gourmet.utils.GourmetUtils;
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.widget.Button;
 
-public class TestView extends Fragment
+public class TestView extends Activity
 {
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+	public boolean onCreateOptionsMenu(Menu menu)
 	{
-		//On défini le layout de ce fragment
-		return inflater.inflate(R.layout.activity_test, container, false);
+	    GourmetUtils.createMenu(menu, this, R.id.test);
+	    return true;
 	}
-
-	@Override
-	public void onActivityCreated(Bundle savedInstanceState)
+	
+	public boolean onOptionsItemSelected(MenuItem item)
 	{
-		super.onActivityCreated(savedInstanceState);
-		Button testRestoEdit = (Button)getActivity().findViewById(R.id.testRestoEdit);
+		return GourmetUtils.onMenuItemSelected(item, this);
+	}
+	
+	@Override
+	public void onCreate(Bundle savedInstanceState)
+	{
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_test);
+		Button testRestoEdit = (Button) findViewById(R.id.testRestoEdit);
 		testRestoEdit.setOnClickListener(new OnClickListener()
 		{
 			@Override
 			public void onClick(View arg0)
 			{
-				Fragment restaurantList = new RestaurantEditView(); //On crée le fragment
-			    Bundle args = new Bundle(); //un conteneur pour ses arguments
-			    args.putInt("restoId", 1);
-			    restaurantList.setArguments(args); //on lui assigne le conteneur
-			    
-			    FragmentTransaction transaction = getFragmentManager().beginTransaction(); //et on change de fragment.
-			    transaction.replace(android.R.id.content, restaurantList);
-			    transaction.addToBackStack(null);
-			    transaction.commit();
-			}	
+				Intent intent = new Intent(TestView.this, RestaurantEditView.class);
+			    intent.putExtra("restoId", 1);
+			    startActivity(intent);
+			}
 		});
-		
-		Button testRestoView = (Button)getActivity().findViewById(R.id.testRestoView);
+
+		Button testRestoView = (Button) findViewById(R.id.testRestoView);
 		testRestoView.setOnClickListener(new OnClickListener()
 		{
 			@Override
 			public void onClick(View arg0)
 			{
-				Fragment restaurantList = new RestaurantView(); //On crée le fragment
-			    Bundle args = new Bundle(); //un conteneur pour ses arguments
-			    args.putInt("restoId", 1);
-			    restaurantList.setArguments(args); //on lui assigne le conteneur
-			    
-			    FragmentTransaction transaction = getFragmentManager().beginTransaction(); //et on change de fragment.
-			    transaction.replace(android.R.id.content, restaurantList);
-			    transaction.addToBackStack(null);
-			    transaction.commit();
-			}	
+				Intent intent = new Intent(TestView.this, RestaurantView.class);
+			    intent.putExtra("restoId", 1);
+			    startActivity(intent);
+			}
 		});
 	}
 }

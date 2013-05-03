@@ -6,7 +6,21 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.security.MessageDigest;
 
+import be.uclouvain.sinf1225.gourmet.CityListView;
+import be.uclouvain.sinf1225.gourmet.LoginView;
+import be.uclouvain.sinf1225.gourmet.PreferenceManagerView;
+import be.uclouvain.sinf1225.gourmet.R;
+import be.uclouvain.sinf1225.gourmet.ReservationManagerView;
+import be.uclouvain.sinf1225.gourmet.TestView;
+import be.uclouvain.sinf1225.gourmet.models.User;
+
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 /**
  * Utilities
@@ -14,6 +28,54 @@ import android.content.Context;
  */
 public class GourmetUtils
 {
+	public static void createMenu(Menu menu, Activity view, int nowId)
+	{
+		view.getActionBar().setDisplayShowTitleEnabled(false);
+		
+		MenuInflater inflater = view.getMenuInflater();
+	    inflater.inflate(R.menu.tablayoutmenu, menu);
+	    
+	    MenuItem item = menu.findItem(nowId);
+	    item.setVisible(false);
+	}
+	
+	public static boolean onMenuItemSelected(MenuItem item, Activity view)
+	{
+		if(item.getItemId() == R.id.search)
+		{
+			Intent intent = new Intent(view, CityListView.class);
+		    view.startActivity(intent);
+		}
+		else if(item.getItemId() == R.id.reservations)
+		{
+			Intent intent = new Intent(view, ReservationManagerView.class);
+		    view.startActivity(intent);
+		}
+		else if(item.getItemId() == R.id.preferences)
+		{
+			Intent intent = new Intent(view, PreferenceManagerView.class);
+		    view.startActivity(intent);
+		}
+		else if(item.getItemId() == R.id.logout)
+		{
+			//Update last login values
+        	SharedPreferences sp = view.getSharedPreferences("gourmetLogin",Context.MODE_PRIVATE);
+        	sp.edit().putString("email", "").putString("passwordHash", "").commit();
+
+        	User.logoutUser();
+        	Intent intent = new Intent(view, LoginView.class);
+			view.startActivity(intent);
+		}
+		else if(item.getItemId() == R.id.test)
+		{
+			Intent intent = new Intent(view, TestView.class);
+		    view.startActivity(intent);
+		}
+		else
+			return false;
+		return true;
+	}
+	
 	/**
 	 * Read raw ressource
 	 * @param context Context from which function is called

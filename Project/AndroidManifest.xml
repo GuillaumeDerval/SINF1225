@@ -30,17 +30,69 @@
     		android:name="com.google.android.maps.v2.API_KEY"
     		android:value="AIzaSyDOV0dZeIM3-f3cOGOV4gExvg0gVH5GOiY"/>
         <activity
-            android:name="be.uclouvain.sinf1225.gourmet.TabLayoutActivity"
-            android:label="@string/app_name" >
-        </activity>
-        <activity
             android:name="be.uclouvain.sinf1225.gourmet.LoginView"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:launchMode="singleInstance">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name="be.uclouvain.sinf1225.gourmet.CityListView"
+            android:label="@string/app_name"
+            android:launchMode="singleTask">
+        </activity>
+        <activity
+            android:name="be.uclouvain.sinf1225.gourmet.CityMapView"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="be.uclouvain.sinf1225.gourmet.DishEditView"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="be.uclouvain.sinf1225.gourmet.ImageGalleryActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="be.uclouvain.sinf1225.gourmet.PreferenceManagerView"
+            android:label="@string/app_name"
+            android:launchMode="singleTask">
+        </activity>
+        <activity
+            android:name="be.uclouvain.sinf1225.gourmet.ReservationManagerView"
+            android:label="@string/app_name"
+            android:launchMode="singleTask">
+        </activity>
+        <activity
+            android:name="be.uclouvain.sinf1225.gourmet.RestaurantEditView"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="be.uclouvain.sinf1225.gourmet.RestaurantImageView"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="be.uclouvain.sinf1225.gourmet.RestaurantListView"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="be.uclouvain.sinf1225.gourmet.RestaurantView"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="be.uclouvain.sinf1225.gourmet.TestView"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="be.uclouvain.sinf1225.gourmet.ViewDishImage"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="be.uclouvain.sinf1225.gourmet.ViewRestaurantImage"
+            android:label="@string/app_name" >
         </activity>
     </application>
 

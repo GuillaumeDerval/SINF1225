@@ -3,49 +3,54 @@ package be.uclouvain.sinf1225.gourmet;
 import be.uclouvain.sinf1225.gourmet.models.City;
 import be.uclouvain.sinf1225.gourmet.utils.GourmetLocationListener;
 import be.uclouvain.sinf1225.gourmet.utils.GourmetLocationReceiver;
-import android.app.Fragment;
+import be.uclouvain.sinf1225.gourmet.utils.GourmetUtils;
+import android.app.Activity;
 import android.location.Location;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class RestaurantListView extends Fragment implements GourmetLocationReceiver
+public class RestaurantListView extends Activity implements GourmetLocationReceiver
 {
 	private GourmetLocationListener locationListener;
 	private City city = null;
 	
-	@Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+	public boolean onCreateOptionsMenu(Menu menu)
 	{
-        //On défini le layout de ce fragment
-        return inflater.inflate(R.layout.activity_restaurant_list, container, false);
-    }
+	    GourmetUtils.createMenu(menu, this, R.id.search);
+	    return true;
+	}
+	
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		return GourmetUtils.onMenuItemSelected(item, this);
+	}
 	
 	@Override
-	public void onActivityCreated(Bundle savedInstanceState)
+	public void onCreate(Bundle savedInstanceState)
 	{
-		super.onActivityCreated(savedInstanceState);
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_restaurant_list);
 		
 		// Initialisation des services de localisation
-		locationListener = new GourmetLocationListener(getActivity(),this).init();
+		locationListener = new GourmetLocationListener(this,this).init();
 				
-		city = City.getCity(getArguments().getString("name"), getArguments().getString("country"));
+		city = City.getCity(getIntent().getExtras().getString("name"), getIntent().getExtras().getString("country"));
 		
-		((TextView)getActivity().findViewById(R.id.RestaurantListName)).setText(city.getName());
-		((TextView)getActivity().findViewById(R.id.RestaurantListCountry)).setText(city.getCountry());
-		//((TextView)findViewById(R.id.RestaurantListDistance)).setText(new DecimalFormat("#.##").format(city.getLocation().distanceTo(locationListener.getLastLocation())/1000));
+		((TextView)findViewById(R.id.RestaurantListName)).setText(city.getName());
+		((TextView)findViewById(R.id.RestaurantListCountry)).setText(city.getCountry());
 		
-		final Button button = (Button)getActivity().findViewById(R.id.RestaurantListRetour);
+		final Button button = (Button)findViewById(R.id.RestaurantListRetour);
 		button.setOnClickListener(new OnClickListener()
 		{
 			@Override
 			public void onClick(View arg0)
 			{
-				getFragmentManager().popBackStack(); //return to CityListView
+				finish();
 			}
 		});
 	}
@@ -53,7 +58,17 @@ public class RestaurantListView extends Fragment implements GourmetLocationRecei
 	@Override
 	public void onPause()
 	{
-		locationListener.close();
+		if(locationListener != null)
+			locationListener.close();
+		locationListener = null;
+		super.onPause();
+	}
+	
+	@Override
+	public void onStop()
+	{
+		if(locationListener != null)
+			locationListener.close();
 		locationListener = null;
 		super.onStop();
 	}
@@ -62,7 +77,7 @@ public class RestaurantListView extends Fragment implements GourmetLocationRecei
 	public void onResume()
 	{
 		if(locationListener == null)
-			locationListener = new GourmetLocationListener(getActivity(),this);
+			locationListener = new GourmetLocationListener(this,this);
 		super.onResume();
 	}
 	

@@ -31,7 +31,7 @@ public class LoginView extends Activity
 		
 		if(User.isUserConnected())
 		{
-			Intent intent = new Intent(this, TabLayoutActivity.class);
+			Intent intent = new Intent(this, CityListView.class);
 			startActivity(intent);
 			finish();
 		}
@@ -86,7 +86,7 @@ public class LoginView extends Activity
 						sp.edit().putString("email", email.getText().toString()).putString("passwordHash", GourmetUtils.sha1(password.getText().toString())).commit();
 						
 						//Start tab activity
-						Intent intent = new Intent(LoginView.this, TabLayoutActivity.class);
+						Intent intent = new Intent(LoginView.this, CityListView.class);
 						startActivity(intent);
 						finish();
 					}
