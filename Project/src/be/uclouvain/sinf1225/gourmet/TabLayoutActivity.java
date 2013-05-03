@@ -5,6 +5,7 @@ import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.Activity;
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
@@ -109,6 +110,17 @@ public class TabLayoutActivity extends Activity
 
 	    public void onTabSelected(Tab tab, FragmentTransaction ft)
 	    {
+	    	if (mFragment == null)
+	    	{
+	    		Fragment prevFragment;
+	    		FragmentManager fm = mActivity.getFragmentManager();
+	    		prevFragment = fm.findFragmentByTag(mTag); 
+	    		if (prevFragment != null)
+	    		{ 
+	    			mFragment = prevFragment; 
+	    		}
+	    	}
+	        
 	        if (mFragment == null)
 	        {
 	            mFragment = Fragment.instantiate(mActivity, mClass.getName());
