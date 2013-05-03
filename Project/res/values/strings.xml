@@ -11,13 +11,11 @@
 		<item>Distance</item>
 		<item>Restaurants</item>
     </string-array>
-    
 	<string name="hello_world">hello_world</string> <!-- TODO what? -->
 	<string name="salut">salut</string> <!-- TODO what? -->
 	<string name="send">Envoyer</string>
 	<string name="restaurant">restaurant</string>
 	<string name="datetime">datetime</string>
 	<string name="add">Ajouter</string>
-	
-	
+	<string name="cancel_dialog_string">Annuler</string>
 </resources>

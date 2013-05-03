@@ -139,7 +139,6 @@ public class CityAdapter extends ArrayAdapter<City>
         this.filteredCities = new ArrayList<City>(cities);
         this.lastLocation = loc;
     }
-
     /**
      * Update location of the reference point, and update distances of each cities
      * @param loc base location from which calculate distance

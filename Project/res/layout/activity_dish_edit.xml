@@ -72,13 +72,22 @@
                     android:id="@+id/buttonDishApply"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="left"
                     android:text="Apply" />
 
                 <Button
                     android:id="@+id/buttonDishDelete"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:text="Delete" />
+
+                <Button
+                    android:id="@+id/dishImageButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:text="Image" />
 
             </LinearLayout>
 
