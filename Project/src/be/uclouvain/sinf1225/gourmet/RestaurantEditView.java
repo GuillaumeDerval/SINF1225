@@ -41,22 +41,19 @@ public class RestaurantEditView extends Activity
 
 		// creation of the buttons
 		final EditText EditName = (EditText) this.findViewById(R.id.EditName);
-		final EditText EditCity = (EditText) this.findViewById(R.id.EditCity);
 		final EditText EditPhone = (EditText) this.findViewById(R.id.EditPhoneNumber);
 		final EditText EditAdress = (EditText) this.findViewById(R.id.EditAdress);
-		final EditText EditPriceCat = (EditText) this.findViewById(R.id.EditPriceCat);
+		final EditText EditPriceCat = (EditText) this.findViewById(R.id.EditPriceCat); //TODO should be a spinner
 		final EditText EditEmail = (EditText) this.findViewById(R.id.EditEmail);
 		final EditText EditSeats = (EditText) this.findViewById(R.id.EditSeats);
 		final EditText EditDescription = (EditText) this.findViewById(R.id.EditDescription);
 		final EditText EditWebsite = (EditText) this.findViewById(R.id.EditWebsite);
 		final RatingBar Stars = (RatingBar) this.findViewById(R.id.restaurantStars);
-
 		final Button ApplyButton = (Button) this.findViewById(R.id.buttonApply);
 		final Button imageButton = (Button) this.findViewById(R.id.seeImageRestaurant);
 
 		// field's init
 		EditName.setText(resto.getName());
-		EditCity.setText(resto.getCity().getName());
 		EditPhone.setText(resto.getPhone());
 		EditAdress.setText(resto.getAddress());
 		// EditPriceCat.setText(resto.getPriceCate());
@@ -65,9 +62,11 @@ public class RestaurantEditView extends Activity
 		EditDescription.setText(resto.getDescription());
 		EditWebsite.setText(resto.getWebsite());
 
-		Stars.setMax(5); // set max =5! Just to be sure
-		Stars.setNumStars(resto.getStars());
-
+		Stars.setNumStars(5);
+		Stars.setMax(5); // set max just to be sure
+		Stars.setRating(resto.getStars());
+		Stars.setStepSize(1);
+		
 		imageButton.setOnClickListener(new View.OnClickListener()
 		{
 			/**
@@ -89,7 +88,6 @@ public class RestaurantEditView extends Activity
 			public void onClick(View v)
 			{
 				resto.setName(EditName.getText().toString());
-				// resto.setCity(EditCity.getText().toString());
 				resto.setPhone(EditPhone.getText().toString());
 				resto.setAddress(EditAdress.getText().toString());
 				// resto.setPriceCate(Integer.parseInt(EditPriceCat.getText().toString()));
@@ -98,11 +96,10 @@ public class RestaurantEditView extends Activity
 				resto.setDescription(EditDescription.getText().toString());
 				resto.setWebsite(EditWebsite.getText().toString());
 				resto.setName(EditName.getText().toString());
-				resto.setStars((int) Double.parseDouble("" + Stars.getRating())); // to be checked
+				resto.setStars((int)Stars.getRating()); // to be checked
 
 				Restaurant.updateRestaurant(resto); // to be checked
 				finish();
-				//getFragmentManager().popBackStack(); // back to the previous view
 			}
 		});
 

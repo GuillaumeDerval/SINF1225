@@ -1,113 +1,103 @@
-<?xml version="1.0" encoding="utf-8"?>  
-<ScrollView  
-    xmlns:android="http://schemas.android.com/apk/res/android"  
-    android:id="@+id/ScrollView01"  
-    android:layout_width="wrap_content"  
-    android:layout_height="wrap_content"  
-    android:scrollbars="vertical">  
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ScrollView01"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:scrollbars="vertical" >
 
     <LinearLayout
         android:layout_width="316dp"
         android:layout_height="372dp"
         android:orientation="vertical" >
-  
-<!--Put form controls here-->  
 
-    <EditText
-        android:id="@+id/EditName"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:text="Name" >
-  
-    </EditText> 
-    <EditText  
-    android:id="@+id/EditCity"  
-    android:layout_height="wrap_content"    
-    android:layout_width="fill_parent"
-    android:text="City" >  
-</EditText> 
+        <!-- Put form controls here -->
 
         <EditText
-        android:id="@+id/EditPhoneNumber"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="PhoneNumber" >
-  
-    </EditText>
-    
-       <EditText  
-        android:id="@+id/EditAdress"  
-        android:layout_height="wrap_content"  
-        android:lines="3"  
-        android:layout_width="fill_parent"
-        android:text="Adress">  
-    </EditText>  
-       <EditText
-        android:id="@+id/EditPriceCat"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="PriceCat" >
-  
-    </EditText>
-           <EditText
-        android:id="@+id/EditEmail"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Email" >
-  
-    </EditText>
+            android:id="@+id/EditName"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:text="Name" >
+        </EditText>
 
-
-           <EditText
-        android:id="@+id/EditSeats"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Max seats" >
-  
-    </EditText>
         <EditText
-        android:id="@+id/EditDescription"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:lines="3"  
-        android:text="Description" >
-  
-    </EditText> 
-            <EditText
-        android:id="@+id/EditWebsite"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Website" >
-  
-    </EditText> 
+            android:id="@+id/EditPhoneNumber"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="PhoneNumber" >
+        </EditText>
 
-   	<RatingBar
-                   android:id="@+id/restaurantStars"
-                   android:layout_width="280dp"
-                   android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/EditAdress"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:lines="3"
+            android:text="Adress" >
+        </EditText>
 
-   	<LinearLayout
-   	    android:layout_width="match_parent"
-   	    android:layout_height="wrap_content" >
-   	           	   	       	<Button
-   	    android:id="@+id/seeImageRestaurant"
-        android:paddingLeft="10dip"
-        android:layout_weight="0.5"
-   	    android:layout_width="wrap_content"
-   	    android:layout_height="wrap_content"
-   	    android:layout_gravity="left"
-   	    android:text="Image" />
-   	       	<Button
-   	    android:id="@+id/buttonApply"
-   	    android:paddingLeft="10dip"
-        android:layout_weight="0.5"
-   	    android:layout_width="wrap_content"
-   	    android:layout_height="wrap_content"
-   	    android:layout_gravity="right"
-   	    android:text="Apply" />
-   	
-   	</LinearLayout>
- 
-    </LinearLayout>  
-</ScrollView> 
+        <EditText
+            android:id="@+id/EditPriceCat"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="PriceCat" >
+        </EditText>
+
+        <EditText
+            android:id="@+id/EditEmail"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Email" >
+        </EditText>
+
+        <EditText
+            android:id="@+id/EditSeats"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Max seats" >
+        </EditText>
+
+        <EditText
+            android:id="@+id/EditDescription"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:lines="3"
+            android:text="Description" >
+        </EditText>
+
+        <EditText
+            android:id="@+id/EditWebsite"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Website" >
+        </EditText>
+
+        <RatingBar
+            android:id="@+id/restaurantStars"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <Button
+                android:id="@+id/seeImageRestaurant"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_weight="0.5"
+                android:paddingLeft="10dip"
+                android:text="Image" />
+
+            <Button
+                android:id="@+id/buttonApply"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_weight="0.5"
+                android:paddingLeft="10dip"
+                android:text="Apply" />
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>

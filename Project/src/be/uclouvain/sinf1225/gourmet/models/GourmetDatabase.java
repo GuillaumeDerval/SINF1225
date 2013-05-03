@@ -479,6 +479,7 @@ class GourmetDatabase extends SQLiteOpenHelper
 		ContentValues values = new ContentValues();
 		values.put("name", restaurant.getName());
 		values.put("cityName", restaurant.getCity().getName());
+		values.put("cityCountry", restaurant.getCity().getCountry());
 		values.put("address", restaurant.getAddress());
 		values.put("longitude", restaurant.getLocation().getLongitude());
 		values.put("latitude", restaurant.getLocation().getLatitude());
@@ -486,10 +487,10 @@ class GourmetDatabase extends SQLiteOpenHelper
 		values.put("email", restaurant.getEmail());
 		values.put("stars", restaurant.getStars());
 		values.put("phone", restaurant.getPhone());
-		values.put("website", restaurant.getName());
+		values.put("website", restaurant.getWebsite());
 		values.put("seats", restaurant.getSeats());
 		values.put("priceCat", restaurant.getPriceCategory().ordinal());
-		db.update("restaurant", values, "'restoId' = ?", new String[]{ ""+restaurant.getId()});
+		db.update("restaurant", values, "`restoId` = ?", new String[]{ ""+restaurant.getId()});
 	}
 	
 	/**
