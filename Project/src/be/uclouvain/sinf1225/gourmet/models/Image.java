@@ -16,11 +16,11 @@ public class Image
 	private int objectId;
 	
 	/**
-	 *  Images are define by a legend , a path, an object type ( restaurant / dish) and the id of this object
-	 * @param name
+	 * Images are define by a legend , a path, an object type ( restaurant / dish) and the id of this object
+	 * @param legend
 	 * @param path
-	 * @param objetType
-	 * @param objetId
+	 * @param objectType
+	 * @param objectId
 	 */
 	public Image(String legend, String path, String objectType, int objectId) 
 	{
@@ -30,10 +30,7 @@ public class Image
 		this.objectType = objectType;
 		this.objectId = objectId;
 	}
-	public Image() 
-	{
-		super();
-	}
+	
 	/**
 	 * add an image in the database
 	 * @param img

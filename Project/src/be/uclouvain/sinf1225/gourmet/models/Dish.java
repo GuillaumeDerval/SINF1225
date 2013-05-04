@@ -75,7 +75,7 @@ public class Dish
 	/**
 	 * get dish in database
 	 * @param dishId
-	 * @return
+	 * @return dish object if it exists.
 	 */
 	public static Dish getDish(int dishId)
 	{

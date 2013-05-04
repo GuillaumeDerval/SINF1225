@@ -39,11 +39,7 @@ public class Restaurant
 	 * @param description
 	 * @param stars
 	 * @param email
-	 * @param reservations
-	 * @param dishes
 	 */
-	
-	public Restaurant(){}
 	public Restaurant(int id, City city, String name, String address, PriceCategory priceCategory, 
 			Location location, String phone, int seats, String website, String description,
 			int stars, String email)
@@ -63,6 +59,7 @@ public class Restaurant
 		this.reservations = null;
 		this.dishes = null;
 	}
+	
 	/**
 	 * update restaurant in DB
 	 * @param restaurant
@@ -76,7 +73,7 @@ public class Restaurant
 	/**
 	 * getRestaurant in DB
 	 * @param restoId
-	 * @return
+	 * @return Restaurant object if it exists in DB, null else.
 	 */
 	public static Restaurant getRestaurant(int restoId)
 	{

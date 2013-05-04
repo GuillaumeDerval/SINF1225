@@ -137,7 +137,7 @@ public class CityListView extends Activity implements GourmetLocationReceiver
 		});
 		
 		final Button mapActivate = (Button) findViewById(R.id.CityListMapActivate);
-		if(GooglePlayServicesUtil.isGooglePlayServicesAvailable(this) != ConnectionResult.SUCCESS)
+		if(!GourmetUtils.hasGooglePlayServicesLib())
 			mapActivate.setVisibility(View.GONE);
 		
 		mapActivate.setOnClickListener(new OnClickListener()
