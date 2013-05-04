@@ -5,10 +5,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.StringTokenizer;
 
-import be.uclouvain.sinf1225.gourmet.Gourmet;
-import be.uclouvain.sinf1225.gourmet.R;
-import be.uclouvain.sinf1225.gourmet.enums.PriceCategory;
-import be.uclouvain.sinf1225.gourmet.utils.GourmetUtils;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -16,6 +12,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.location.Location;
 import android.util.Log;
+import be.uclouvain.sinf1225.gourmet.Gourmet;
+import be.uclouvain.sinf1225.gourmet.R;
+import be.uclouvain.sinf1225.gourmet.enums.PriceCategory;
+import be.uclouvain.sinf1225.gourmet.utils.GourmetUtils;
 
 /**
  * Layer between the models classes and the database.
@@ -426,8 +426,20 @@ class GourmetDatabase extends SQLiteOpenHelper
 		//TODO implements.
 		return null;
 	}
-
 	
+	/**
+	 * Return dishes' name
+	 * @param dishes the list of dishes
+	 * @return list of dishes' name
+	 */
+	
+	public String[] getDishName (List<Dish> dishes)
+	{
+		List<String> list = new ArrayList<String>();
+		for (int i = 0; i<list.size();i++) {list.add(dishes.get(i).getName());}
+		return (String[]) list.toArray();
+	}
+
 	/* Restaurant */
 	
 	/**
