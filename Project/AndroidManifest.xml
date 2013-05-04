@@ -3,47 +3,48 @@
     package="be.uclouvain.sinf1225.gourmet"
     android:versionCode="1"
     android:versionName="1.0" >
-    
+
     <uses-sdk
         android:minSdkVersion="13"
         android:targetSdkVersion="17" />
 
     <uses-feature
         android:glEsVersion="0x00020000"
-        android:required="true"/>
-    
-    <uses-permission android:name="android.permission.INTERNET"/>
-	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-	<uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
-	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-	
+        android:required="true" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <application
+        android:name="be.uclouvain.sinf1225.gourmet.Gourmet"
         android:allowBackup="true"
+        android:clearTaskOnLaunch="true"
+        android:debuggable="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme"
-        android:name="be.uclouvain.sinf1225.gourmet.Gourmet"
-        android:clearTaskOnLaunch="true"
-        android:debuggable="true">
+        android:theme="@style/AppTheme" >
         <meta-data
-    		android:name="com.google.android.maps.v2.API_KEY"
-    		android:value="AIzaSyDOV0dZeIM3-f3cOGOV4gExvg0gVH5GOiY"/>
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyDOV0dZeIM3-f3cOGOV4gExvg0gVH5GOiY" />
+
         <activity
             android:name="be.uclouvain.sinf1225.gourmet.LoginView"
             android:label="@string/app_name"
-            android:launchMode="singleInstance">
+            android:launchMode="singleInstance" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name="be.uclouvain.sinf1225.gourmet.CityListView"
             android:label="@string/app_name"
-            android:launchMode="singleTask">
+            android:launchMode="singleTask" >
         </activity>
         <activity
             android:name="be.uclouvain.sinf1225.gourmet.CityMapView"
@@ -60,12 +61,12 @@
         <activity
             android:name="be.uclouvain.sinf1225.gourmet.PreferenceManagerView"
             android:label="@string/app_name"
-            android:launchMode="singleTask">
+            android:launchMode="singleTask" >
         </activity>
         <activity
             android:name="be.uclouvain.sinf1225.gourmet.ReservationManagerView"
             android:label="@string/app_name"
-            android:launchMode="singleTask">
+            android:launchMode="singleTask" >
         </activity>
         <activity
             android:name="be.uclouvain.sinf1225.gourmet.RestaurantEditView"
@@ -97,6 +98,10 @@
         </activity>
         <activity
             android:name="be.uclouvain.sinf1225.gourmet.DishView"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="be.uclouvain.sinf1225.gourmet.ReservationView"
             android:label="@string/app_name" >
         </activity>
     </application>

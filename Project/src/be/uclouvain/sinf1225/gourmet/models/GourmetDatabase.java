@@ -426,19 +426,6 @@ class GourmetDatabase extends SQLiteOpenHelper
 		//TODO implements.
 		return null;
 	}
-	
-	/**
-	 * Return dishes' name
-	 * @param dishes the list of dishes
-	 * @return list of dishes' name
-	 */
-	
-	public String[] getDishName (List<Dish> dishes)
-	{
-		List<String> list = new ArrayList<String>();
-		for (int i = 0; i<list.size();i++) {list.add(dishes.get(i).getName());}
-		return (String[]) list.toArray();
-	}
 
 	/* Restaurant */
 	

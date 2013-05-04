@@ -1,4 +1,8 @@
 package be.uclouvain.sinf1225.gourmet.models;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Dish
 {
 	//TODO implement.
@@ -182,5 +186,26 @@ public class Dish
 		Image image = db.getImage(id , "dish");
 		db.close();
 		return image;
+	}
+	
+	public static List<Dish> getDishInRestaurant(Restaurant restaurant)
+	{
+		GourmetDatabase db = new GourmetDatabase();
+		List<Dish> dishes = db.getDishInRestaurant(restaurant);
+		db.close();
+		return dishes;
+	}
+	
+	/**
+	 * Return dishes' name
+	 * @param dishes the list of dishes
+	 * @return list of dishes' name
+	 */
+	
+	public static String[] getDishName (List<Dish> dishes)
+	{
+		List<String> list = new ArrayList<String>();
+		for (int i = 0; i<list.size();i++) {list.add(dishes.get(i).getName());}
+		return (String[]) list.toArray();
 	}
 }

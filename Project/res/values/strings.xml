@@ -1,35 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="app_name">Gourmet</string>
+
+    <string name="app_name">Gourmet</string>
     <string name="action_search_restaurant">Rechercher</string>
     <string name="action_reservation">Réservations</string>
     <string name="action_user">Paramètres</string>
     <string name="sort_by">Trier par</string>
     <string name="logout">Déconnexion</string>
-	<string-array name="city_sort">
-		<item>Nom</item>
-		<item>Distance</item>
-		<item>Restaurants</item>
+
+    <string-array name="city_sort">
+        <item>Nom</item>
+        <item>Distance</item>
+        <item>Restaurants</item>
     </string-array>
-	<string name="hello_world">hello_world</string> <!-- TODO what? -->
-	<string name="salut">salut</string> <!-- TODO what? -->
-	<string name="send">Envoyer</string>
-	<string name="datetime">datetime</string>
-	<string name="add">Ajouter</string>
-	<string name="cancel_dialog_string">Annuler</string>
-	<string name="search">Restaurants</string>
-	<string name="reservations">Réservations</string>
-	<string name="preferences">Préférences</string>
-	
-	<!-- string - reservation -->
-	<string name="action_settings">Settings</string>
+
+    <string name="hello_world">hello_world</string> <!-- TODO what? -->
+    <string name="salut">salut</string> <!-- TODO what? -->
+    <string name="send">Envoyer</string>
+    <string name="datetime">datetime</string>
+    <string name="add">Ajouter</string>
+    <string name="cancel_dialog_string">Annuler</string>
+    <string name="search">Restaurants</string>
+    <string name="reservations">Réservations</string>
+    <string name="preferences">Préférences</string>
+
+    <!-- string - reservation -->
+    <string name="action_settings">Settings</string>
     <string name="restaurant">Restaurant</string>
     <string name="time">Time</string>
-    <string name="date">Date</string>    
+    <string name="date">Date</string>
     <string name="nbrReservation">Nbr</string>
     <string name="dish">Dish</string>
     <string name="button_add">Add</string>
     <string name="send_reservation">Send</string>
-	
-	
+
 </resources>
