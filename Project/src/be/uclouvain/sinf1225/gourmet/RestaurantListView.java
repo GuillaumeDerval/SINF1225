@@ -1,22 +1,28 @@
 package be.uclouvain.sinf1225.gourmet;
 
 import be.uclouvain.sinf1225.gourmet.models.City;
+import be.uclouvain.sinf1225.gourmet.models.Restaurant;
 import be.uclouvain.sinf1225.gourmet.utils.GourmetLocationListener;
 import be.uclouvain.sinf1225.gourmet.utils.GourmetLocationReceiver;
 import be.uclouvain.sinf1225.gourmet.utils.GourmetUtils;
 import android.app.Activity;
+import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 public class RestaurantListView extends Activity //implements GourmetLocationReceiver
 {
-	private GourmetLocationListener locationListener;
+
 	private City city = null;
 	
 	public boolean onCreateOptionsMenu(Menu menu)
@@ -77,31 +83,19 @@ public class RestaurantListView extends Activity //implements GourmetLocationRec
 	@Override
 	public void onPause()
 	{
-		if(locationListener != null)
-			locationListener.close();
-		locationListener = null;
 		super.onPause();
 	}
 	
 	@Override
 	public void onStop()
 	{
-		if(locationListener != null)
-			locationListener.close();
-		locationListener = null;
 		super.onStop();
 	}
 	
 	@Override
 	public void onResume()
 	{
-		if(locationListener == null)
-			locationListener = new GourmetLocationListener(this,this);
 		super.onResume();
 	}
 	
-	@Override
-	public void onLocationUpdate(Location loc)
-	{
-	}
 }
