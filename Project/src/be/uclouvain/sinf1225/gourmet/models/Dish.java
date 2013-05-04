@@ -31,7 +31,7 @@ public class Dish
 	 */
 	public Dish(int dishId, String name, int restoId, String description,
 			double price, int spicy, int vegan, int available, int allergen,
-			String category, Restaurant restaurant, Image img) 
+			String category, Restaurant restaurant/**, Image img*/) 
 	{
 		super();
 		this.dishId = dishId;
@@ -45,7 +45,7 @@ public class Dish
 		this.allergen = allergen;
 		this.category = category;
 		this.restaurant = restaurant;
-		this.img = img;
+		/**this.img = img;*/
 	}
 	public Dish() 
 	{
