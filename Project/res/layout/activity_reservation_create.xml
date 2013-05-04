@@ -8,59 +8,83 @@
     android:paddingRight="16dp"
     android:paddingTop="10dp"
     android:paddingBottom="10dp" >
-	
-    <EditText
-        android:id="@+id/restaurant"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="restaurant" />
+    
+  	<LinearLayout
+       	android:layout_width="match_parent"
+   		android:layout_height="wrap_content">
+
+    	<TextView
+       		android:id="@+id/restaurant"
+        	android:layout_width="0dp"
+        	android:layout_height="wrap_content"
+        	android:layout_weight="3"
+        	android:textStyle="bold"
+        	android:textSize="20sp"
+        	android:textIsSelectable="true" />
+        
+   		<EditText
+   		    android:id="@+id/nbrReservation"
+        	android:layout_width="0dp"
+        	android:layout_height="wrap_content"
+        	android:layout_weight="1"
+        	android:hint="@string/nbrReservation"
+        	android:inputType="phone" />
+   		
+   	</LinearLayout>
     
     <LinearLayout
        	android:layout_width="match_parent"
    		android:layout_height="wrap_content">
-   		<EditText
-   		    android:id="@+id/datetime"
-        	android:layout_width="0dp"
-        	android:layout_height="wrap_content"
-        	android:layout_weight="1"
-        	android:hint="datetime" />
-   		<EditText
-   		    android:id="@+id/nbrReservation"
-        	android:layout_width="wrap_content"
-        	android:layout_height="wrap_content"
-        	android:hint="nbr" />
+   		<Button 
+   		    android:id="@+id/timepicker"
+   			android:layout_width="0dp" 
+    		android:layout_height="wrap_content"
+    		android:layout_weight="1"
+    		android:text="@string/time"
+    		android:onClick="showTimePickerDialog" />
+   		<Button 
+   		    android:id="@+id/datepicker"
+   			android:layout_width="0dp" 
+    		android:layout_height="wrap_content"
+    		android:layout_weight="1"
+    		android:text="@string/date" 
+    		android:onClick="showDatePickerDialog" />
    	</LinearLayout>
-
+  
   	<LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
         
         <ListView
-            android:id="@+id/listView_items"
+            android:id="@+id/listDish"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:drawSelectorOnTop="false"/>
+        
     </LinearLayout>
-   	        
+ 	        
  	<LinearLayout
         android:id="@+id/input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/editText_input"
+ 	    
+ 	    <AutoCompleteTextView
+ 	        android:id="@+id/dish"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10">	            
-            <requestFocus />
-        </EditText>
+            android:layout_weight="3"
+            android:hint="@string/dish"
+            android:ems="10" />
 
         <Button
             android:id="@+id/button_add"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="add" />
+            android:layout_weight="1"
+            android:text="@string/button_add"
+            android:onClick="addItems" />
     </LinearLayout>
    	        
 	<Button 
@@ -68,5 +92,6 @@
        	android:layout_height = "wrap_content"
        	android:layout_width = "match_parent"
        	android:layout_gravity="center"
-       	android:text="send" />
+       	android:text="@string/send_reservation"
+		android:onClick="sendReservation"/> 
 </LinearLayout>

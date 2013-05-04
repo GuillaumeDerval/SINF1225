@@ -14,11 +14,22 @@
 	<string name="hello_world">hello_world</string> <!-- TODO what? -->
 	<string name="salut">salut</string> <!-- TODO what? -->
 	<string name="send">Envoyer</string>
-	<string name="restaurant">restaurant</string>
 	<string name="datetime">datetime</string>
 	<string name="add">Ajouter</string>
 	<string name="cancel_dialog_string">Annuler</string>
 	<string name="search">Restaurants</string>
 	<string name="reservations">Réservations</string>
 	<string name="preferences">Préférences</string>
+	
+	<!-- string - reservation -->
+	<string name="action_settings">Settings</string>
+    <string name="restaurant">Restaurant</string>
+    <string name="time">Time</string>
+    <string name="date">Date</string>    
+    <string name="nbrReservation">Nbr</string>
+    <string name="dish">Dish</string>
+    <string name="button_add">Add</string>
+    <string name="send_reservation">Send</string>
+	
+	
 </resources>
