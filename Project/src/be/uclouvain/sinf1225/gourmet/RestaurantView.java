@@ -42,6 +42,7 @@ public class RestaurantView extends Activity
 
 		((TextView) findViewById(R.id.RestaurantViewName)).setText(restaurant.getName());
 		((TextView) findViewById(R.id.RestaurantViewAddress)).setText(restaurant.getAddress());
+		((TextView) findViewById(R.id.RestaurantViewDescription)).setText(restaurant.getDescription());
 		// ((TextView)findViewById(R.id.RestaurantListDistance)).setText(new
 		// DecimalFormat("#.##").format(city.getLocation().distanceTo(locationListener.getLastLocation())/1000));
 		

@@ -1,35 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <EditText
+    <requestFocus />
+
+    <TextView
         android:id="@+id/RestaurantViewName"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
         android:gravity="center_vertical|center_horizontal"
-        android:text="TextView"
-        android:textColor="#006400"
-        android:textSize="25dp"
-        android:background="#D2B48C" >
-
-        <requestFocus />
-    </EditText>
-
-    <EditText
-        android:id="@+id/RestaurantViewAddress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:text="TextView"
-        android:textSize="20dp" />
+        android:text="Name"
+        android:textAppearance="?android:attr/textAppearanceLarge" 
+        android:background="#9ACD32"/>
 
     <Button
         android:id="@+id/menu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/RestaurantViewName"
         android:text="Menu" />
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/RestaurantViewAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@+id/menu"
+        android:layout_toLeftOf="@+id/menu"
+        android:text="Address"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/RestaurantViewWebsite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/RestaurantViewAddress"
+        android:layout_below="@+id/RestaurantViewAddress"
+        android:layout_toLeftOf="@+id/menu"
+        android:text="Website"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/RestaurantViewDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="173dp"
+        android:gravity="center"
+        android:text="Description"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/RestaurantViewPhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/RestaurantViewWebsite"
+        android:layout_toLeftOf="@+id/menu"
+        android:text="Phone"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <Gallery
+        android:id="@+id/gallery1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/RestaurantViewDescription"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="82dp" />
+
+</RelativeLayout>
