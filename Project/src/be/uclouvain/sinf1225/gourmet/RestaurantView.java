@@ -1,6 +1,7 @@
 package be.uclouvain.sinf1225.gourmet;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -43,15 +44,18 @@ public class RestaurantView extends Activity
 		((TextView) findViewById(R.id.RestaurantViewAddress)).setText(restaurant.getAddress());
 		// ((TextView)findViewById(R.id.RestaurantListDistance)).setText(new
 		// DecimalFormat("#.##").format(city.getLocation().distanceTo(locationListener.getLastLocation())/1000));
-
-		final Button button = (Button) findViewById(R.id.RestaurantViewReturn);
-		button.setOnClickListener(new OnClickListener()
+		
+		Button menu = (Button) findViewById(R.id.menu);
+		menu.setOnClickListener(new OnClickListener()
 		{
 			@Override
 			public void onClick(View arg0)
 			{
-				finish();
+				Intent intent = new Intent(RestaurantView.this, DishEditView.class);
+			    intent.putExtra("dishId", 1);
+			    startActivity(intent);
 			}
 		});
+
 	}
 }
