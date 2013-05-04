@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -79,12 +80,13 @@ public class ImageGalleryActivity extends Activity
 			cursor.moveToFirst();
 
 			int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-			filePath = cursor.getString(columnIndex);
+			filePath =cursor.getString(columnIndex);
 			cursor.close();
 
 			final String objectType = getIntent().getStringExtra("objectType");
 			final int objectId = Integer.parseInt(getIntent().getStringExtra( "id"));
 			Image img = new Image(null, filePath, objectType, objectId); // create a new image
+			
 			if (objectType == "dish")
 			{
 				AlertDialog.Builder dialog = new AlertDialog.Builder(this);// .create();
@@ -110,9 +112,7 @@ public class ImageGalleryActivity extends Activity
 						});
 				dialog.show();
 			}
-
 			Image.addImage(img); // ajoute l'image dans la DB
-
 			ImageView imageView = (ImageView) findViewById(R.id.imgViewGalleryLoad);
 			imageView.setImageBitmap(BitmapFactory.decodeFile(filePath));
 
