@@ -467,7 +467,6 @@ class GourmetDatabase extends SQLiteOpenHelper
 				cursor.getString(11), //description
 				cursor.getInt(12), //stars
 				cursor.getString(13), // email
-				null, //reservations
 				null); //dishesID
 		
 		return resto;
@@ -556,7 +555,6 @@ class GourmetDatabase extends SQLiteOpenHelper
 					cursor.getString(7),
 					cursor.getInt(9), 
 					cursor.getString(8), 
-					null, 
 					dishesID);
 
 			restaurants.add(resto);
