@@ -466,7 +466,9 @@ class GourmetDatabase extends SQLiteOpenHelper
 				cursor.getString(10), //website
 				cursor.getString(11), //description
 				cursor.getInt(12), //stars
-				cursor.getString(13)); //email
+				cursor.getString(13), // email
+				null, //reservations
+				null); //dishesID
 		
 		return resto;
 	}
@@ -502,8 +504,66 @@ class GourmetDatabase extends SQLiteOpenHelper
 	 */
 	public List<Restaurant> getRestaurantsInCity(City city)
 	{
-		//TODO implement.
-		return null;
+		SQLiteDatabase db = this.getReadableDatabase();
+
+		Cursor cursor = db.query(true,"restaurant", //table to select on
+				new String[]{"restoId","name","cityName","cityCountry","address","longitude","latitude","description","email","stars","phone","website","seats","priceCat"}, //column to get
+				"'cityName' = ?", //where
+				new String[]{city.getName()}, //where string
+				null, //group by
+				null, //having
+				null,
+				null); //orderby
+		if(cursor == null)
+			return null;
+		cursor.moveToFirst();
+
+		List<Restaurant> restaurants = new ArrayList<Restaurant>();
+		for(int j = 0; j < cursor.getCount(); j++)
+		{
+			//PriceCategory pricecate = 
+			Location loc = new Location("Database");
+			loc.setLongitude(cursor.getDouble(5));
+			loc.setLatitude(cursor.getDouble(6));
+
+			List<Integer> dishesID = new ArrayList<Integer>();
+			Cursor dishes = db.query(true, "dishes", 
+					new String[]{"dishId"},
+					"`restoId` = ?", 
+					new String[]{String.valueOf(cursor.getInt(0))}, 
+					null,
+					null, 
+					null,
+					null);
+			if(dishes != null)
+			{
+				dishes.moveToFirst();
+				for(int i = 0; i < dishes.getCount(); i++)
+				{
+					dishesID.add(dishes.getInt(0));
+					dishes.moveToNext();
+				}
+			}	
+			Restaurant resto = new Restaurant(cursor.getInt(0), 
+					city, 
+					cursor.getString(1), 
+					cursor.getString(4), 
+					PriceCategory.values()[cursor.getInt(13)], 
+					loc, 
+					cursor.getString(10), 
+					cursor.getInt(12), 
+					cursor.getString(11),
+					cursor.getString(7),
+					cursor.getInt(9), 
+					cursor.getString(8), 
+					null, 
+					dishesID);
+
+			restaurants.add(resto);
+			cursor.moveToNext();
+
+		}
+		return restaurants;
 	}
 	
 	/* Cities */
