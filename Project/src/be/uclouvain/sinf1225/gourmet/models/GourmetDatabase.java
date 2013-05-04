@@ -24,7 +24,7 @@ import android.location.Location;
  */
 class GourmetDatabase extends SQLiteOpenHelper
 {
-	private static final int DATABASE_VERSION = 14;
+	private static final int DATABASE_VERSION = 16;
     private static final String DATABASE_NAME = "gourmet";
     private Context context;
     
@@ -348,7 +348,7 @@ class GourmetDatabase extends SQLiteOpenHelper
 	public void updateDish(Dish dish)
 	{
 		SQLiteDatabase db = this.getWritableDatabase();
-		 
+
 	    ContentValues values = new ContentValues();
 	    values.put("name", dish.getName());
 	    values.put("category", dish.getCategory());
@@ -358,6 +358,7 @@ class GourmetDatabase extends SQLiteOpenHelper
 	    values.put("vegan", dish.getVegan());
 	    values.put("available", dish.getAvailable());
 	    values.put("allergen", dish.getAllergen());
+	    values.put("restoId", dish.getRestoId());
 	    db.update("dish", values, "'dishId'= ? " , new String[] {""+dish.getDishId()});
 	    
 	    db.close(); // Closing database connection
@@ -383,10 +384,10 @@ class GourmetDatabase extends SQLiteOpenHelper
 	{
 		//TODO implements
 		SQLiteDatabase db = this.getReadableDatabase();
-		
-		Cursor cursor = db.query("Plat", //table to select on
-				new String[]{"platId","name","restoId","description","price", "spicy","vegan","available","allergen","category"},//column to get
-				"`platId` = ?", //where clause, ?s will be replaced by...
+
+		Cursor cursor = db.query("dish", //table to select on
+				new String[]{"dishId","name","restoId","description","price", "spicy","vegan","available","allergen","category"},//column to get
+				"`dishId` = ?", //where clause, ?s will be replaced by...
 				new String[]{""+dishId}, //... these values
 				null, //group by
 				null, //having
@@ -396,7 +397,7 @@ class GourmetDatabase extends SQLiteOpenHelper
 		
 		cursor.moveToFirst();
 		Restaurant resto = getRestaurant(cursor.getInt(2));
-		Image img = getImage(cursor.getInt(0), "Plat");
+		Image img = getImage(cursor.getInt(0), "dish");
 		Dish dish= new Dish(
 				cursor.getInt(0), //dishId
 				cursor.getString(1), //name

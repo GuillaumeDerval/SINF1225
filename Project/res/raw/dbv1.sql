@@ -76,6 +76,7 @@ CREATE TABLE "image"
 	PRIMARY KEY("path")
 );
 INSERT INTO "image" VALUES ('pathbidon','restaurant', 'superbephoto',1);
+INSERT INTO "image" VALUES ('pathbidon2','dish', 'superbephoto',1);
 DROP TABLE IF EXISTS "reservationDish";
 CREATE TABLE "reservationDish"
 (

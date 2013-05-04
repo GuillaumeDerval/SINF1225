@@ -3,6 +3,7 @@ package be.uclouvain.sinf1225.gourmet;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -58,10 +59,13 @@ public class DishEditView extends Activity
 		final Button imageButton = (Button) findViewById(R.id.dishImageButton);
 
 		// field's init
+		Log.d("MyApp",dish.getName()+ "----------------------------");
 		EditName.setText(dish.getName());
-		EditCategory.setText(dish.getCategory());
+		Log.d("MyApp",dish.getPrice()+ "----------------------------");
+		//EditCategory.setText(dish.getCategory());
 		EditPrice.setText("" + dish.getPrice());
-		EditAvailable.setText(dish.getAvailable());
+		Log.d("MyApp",dish.getAvailable()+ "----------------------------");
+		EditAvailable.setText(""+dish.getAvailable());
 		EditDescription.setText(dish.getDescription());
 
 		if (dish.getSpicy() == 1)
