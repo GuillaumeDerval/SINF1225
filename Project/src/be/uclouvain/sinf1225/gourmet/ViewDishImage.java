@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -39,14 +40,15 @@ public class ViewDishImage extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_image_dish_view);
-		int dishId = Integer.valueOf(getIntent().getExtras().getString("dishId"));
+		int dishId = Integer.valueOf(getIntent().getExtras().getInt("dishId"));
 		final Dish dish = Dish.getDish(dishId);
+		final Image img = Dish.getImage(dishId);
 
 		final Button deleteButton = (Button) findViewById(R.id.delete_image_dish);
 		final Button changeButton = (Button) findViewById(R.id.change_image_dish);
 		final ImageView myImage = (ImageView) findViewById(R.id.dish_image_icon);
 
-		File imgFile = new File(getIntent().getExtras().getString("path"));
+		File imgFile = new File(img.getPath());
 		if (imgFile.exists())
 		{
 
@@ -60,13 +62,13 @@ public class ViewDishImage extends Activity
 			 */
 			public void onClick(View v)
 			{
-				File imgFile = new File(getIntent().getExtras().getString("path"));
+				File imgFile = new File(img.getPath());
 				if (imgFile.exists())
 				{
 					imgFile.delete(); // delete the file
 				}
-				Image.deleteImage(getIntent().getExtras().getString("path")); // delete the image in the database
-				getFragmentManager().popBackStack();
+				Image.deleteImage(img.getPath()); // delete the image in the database
+				finish();
 			}
 		});
 		changeButton.setOnClickListener(new View.OnClickListener()
