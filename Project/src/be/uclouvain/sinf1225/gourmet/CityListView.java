@@ -2,13 +2,11 @@ package be.uclouvain.sinf1225.gourmet;
 
 import java.util.List;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
-
 import be.uclouvain.sinf1225.gourmet.models.City;
 import be.uclouvain.sinf1225.gourmet.utils.GourmetLocationListener;
 import be.uclouvain.sinf1225.gourmet.utils.GourmetLocationReceiver;
 import be.uclouvain.sinf1225.gourmet.utils.GourmetUtils;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.location.Location;
@@ -16,7 +14,6 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;

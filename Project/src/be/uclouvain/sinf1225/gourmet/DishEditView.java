@@ -3,14 +3,12 @@ package be.uclouvain.sinf1225.gourmet;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import be.uclouvain.sinf1225.gourmet.models.Dish;
-import be.uclouvain.sinf1225.gourmet.models.Image;
 import be.uclouvain.sinf1225.gourmet.utils.GourmetUtils;
 import android.widget.CheckBox;
 

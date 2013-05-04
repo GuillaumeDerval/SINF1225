@@ -73,5 +73,18 @@ public class TestView extends Activity
 			    startActivity(intent);
 			}
 		});
+		
+		Button testReservationCreateView = (Button) findViewById(R.id.testReservationCreateView);
+		testReservationCreateView.setOnClickListener(new OnClickListener()
+		{
+			@Override
+			public void onClick(View arg0)
+			{
+				Intent intent = new Intent(TestView.this, ReservationCreateView.class);
+			    intent.putExtra("restoId", 1);
+			    startActivity(intent);
+			}
+		});
+		
 	}
 }

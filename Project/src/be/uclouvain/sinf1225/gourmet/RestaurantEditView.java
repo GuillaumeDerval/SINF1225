@@ -3,7 +3,6 @@ package be.uclouvain.sinf1225.gourmet;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -44,7 +43,7 @@ public class RestaurantEditView extends Activity
 		final EditText EditName = (EditText) this.findViewById(R.id.EditName);
 		final EditText EditPhone = (EditText) this.findViewById(R.id.EditPhoneNumber);
 		final EditText EditAdress = (EditText) this.findViewById(R.id.EditAdress);
-		final EditText EditPriceCat = (EditText) this.findViewById(R.id.EditPriceCat); //TODO should be a spinner
+		//final EditText EditPriceCat = (EditText) this.findViewById(R.id.EditPriceCat); //TODO should be a spinner
 		final EditText EditEmail = (EditText) this.findViewById(R.id.EditEmail);
 		final EditText EditSeats = (EditText) this.findViewById(R.id.EditSeats);
 		final EditText EditDescription = (EditText) this.findViewById(R.id.EditDescription);

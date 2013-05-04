@@ -53,7 +53,15 @@ CREATE UNIQUE INDEX "dish_p_key" ON "dish" ("name" ASC, "restoId" ASC, "descript
 
 INSERT INTO "dish" VALUES (1,'Courgette ', 1, 'Green', 10, 1, 1, 1, 1, 'Entree');
 
-
+DROP TABLE IF EXISTS "users";
+CREATE TABLE "users"
+(
+	"email" text NOT NULL,
+	"password" text NOT NULL,
+	"name" text NOT NULL,
+	"surname" text NOT NULL,
+	PRIMARY KEY("email")
+);
 
 DROP TABLE IF EXISTS "reservation";
 CREATE TABlE "reservation"
@@ -64,8 +72,9 @@ CREATE TABlE "reservation"
 	"nbrReservation" integer NOT NULL,
 	"date" text NOT NULL,
 	CONSTRAINT "resto_name_contrainte" FOREIGN KEY ("resto") REFERENCES "restaurant" ("name"),
-	CONSTRAINT "user_contrainte" FOREIGN KEY ("user") REFERENCES "user" ("name")
+	CONSTRAINT "user_contrainte" FOREIGN KEY ("user") REFERENCES "user" ("email")
 );
+
 DROP TABLE IF EXISTS "image";
 CREATE TABLE "image"
 (
@@ -85,16 +94,6 @@ CREATE TABLE "reservationDish"
 	"resvId" integer NOT NULL,
 	CONSTRAINT "resvID_contrainte" FOREIGN KEY ("resvId") REFERENCES "reservation" ("resvId"),
 	CONSTRAINT "nameDish_contrainte" FOREIGN KEY ("nameDish") REFERENCES "dish" ("name")
-);
-
-DROP TABLE IF EXISTS "users";
-CREATE TABLE "users"
-(
-	"email" text NOT NULL,
-	"password" text NOT NULL,
-	"name" text NOT NULL,
-	"surname" text NOT NULL,
-	PRIMARY KEY("email")
 );
 
 DROP TABLE IF EXISTS "users_manages";

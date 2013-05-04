@@ -101,7 +101,7 @@
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="be.uclouvain.sinf1225.gourmet.ReservationView"
+            android:name="be.uclouvain.sinf1225.gourmet.ReservationCreateView"
             android:label="@string/app_name" >
         </activity>
     </application>

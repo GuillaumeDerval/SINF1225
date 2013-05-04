@@ -25,4 +25,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Test Dish View" />
+        <Button
+        android:id="@+id/testReservationCreateView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Test Reservation Create View" />
 </LinearLayout>

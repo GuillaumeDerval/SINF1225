@@ -16,7 +16,7 @@ public class Restaurant
 	private Location location;
 	private String phone;
 	private int seats;
-	private String website; 
+	private String website;
 	private String description;
 	private int stars;
 	private String email;
@@ -24,10 +24,10 @@ public class Restaurant
 	private List<Dish> dishes;
 	private List<Integer> dishesID;
 	private List<Image> images;
-	
-	
+
 	/**
 	 * Constructor for Restaurant. Should only be called by GourmetDatabase
+	 * 
 	 * @param id
 	 * @param city
 	 * @param name
@@ -41,9 +41,7 @@ public class Restaurant
 	 * @param stars
 	 * @param email
 	 */
-public Restaurant(int id, City city, String name, String address, PriceCategory priceCategory, 
-			Location location, String phone, int seats, String website, String description,
-			int stars, String email, List<Integer> dishesID)
+	public Restaurant(int id, City city, String name, String address, PriceCategory priceCategory, Location location, String phone, int seats, String website, String description, int stars, String email, List<Integer> dishesID)
 	{
 		this.id = id;
 		this.city = city;
@@ -61,19 +59,22 @@ public Restaurant(int id, City city, String name, String address, PriceCategory 
 		this.dishes = null;
 		this.dishesID = dishesID;
 	}
-	
+
 	/**
 	 * update restaurant in DB
+	 * 
 	 * @param restaurant
 	 */
-	public static void updateRestaurant( Restaurant restaurant){
+	public static void updateRestaurant(Restaurant restaurant)
+	{
 		GourmetDatabase db = new GourmetDatabase();
 		db.updateRestaurant(restaurant);
 		db.close();
-		
 	}
+
 	/**
 	 * getRestaurant in DB
+	 * 
 	 * @param restoId
 	 * @return Restaurant object if it exists in DB, null else.
 	 */
@@ -84,7 +85,7 @@ public Restaurant(int id, City city, String name, String address, PriceCategory 
 		db.close();
 		return resto;
 	}
-	
+
 	public int getId()
 	{
 		return id;
@@ -197,7 +198,7 @@ public Restaurant(int id, City city, String name, String address, PriceCategory 
 
 	public List<Reservation> getReservations()
 	{
-		if(reservations == null)
+		if (reservations == null)
 		{
 			GourmetDatabase db = new GourmetDatabase();
 			reservations = db.getReservationInRestaurant(this);
@@ -205,7 +206,7 @@ public Restaurant(int id, City city, String name, String address, PriceCategory 
 		}
 		return reservations;
 	}
-	
+
 	public static List<Restaurant> getAllRestaurants(City city)
 	{
 		GourmetDatabase db = new GourmetDatabase();
@@ -213,9 +214,10 @@ public Restaurant(int id, City city, String name, String address, PriceCategory 
 		db.close();
 		return restaurants;
 	}
+
 	public List<Dish> getDishes()
 	{
-		if(dishes == null) //only query db when it is necessary
+		if (dishes == null) // only query db when it is necessary
 		{
 			GourmetDatabase db = new GourmetDatabase();
 			dishes = db.getDishInRestaurant(this);
@@ -223,32 +225,14 @@ public Restaurant(int id, City city, String name, String address, PriceCategory 
 		}
 		return dishes;
 	}
+
 	public void addImage(Image image)
 	{
 		this.images.add(image);
 	}
+
 	public void deleteImage(Image image)
 	{
 		this.images.remove(image);
 	}
-	
-	//...
-	
-	//TODO Implement
-	/*
-	 * + getXXX(): ...
-	 * + setXXX(): ...
-	 * + getCity(): City[1]
-	 * + getVotes(): Vote[*]
-	 * + getDishes(): Dish[*]
-	 * + getCotation(): Integer[1]{0..5}
-	 * + getRemainingSeats(): Integer[1]
-	 * + newVote(user: User, note: Integer): void
-	 * + hasUserPreference(user: User): Integer[1]{0..5}
-	 * + newReservation(user: User, date: Date, beginHour: Hour, nbPeople: Integer): Reservation[0..1]
-	 * + newDish(user: User, allergens, ...): Dish[0..1]
-	 * + getPhotos(): Photo[*]
-	 * + getRestaurator(): Restaurator[0..1]
-     */
-	
 }
