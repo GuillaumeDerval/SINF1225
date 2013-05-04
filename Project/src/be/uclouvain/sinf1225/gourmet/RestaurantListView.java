@@ -1,5 +1,7 @@
 package be.uclouvain.sinf1225.gourmet;
 
+import java.util.List;
+
 import be.uclouvain.sinf1225.gourmet.models.City;
 import be.uclouvain.sinf1225.gourmet.models.Restaurant;
 import be.uclouvain.sinf1225.gourmet.utils.GourmetLocationListener;
