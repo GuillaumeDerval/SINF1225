@@ -4,28 +4,30 @@
   android:layout_width="wrap_content"
   android:layout_height="wrap_content"
   android:orientation="vertical">
+
 <LinearLayout
-  android:layout_width="wrap_content"
-  android:layout_height="wrap_content"
-  android:orientation="horizontal">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" >
+
     <Button
         android:id="@+id/addRestaurantImage"
         android:text="Add"
         android:paddingLeft="10dip"
         android:layout_weight="0.5"
         android:layout_gravity="left"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
          />
+
               <Button
-        android:id="@+id/okRestaurantImageButton"
-        android:text="Ok"
-        android:paddingLeft="10dip"
-        android:layout_weight="0.5"
-        android:layout_gravity="right"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-         />
+                  android:id="@+id/okRestaurantImageButton"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_gravity="right"
+                  android:layout_weight="0.5"
+                  android:paddingLeft="10dip"
+                  android:text="Ok" />
 
     	</LinearLayout>
   

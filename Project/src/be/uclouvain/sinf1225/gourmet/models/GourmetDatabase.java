@@ -25,7 +25,7 @@ import android.util.Log;
  */
 class GourmetDatabase extends SQLiteOpenHelper
 {
-	private static final int DATABASE_VERSION = 17;
+	private static final int DATABASE_VERSION = 19;
     private static final String DATABASE_NAME = "gourmet";
     private Context context;
     
@@ -225,7 +225,8 @@ class GourmetDatabase extends SQLiteOpenHelper
 	public void deleteImage(String path)
 	{
 		SQLiteDatabase db = this.getWritableDatabase();
-	    db.delete("image", "`path` = ?", new String[] {path});
+	    int i = db.delete("image", "`path` = ?", new String[] {path});
+	    Log.d("MyApp", "------->"+i);
 	    db.close();
 	}
 	/**
@@ -268,14 +269,13 @@ class GourmetDatabase extends SQLiteOpenHelper
 	 * @param objectType
 	 * @return image link to an object
 	 */
-	public Image getImage(int objectId, String objectType)
+	public Image getImage(int id, String type)
 	{
 		SQLiteDatabase db = this.getReadableDatabase();
-		
 		Cursor cursor = db.query("image", //table to select on
 				new String[]{"legend","path","objectType","objectId"}, //column to get
-				 "`objectId` = ? AND `objectType` = ? ", //where
-				new String[] {""+objectId, objectType}, //where string
+				 "`objectType` = ? AND `objectId` = ?", //where
+				new String[] {type, ""+id}, //where string
 				null, //group by
 				null, //having
 				null); //orderby
@@ -398,7 +398,7 @@ class GourmetDatabase extends SQLiteOpenHelper
 		
 		cursor.moveToFirst();
 		Restaurant resto = getRestaurant(cursor.getInt(2));
-		Image img = getImage(cursor.getInt(0), "dish");
+		/**Image img = getImage(cursor.getInt(0), "dish");**/
 		Dish dish= new Dish(
 				cursor.getInt(0), //dishId
 				cursor.getString(1), //name
@@ -410,8 +410,8 @@ class GourmetDatabase extends SQLiteOpenHelper
 				cursor.getInt(7), //available
 				cursor.getInt(8), //allergen
 				cursor.getString(9),//category
-				resto, // restaurant
-				img); // image
+				resto // restaurant
+				/**img*/); // image
 		
 		return dish;
 	}

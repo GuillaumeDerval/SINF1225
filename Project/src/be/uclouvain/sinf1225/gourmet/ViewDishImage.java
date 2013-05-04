@@ -63,10 +63,6 @@ public class ViewDishImage extends Activity
 			public void onClick(View v)
 			{
 				File imgFile = new File(img.getPath());
-				if (imgFile.exists())
-				{
-					imgFile.delete(); // delete the file
-				}
 				Image.deleteImage(img.getPath()); // delete the image in the database
 				finish();
 			}

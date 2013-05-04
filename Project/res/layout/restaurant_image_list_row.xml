@@ -7,11 +7,11 @@
  
     <ImageView
         android:id="@+id/restaurantImageListRowImg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="93dp"
+        android:layout_height="103dp"
         android:layout_gravity="center_vertical"
-        android:src="@drawable/no_image_available"
-        android:padding="10dp" />
+        android:padding="10dp"
+        android:src="@drawable/no_image_available" />
  
 
 	
@@ -19,7 +19,9 @@
 	        android:id="@+id/restaurantImageListRowLegend"
 	        android:layout_width="fill_parent"
 	        android:layout_height="fill_parent"
-	        android:text="Legend" />
+	        android:text="Legend"
+	        android:textSize="16sp"
+	        android:textStyle="bold" />
 
  
 </LinearLayout>
