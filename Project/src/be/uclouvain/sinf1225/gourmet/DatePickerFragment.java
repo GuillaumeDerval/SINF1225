@@ -1,6 +1,7 @@
 package be.uclouvain.sinf1225.gourmet;
 
 import java.util.Calendar;
+import java.util.TimeZone;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -41,6 +42,7 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
 	public Dialog Default()
 	{
 		// Use the current date as the default date in the picker
+		ReservationView.dateTime.setTimeZone(TimeZone.getTimeZone("Europe/Brussels"));
 		int year = ReservationView.dateTime.get(Calendar.YEAR);
 		int month = ReservationView.dateTime.get(Calendar.MONTH);
 		int day = ReservationView.dateTime.get(Calendar.DAY_OF_MONTH);
