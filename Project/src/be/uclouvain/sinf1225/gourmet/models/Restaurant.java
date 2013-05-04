@@ -22,6 +22,7 @@ public class Restaurant
 	private String email;
 	private List<Reservation> reservations;
 	private List<Dish> dishes;
+	private List<Integer> dishesID;
 	private List<Image> images;
 	
 	
@@ -203,7 +204,14 @@ public class Restaurant
 		}
 		return reservations;
 	}
-
+	
+	public static List<Restaurant> getAllRestaurants(City city)
+	{
+		GourmetDatabase db = new GourmetDatabase();
+		List<Restaurant> restaurants = db.getRestaurantsInCity(city);
+		db.close();
+		return restaurants;
+	}
 	public List<Dish> getDishes()
 	{
 		if(dishes == null) //only query db when it is necessary
