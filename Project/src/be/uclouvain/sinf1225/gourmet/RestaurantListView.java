@@ -14,7 +14,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class RestaurantListView extends Activity implements GourmetLocationReceiver
+public class RestaurantListView extends Activity //implements GourmetLocationReceiver
 {
 	private GourmetLocationListener locationListener;
 	private City city = null;
@@ -37,13 +37,32 @@ public class RestaurantListView extends Activity implements GourmetLocationRecei
 		setContentView(R.layout.activity_restaurant_list);
 		
 		// Initialisation des services de localisation
-		locationListener = new GourmetLocationListener(this,this).init();
-				
+		//locationListener = new GourmetLocationListener(this,this).init();
+		// Récupération de la ville sur laquelle on a cliqué et les restaurant qui lui appartiennent		
 		city = City.getCity(getIntent().getExtras().getString("name"), getIntent().getExtras().getString("country"));
 		
-		((TextView)findViewById(R.id.RestaurantListName)).setText(city.getName());
-		((TextView)findViewById(R.id.RestaurantListCountry)).setText(city.getCountry());
-		
+		List<Restaurant> restaurants = Restaurant.getAllRestaurants(city);
+		((TextView)findViewById(R.id.Test)).setText((restaurants.get(0)).getName());
+		//On recupere la vue "liste"
+		ListView RestaurantList = (ListView) this.findViewById(R.id.RestaurantListView);
+	
+		//On cree un adapter qui va mettre dans la liste les donnes adequates des villes
+		RestaurantAdapter adapter = new RestaurantAdapter(this, R.layout.restaurant_list_row, restaurants);
+		RestaurantList.setAdapter(adapter);
+		RestaurantList.setOnItemClickListener(new OnItemClickListener()
+		{
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+			{
+				final ListView RestaurantList = (ListView) findViewById(R.id.RestaurantListView);
+				final RestaurantAdapter adapter = (RestaurantAdapter)RestaurantList.getAdapter();
+
+				Restaurant restaurant = adapter.getItem(position);
+					
+				Intent intent = new Intent(RestaurantListView.this, RestaurantView.class);
+			    intent.putExtra("name", restaurant.getName());
+			    startActivity(intent);
+			}
+		});
 		final Button button = (Button)findViewById(R.id.RestaurantListRetour);
 		button.setOnClickListener(new OnClickListener()
 		{
