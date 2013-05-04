@@ -62,5 +62,16 @@ public class TestView extends Activity
 			    startActivity(intent);
 			}
 		});
+		Button testDishView = (Button) findViewById(R.id.testDishView);
+		testDishView.setOnClickListener(new OnClickListener()
+		{
+			@Override
+			public void onClick(View arg0)
+			{
+				Intent intent = new Intent(TestView.this, DishView.class);
+			    intent.putExtra("dishId", 1);
+			    startActivity(intent);
+			}
+		});
 	}
 }

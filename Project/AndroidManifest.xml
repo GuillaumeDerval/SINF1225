@@ -95,6 +95,10 @@
             android:name="be.uclouvain.sinf1225.gourmet.ViewRestaurantImage"
             android:label="@string/app_name" >
         </activity>
+        <activity
+            android:name="be.uclouvain.sinf1225.gourmet.DishView"
+            android:label="@string/app_name" >
+        </activity>
     </application>
 
 </manifest>
