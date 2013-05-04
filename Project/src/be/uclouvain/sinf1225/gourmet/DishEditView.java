@@ -41,8 +41,6 @@ public class DishEditView extends Activity
 
 		int dishId = getIntent().getExtras().getInt("dishId");
 		final Dish dish = Dish.getDish(dishId);
-		final Image img = dish.getImg();
-
 		// button's creation
 		final EditText EditName = (EditText) findViewById(R.id.EditDishName);
 		final EditText EditCategory = (EditText) findViewById(R.id.EditDishCategory);
@@ -59,12 +57,9 @@ public class DishEditView extends Activity
 		final Button imageButton = (Button) findViewById(R.id.dishImageButton);
 
 		// field's init
-		Log.d("MyApp",dish.getName()+ "----------------------------");
 		EditName.setText(dish.getName());
-		Log.d("MyApp",dish.getPrice()+ "----------------------------");
 		//EditCategory.setText(dish.getCategory());
 		EditPrice.setText("" + dish.getPrice());
-		Log.d("MyApp",dish.getAvailable()+ "----------------------------");
 		EditAvailable.setText(""+dish.getAvailable());
 		EditDescription.setText(dish.getDescription());
 
@@ -86,7 +81,7 @@ public class DishEditView extends Activity
 		ApplyButton.setOnClickListener(new View.OnClickListener()
 		{
 			public void onClick(View v)
-			{
+			{	
 				dish.setName(EditName.getText().toString());
 				dish.setCategory(EditCategory.getText().toString());
 				dish.setPrice(Double.parseDouble(EditPrice.getText().toString()));
@@ -108,8 +103,8 @@ public class DishEditView extends Activity
 				else
 					dish.setAllergen(0);
 
-				(new Dish()).updateDish(dish); // to be checked
-				getFragmentManager().popBackStack(); // back to the previous view
+				Dish.updateDish(dish); // to be checked
+				finish();
 			}
 		});
 		DeleteButton.setOnClickListener(new View.OnClickListener()
@@ -117,7 +112,7 @@ public class DishEditView extends Activity
 			public void onClick(View v)
 			{
 				(new Dish()).deleteDish(dish);
-				getFragmentManager().popBackStack();
+				finish();
 			}
 		});
 		imageButton.setOnClickListener(new View.OnClickListener()
@@ -125,8 +120,6 @@ public class DishEditView extends Activity
 			public void onClick(View v)
 			{
 				Intent intent = new Intent(DishEditView.this, ViewDishImage.class);
-				intent.putExtra("path", img.getPath());
-				intent.putExtra("legend", img.getLegend());
 				intent.putExtra("dishId", dish.getDishId());
 				startActivity(intent);
 			}

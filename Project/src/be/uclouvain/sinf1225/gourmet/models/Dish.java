@@ -65,7 +65,7 @@ public class Dish
 	 * update dish in data base
 	 * @param dish
 	 */
-	public void updateDish( Dish dish)
+	public static void updateDish( Dish dish)
 	{
 		GourmetDatabase db = new GourmetDatabase();
 		db.updateDish(dish);
@@ -175,5 +175,12 @@ public class Dish
 	public int getRestoId()
 	{
 		return restoId;
+	}
+	public static Image getImage(int id)
+	{
+		GourmetDatabase db = new GourmetDatabase();
+		Image image = db.getImage(id , "dish");
+		db.close();
+		return image;
 	}
 }

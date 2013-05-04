@@ -15,6 +15,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.location.Location;
+import android.util.Log;
 
 /**
  * Layer between the models classes and the database.
@@ -24,7 +25,7 @@ import android.location.Location;
  */
 class GourmetDatabase extends SQLiteOpenHelper
 {
-	private static final int DATABASE_VERSION = 16;
+	private static final int DATABASE_VERSION = 17;
     private static final String DATABASE_NAME = "gourmet";
     private Context context;
     
@@ -359,9 +360,9 @@ class GourmetDatabase extends SQLiteOpenHelper
 	    values.put("available", dish.getAvailable());
 	    values.put("allergen", dish.getAllergen());
 	    values.put("restoId", dish.getRestoId());
-	    db.update("dish", values, "'dishId'= ? " , new String[] {""+dish.getDishId()});
+	    db.update("dish", values, "`dishId`= ? " , new String[] {""+dish.getDishId()});
 	    
-	    db.close(); // Closing database connection
+	   // db.close(); // Closing database connection
 	}
 	
 	/**
