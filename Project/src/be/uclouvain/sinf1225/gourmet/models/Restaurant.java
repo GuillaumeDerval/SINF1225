@@ -41,9 +41,9 @@ public class Restaurant
 	 * @param stars
 	 * @param email
 	 */
-	public Restaurant(int id, City city, String name, String address, PriceCategory priceCategory, 
+public Restaurant(int id, City city, String name, String address, PriceCategory priceCategory, 
 			Location location, String phone, int seats, String website, String description,
-			int stars, String email)
+			int stars, String email, List<Integer> dishesID)
 	{
 		this.id = id;
 		this.city = city;
@@ -59,6 +59,7 @@ public class Restaurant
 		this.email = email;
 		this.reservations = null;
 		this.dishes = null;
+		this.dishesID = dishesID;
 	}
 	
 	/**
