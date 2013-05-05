@@ -33,7 +33,7 @@ CREATE TABLE "restaurant" (
 );
 CREATE UNIQUE INDEX "resto_p_key" ON "restaurant" ("name" ASC, "cityName" ASC, "cityCountry" ASC, "address" ASC);
 
-INSERT INTO "restaurant" VALUES (null,'THE Restot', 'Louvain-la-Neuve', 'Belgique', 'Rue du lol, 1001', 50.668081, 4.611832, 'Un restaurant de test', 'test@itself.be', 5, '81680085', 'http://www.guillaumederval.be', 10, 0);
+INSERT INTO "restaurant" VALUES (1,'THE Restot', 'Louvain-la-Neuve', 'Belgique', 'Rue du lol, 1001', 50.668081, 4.611832, 'Un restaurant de test', 'test@itself.be', 5, '81680085', 'http://www.guillaumederval.be', 10, 0);
 
 DROP TABLE IF EXISTS "dish";
 CREATE TABLE "dish" (
@@ -53,28 +53,17 @@ CREATE UNIQUE INDEX "dish_p_key" ON "dish" ("name" ASC, "restoId" ASC, "descript
 
 INSERT INTO "dish" VALUES (1,'Courgette ', 1, 'Green', 10, 1, 1, 1, 1, 'Entree');
 
-DROP TABLE IF EXISTS "users";
-CREATE TABLE "users"
-(
-	"email" text NOT NULL,
-	"password" text NOT NULL,
-	"name" text NOT NULL,
-	"surname" text NOT NULL,
-	PRIMARY KEY("email")
-);
-
 DROP TABLE IF EXISTS "reservation";
 CREATE TABlE "reservation"
 (
 	"resvId" integer NOT NULL PRIMARY KEY AUTOINCREMENT,
-	"user" text NOT NULL,
-	"resto" text NOT NULL,
+	"userEmail" text NOT NULL,
+	"restoId" interger NOT NULL,
 	"nbrReservation" integer NOT NULL,
 	"date" text NOT NULL,
-	CONSTRAINT "resto_name_contrainte" FOREIGN KEY ("resto") REFERENCES "restaurant" ("name"),
-	CONSTRAINT "user_contrainte" FOREIGN KEY ("user") REFERENCES "user" ("email")
+	CONSTRAINT "resto_name_contrainte" FOREIGN KEY ("restoID") REFERENCES "restaurant" ("restoId"),
+	CONSTRAINT "user_contrainte" FOREIGN KEY ("userEmail") REFERENCES "user" ("email")
 );
-
 DROP TABLE IF EXISTS "image";
 CREATE TABLE "image"
 (
@@ -86,14 +75,25 @@ CREATE TABLE "image"
 );
 INSERT INTO "image" VALUES ('pathbidon','restaurant', 'superbephoto',1);
 INSERT INTO "image" VALUES ('pathbidon2','dish', 'superbephoto',1);
+
 DROP TABLE IF EXISTS "reservationDish";
 CREATE TABLE "reservationDish"
 (
+	"resvId" integer NOT NULL,
 	"nameDish" text NOT NULL,
 	"nbrDish" integer NOT NULL,
-	"resvId" integer NOT NULL,
 	CONSTRAINT "resvID_contrainte" FOREIGN KEY ("resvId") REFERENCES "reservation" ("resvId"),
 	CONSTRAINT "nameDish_contrainte" FOREIGN KEY ("nameDish") REFERENCES "dish" ("name")
+);
+
+DROP TABLE IF EXISTS "users";
+CREATE TABLE "users"
+(
+	"email" text NOT NULL,
+	"password" text NOT NULL,
+	"name" text NOT NULL,
+	"surname" text NOT NULL,
+	PRIMARY KEY("email")
 );
 
 DROP TABLE IF EXISTS "users_manages";

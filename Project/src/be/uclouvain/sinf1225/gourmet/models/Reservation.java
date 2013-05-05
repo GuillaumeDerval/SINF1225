@@ -13,15 +13,15 @@ import java.util.List;
  */
 public class Reservation
 {
-	private User user;
+	private String userEmail;
 	private Restaurant restaurant;
 	private int nbrReservation;
 	private List<DishNode> dishes;
 	private Date date;
 	
-	public Reservation(User user, Restaurant restaurant, int nbrReservation, List<DishNode> dishes, Date date)
+	public Reservation(String userEmail, Restaurant restaurant, int nbrReservation, List<DishNode> dishes, Date date)
 	{
-		this.user = user;
+		this.userEmail = userEmail;
 		this.restaurant = restaurant;
 		this.nbrReservation = nbrReservation;
 		this.dishes = dishes;
@@ -29,7 +29,7 @@ public class Reservation
 	}
 	
 	/* Lecture des variables d'instances*/
-	public User getUser() {return this.user;}
+	public String getUserEmail() {return this.userEmail;}
 	public Restaurant getRestaurant () {return this.restaurant;}
 	public int getnbrReservation() {return this.nbrReservation;}
 	public List<DishNode> getDish() {return this.dishes;}
@@ -69,21 +69,6 @@ public class Reservation
 		for(DishNode node : this.dishes)
 		{
 			if (node.dish == dish) this.dishes.remove(node);			
-		}
-	}
-	
-	/**
-	 * Structure associant à chaqie plat réservé, le nombre "d'exemplaires" souhaité
-	 */
-	public class DishNode
-	{
-		public Dish dish;
-		public int nbrDishes;
-		
-		public DishNode (Dish dish, int nbrDishes)
-		{
-			this.dish = dish;
-			this.nbrDishes = nbrDishes;
 		}
 	}
 }

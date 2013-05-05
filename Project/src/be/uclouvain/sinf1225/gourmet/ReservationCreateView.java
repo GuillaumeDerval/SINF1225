@@ -3,15 +3,13 @@ package be.uclouvain.sinf1225.gourmet;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
-
-import be.uclouvain.sinf1225.gourmet.models.*;
 
 import android.app.Activity;
 import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -19,8 +17,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import be.uclouvain.sinf1225.gourmet.models.Dish;
+import be.uclouvain.sinf1225.gourmet.models.Restaurant;
 
-// TODO changer le fuseau horaire
 public class ReservationCreateView extends Activity
 {
 
@@ -46,8 +45,10 @@ public class ReservationCreateView extends Activity
 	/* */
 	private static final String RESTAURANT = "restaurant"; // intent's key - restoID
 	private static final String DISH = "dish"; // intent's key - dishID
+
 	private static Restaurant resto;
 	private static Dish dish;
+	private List<String> dishesList;						// List of dishes from 'resto'
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -66,9 +67,10 @@ public class ReservationCreateView extends Activity
 		/* auto-completion - make the choose of the dish easier */
 		/* adapter for the auto-completion */
 		addDish = (AutoCompleteTextView) findViewById(R.id.dish);
-		String[] dishesResto = Dish.getDishName(Dish.getDishInRestaurant(resto));
-		adapterAddDishes = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, dishesResto);
-		addDish.setAdapter(adapterAddDishes);
+		// dishesList = Dish.getDishName(Dish.getDishInRestaurant(resto));
+		// String[] dishesResto = (String[]) dishesList.toArray();
+		// adapterAddDishes = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, dishesResto);
+		// addDish.setAdapter(adapterAddDishes);
 
 		/* input items */
 		list = (ListView) findViewById(R.id.listDish);
@@ -76,7 +78,7 @@ public class ReservationCreateView extends Activity
 		nbrReservation = (EditText) findViewById(R.id.nbrReservation);
 
 		/* Receive the data */
-		getDataTransfer(getIntent());
+		// getDataTransfer(getIntent());
 
 		/* adapter for the list of dishes */
 		adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_activated_1, listDish);
@@ -93,14 +95,6 @@ public class ReservationCreateView extends Activity
 	{
 		DialogFragment newFragment = new DatePickerFragment();
 		newFragment.show(getFragmentManager(), "datePicker");
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu)
-	{
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.reservation_view, menu);
-		return true;
 	}
 
 	public void addItems(View v)

@@ -3,6 +3,7 @@ package be.uclouvain.sinf1225.gourmet;
 import java.util.List;
 
 import be.uclouvain.sinf1225.gourmet.models.City;
+import be.uclouvain.sinf1225.gourmet.models.Dish;
 import be.uclouvain.sinf1225.gourmet.models.Restaurant;
 import be.uclouvain.sinf1225.gourmet.utils.GourmetUtils;
 import android.app.Activity;
@@ -18,9 +19,9 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class RestaurantListView extends Activity // implements GourmetLocationReceiver
+public class DishListView extends Activity // implements GourmetLocationReceiver
 {
-	private City city = null;
+  private Restaurant restaurant = null;
 
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
@@ -37,35 +38,35 @@ public class RestaurantListView extends Activity // implements GourmetLocationRe
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_restaurant_list);
+		setContentView(R.layout.activity_dish_list);
 
 		// Initialisation des services de localisation
 		// locationListener = new GourmetLocationListener(this,this).init();
-		// Récupération de la ville sur laquelle on a cliqué et les restaurant qui lui appartiennent
-		city = City.getCity(getIntent().getExtras().getString("name"), getIntent().getExtras().getString("country"));
+		// Récupération du restaurant sur lequel on a cliqué et les plats qui lui appartiennent
+		restaurant = Restaurant.getRestaurant(getIntent().getExtras().getInt("restoId"));
 
-		List<Restaurant> restaurants = Restaurant.getAllRestaurants(city);
+		List<Dish> dishes = Dish.getDishInRestaurant(restaurant);
 		// On recupere la vue "liste"
-		ListView RestaurantList = (ListView) this.findViewById(R.id.RestaurantListView);
+		ListView DishList = (ListView) this.findViewById(R.id.DishListView);
 
 		// On cree un adapter qui va mettre dans la liste les donnes adequates des villes
-		RestaurantAdapter adapter = new RestaurantAdapter(this, R.layout.restaurant_list_row, restaurants);
-		RestaurantList.setAdapter(adapter);
-		RestaurantList.setOnItemClickListener(new OnItemClickListener()
+		DishAdapter adapter = new DishAdapter(this, R.layout.dish_list_row, dishes);
+		DishList.setAdapter(adapter);
+		DishList.setOnItemClickListener(new OnItemClickListener()
 		{
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id)
 			{
-				final ListView RestaurantList = (ListView) findViewById(R.id.RestaurantListView);
-				final RestaurantAdapter adapter = (RestaurantAdapter) RestaurantList.getAdapter();
+				final ListView DishList = (ListView) findViewById(R.id.DishListView);
+				final DishAdapter adapter = (DishAdapter) DishList.getAdapter();
 
-				Restaurant restaurant = adapter.getItem(position);
+				Dish dish = adapter.getItem(position);
 
-				Intent intent = new Intent(RestaurantListView.this, RestaurantView.class);
-				intent.putExtra("restoId", restaurant.getId());
+				Intent intent = new Intent(DishListView.this, DishView.class);
+				intent.putExtra("dishId", dish.getDishId());
 				startActivity(intent);
 			}
 		});
-		final Button button = (Button) findViewById(R.id.RestaurantListRetour);
+		final Button button = (Button) findViewById(R.id.DishListRetour);
 		button.setOnClickListener(new OnClickListener()
 		{
 			@Override

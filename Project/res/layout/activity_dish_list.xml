@@ -9,7 +9,7 @@
         android:layout_height="3dip"
         android:background="?android:attr/listDivider" />
     <Button
-        android:id="@+id/RestaurantListRetour"
+        android:id="@+id/DishListRetour"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Done" />
@@ -21,12 +21,12 @@
     <!-- ListView (grid_items) -->
 
     <LinearLayout
-        android:id="@+id/RestoListLinearListLayout"
+        android:id="@+id/DishListLinearListLayout"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" >
 
         <ListView
-            android:id="@+id/RestaurantListView"
+            android:id="@+id/DishListView"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent" >
         </ListView>
