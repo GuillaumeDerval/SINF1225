@@ -1,9 +1,13 @@
 package be.uclouvain.sinf1225.gourmet;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 import be.uclouvain.sinf1225.gourmet.models.Dish;
@@ -63,6 +67,18 @@ public class DishView extends Activity
 			ViewAvailable.setChecked(true);
 		else
 			ViewAvailable.setChecked(false);
+		
+		Button menu = (Button) findViewById(R.id.DishViewReservation);
+		menu.setOnClickListener(new OnClickListener()
+		{
+			@Override
+			public void onClick(View arg0)
+			{
+				Intent intent = new Intent(DishView.this, ReservationCreateView.class);
+			    intent.putExtra("dishId", 1);
+			    startActivity(intent);
+			}
+		});
 
 	}
 }

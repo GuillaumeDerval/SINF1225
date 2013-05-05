@@ -46,7 +46,7 @@ public class RestaurantView extends Activity
 		// ((TextView)findViewById(R.id.RestaurantListDistance)).setText(new
 		// DecimalFormat("#.##").format(city.getLocation().distanceTo(locationListener.getLastLocation())/1000));
 		
-		Button menu = (Button) findViewById(R.id.menu);
+		Button menu = (Button) findViewById(R.id.RestaurantViewMenu);
 		menu.setOnClickListener(new OnClickListener()
 		{
 			@Override
@@ -54,6 +54,18 @@ public class RestaurantView extends Activity
 			{
 				Intent intent = new Intent(RestaurantView.this, DishEditView.class);
 			    intent.putExtra("dishId", 1);
+			    startActivity(intent);
+			}
+		});
+		
+		Button menu2 = (Button) findViewById(R.id.RestaurantViewReservation);
+		menu2.setOnClickListener(new OnClickListener()
+		{
+			@Override
+			public void onClick(View arg0)
+			{
+				Intent intent = new Intent(RestaurantView.this, ReservationCreateView.class);
+			    intent.putExtra("restoId", 1);
 			    startActivity(intent);
 			}
 		});

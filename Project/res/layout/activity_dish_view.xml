@@ -19,18 +19,6 @@
       android:textAppearance="?android:attr/textAppearanceLarge" />
 
   <TextView
-      android:id="@+id/DishViewPrice"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_alignBottom="@+id/DishViewName"
-      android:layout_alignParentRight="true"
-      android:layout_alignParentTop="true"
-      android:background="#9ACD32"
-      android:gravity="center_vertical|center_horizontal"
-      android:text="Price"
-      android:textAppearance="?android:attr/textAppearanceMedium" />
-
-  <TextView
       android:id="@+id/DishViewDescription"
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
@@ -74,5 +62,38 @@
       android:layout_alignParentLeft="true"
       android:layout_below="@+id/DishViewName"
       android:text="Available" />
+
+  <TextView
+      android:id="@+id/textView1"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentRight="true"
+      android:layout_alignParentTop="true"
+      android:background="#9ACD32"
+      android:gravity="center_vertical|center_horizontal"
+      android:text=" € "
+      android:textAppearance="?android:attr/textAppearanceLarge" />
+
+  <TextView
+      android:id="@+id/DishViewPrice"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_above="@+id/DishViewAvailable"
+      android:layout_alignParentTop="true"
+      android:layout_toLeftOf="@+id/textView1"
+      android:background="#9ACD32"
+      android:gravity="center_vertical|center_horizontal"
+      android:text="Price"
+      android:textAppearance="?android:attr/textAppearanceMedium" />
+
+  <Button
+      android:id="@+id/DishViewReservation"
+      style="?android:attr/buttonStyleSmall"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_above="@+id/DishViewImage"
+      android:layout_alignParentRight="true"
+      android:layout_alignTop="@+id/DishViewAvailable"
+      android:text="Book" />
 
 </RelativeLayout>

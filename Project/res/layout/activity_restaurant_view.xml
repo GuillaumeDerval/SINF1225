@@ -18,11 +18,14 @@
         android:background="#9ACD32"/>
 
     <Button
-        android:id="@+id/menu"
+        android:id="@+id/RestaurantViewMenu"
+        style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/RestaurantViewName"
+        android:minHeight="0dp"
+        android:minWidth="0dp"
         android:text="Menu" />
 
     <TextView
@@ -30,8 +33,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignTop="@+id/menu"
-        android:layout_toLeftOf="@+id/menu"
+        android:layout_alignTop="@+id/RestaurantViewMenu"
+        android:layout_toLeftOf="@+id/RestaurantViewMenu"
         android:text="Address"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -42,9 +45,31 @@
         android:layout_alignParentLeft="true"
         android:layout_alignRight="@+id/RestaurantViewAddress"
         android:layout_below="@+id/RestaurantViewAddress"
-        android:layout_toLeftOf="@+id/menu"
+        android:layout_toLeftOf="@+id/RestaurantViewMenu"
         android:text="Website"
         android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/RestaurantViewPhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/RestaurantViewWebsite"
+        android:layout_below="@+id/RestaurantViewWebsite"
+        android:text="Phone"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <Button
+        android:id="@+id/RestaurantViewReservation"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/RestaurantViewMenu"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/RestaurantViewMenu"
+        android:minHeight="0dp"
+        android:minWidth="0dp"
+        android:text="Book" />
 
     <TextView
         android:id="@+id/RestaurantViewDescription"
@@ -53,27 +78,25 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="173dp"
         android:gravity="center"
         android:text="Description"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
-    <TextView
-        android:id="@+id/RestaurantViewPhone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/RestaurantViewWebsite"
-        android:layout_toLeftOf="@+id/menu"
-        android:text="Phone"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    <Gallery
-        android:id="@+id/gallery1"
+    <HorizontalScrollView
+        android:id="@+id/horizontalScrollView1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/RestaurantViewDescription"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="82dp" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/RestaurantViewReservation"
+        android:layout_centerVertical="true" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal" 
+            >
+        </LinearLayout>
+    </HorizontalScrollView>
 
 </RelativeLayout>
