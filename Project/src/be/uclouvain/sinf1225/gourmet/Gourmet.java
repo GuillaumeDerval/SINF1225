@@ -4,7 +4,7 @@ import android.app.Application;
 import android.content.Context;
 
 /*
- * Application class, used to have a static context
+ * Application class, used to have a static context Test if Benjamin can use the terminal
  */
 public class Gourmet extends Application
 {
