@@ -51,7 +51,6 @@
       android:layout_below="@+id/DishViewAvailable"
       android:layout_centerHorizontal="true"
       android:adjustViewBounds="true"
-      android:maxWidth="200dp"
       android:scaleType="centerInside"
       android:src="@drawable/no_image_available" />
 
@@ -94,6 +93,7 @@
       android:layout_above="@+id/DishViewImage"
       android:layout_alignParentRight="true"
       android:layout_alignTop="@+id/DishViewAvailable"
+      android:gravity="center"
       android:text="Book" />
 
 </RelativeLayout>
