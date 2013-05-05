@@ -423,8 +423,50 @@ class GourmetDatabase extends SQLiteOpenHelper
 	 */
 	public List<Dish> getDishInRestaurant(Restaurant restaurant)
 	{
-		//TODO implements.
-		return null;
+		SQLiteDatabase db = this.getReadableDatabase();
+
+		Cursor cursor = db.query(true,"dish", //table to select on
+				new String[]{"dishId",
+				"name",
+				"restoId",
+				"description",
+				"price",
+				"spicy",
+				"vegan",
+				"available",
+				"allergen",
+			 	"category"},//column to get
+				"`restoId` = ?", 
+				new String[]{String.valueOf(restaurant.getId())}, 
+				null,
+				null,
+				null,
+				null);
+		if(cursor == null)
+			return null;
+		cursor.moveToFirst();
+
+		List<Dish> dishes = new ArrayList<Dish>();
+		for(int j = 0; j < cursor.getCount(); j++)
+		{
+			Dish dish = new Dish(cursor.getInt(0), 
+					cursor.getString(1), 
+					cursor.getInt(2), 
+					cursor.getString(3),
+					cursor.getDouble(4),
+					cursor.getInt(5), 
+					cursor.getInt(6), 
+					cursor.getInt(7), 
+					cursor.getInt(8),
+					cursor.getString(9), 
+					restaurant);
+
+			dishes.add(dish);
+			cursor.moveToNext();
+
+		}
+		
+		return dishes;
 	}
 	
 	/* Restaurant */
