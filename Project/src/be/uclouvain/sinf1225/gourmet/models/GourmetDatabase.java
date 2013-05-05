@@ -506,12 +506,12 @@ class GourmetDatabase extends SQLiteOpenHelper
 
 		Cursor cursor = db.query(true,"restaurant", //table to select on
 				new String[]{"restoId","name","cityName","cityCountry","address","longitude","latitude","description","email","stars","phone","website","seats","priceCat"}, //column to get
-				"'cityName' = ?", //where
-				new String[]{city.getName()}, //where string
-				null, //group by
-				null, //having
+				"`cityName` = ? AND `cityCountry` = ?", 
+				new String[]{city.getName(),city.getCountry()}, 
 				null,
-				null); //orderby
+				null,
+				null,
+				null);
 		if(cursor == null)
 			return null;
 		cursor.moveToFirst();
@@ -520,12 +520,12 @@ class GourmetDatabase extends SQLiteOpenHelper
 		for(int j = 0; j < cursor.getCount(); j++)
 		{
 			//PriceCategory pricecate = 
-			Location loc = new Location("Database");
-			loc.setLongitude(cursor.getDouble(5));
-			loc.setLatitude(cursor.getDouble(6));
+			Location loc = null;//new Location("Database");
+			//loc.setLongitude(cursor.getDouble(5));
+			//loc.setLatitude(cursor.getDouble(6));
 
 			List<Integer> dishesID = new ArrayList<Integer>();
-			Cursor dishes = db.query(true, "dishes", 
+			Cursor dishes = db.query(true,"dish", 
 					new String[]{"dishId"},
 					"`restoId` = ?", 
 					new String[]{String.valueOf(cursor.getInt(0))}, 
@@ -533,7 +533,7 @@ class GourmetDatabase extends SQLiteOpenHelper
 					null, 
 					null,
 					null);
-			if(dishes != null)
+			if(dishes != null && cursor.getCount() != 0)
 			{
 				dishes.moveToFirst();
 				for(int i = 0; i < dishes.getCount(); i++)
@@ -560,6 +560,7 @@ class GourmetDatabase extends SQLiteOpenHelper
 			cursor.moveToNext();
 
 		}
+		
 		return restaurants;
 	}
 	

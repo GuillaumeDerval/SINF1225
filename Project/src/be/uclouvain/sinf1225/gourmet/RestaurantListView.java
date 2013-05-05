@@ -45,7 +45,6 @@ public class RestaurantListView extends Activity // implements GourmetLocationRe
 		city = City.getCity(getIntent().getExtras().getString("name"), getIntent().getExtras().getString("country"));
 
 		List<Restaurant> restaurants = Restaurant.getAllRestaurants(city);
-		((TextView) findViewById(R.id.Test)).setText((restaurants.get(0)).getName());
 		// On recupere la vue "liste"
 		ListView RestaurantList = (ListView) this.findViewById(R.id.RestaurantListView);
 
