@@ -92,10 +92,12 @@
         android:layout_centerVertical="true" >
 
         <LinearLayout
+            android:id="@+id/RestaurantViewImageContainer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal" >
-            <ImageView
+
+            <!--<ImageView
      			 android:id="@+id/DishViewImage"
     		     android:layout_width="wrap_content"
       			 android:layout_height="wrap_content"
@@ -126,12 +128,12 @@
       			 android:adjustViewBounds="true"
     			 android:maxHeight="400dp"
       			 android:scaleType="centerInside"
-      			 android:src="@drawable/picture3" />   
+      			 android:src="@drawable/picture3" />  --> 
             
         </LinearLayout>
         
     </HorizontalScrollView>
-
+    
     <Button
         android:id="@+id/RestaurantViewEdit"
         style="?android:attr/buttonStyleSmall"

@@ -41,7 +41,7 @@ public class RestaurantListView extends Activity // implements GourmetLocationRe
 
 		// Initialisation des services de localisation
 		// locationListener = new GourmetLocationListener(this,this).init();
-		// Récupération de la ville sur laquelle on a cliqué et les restaurant qui lui appartiennent
+		// Recuperation de la ville sur laquelle on a clique et les restaurant qui lui appartiennent
 		city = City.getCity(getIntent().getExtras().getString("name"), getIntent().getExtras().getString("country"));
 
 		List<Restaurant> restaurants = Restaurant.getAllRestaurants(city);
@@ -65,6 +65,7 @@ public class RestaurantListView extends Activity // implements GourmetLocationRe
 				startActivity(intent);
 			}
 		});
+		
 		final Button button = (Button) findViewById(R.id.RestaurantListRetour);
 		button.setOnClickListener(new OnClickListener()
 		{
