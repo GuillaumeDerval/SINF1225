@@ -61,7 +61,7 @@ public class RestaurantListView extends Activity // implements GourmetLocationRe
 				Restaurant restaurant = adapter.getItem(position);
 
 				Intent intent = new Intent(RestaurantListView.this, RestaurantView.class);
-				intent.putExtra("name", restaurant.getName());
+				intent.putExtra("restoId", restaurant.getId());
 				startActivity(intent);
 			}
 		});

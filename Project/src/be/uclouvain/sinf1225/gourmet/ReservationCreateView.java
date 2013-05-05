@@ -10,7 +10,6 @@ import android.app.Activity;
 import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -68,10 +67,10 @@ public class ReservationCreateView extends Activity
 		/* auto-completion - make the choose of the dish easier */
 		/* adapter for the auto-completion */
 		addDish = (AutoCompleteTextView) findViewById(R.id.dish);
-		dishesList = Dish.getDishName(Dish.getDishInRestaurant(resto));
-		String[] dishesResto = (String[]) dishesList.toArray();
-		adapterAddDishes = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, dishesResto);
-		addDish.setAdapter(adapterAddDishes);
+		// dishesList = Dish.getDishName(Dish.getDishInRestaurant(resto));
+		// String[] dishesResto = (String[]) dishesList.toArray();
+		// adapterAddDishes = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, dishesResto);
+		// addDish.setAdapter(adapterAddDishes);
 
 		/* input items */
 		list = (ListView) findViewById(R.id.listDish);
@@ -79,7 +78,7 @@ public class ReservationCreateView extends Activity
 		nbrReservation = (EditText) findViewById(R.id.nbrReservation);
 
 		/* Receive the data */
-		getDataTransfer(getIntent());
+		// getDataTransfer(getIntent());
 
 		/* adapter for the list of dishes */
 		adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_activated_1, listDish);
@@ -96,14 +95,6 @@ public class ReservationCreateView extends Activity
 	{
 		DialogFragment newFragment = new DatePickerFragment();
 		newFragment.show(getFragmentManager(), "datePicker");
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu)
-	{
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.reservation_view, menu);
-		return true;
 	}
 
 	public void addItems(View v)
