@@ -71,19 +71,4 @@ public class Reservation
 			if (node.dish == dish) this.dishes.remove(node);			
 		}
 	}
-	
-	/**
-	 * Structure associant à chaqie plat réservé, le nombre "d'exemplaires" souhaité
-	 */
-	public class DishNode
-	{
-		public Dish dish;
-		public int nbrDishes;
-		
-		public DishNode (Dish dish, int nbrDishes)
-		{
-			this.dish = dish;
-			this.nbrDishes = nbrDishes;
-		}
-	}
 }

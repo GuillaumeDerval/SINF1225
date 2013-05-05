@@ -426,7 +426,7 @@ class GourmetDatabase extends SQLiteOpenHelper
 		//TODO implements.
 		return null;
 	}
-
+	
 	/* Restaurant */
 	
 	/**
@@ -741,7 +741,7 @@ class GourmetDatabase extends SQLiteOpenHelper
 	    
 	    // insertion des diffŽrents plats commandŽs dans la base de donnŽes
 	    ContentValues values2 = new ContentValues();
-	    for(Reservation.DishNode node : reservation.getDish())
+	    for(DishNode node : reservation.getDish())
 	    {
 	    	values2.put("nameDish", node.dish.getName());
 	    	values2.put("nbrDish", node.nbrDishes);

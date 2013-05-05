@@ -3,9 +3,11 @@ package be.uclouvain.sinf1225.gourmet;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+<<<<<<< HEAD:Project/src/be/uclouvain/sinf1225/gourmet/ReservationCreateView.java
 import java.util.Locale;
 
 import be.uclouvain.sinf1225.gourmet.models.*;
+import java.util.List;
 
 import android.app.Activity;
 import android.app.DialogFragment;
@@ -19,6 +21,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import be.uclouvain.sinf1225.gourmet.models.Dish;
+import be.uclouvain.sinf1225.gourmet.models.Restaurant;
+import be.uclouvain.sinf1225.gourmet.models.User;
 
 // TODO changer le fuseau horaire
 public class ReservationCreateView extends Activity
@@ -46,8 +51,10 @@ public class ReservationCreateView extends Activity
 	/* */
 	private static final String RESTAURANT = "restaurant"; // intent's key - restoID
 	private static final String DISH = "dish"; // intent's key - dishID
+
 	private static Restaurant resto;
 	private static Dish dish;
+	private List<String> dishesList;						// List of dishes from 'resto'
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -66,7 +73,8 @@ public class ReservationCreateView extends Activity
 		/* auto-completion - make the choose of the dish easier */
 		/* adapter for the auto-completion */
 		addDish = (AutoCompleteTextView) findViewById(R.id.dish);
-		String[] dishesResto = Dish.getDishName(Dish.getDishInRestaurant(resto));
+		dishesList = Dish.getDishName(Dish.getDishInRestaurant(resto));
+		String[] dishesResto = (String[]) dishesList.toArray();
 		adapterAddDishes = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, dishesResto);
 		addDish.setAdapter(adapterAddDishes);
 
