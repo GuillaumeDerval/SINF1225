@@ -10,6 +10,8 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 import be.uclouvain.sinf1225.gourmet.models.Restaurant;
+import be.uclouvain.sinf1225.gourmet.models.Restaurator;
+import be.uclouvain.sinf1225.gourmet.models.User;
 import be.uclouvain.sinf1225.gourmet.utils.GourmetUtils;
 
 /**
@@ -52,14 +54,14 @@ public class RestaurantView extends Activity
 			@Override
 			public void onClick(View arg0)
 			{
-				Intent intent = new Intent(RestaurantView.this, DishEditView.class);
+				Intent intent = new Intent(RestaurantView.this, DishListView.class);
 			    intent.putExtra("dishId", 1);
 			    startActivity(intent);
 			}
 		});
 		
-		Button menu2 = (Button) findViewById(R.id.RestaurantViewReservation);
-		menu2.setOnClickListener(new OnClickListener()
+		Button book = (Button) findViewById(R.id.RestaurantViewReservation);
+		book.setOnClickListener(new OnClickListener()
 		{
 			@Override
 			public void onClick(View arg0)
@@ -69,6 +71,23 @@ public class RestaurantView extends Activity
 			    startActivity(intent);
 			}
 		});
+		
+		Button editresto = (Button) findViewById(R.id.RestaurantViewEdit);
+		User user = User.getUserConnected();
+		if(user instanceof Restaurator && ((Restaurator)user).hasRightsForRestaurant(restaurant))
+		editresto.setVisibility(View.VISIBLE);	
+		else editresto.setVisibility(View.INVISIBLE);
+		editresto.setOnClickListener(new OnClickListener()
+		{
+			@Override
+			public void onClick(View arg0)
+			{
+				Intent intent = new Intent(RestaurantView.this, RestaurantEditView.class);
+			    intent.putExtra("restoId", 1);
+			    startActivity(intent);
+			}
+		});
+		
 
 	}
 }
