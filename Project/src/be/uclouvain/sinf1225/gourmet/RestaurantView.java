@@ -30,7 +30,6 @@ import be.uclouvain.sinf1225.gourmet.utils.GourmetUtils;
 public class RestaurantView extends Activity
 {
 	private Restaurant restaurant = null;
-	private List<ImageView> imagesInSlider = null;
 	
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
@@ -49,7 +48,6 @@ public class RestaurantView extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_restaurant_view);
 		restaurant = Restaurant.getRestaurant(getIntent().getExtras().getInt("restoId"));
-		imagesInSlider = new ArrayList<ImageView>();
 		
 		((TextView) findViewById(R.id.RestaurantViewName)).setText(restaurant.getName());
 		((TextView) findViewById(R.id.RestaurantViewAddress)).setText(restaurant.getAddress());
