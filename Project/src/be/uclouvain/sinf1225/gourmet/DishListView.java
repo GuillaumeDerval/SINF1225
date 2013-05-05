@@ -62,7 +62,7 @@ public class DishListView extends Activity // implements GourmetLocationReceiver
 				Dish dish = adapter.getItem(position);
 
 				Intent intent = new Intent(DishListView.this, DishView.class);
-				intent.putExtra("dishId", dish.getId());
+				intent.putExtra("dishId", dish.getDishId());
 				startActivity(intent);
 			}
 		});
