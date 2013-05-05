@@ -3,11 +3,8 @@ package be.uclouvain.sinf1225.gourmet;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-<<<<<<< HEAD:Project/src/be/uclouvain/sinf1225/gourmet/ReservationCreateView.java
-import java.util.Locale;
-
-import be.uclouvain.sinf1225.gourmet.models.*;
 import java.util.List;
+import java.util.Locale;
 
 import android.app.Activity;
 import android.app.DialogFragment;
@@ -23,7 +20,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import be.uclouvain.sinf1225.gourmet.models.Dish;
 import be.uclouvain.sinf1225.gourmet.models.Restaurant;
-import be.uclouvain.sinf1225.gourmet.models.User;
 
 // TODO changer le fuseau horaire
 public class ReservationCreateView extends Activity
