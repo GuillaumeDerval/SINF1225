@@ -727,12 +727,12 @@ class GourmetDatabase extends SQLiteOpenHelper
 	 */
 	public int addReservation(Reservation reservation)
 	{
-		// ouverture de la base de donnŽes
+		// ouverture de la base de données
 		SQLiteDatabase db = this.getWritableDatabase();
 	    ContentValues values1 = new ContentValues();
 	    
 	    // valeur des diffŽrents champs
-	    values1.put("user", reservation.getUser().getName());
+	    values1.put("userEmail", reservation.getUserEmail());
 	    values1.put("resto", reservation.getRestaurant().getName());
 	    values1.put("nbrReservation", Integer.toString(reservation.getnbrReservation()));
 	    values1.put("date", reservation.getDate().toString());
@@ -753,30 +753,137 @@ class GourmetDatabase extends SQLiteOpenHelper
 	    return 1;
 	}
 	
-	//TODO Documentation.
-	public int deleteReservation(User user, Restaurant resto, Date date)
+	/**
+	 * Insert a new reservation into the database
+	 * @param restoID
+	 * @param email
+	 * @param nbr
+	 * @param date
+	 * @return the rowID of the new reservation (-1 in case of error)
+	 */
+	public int addReservation(int restoID, String email, int nbr, Date date)
 	{
-	    // resvId de la rŽservation
-	    SQLiteDatabase db = this.getReadableDatabase();
-	    String str[] = new String[] {user.getName(), resto.getName(), date.toString()};
-	    Cursor cursor = db.rawQuery("select resvId from reservation where user = ? AND resto = ? AND date = ?", str);
-	    if(cursor == null || cursor.getCount() != 1) return 0;
-	    cursor.moveToFirst();
-	    int RESVID = cursor.getInt(0);
+		/* open database */
+		SQLiteDatabase db = this.getWritableDatabase();
+	    ContentValues values = new ContentValues();
+	    
+	    /* put values */
+	    values.put("userEmail", email);
+	    values.put("restoId", restoID);
+	    values.put("nbrReservation", Integer.toString(nbr));
+	    values.put("date", date.toString());
+	    
+	    /* insert the new reservation into the database */
+	    int rowID = (int) db.insert("reservation", null, values);
+	    
+	    /* Close database */
 	    db.close();
 	    
-	    // suppression des plats rŽservŽs dans la table reservationDish
-	    SQLiteDatabase dbw = this.getWritableDatabase();
-	    dbw.delete("reservationDish", "`resvId` = ?", new String[] {"" + RESVID});
-	    dbw.close();
-	    return 1;
+	    /* return the rowID */
+	    return rowID; 
 	}
-	// retourner ttes lesrŽservtaion d'un meme user => database
-	// retourner ttes les users ayant effectuŽs une rŽservation dans un restaurant => database
-	// retourner toutes les rŽservation d'un m�me plat => database
 	
-	//TODO implement. Commented lines are not essential
-	public Reservation getReservation(User user, Restaurant restaurant, Date date) {return null;}
+	/**
+	 * Remove the reservation from the database
+	 * @param resvID
+	 * @return 0 in case of error, 
+	 * 			the rowID otherwise
+	 */
+	public int deleteReservation(int resvID)
+	{
+		/* open database */
+		SQLiteDatabase db = this.getWritableDatabase();
+		
+		/* remove the reservation */
+	    int rowID = db.delete("reservation", "`resvId` = ?", new String[] {Integer.toString(resvID)});
+	    
+	    /* close database */
+	    db.close();
+	    
+	    /* return the rowID */
+		return rowID;
+	}
+	
+	/**
+	 * @param email
+	 * @param restoID
+	 * @param date
+	 * @return success : the resvID
+	 * 			error : -1
+	 */
+	public int getResvID(String email, int restoID, Date date)
+	{
+		/* Open database */
+	    SQLiteDatabase db = this.getReadableDatabase();
+	    
+	    /* Get the resvID */
+	    String str[] = new String[] {email, Integer.toString(restoID), date.toString()};
+	    Cursor cursor = db.rawQuery("select resvId from reservation where userEmail = ? AND restoId = ? AND date = ?", str);
+	    if(cursor == null || cursor.getCount() != 1) return (-1);
+	    cursor.moveToFirst();
+	    int resvID = cursor.getInt(0);
+	    
+	    /* close database */
+	    db.close();
+	    
+	    /* return the resvId of the reservation */
+		return resvID;
+	}
+	
+	/**
+	 * add a dish to a reservation
+	 * @param resvID
+	 * @param dish
+	 * @param nbr
+	 * @return success : rowID where the new dish has been added
+	 * 			error : -1
+	 */
+	public int addReservationDish (int resvID, String dish, int nbr)
+	{
+		/* open database */
+		SQLiteDatabase db = this.getWritableDatabase();
+	    ContentValues values = new ContentValues();
+	    
+	    /* put values */
+	    values.put("resvId", Integer.toString(resvID));
+	    values.put("nameDish", dish);
+	    values.put("nbrDish", Integer.toString(nbr));
+	    
+	    /* insert the new reservation into the database */
+	    int rowID = (int) db.insert("reservationDish", null, values);
+	    
+	    /* Close database */
+	    db.close();
+	    
+	    /* return the rowID */
+	    return rowID; 
+	}
+	
+	/**
+	 * remove a dish from a reservation
+	 * @param resvID
+	 * @param dish
+	 * @param nbr
+	 * @return success : rowID from the removed element
+	 * 			error : 0
+	 */
+	public int deleteResvervationDish (int resvID, String dish, int nbr)
+	{
+		/* open database */
+		SQLiteDatabase db = this.getWritableDatabase();
+		
+		/* remove the reservation */
+		String str[] = new String[] {Integer.toString(resvID), dish, Integer.toString(nbr)};
+	    int rowID = db.delete("reservationDish", "`resvId` = ? AND `nameDish`= ? AND `nbrDish`= ?", str);
+	    
+	    /* close database */
+	    db.close();
+	    
+	    /* return the rowID */
+		return rowID;
+	}
+	
+	// TODO
 	//public List<Reservation> getAllReservations() { return null; }
 	public List<Reservation> getReservationInRestaurant(Restaurant restaurant) { return null; }
 	public List<Reservation> getReservationByUser(User user) { return null; }

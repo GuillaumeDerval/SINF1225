@@ -21,7 +21,6 @@ import android.widget.TextView;
 import be.uclouvain.sinf1225.gourmet.models.Dish;
 import be.uclouvain.sinf1225.gourmet.models.Restaurant;
 
-// TODO changer le fuseau horaire
 public class ReservationCreateView extends Activity
 {
 

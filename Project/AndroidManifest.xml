@@ -30,14 +30,12 @@
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyDOV0dZeIM3-f3cOGOV4gExvg0gVH5GOiY" />
-
         <activity
             android:name="be.uclouvain.sinf1225.gourmet.LoginView"
             android:label="@string/app_name"
             android:launchMode="singleInstance" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -100,7 +98,7 @@
             android:name="be.uclouvain.sinf1225.gourmet.DishView"
             android:label="@string/app_name" >
         </activity>
-        <activity
+         <activity
             android:name="be.uclouvain.sinf1225.gourmet.ReservationCreateView"
             android:label="@string/app_name" >
         </activity>
