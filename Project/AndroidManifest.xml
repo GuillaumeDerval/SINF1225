@@ -23,7 +23,6 @@
         android:name="be.uclouvain.sinf1225.gourmet.Gourmet"
         android:allowBackup="true"
         android:clearTaskOnLaunch="true"
-        android:debuggable="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
