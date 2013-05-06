@@ -5,43 +5,51 @@
   android:layout_height="wrap_content">
   
     
-    
-    
   <TableRow>
+      
    <TextView
-    android:textColor="@android:color/black"
+  	android:id="@+id/rsvName"
+    android:textColor="@android:color/white"
     android:layout_margin="1dp"
     android:gravity="center_horizontal"
     android:layout_weight="1"
-    android:background="@android:color/white"
-    android:text="Name" />
+    android:background="@color/green"
+    android:text="Nom" />
+   
    <TextView
-    android:textColor="@android:color/black"
+  	android:id="@+id/rsvDate"
+    android:textColor="@android:color/white"
     android:gravity="center_horizontal"
     android:layout_weight="1"
     android:layout_margin="1dp"
-    android:background="@android:color/white"
+    android:background="@color/green"
     android:text="Date" />
+   
    <TextView
-    android:textColor="@android:color/black"
+  	android:id="@+id/rsvTime"
+    android:textColor="@android:color/white"
     android:gravity="center_horizontal"
     android:layout_weight="1"
     android:layout_margin="1dp"
-    android:background="@android:color/white"
-    android:text="Time" />
+    android:background="@color/green"
+    android:text="Heure" />
+   
    <TextView
-    android:textColor="@android:color/black"
+  	android:id="@+id/rsvRest"
+    android:textColor="@android:color/white"
     android:gravity="center_horizontal"
     android:layout_weight="1"
     android:layout_margin="1dp"
-    android:background="@android:color/white"
+    android:background="@color/green"
     android:text="Restaurant" />
+   
    <TextView
-    android:textColor="@android:color/black"
+    android:textColor="@android:color/white"
     android:gravity="center_horizontal"
     android:layout_weight="1"
     android:layout_margin="1dp"
-    android:background="@android:color/white"
-    android:text="# people" />
+    android:background="@color/green"
+    android:text="# p." />
+   
   </TableRow>
  </TableLayout>
