@@ -33,6 +33,7 @@ public class ViewDishImage extends Activity
 	private static int RESULT_LOAD_IMAGE = 1;
 	private String filePath;
 	private ImageView myImage;
+	Image img;
 	
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
@@ -52,8 +53,8 @@ public class ViewDishImage extends Activity
 		setContentView(R.layout.activity_image_dish_view);
 		int dishId = Integer.valueOf(getIntent().getExtras().getInt("dishId"));
 		dish = Dish.getDish(dishId);
-		final Image img = Dish.getImage(dishId);
-
+		img = Dish.getImage(dishId);
+		
 		final Button deleteButton = (Button) findViewById(R.id.delete_image_dish);
 		final Button changeButton = (Button) findViewById(R.id.change_image_dish);
 		myImage = (ImageView) findViewById(R.id.dish_image_icon);
@@ -81,7 +82,9 @@ public class ViewDishImage extends Activity
 			 */
 			public void onClick(View v)
 			{
+				GourmetFiles.deleteExternalStoragePrivateFile(img.getPath());
 				Image.deleteImage(img.getPath()); // delete the image in the database
+				RestaurantImageView.adapter.notifyDataSetChanged();
 				finish();
 			}
 		});
@@ -125,17 +128,17 @@ public class ViewDishImage extends Activity
 			int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
 			filePath =cursor.getString(columnIndex);
 			cursor.close();
-			
+			Log.d("", filePath);
 			final String objectType = "dish";
 			final int objectId = dish.getDishId();
-			String finalFilePath = "img/" + objectType + "_" + objectId + ".png";
+			String finalFilePath = "img/" + objectType + "_" + objectId+ "_"+filePath+ ".png";
 			GourmetFiles.copyImageToDisk(finalFilePath, filePath);
 			
-			Image img = new Image(null, finalFilePath, objectType, objectId); // create a new image
+			img = new Image(null, finalFilePath, objectType, objectId); // create a new image
 			
 			if (dish.getImg() != null)
 			{
-				Toast toast = Toast.makeText(getApplicationContext(), "Previous image will be deleted", Toast.LENGTH_LONG);
+				Toast toast = Toast.makeText(getApplicationContext(), "L'image précédente à été supprimée", Toast.LENGTH_LONG);
 				toast.show();
 				GourmetFiles.deleteExternalStoragePrivateFile(dish.getImg().getPath());
 				Image.deleteImage(dish.getImg().getPath()); // delete

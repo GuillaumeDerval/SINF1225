@@ -59,6 +59,25 @@ public class Restaurant
 		this.dishes = null;
 		this.dishesID = dishesID;
 	}
+	public Restaurant(int id, City city, String name, String address, PriceCategory priceCategory, Location location, String phone, int seats, String website, String description, int stars, String email, List<Integer> dishesID, List<Image>images)
+	{
+		this.id = id;
+		this.city = city;
+		this.name = name;
+		this.address = address;
+		this.priceCategory = priceCategory;
+		this.location = location;
+		this.phone = phone;
+		this.seats = seats;
+		this.website = website;
+		this.description = description;
+		this.stars = stars;
+		this.email = email;
+		this.reservations = null;
+		this.dishes = null;
+		this.dishesID = dishesID;
+		this.images = images;
+	}
 
 	/**
 	 * update restaurant in DB
@@ -234,5 +253,13 @@ public class Restaurant
 	public void deleteImage(Image image)
 	{
 		this.images.remove(image);
+	}
+
+	public List<Image> getImages() {
+		return images;
+	}
+
+	public void setImages(List<Image> images) {
+		this.images = images;
 	}
 }

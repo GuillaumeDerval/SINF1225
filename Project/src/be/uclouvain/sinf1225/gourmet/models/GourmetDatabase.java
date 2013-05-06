@@ -100,7 +100,9 @@ class GourmetDatabase extends SQLiteOpenHelper
 				null, //having
 				null); //orderby
 		boolean ans = cursor != null && cursor.getCount() != 0;
-		db.close(); // Closing database connection
+
+		/* close database */
+	    db.close();
 		
 		return ans;
 	}
@@ -158,6 +160,7 @@ class GourmetDatabase extends SQLiteOpenHelper
 		{
 			/* close database */
 		    db.close();
+
 		    return null;
 		}
 		
@@ -319,7 +322,7 @@ class GourmetDatabase extends SQLiteOpenHelper
 				null, //group by
 				null, //having
 				null); //orderby
-		
+
 		if(cursor == null)
 		{
 			db.close();
@@ -333,6 +336,7 @@ class GourmetDatabase extends SQLiteOpenHelper
 				cursor.getString(2),
 				cursor.getInt(3)
 				);
+
 		db.close();
 		return image;
 	}
@@ -410,8 +414,6 @@ class GourmetDatabase extends SQLiteOpenHelper
 				null, //having
 				null); //orderby
 		
-
-	    
 		if(cursor == null)
 		{
 			db.close();
@@ -516,12 +518,9 @@ class GourmetDatabase extends SQLiteOpenHelper
 				null, //group by
 				null, //having
 				null); //orderby
-		
 
-	    
 		if(cursor == null || cursor.getCount() == 0)
 		{
-			/* close database */
 		    db.close();
 		    return null;
 		}
@@ -530,6 +529,7 @@ class GourmetDatabase extends SQLiteOpenHelper
 		Location loc = new Location("Database");
 		loc.setLongitude(cursor.getDouble(6));
 		loc.setLatitude(cursor.getDouble(7));
+		List<Image>images = getAllImages("restaurant", restoId);
 		
 		Restaurant resto = new Restaurant(
 				cursor.getInt(0), //id
@@ -544,7 +544,8 @@ class GourmetDatabase extends SQLiteOpenHelper
 				cursor.getString(11), //description
 				cursor.getInt(12), //stars
 				cursor.getString(13), // email
-				null); //dishesID
+				null,
+				images); //dishesID
 		
 		/* close database */
 	    db.close();
@@ -574,8 +575,6 @@ class GourmetDatabase extends SQLiteOpenHelper
 		values.put("seats", restaurant.getSeats());
 		values.put("priceCat", restaurant.getPriceCategory().ordinal());
 		db.update("restaurant", values, "`restoId` = ?", new String[]{ ""+restaurant.getId()});
-		/* close database */
-	    db.close();
 	}
 	
 	/**
@@ -597,8 +596,6 @@ class GourmetDatabase extends SQLiteOpenHelper
 				null);
 		if(cursor == null)
 		{
-			/* close database */
-		    db.close();
 		    return null;
 		}
 			
@@ -648,8 +645,7 @@ class GourmetDatabase extends SQLiteOpenHelper
 			cursor.moveToNext();
 
 		}
-		/* close database */
-	    db.close();
+
 		return restaurants;
 	}
 	

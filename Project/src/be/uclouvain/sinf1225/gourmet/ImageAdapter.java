@@ -2,6 +2,7 @@ package be.uclouvain.sinf1225.gourmet;
 
 import android.widget.ArrayAdapter;
 import be.uclouvain.sinf1225.gourmet.models.Image;
+import be.uclouvain.sinf1225.gourmet.utils.GourmetFiles;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -73,7 +74,7 @@ public class ImageAdapter extends ArrayAdapter<Image>
 		}
 		viewIds.legend.setText(imageView.getLegend());
 		// recuperer l'image
-		File imgFile = new File(imageView.getPath());
+		File imgFile = new File(GourmetFiles.getRealPath(imageView.getPath()));
 		if (imgFile.exists())
 		{
 
