@@ -2,52 +2,101 @@
 <ScrollView  
     xmlns:android="http://schemas.android.com/apk/res/android"  
     android:id="@+id/ScrollView01"  
-    android:layout_width="wrap_content"  
-    android:layout_height="wrap_content"  
+    android:layout_width="fill_parent"  
+    android:layout_height="fill_parent"  
     android:scrollbars="vertical">  
 
     <LinearLayout
-        android:layout_width="316dp"
-        android:layout_height="372dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical" >
   
-<!--Put form controls here-->  
 
-    <EditText
-        android:id="@+id/EditDishName"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:text="Name" >
-  
-    </EditText> 
-    <EditText  
-    android:id="@+id/EditDishCategory"  
-    android:layout_height="wrap_content"    
-    android:layout_width="fill_parent"
-    android:text="Category" >  
-</EditText> 
+    	<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal" >
+    		<TextView
+    	    android:id="@+id/textView1"
+    	    android:layout_width="wrap_content"
+    	    android:layout_height="wrap_content"
+    	    android:text="Nom" />
+    		<EditText
+        	android:id="@+id/EditDishName"
+        	android:layout_width="fill_parent"
+        	android:layout_height="wrap_content"
+        	android:inputType="textPersonName"
+        	android:text="Name" >
+        	</EditText> 
+  		</LinearLayout>
 
-        <EditText
-        android:id="@+id/EditDishPrice"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Price" >
-  
-    </EditText>
+  		
+    	<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal" >
+    		<TextView
+    	    android:id="@+id/textView1"
+    	    android:layout_width="wrap_content"
+    	    android:layout_height="wrap_content"
+    	    android:text="Catégorie" />
+    		<EditText  
+    		android:id="@+id/EditDishCategory"  
+   			android:layout_height="wrap_content"    
+    		android:layout_width="fill_parent"
+    		android:text="Category" >  
+			</EditText> 
+		</LinearLayout>
+    	<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal" >
+    		<TextView
+    	    android:id="@+id/textView1"
+    	    android:layout_width="wrap_content"
+    	    android:layout_height="wrap_content"
+    	    android:text="Prix" />
+        	<EditText
+        	android:id="@+id/EditDishPrice"
+        	android:layout_width="fill_parent"
+        	android:layout_height="wrap_content"
+        	android:text="Price" >
+        	</EditText>
+		</LinearLayout>
+    		
+    	<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal" >
+        	<TextView
+    	    android:id="@+id/textView1"
+    	    android:layout_width="wrap_content"
+    	    android:layout_height="wrap_content"
+    	    android:text="Plat disponibles" />
            <EditText  
-        android:id="@+id/EditDishAvailable"  
-        android:layout_height="wrap_content"  
-        android:layout_width="fill_parent"
-        android:text="Available">  
-    </EditText>
-               <EditText  
-        android:id="@+id/EditDishDescription"  
-        android:layout_height="wrap_content"  
-        android:layout_width="fill_parent"
-         android:lines="3"  
-        android:text="Description">  
-    </EditText>
+        	android:id="@+id/EditDishAvailable"  
+        	android:layout_height="wrap_content"  
+        	android:layout_width="fill_parent"
+        	android:text="Available">  
+    		</EditText>
+		</LinearLayout>
+    	<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal" >
+            <TextView
+    	    android:id="@+id/textView1"
+    	    android:layout_width="wrap_content"
+    	    android:layout_height="wrap_content"
+    	    android:text="Description" />
+            <EditText  
+        	android:id="@+id/EditDishDescription"  
+        	android:layout_height="wrap_content"  
+        	android:layout_width="fill_parent"
+         	android:lines="3"  
+        	android:text="Description">  
+    		</EditText>
+    	</LinearLayout>
             <CheckBox
                 android:id="@+id/EditDishSpicy"
                 android:layout_width="wrap_content"

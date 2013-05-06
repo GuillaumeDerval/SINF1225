@@ -2,85 +2,160 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ScrollView01"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="fill_parent"
     android:scrollbars="vertical" >
 
     <LinearLayout
-        android:layout_width="316dp"
-        android:layout_height="372dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical" >
 
         <!-- Put form controls here -->
+   		 <LinearLayout
+        	android:layout_width="match_parent"
+        	android:layout_height="match_parent"
+        	android:orientation="horizontal" >
+            	<TextView
+       	 		android:id="@+id/textView1"
+        		android:layout_width="wrap_content"
+        		android:layout_height="wrap_content"
+        		android:text="Nom" />
+        		<EditText
+            	android:id="@+id/EditName"
+            	android:layout_width="fill_parent"
+            	android:layout_height="wrap_content"
+            	android:inputType="textPersonName"
+            	android:text="Name" >
+        	</EditText>
+ 		</LinearLayout>
 
-        <EditText
-            android:id="@+id/EditName"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:text="Name" >
-        </EditText>
-
-        <EditText
+    	<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal" >
+            	<TextView
+       	 		android:id="@+id/textView1"
+        		android:layout_width="wrap_content"
+        		android:layout_height="wrap_content"
+        		android:text="Numero de telephone" />
+        	<EditText
             android:id="@+id/EditPhoneNumber"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="PhoneNumber" >
-        </EditText>
-
-        <EditText
+        	</EditText>
+ 		</LinearLayout>
+ 
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal" >
+        	    <TextView
+       	 		android:id="@+id/textView1"
+        		android:layout_width="wrap_content"
+        		android:layout_height="wrap_content"
+        		android:text="Adresse" />
+        	<EditText
             android:id="@+id/EditAdress"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:lines="3"
             android:text="Adress" >
-        </EditText>
-
-        <EditText
+        	</EditText>
+ 		</LinearLayout>
+		<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal" >
+            	<TextView
+       	 		android:id="@+id/textView1"
+        		android:layout_width="wrap_content"
+        		android:layout_height="wrap_content"
+        		android:text="Catégorie de prix" />
+        	<EditText
             android:id="@+id/EditPriceCat"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="PriceCat" >
-        </EditText>
-
-        <EditText
+        	</EditText>
+        </LinearLayout>
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal" >
+            	<TextView
+       	 		android:id="@+id/textView1"
+        		android:layout_width="wrap_content"
+        		android:layout_height="wrap_content"
+        		android:text="Email" />
+        	<EditText
             android:id="@+id/EditEmail"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="Email" >
-        </EditText>
-
-        <EditText
+        	</EditText>
+ 		</LinearLayout>
+ 		
+       	<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal" >
+            	<TextView
+       	 		android:id="@+id/textView1"
+        		android:layout_width="wrap_content"
+        		android:layout_height="wrap_content"
+        		android:text="Place maximum" />
+        	<EditText
             android:id="@+id/EditSeats"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="Max seats" >
-        </EditText>
-
-        <EditText
+        	</EditText>
+		</LinearLayout>
+       	<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal" >
+            	<TextView
+       	 		android:id="@+id/textView1"
+        		android:layout_width="wrap_content"
+        		android:layout_height="wrap_content"
+        		android:text="Description" />
+        	<EditText
             android:id="@+id/EditDescription"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:lines="3"
             android:text="Description" >
-        </EditText>
-
-        <EditText
+        	</EditText>
+	</LinearLayout>
+	
+       	<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal" >
+            	<TextView
+       	 		android:id="@+id/textView1"
+        		android:layout_width="wrap_content"
+        		android:layout_height="wrap_content"
+        		android:text="Site internet" />
+        	<EditText
             android:id="@+id/EditWebsite"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="Website" >
-        </EditText>
-
-        <RatingBar
+        	</EditText>
+		</LinearLayout>
+        	<RatingBar
             android:id="@+id/restaurantStars"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <LinearLayout
+        	<LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
-            <Button
+            	<Button
                 android:id="@+id/seeImageRestaurant"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -89,7 +164,7 @@
                 android:paddingLeft="10dip"
                 android:text="Image" />
 
-            <Button
+            	<Button
                 android:id="@+id/buttonApply"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
