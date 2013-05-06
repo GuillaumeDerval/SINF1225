@@ -562,9 +562,9 @@ class GourmetDatabase extends SQLiteOpenHelper
 		for(int j = 0; j < cursor.getCount(); j++)
 		{
 			//PriceCategory pricecate = 
-			Location loc = null;//new Location("Database");
-			//loc.setLongitude(cursor.getDouble(5));
-			//loc.setLatitude(cursor.getDouble(6));
+			Location loc = new Location("Database");
+			loc.setLongitude(cursor.getDouble(5));
+			loc.setLatitude(cursor.getDouble(6));
 
 			List<Integer> dishesID = new ArrayList<Integer>();
 			Cursor dishes = db.query(true,"dish", 
