@@ -19,6 +19,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class RestaurantListView extends Activity implements GourmetLocationReceiver
 {
@@ -49,8 +50,13 @@ public class RestaurantListView extends Activity implements GourmetLocationRecei
 
 		List<Restaurant> restaurants = Restaurant.getAllRestaurants(city);
 		// On recupere la vue "liste"
+		if (restaurants == null)
+		{
+			Toast toast = Toast.makeText(getApplicationContext(),"Il n'y a pas de restaurants dans le ville sélectionnée",Toast.LENGTH_LONG);
+			toast.show();
+		}
 		ListView RestaurantList = (ListView) this.findViewById(R.id.RestaurantListView);
-
+		
 		// On cree un adapter qui va mettre dans la liste les donnes adequates des villes
 		RestaurantAdapter adapter = new RestaurantAdapter(this, R.layout.restaurant_list_row, restaurants,locationListener.getLastLocation());
 		RestaurantList.setAdapter(adapter);
@@ -69,15 +75,7 @@ public class RestaurantListView extends Activity implements GourmetLocationRecei
 			}
 		});
 		
-		final Button button = (Button) findViewById(R.id.RestaurantListRetour);
-		button.setOnClickListener(new OnClickListener()
-		{
-			@Override
-			public void onClick(View arg0)
-			{
-				finish();
-			}
-		});
+		
 	}
 
 	@Override

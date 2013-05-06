@@ -64,15 +64,7 @@ public class DishListView extends Activity
 				startActivity(intent);
 			}
 		});
-		final Button button = (Button) findViewById(R.id.DishListRetour);
-		button.setOnClickListener(new OnClickListener()
-		{
-			@Override
-			public void onClick(View arg0)
-			{
-				finish();
-			}
-		});
+		
 	}
 
 	@Override
