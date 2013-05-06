@@ -51,7 +51,14 @@ CREATE TABLE "dish" (
 );
 CREATE UNIQUE INDEX "dish_p_key" ON "dish" ("name" ASC, "restoId" ASC, "description" ASC, "price" ASC, "spicy" ASC, "vegan" ASC,"allergen" ASC);
 
-INSERT INTO "dish" VALUES (1,'Courgette ', 1, 'Green', 10, 1, 1, 1, 1, 'Entree');
+INSERT INTO "dish" VALUES (1,'CourgetteEntree ', 1, 'GreenEntree', 10, 1, 1, 1, 1, 'Entree');
+INSERT INTO "dish" VALUES (2,'CourgettePlat ', 1, 'GreenPlat', 10, 1, 1, 1, 1, 'Plat');
+INSERT INTO "dish" VALUES (3,'CourgetteDessert ', 1, 'GreenDessert', 10, 1, 1, 1, 1, 'Dessert');
+INSERT INTO "dish" VALUES (4,'CourgetteAutre ', 1, 'GreenAutre', 10, 1, 1, 1, 1, 'HelloWorld');
+INSERT INTO "dish" VALUES (5,'ABCCourgetteEntree ', 1, 'GreenEntree', 10, 1, 1, 1, 1, 'Entree');
+INSERT INTO "dish" VALUES (6,'ABCCourgettePlat ', 1, 'GreenPlat', 10, 1, 1, 1, 1, 'Plat');
+INSERT INTO "dish" VALUES (7,'ABCCourgetteDessert ', 1, 'GreenDessert', 10, 1, 1, 1, 1, 'Dessert');
+INSERT INTO "dish" VALUES (8,'ABCCourgetteAutre ', 1, 'GreenAutre', 10, 1, 1, 1, 1, 'HelloWorld');
 
 DROP TABLE IF EXISTS "reservation";
 CREATE TABlE "reservation"
