@@ -41,18 +41,7 @@ public class Image
 		db.addImage(img);
 		db.close();
 	}
-	/**
-	 * delete one image from the type and the id
-	 * YOU CAN ONLY USE THIS METHOD WITH A DISH! A RESTAURANT CAN HAVE MORE THAN ONE IMAGE
-	 * @param type
-	 * @param id
-	 */
-	public static void deleteImage(String type, int id)
-	{
-		GourmetDatabase db = new GourmetDatabase();
-		db.deleteImage(type, id);
-		db.close();
-	}
+	
 	/**
 	 * delete one image from the path
 	 * @param path
@@ -63,6 +52,7 @@ public class Image
 		db.deleteImage(path);
 		db.close();
 	}
+	
 	/**
 	 * return images link to type and the id
 	 * @return all images

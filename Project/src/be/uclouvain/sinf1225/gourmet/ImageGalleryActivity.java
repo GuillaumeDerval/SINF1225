@@ -9,11 +9,13 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 import be.uclouvain.sinf1225.gourmet.models.Image;
 import be.uclouvain.sinf1225.gourmet.utils.GourmetUtils;
 
@@ -86,30 +88,11 @@ public class ImageGalleryActivity extends Activity
 			final int objectId = Integer.parseInt(getIntent().getStringExtra( "id"));
 			Image img = new Image(null, filePath, objectType, objectId); // create a new image
 			
-			if (objectType == "dish")
+			if (objectType.equals("dish"))
 			{
-				AlertDialog.Builder dialog = new AlertDialog.Builder(this);// .create();
-				// TODO Application speaks french, multiple images for dishes
-				dialog.setTitle("Warning");
-				dialog.setMessage("Add this image remove the old one, dish can only have one image");
-				dialog.setIcon(android.R.drawable.ic_dialog_alert);
-				dialog.setNegativeButton("Cancel",
-						new DialogInterface.OnClickListener()
-						{
-							public void onClick(DialogInterface dialog, int which)
-							{
-								dialog.cancel();
-							}
-						});
-				dialog.setPositiveButton("Ok",
-						new DialogInterface.OnClickListener()
-						{
-							public void onClick(DialogInterface dialog, int which)
-							{
-								Image.deleteImage(objectType, objectId); // delete
-							}
-						});
-				dialog.show();
+				//Image.deleteImage(objectType, objectId); // delete
+				Toast toast = Toast.makeText(getApplicationContext(), "Previous image will be delete", Toast.LENGTH_LONG);
+				toast.show();
 			}
 			Image.addImage(img); // ajoute l'image dans la DB
 			ImageView imageView = (ImageView) findViewById(R.id.imgViewGalleryLoad);
