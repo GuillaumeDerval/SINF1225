@@ -22,7 +22,6 @@ public class Restaurant
 	private String email;
 	private List<Reservation> reservations;
 	private List<Dish> dishes;
-	private List<Integer> dishesID;
 	private List<Image> images;
 
 	/**
@@ -41,7 +40,7 @@ public class Restaurant
 	 * @param stars
 	 * @param email
 	 */
-	public Restaurant(int id, City city, String name, String address, PriceCategory priceCategory, Location location, String phone, int seats, String website, String description, int stars, String email, List<Integer> dishesID)
+	public Restaurant(int id, City city, String name, String address, PriceCategory priceCategory, Location location, String phone, int seats, String website, String description, int stars, String email)
 	{
 		this.id = id;
 		this.city = city;
@@ -58,7 +57,6 @@ public class Restaurant
 		this.reservations = null;
 		this.dishes = null;
 		this.images = null;
-		this.dishesID = dishesID;
 	}
 
 	/**
@@ -245,4 +243,8 @@ public class Restaurant
 		}
 		return images;
 	}
+
+	//public void setImages(List<Image> images) {
+	//	this.images = images;
+	//}
 }

@@ -11,6 +11,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.widget.ImageView;
 import be.uclouvain.sinf1225.gourmet.models.Image;
+import be.uclouvain.sinf1225.gourmet.utils.GourmetFiles;
 import be.uclouvain.sinf1225.gourmet.utils.GourmetUtils;
 
 /**
@@ -42,7 +43,7 @@ public class ViewRestaurantImage extends Activity
 		final Button deleteButton = (Button) findViewById(R.id.delete_view_restaurant_image);
 		final ImageView myImage = (ImageView) findViewById(R.id.image_view_restaurant_image);
 
-		File imgFile = new File(getIntent().getExtras().getString("path"));
+		File imgFile = new File(GourmetFiles.getRealPath(getIntent().getExtras().getString("path")));
 		if (imgFile.exists())
 		{
 
@@ -56,12 +57,14 @@ public class ViewRestaurantImage extends Activity
 			 */
 			public void onClick(View v)
 			{
-				File imgFile = new File(getIntent().getExtras().getString("path"));
+				File imgFile = new File(GourmetFiles.getRealPath(getIntent().getExtras().getString("path")));
 				if (imgFile.exists())
 				{
 					imgFile.delete(); // delete the file
 				}
 				Image.deleteImage(getIntent().getExtras().getString("path")); // delete the image in the database
+				GourmetFiles.deleteExternalStoragePrivateFile(getIntent().getExtras().getString("path"));
+				RestaurantImageView.resto.deleteImage(RestaurantImageView.imageOnClic);
 				finish();
 			}
 		});
