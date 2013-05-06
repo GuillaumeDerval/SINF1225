@@ -15,6 +15,7 @@ import android.util.Log;
 import be.uclouvain.sinf1225.gourmet.Gourmet;
 import be.uclouvain.sinf1225.gourmet.R;
 import be.uclouvain.sinf1225.gourmet.enums.PriceCategory;
+import be.uclouvain.sinf1225.gourmet.utils.GourmetFiles;
 import be.uclouvain.sinf1225.gourmet.utils.GourmetUtils;
 
 /**
@@ -25,7 +26,7 @@ import be.uclouvain.sinf1225.gourmet.utils.GourmetUtils;
  */
 class GourmetDatabase extends SQLiteOpenHelper
 {
-	private static final int DATABASE_VERSION = 19;
+	private static final int DATABASE_VERSION = 20;
     private static final String DATABASE_NAME = "gourmet";
     private Context context;
     
@@ -48,6 +49,14 @@ class GourmetDatabase extends SQLiteOpenHelper
 		this.context = Gourmet.getAppContext();
 	}
 	
+	private void initImages()
+	{
+		int[] ressources = {R.drawable.picture1, R.drawable.picture2, R.drawable.picture3};
+		String[] links = {"img/picture1.png", "img/picture2.png", "img/picture3.png"};
+		for(int i = 0; i < ressources.length; i++)
+			GourmetFiles.exportFileFromResToDisk(links[i], ressources[i]);
+	}
+	
 	@Override
 	public void onCreate(SQLiteDatabase db)
 	{
@@ -64,6 +73,7 @@ class GourmetDatabase extends SQLiteOpenHelper
 				String t = st.nextToken();
 				db.execSQL(t);
 			}
+			initImages();
 		}
 	}
 
@@ -562,9 +572,9 @@ class GourmetDatabase extends SQLiteOpenHelper
 		for(int j = 0; j < cursor.getCount(); j++)
 		{
 			//PriceCategory pricecate = 
-			Location loc = null;//new Location("Database");
-			//loc.setLongitude(cursor.getDouble(5));
-			//loc.setLatitude(cursor.getDouble(6));
+			Location loc = new Location("Database");
+			loc.setLongitude(cursor.getDouble(5));
+			loc.setLatitude(cursor.getDouble(6));
 
 			List<Integer> dishesID = new ArrayList<Integer>();
 			Cursor dishes = db.query(true,"dish", 

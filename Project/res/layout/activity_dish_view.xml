@@ -95,5 +95,17 @@
       android:layout_alignTop="@+id/DishViewAvailable"
       android:gravity="center"
       android:text="Book" />
+  <Button
+        android:id="@+id/DishViewEdit"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/DishViewName"
+        android:layout_alignLeft="@+id/DishViewName"
+        android:layout_alignTop="@+id/DishViewName"
+        android:minHeight="0dp"
+        android:minWidth="0dp"
+        android:text="Edit"
+        android:textSize="10dp" />
 
 </RelativeLayout>

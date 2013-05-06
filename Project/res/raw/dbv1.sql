@@ -73,8 +73,9 @@ CREATE TABLE "image"
 	"objectId" integer NOT NULL,
 	PRIMARY KEY("path")
 );
-INSERT INTO "image" VALUES ('pathbidon','restaurant', 'superbephoto',1);
-INSERT INTO "image" VALUES ('pathbidon2','dish', 'superbephoto',1);
+INSERT INTO "image" VALUES ('img/picture1.png','restaurant', 'Legende 1',1);
+INSERT INTO "image" VALUES ('img/picture2.png','restaurant', 'Legende 2',1);
+INSERT INTO "image" VALUES ('img/picture3.png','dish', 'Legende 1',1);
 
 DROP TABLE IF EXISTS "reservationDish";
 CREATE TABLE "reservationDish"

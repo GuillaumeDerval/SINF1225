@@ -11,6 +11,9 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 import be.uclouvain.sinf1225.gourmet.models.Dish;
+import be.uclouvain.sinf1225.gourmet.models.Restaurant;
+import be.uclouvain.sinf1225.gourmet.models.Restaurator;
+import be.uclouvain.sinf1225.gourmet.models.User;
 import be.uclouvain.sinf1225.gourmet.utils.GourmetUtils;
 
 /**
@@ -41,6 +44,7 @@ public class DishView extends Activity
 		setContentView(R.layout.activity_dish_view);
 		
 		dish = Dish.getDish(getIntent().getExtras().getInt("dishId"));
+		Restaurant restaurant = dish.getRestaurant();
 
 		((TextView) findViewById(R.id.DishViewName)).setText(dish.getName());
 		((TextView) findViewById(R.id.DishViewDescription)).setText(dish.getDescription());
@@ -75,6 +79,24 @@ public class DishView extends Activity
 			public void onClick(View arg0)
 			{
 				Intent intent = new Intent(DishView.this, ReservationCreateView.class);
+			    intent.putExtra("dishId", 1);
+			    startActivity(intent);
+			}
+		});
+		
+		Button editdish = (Button) findViewById(R.id.DishViewEdit);
+		User user = User.getUserConnected();
+		if(user instanceof Restaurator && ((Restaurator)user).hasRightsForRestaurant(restaurant))
+			editdish.setVisibility(View.VISIBLE);	
+		else
+			editdish.setVisibility(View.INVISIBLE);
+		
+		editdish.setOnClickListener(new OnClickListener()
+		{
+			@Override
+			public void onClick(View arg0)
+			{
+				Intent intent = new Intent(DishView.this, DishEditView.class);
 			    intent.putExtra("dishId", 1);
 			    startActivity(intent);
 			}

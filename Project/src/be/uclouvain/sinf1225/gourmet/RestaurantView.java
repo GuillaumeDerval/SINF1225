@@ -62,7 +62,7 @@ public class RestaurantView extends Activity
 			public void onClick(View arg0)
 			{
 				Intent intent = new Intent(RestaurantView.this, DishListView.class);
-			    intent.putExtra("dishId", 1);
+			    intent.putExtra("restoId", 1);
 			    startActivity(intent);
 			}
 		});

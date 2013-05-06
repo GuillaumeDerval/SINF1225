@@ -2,7 +2,6 @@ package be.uclouvain.sinf1225.gourmet;
 
 import java.util.List;
 
-import be.uclouvain.sinf1225.gourmet.models.City;
 import be.uclouvain.sinf1225.gourmet.models.Dish;
 import be.uclouvain.sinf1225.gourmet.models.Restaurant;
 import be.uclouvain.sinf1225.gourmet.utils.GourmetUtils;
@@ -17,9 +16,8 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 
-public class DishListView extends Activity // implements GourmetLocationReceiver
+public class DishListView extends Activity 
 {
   private Restaurant restaurant = null;
 
@@ -49,7 +47,7 @@ public class DishListView extends Activity // implements GourmetLocationReceiver
 		// On recupere la vue "liste"
 		ListView DishList = (ListView) this.findViewById(R.id.DishListView);
 
-		// On cree un adapter qui va mettre dans la liste les donnes adequates des villes
+		// On cree un adapter qui va mettre dans la liste les donnes adequates des plats
 		DishAdapter adapter = new DishAdapter(this, R.layout.dish_list_row, dishes);
 		DishList.setAdapter(adapter);
 		DishList.setOnItemClickListener(new OnItemClickListener()
@@ -66,15 +64,7 @@ public class DishListView extends Activity // implements GourmetLocationReceiver
 				startActivity(intent);
 			}
 		});
-		final Button button = (Button) findViewById(R.id.DishListRetour);
-		button.setOnClickListener(new OnClickListener()
-		{
-			@Override
-			public void onClick(View arg0)
-			{
-				finish();
-			}
-		});
+		
 	}
 
 	@Override
