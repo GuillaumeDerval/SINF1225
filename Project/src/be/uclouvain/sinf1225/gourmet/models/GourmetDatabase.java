@@ -99,11 +99,10 @@ class GourmetDatabase extends SQLiteOpenHelper
 				null, //group by
 				null, //having
 				null); //orderby
+		boolean ans = cursor != null && cursor.getCount() != 0;
+		db.close(); // Closing database connection
 		
-		/* close database */
-	    db.close();
-		
-		return cursor != null && cursor.getCount() != 0;
+		return ans;
 	}
 	
 	/**
@@ -122,7 +121,6 @@ class GourmetDatabase extends SQLiteOpenHelper
 	    db.insert("users", null, values);
 	    
 	    db.delete("users_manages", "`email` = ?", new String[] {user.getEmail()});
-	    db.close();
 	    
 	    if(user instanceof Restaurator)
 	    {
@@ -160,7 +158,6 @@ class GourmetDatabase extends SQLiteOpenHelper
 		{
 			/* close database */
 		    db.close();
-		    
 		    return null;
 		}
 		
@@ -190,6 +187,7 @@ class GourmetDatabase extends SQLiteOpenHelper
 			}
 			user = new Restaurator(email, password, cursor.getString(0), cursor.getString(1),restoIds);
 		}
+		
 		/* close database */
 	    db.close();
 		return user;
@@ -267,12 +265,13 @@ class GourmetDatabase extends SQLiteOpenHelper
 				null, //group by
 				null, //having
 				null); //orderby
-		
-		/* close database */
-	    db.close();
 	    
 		if(cursor == null)
+		{
+			db.close();
 			return null;
+		}
+			
 		cursor.moveToFirst();
 		
 		List<Image> images = new ArrayList<Image>();
@@ -288,6 +287,7 @@ class GourmetDatabase extends SQLiteOpenHelper
 			images.add(image);
 			cursor.moveToNext();
 		}
+		db.close();
 		return images;
 	}
 	/**
@@ -320,11 +320,12 @@ class GourmetDatabase extends SQLiteOpenHelper
 				null, //having
 				null); //orderby
 		
-		/* close database */
-	    db.close();
-	    
 		if(cursor == null)
+		{
+			db.close();
 			return null;
+		}
+			
 		cursor.moveToFirst();
 		Image image = new Image(
 				cursor.getString(0),
@@ -332,7 +333,7 @@ class GourmetDatabase extends SQLiteOpenHelper
 				cursor.getString(2),
 				cursor.getInt(3)
 				);
-		
+		db.close();
 		return image;
 	}
 	/* Dish */
@@ -409,11 +410,13 @@ class GourmetDatabase extends SQLiteOpenHelper
 				null, //having
 				null); //orderby
 		
-		/* close database */
-	    db.close();
+
 	    
 		if(cursor == null)
+		{
+			db.close();
 			return null;
+		}
 		
 		cursor.moveToFirst();
 		Restaurant resto = getRestaurant(cursor.getInt(2));
@@ -431,7 +434,8 @@ class GourmetDatabase extends SQLiteOpenHelper
 				cursor.getString(9),//category
 				resto, // restaurant
 				img); // image
-		
+
+	    db.close();
 		return dish;
 	}
 	
@@ -461,12 +465,13 @@ class GourmetDatabase extends SQLiteOpenHelper
 				null,
 				null,
 				null);
-		
-		/* close database */
-	    db.close();
 	    
 		if(cursor == null)
+		{
+		    db.close();
 			return null;
+		}
+			
 		cursor.moveToFirst();
 
 		List<Dish> dishes = new ArrayList<Dish>();
@@ -488,6 +493,8 @@ class GourmetDatabase extends SQLiteOpenHelper
 			cursor.moveToNext();
 
 		}
+		
+	    db.close();
 		return dishes;
 	}
 	
@@ -805,8 +812,7 @@ class GourmetDatabase extends SQLiteOpenHelper
 	    db.insert("city", null, values);
 	    
 	    int ans = db.update("city", values, "`name` = ? AND `country` = ?", new String[] {city.getName(), city.getCountry()});
-	    
-	    /* close database */
+
 	    db.close();
 	    
 	    return ans;
