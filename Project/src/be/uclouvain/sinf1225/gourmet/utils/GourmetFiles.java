@@ -141,7 +141,7 @@ public class GourmetFiles
 			String t = st.nextToken();
 			subdirTreeList.add(t);
 		}
-		futureSubDirTree = subdirTreeList.subList(0, subdirTreeList.size()-1);
+		futureSubDirTree.addAll(subdirTreeList.subList(0, subdirTreeList.size()-1));
 		return subdirTreeList.get(subdirTreeList.size()-1);
 	}
 	
