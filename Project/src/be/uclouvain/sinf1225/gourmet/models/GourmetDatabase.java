@@ -26,7 +26,8 @@ import be.uclouvain.sinf1225.gourmet.utils.GourmetUtils;
  */
 class GourmetDatabase extends SQLiteOpenHelper
 {
-	private static final int DATABASE_VERSION = 20;
+	private static final int DATABASE_VERSION = 27;
+
     private static final String DATABASE_NAME = "gourmet";
     private Context context;
     
@@ -224,8 +225,10 @@ class GourmetDatabase extends SQLiteOpenHelper
 	 */
 	public void deleteImage(String type, int id)
 	{
+		Log.d("es", type + " --->" + id);
 		SQLiteDatabase db = this.getWritableDatabase();
-	    db.delete("image", "`objectType` = ? AND `objectId` = ?", new String[] {type, ""+id});
+	    int i = db.delete("image", "`objectType` = ? AND `objectId` = ?", new String[] {type, ""+id});
+	    Log.d("es", i + "");
 	    db.close();
 	}
 	/**
@@ -243,14 +246,14 @@ class GourmetDatabase extends SQLiteOpenHelper
 	 * 
 	 * @return imageList
 	 */
-	public List<Image> getAllImages(String type, int id)
+	public List<Image> getAllImages(String objectType, int objectId)
 	{
 		SQLiteDatabase db = this.getReadableDatabase();
 		
 		Cursor cursor = db.query("image", //table to select on
 				new String[]{"legend","path","objectType","objectId"}, //column to get
 				 "`objectType` = ? AND `objectId` = ?", //where
-				new String[] {type, ""+id}, //where string
+				new String[] {objectType, ""+objectId}, //where string
 				null, //group by
 				null, //having
 				null); //orderby
@@ -281,25 +284,10 @@ class GourmetDatabase extends SQLiteOpenHelper
 	 */
 	public Image getImage(int id, String type)
 	{
-		SQLiteDatabase db = this.getReadableDatabase();
-		Cursor cursor = db.query("image", //table to select on
-				new String[]{"legend","path","objectType","objectId"}, //column to get
-				 "`objectType` = ? AND `objectId` = ?", //where
-				new String[] {type, ""+id}, //where string
-				null, //group by
-				null, //having
-				null); //orderby
-		if(cursor == null)
-			return null;
-		cursor.moveToFirst();
-		Image image = new Image(
-				cursor.getString(0),
-				cursor.getString(1),
-				cursor.getString(2),
-				cursor.getInt(3)
-				);
+		List<Image> images =getAllImages(type, id);
+		if ( images == null || images.size() == 0) return null;
+		else return images.get(0);
 		
-		return image;
 	}
 	/**
 	 * 
