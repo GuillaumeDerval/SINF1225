@@ -35,7 +35,7 @@ public class Dish
 	 */
 	public Dish(int dishId, String name, int restoId, String description,
 			double price, int spicy, int vegan, int available, int allergen,
-			String category, Restaurant restaurant/**, Image img*/) 
+			String category, Restaurant restaurant, Image img) 
 	{
 		super();
 		this.dishId = dishId;
@@ -49,12 +49,30 @@ public class Dish
 		this.allergen = allergen;
 		this.category = category;
 		this.restaurant = restaurant;
-		/**this.img = img;*/
+		this.img = img;
+	}
+	public Dish(int dishId, String name, int restoId, String description,
+			double price, int spicy, int vegan, int available, int allergen,
+			String category, Restaurant restaurant) 
+	{
+		super();
+		this.dishId = dishId;
+		this.name = name;
+		this.restoId = restoId;
+		this.description = description;
+		this.price = price;
+		this.spicy = spicy;
+		this.vegan = vegan;
+		this.available = available;
+		this.allergen = allergen;
+		this.category = category;
+		this.restaurant = restaurant;
 	}
 	public Dish() 
 	{
 		super();
 	}
+
 	/**
 	 * Delete dish in database
 	 * @param dish

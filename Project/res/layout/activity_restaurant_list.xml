@@ -5,10 +5,86 @@
     android:orientation="vertical" >
 
 
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="3dip"
-        android:background="?android:attr/listDivider" />
+    <!-- List Divider -->
+        
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/RestaurantListFilter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:layout_weight="2"
+                android:hint="Filtrer" >
+            </EditText>
+
+            <ToggleButton
+                android:id="@+id/RestaurantListSortActivate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Sort"
+                android:textOff="Trier"
+                android:textOn="Trier" />
+            
+            <Button
+                android:id="@+id/RestaurantListMapActivate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Carte"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/RestaurantListSortContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:visibility="gone" >
+
+            <Spinner
+                android:id="@+id/RestaurantListSort"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:entries="@array/restaurant_sort"
+                android:gravity="center_vertical|center_horizontal"
+                android:prompt="@string/sort_by"
+                android:textSize="12sp" />
+
+            <RadioGroup
+                android:id="@+id/RestaurantListSortDirection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" >
+
+                <RadioButton
+                    android:id="@+id/RestaurantListSortDirectionAsc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="Asc"
+                    android:textSize="12sp"/>
+
+                <RadioButton
+                    android:id="@+id/RestaurantListSortDirectionDesc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Desc"
+                    android:textSize="12sp"/>
+            </RadioGroup>
+
+        </LinearLayout>
+    </LinearLayout>
 
     <!-- ListView (grid_items) -->
 

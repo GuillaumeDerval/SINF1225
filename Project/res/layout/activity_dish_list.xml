@@ -4,23 +4,164 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="3dip"
-        android:background="?android:attr/listDivider" />
+    <!-- List Divider -->
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal" >
+
+            <EditText
+                android:id="@+id/DishListFilter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:ems="10"
+                android:hint="Filtrer" >
+            </EditText>
+
+            <ToggleButton
+                android:id="@+id/DishListSortActivate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Sort"
+                android:textOff="Trier"
+                android:textOn="Trier" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/DishListSortContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:visibility="gone" >
+
+            <Spinner
+                android:id="@+id/DishListSort"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:entries="@array/dish_sort"
+                android:gravity="center_vertical|center_horizontal"
+                android:prompt="@string/sort_by"
+                android:textSize="12sp" />
+
+            <RadioGroup
+                android:id="@+id/DishListSortDirection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" >
+
+                <RadioButton
+                    android:id="@+id/DishListSortDirectionAsc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="Asc"
+                    android:textSize="12sp" />
+
+                <RadioButton
+                    android:id="@+id/DishListSortDirectionDesc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Desc"
+                    android:textSize="12sp" />
+            </RadioGroup>
+        </LinearLayout>
+    </LinearLayout>
     <!-- ListView (grid_items) -->
 
     <LinearLayout
-        android:id="@+id/DishListLinearListLayout"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent" >
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent">
 
-        <ListView
-            android:id="@+id/DishListView"
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#9ACD32"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="Entrée"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <LinearLayout
+            android:id="@+id/DishListLinearListLayout"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent" >
-        </ListView>
+            android:layout_height="wrap_content" >
+
+            <ListView
+                android:id="@+id/DishListEntreeView"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+            </ListView>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#9ACD32"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="Plat"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <LinearLayout
+            android:id="@+id/DishListLinearListLayout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <ListView
+                android:id="@+id/DishListPlatView"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+            </ListView>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#9ACD32"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="Dessert"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <LinearLayout
+            android:id="@+id/DishListLinearListLayout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <ListView
+                android:id="@+id/DishListDessertView"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+            </ListView>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#9ACD32"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="Autre"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <LinearLayout
+            android:id="@+id/DishListLinearListLayout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <ListView
+                android:id="@+id/DishListAutreView"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+            </ListView>
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>
