@@ -32,6 +32,8 @@ public class ViewDishImage extends Activity
 	Dish dish;
 	private static int RESULT_LOAD_IMAGE = 1;
 	private String filePath;
+	private ImageView myImage;
+	
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
 	    GourmetUtils.createMenu(menu, this, R.id.search);
@@ -54,7 +56,7 @@ public class ViewDishImage extends Activity
 
 		final Button deleteButton = (Button) findViewById(R.id.delete_image_dish);
 		final Button changeButton = (Button) findViewById(R.id.change_image_dish);
-		final ImageView myImage = (ImageView) findViewById(R.id.dish_image_icon);
+		myImage = (ImageView) findViewById(R.id.dish_image_icon);
 
 		if (img != null)
 		{
@@ -62,13 +64,13 @@ public class ViewDishImage extends Activity
 			if (imgFile.exists())
 			{
 
-				Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-				myImage.setImageBitmap(myBitmap);
+				myImage.setImageBitmap( BitmapFactory.decodeFile(dish.getImg().getPath()));
 			}
 		}
 		else 
 		{
 			deleteButton.setVisibility(View.INVISIBLE);
+			changeButton.setText("Add");
 			Toast toast = Toast.makeText(getApplicationContext(), "Aucune image pour ce plat", Toast.LENGTH_LONG);
 			toast.show();
 		}
@@ -90,15 +92,15 @@ public class ViewDishImage extends Activity
 			 */
 			public void onClick(View v)
 			{
-				Bundle args = new Bundle();
-				args.putString("objectType", "dish");
-				args.putInt("id", dish.getDishId());
-				Intent intent = new Intent(ViewDishImage.this, ImageGalleryActivity.class);
-				intent.putExtras(args);
+				//Bundle args = new Bundle();
+				//args.putString("objectType", "dish");
+				//args.putInt("id", dish.getDishId());
+				//Intent intent = new Intent(ViewDishImage.this, ImageGalleryActivity.class);
+				//intent.putExtras(args);
 				Intent i = new Intent(
 						Intent.ACTION_PICK,
 						android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-				i.putExtras(args);
+				//i.putExtras(args);
 				startActivityForResult(i, RESULT_LOAD_IMAGE);
 				
 				//startActivityForResult(intent, R.layout.activity_gallery_view);
@@ -126,7 +128,7 @@ public class ViewDishImage extends Activity
 			
 			final String objectType = "dish";
 			final int objectId = dish.getDishId();
-			String finalFilePath = "img/" + objectType + "_" + objectId;
+			String finalFilePath = "img/" + objectType + "_" + objectId + ".png";
 			GourmetFiles.copyImageToDisk(finalFilePath, filePath);
 			
 			Image img = new Image(null, finalFilePath, objectType, objectId); // create a new image
@@ -140,9 +142,8 @@ public class ViewDishImage extends Activity
 
 			}
 			Image.addImage(img); // ajoute l'image dans la DB
-			ImageView imageView = (ImageView) findViewById(R.id.imgViewGalleryLoad);
-			imageView.setImageBitmap(BitmapFactory.decodeFile(finalFilePath));
-
+			dish.setImg(img);
+			myImage.setImageBitmap(BitmapFactory.decodeFile(finalFilePath));
 			finish(); // end the activity
 		}
 	}
