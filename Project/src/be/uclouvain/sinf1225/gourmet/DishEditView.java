@@ -37,7 +37,7 @@ public class DishEditView extends Activity
 
 		setContentView(R.layout.activity_dish_edit);
 
-		int dishId = getIntent().getExtras().getInt("dishId");
+		int dishId = getIntent().getExtras().getInt("dishId");		
 		final Dish dish = Dish.getDish(dishId);
 		// button's creation
 		final EditText EditName = (EditText) findViewById(R.id.EditDishName);
