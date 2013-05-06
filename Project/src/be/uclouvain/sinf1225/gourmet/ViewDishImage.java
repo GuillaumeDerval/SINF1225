@@ -60,16 +60,16 @@ public class ViewDishImage extends Activity
 
 		if (img != null)
 		{
-			File imgFile = new File(img.getPath());
+			File imgFile = new File(GourmetFiles.getRealPath(img.getPath()));
 			if (imgFile.exists())
 			{
 
-				myImage.setImageBitmap( BitmapFactory.decodeFile(dish.getImg().getPath()));
+				myImage.setImageBitmap( BitmapFactory.decodeFile(GourmetFiles.getRealPath(dish.getImg().getPath())));
 			}
 		}
 		else 
 		{
-			deleteButton.setVisibility(View.INVISIBLE);
+			deleteButton.setVisibility(View.GONE);
 			changeButton.setText("Add");
 			Toast toast = Toast.makeText(getApplicationContext(), "Aucune image pour ce plat", Toast.LENGTH_LONG);
 			toast.show();
@@ -143,7 +143,7 @@ public class ViewDishImage extends Activity
 			}
 			Image.addImage(img); // ajoute l'image dans la DB
 			dish.setImg(img);
-			myImage.setImageBitmap(BitmapFactory.decodeFile(finalFilePath));
+			myImage.setImageBitmap(BitmapFactory.decodeFile(GourmetFiles.getRealPath(finalFilePath)));
 			finish(); // end the activity
 		}
 	}

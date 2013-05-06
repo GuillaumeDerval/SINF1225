@@ -395,7 +395,7 @@ class GourmetDatabase extends SQLiteOpenHelper
 		
 		cursor.moveToFirst();
 		Restaurant resto = getRestaurant(cursor.getInt(2));
-		/**Image img = getImage(cursor.getInt(0), "dish");**/
+		Image img = getImage(cursor.getInt(0), "dish");
 		Dish dish= new Dish(
 				cursor.getInt(0), //dishId
 				cursor.getString(1), //name
@@ -407,8 +407,8 @@ class GourmetDatabase extends SQLiteOpenHelper
 				cursor.getInt(7), //available
 				cursor.getInt(8), //allergen
 				cursor.getString(9),//category
-				resto // restaurant
-				/**img*/); // image
+				resto, // restaurant
+				img); // image
 		
 		return dish;
 	}
