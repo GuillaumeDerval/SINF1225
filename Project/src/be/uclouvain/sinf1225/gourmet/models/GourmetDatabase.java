@@ -99,6 +99,10 @@ class GourmetDatabase extends SQLiteOpenHelper
 				null, //group by
 				null, //having
 				null); //orderby
+		
+		/* close database */
+	    db.close();
+		
 		return cursor != null && cursor.getCount() != 0;
 	}
 	
@@ -131,7 +135,6 @@ class GourmetDatabase extends SQLiteOpenHelper
 	    		db.insert("users_manages", null, v2);
 	    	}
 	    }
-	    
 	    db.close(); // Closing database connection
 	}
 	
@@ -154,7 +157,12 @@ class GourmetDatabase extends SQLiteOpenHelper
 				null, //having
 				null); //orderby
 		if(cursor == null || cursor.getCount() == 0)
-			return null;
+		{
+			/* close database */
+		    db.close();
+		    
+		    return null;
+		}
 		
 		cursor.moveToFirst();
 		
@@ -182,6 +190,8 @@ class GourmetDatabase extends SQLiteOpenHelper
 			}
 			user = new Restaurator(email, password, cursor.getString(0), cursor.getString(1),restoIds);
 		}
+		/* close database */
+	    db.close();
 		return user;
 	}
 
@@ -257,6 +267,10 @@ class GourmetDatabase extends SQLiteOpenHelper
 				null, //group by
 				null, //having
 				null); //orderby
+		
+		/* close database */
+	    db.close();
+	    
 		if(cursor == null)
 			return null;
 		cursor.moveToFirst();
@@ -305,6 +319,10 @@ class GourmetDatabase extends SQLiteOpenHelper
 				null, //group by
 				null, //having
 				null); //orderby
+		
+		/* close database */
+	    db.close();
+	    
 		if(cursor == null)
 			return null;
 		cursor.moveToFirst();
@@ -360,7 +378,7 @@ class GourmetDatabase extends SQLiteOpenHelper
 	    values.put("restoId", dish.getRestoId());
 	    db.update("dish", values, "`dishId`= ? " , new String[] {""+dish.getDishId()});
 	    
-	   // db.close(); // Closing database connection
+	    db.close(); // Closing database connection
 	}
 	
 	/**
@@ -390,6 +408,10 @@ class GourmetDatabase extends SQLiteOpenHelper
 				null, //group by
 				null, //having
 				null); //orderby
+		
+		/* close database */
+	    db.close();
+	    
 		if(cursor == null)
 			return null;
 		
@@ -439,6 +461,10 @@ class GourmetDatabase extends SQLiteOpenHelper
 				null,
 				null,
 				null);
+		
+		/* close database */
+	    db.close();
+	    
 		if(cursor == null)
 			return null;
 		cursor.moveToFirst();
@@ -483,9 +509,17 @@ class GourmetDatabase extends SQLiteOpenHelper
 				null, //group by
 				null, //having
 				null); //orderby
-		if(cursor == null || cursor.getCount() == 0)
-			return null;
 		
+		/* close database */
+	    db.close();
+	    
+		if(cursor == null || cursor.getCount() == 0)
+		{
+			/* close database */
+		    db.close();
+		    return null;
+		}
+			
 		cursor.moveToFirst();
 		Location loc = new Location("Database");
 		loc.setLongitude(cursor.getDouble(6));
@@ -531,6 +565,8 @@ class GourmetDatabase extends SQLiteOpenHelper
 		values.put("seats", restaurant.getSeats());
 		values.put("priceCat", restaurant.getPriceCategory().ordinal());
 		db.update("restaurant", values, "`restoId` = ?", new String[]{ ""+restaurant.getId()});
+		/* close database */
+	    db.close();
 	}
 	
 	/**
@@ -551,7 +587,12 @@ class GourmetDatabase extends SQLiteOpenHelper
 				null,
 				null);
 		if(cursor == null)
-			return null;
+		{
+			/* close database */
+		    db.close();
+		    return null;
+		}
+			
 		cursor.moveToFirst();
 
 		List<Restaurant> restaurants = new ArrayList<Restaurant>();
@@ -598,7 +639,8 @@ class GourmetDatabase extends SQLiteOpenHelper
 			cursor.moveToNext();
 
 		}
-		
+		/* close database */
+	    db.close();
 		return restaurants;
 	}
 	
@@ -640,7 +682,12 @@ class GourmetDatabase extends SQLiteOpenHelper
 				null, //having
 				null); //orderby
 		if(cursor == null || cursor.getCount() == 0)
-			return null;
+		{
+		    /* close database */
+		    db.close();
+		    return null;
+		}
+			
 		
 		cursor.moveToFirst();
 		
@@ -659,7 +706,8 @@ class GourmetDatabase extends SQLiteOpenHelper
 				cursor.moveToNext();
 			}
 		}
-		
+		 /* close database */
+	    db.close();
 		return new City(name,country,loc, restaurantsID);
 	}
 	
@@ -679,7 +727,13 @@ class GourmetDatabase extends SQLiteOpenHelper
 				null, //having
 				null); //orderby
 		if(cursor == null || cursor.getCount() == 0)
-			return null;
+		{
+		    /* close database */
+		    db.close();
+		    
+		    return null;
+		}
+			
 		cursor.moveToFirst();
 		
 		List<City> cities = new ArrayList<City>();
@@ -704,6 +758,9 @@ class GourmetDatabase extends SQLiteOpenHelper
 			cities.add(new City(cursor.getString(0),cursor.getString(1),loc, restaurantsID));
 			cursor.moveToNext();
 		}
+		/* close database */
+	    db.close();
+	    
 		return cities;
 	}
 	
@@ -724,6 +781,10 @@ class GourmetDatabase extends SQLiteOpenHelper
 				null); //orderby
 		if(cursor == null)
 			return 0;
+		
+	    /* close database */
+	    db.close();
+	    
 		return cursor.getCount();
 	}
 	
@@ -743,7 +804,12 @@ class GourmetDatabase extends SQLiteOpenHelper
 	    values.put("latitude", city.getLocation().getLatitude());
 	    db.insert("city", null, values);
 	    
-	    return db.update("city", values, "`name` = ? AND `country` = ?", new String[] {city.getName(), city.getCountry()});
+	    int ans = db.update("city", values, "`name` = ? AND `country` = ?", new String[] {city.getName(), city.getCountry()});
+	    
+	    /* close database */
+	    db.close();
+	    
+	    return ans;
 	}
 	
 	/**
