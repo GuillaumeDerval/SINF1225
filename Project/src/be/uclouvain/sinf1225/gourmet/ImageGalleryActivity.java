@@ -96,6 +96,7 @@ public class ImageGalleryActivity extends Activity
 			}
 			Image.addImage(img); // ajoute l'image dans la DB
 			ImageView imageView = (ImageView) findViewById(R.id.imgViewGalleryLoad);
+			Log.d("", filePath);
 			imageView.setImageBitmap(BitmapFactory.decodeFile(filePath));
 
 			ImageGalleryActivity.this.finish(); // end the activity

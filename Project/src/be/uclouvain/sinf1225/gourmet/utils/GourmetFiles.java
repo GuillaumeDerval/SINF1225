@@ -38,7 +38,7 @@ public class GourmetFiles
 	{
 		// Create a path where we will place our private file on external
 		// storage.
-		File dir = Gourmet.getAppContext().getExternalFilesDir(null);
+		File dir = Gourmet.getAppContext().getFilesDir();
 		String subdir = "";
 		for (String subdirT : subdirTree)
 			subdir += File.separator + subdirT;
@@ -68,7 +68,7 @@ public class GourmetFiles
 	{
 		// Create a path where we will place our private file on external
 		// storage.
-		File dir = Gourmet.getAppContext().getExternalFilesDir(null);
+		File dir = Gourmet.getAppContext().getFilesDir();
 		String subdir = "";
 		for(String subdirT: subdirTree)
 			subdir += File.separator+subdirT;
@@ -115,7 +115,7 @@ public class GourmetFiles
 		String subdir = "";
 		for(String subdirT: subdirTree)
 			subdir += File.separator+subdirT;
-		File file = new File(Gourmet.getAppContext().getExternalFilesDir(null)+subdir, fileName);
+		File file = new File(Gourmet.getAppContext().getFilesDir()+subdir, fileName);
 		if (file != null)
 			file.delete();
 	}
@@ -141,7 +141,7 @@ public class GourmetFiles
 			String t = st.nextToken();
 			subdirTreeList.add(t);
 		}
-		futureSubDirTree = subdirTreeList.subList(0, subdirTreeList.size()-1);
+		futureSubDirTree.addAll(subdirTreeList.subList(0, subdirTreeList.size()-1));
 		return subdirTreeList.get(subdirTreeList.size()-1);
 	}
 	
@@ -157,6 +157,6 @@ public class GourmetFiles
 			String t = st.nextToken();
 			rpath += File.separator+t;
 		}
-		return Gourmet.getAppContext().getExternalFilesDir(null)+rpath;
+		return Gourmet.getAppContext().getFilesDir()+rpath;
 	}
 }
