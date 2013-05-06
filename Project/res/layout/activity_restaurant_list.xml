@@ -4,15 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="3dip"
-        android:background="?android:attr/listDivider" />
-    <Button
-        android:id="@+id/RestaurantListRetour"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Done" />
+
     <View
         android:layout_width="fill_parent"
         android:layout_height="3dip"

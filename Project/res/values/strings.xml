@@ -33,5 +33,14 @@
     <string name="dish">Dish</string>
     <string name="button_add">Add</string>
     <string name="send_reservation">Send</string>
+    <string name="rsv_name"></string>
+    <string name="rsv_fname"></string>
+    <string name="rsv_date">06-05-13</string>
+    <string name="rsv_hour">12:00</string>
+    <string name="rsv_hint_name">Name</string>
+    <string name="rsv_hint_fname">Firstname</string>
+    <string name="rsv_hint_date">Date</string>
+    <string name="rsv_hint_hour">Start time (hh:mm)</string>
+    <string name="rsv_welcome">Welcome in reservation manager</string>
 
 </resources>

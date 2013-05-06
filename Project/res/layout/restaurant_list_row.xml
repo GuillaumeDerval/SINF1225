@@ -23,6 +23,11 @@
 	        android:text="Restaurant Name"
 	        android:textSize="16sp"
 	        android:textStyle="bold" />
+	    <TextView
+	        android:id="@+id/RestaurantListDistance"
+	        android:layout_width="fill_parent"
+	        android:layout_height="fill_parent"
+	        android:text="Restaurant Distance" />
 
     </LinearLayout>
  
