@@ -72,21 +72,21 @@ public class ReservationCreateView extends Activity
 		/* date picker - choose the hour of the reservation */
 		timePicker = (Button) findViewById(R.id.timepicker);
 		timePicker.setText(timeFormatter.format(dateTime.getTime()));
-		
-		/* Receive the data */
-		getDataTransfer(getIntent());
-
-		/* auto-completion - make the choose of the dish easier */
-		/* adapter for the auto-completion */
-		addDish = (AutoCompleteTextView) findViewById(R.id.dish);
-		dishesList = Dish.getDishName(Dish.getDishInRestaurant(resto));
-		adapterAddDishes = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, (String[])dishesList.toArray());
-		addDish.setAdapter(adapterAddDishes);
 
 		/* input items */
 		list = (ListView) findViewById(R.id.listDish);
 		restaurant = (TextView) findViewById(R.id.restaurant);
 		nbrReservation = (EditText) findViewById(R.id.nbrReservation);
+		
+		/* Receive the data */
+		getDataTransfer(getIntent());
+		
+		/* auto-completion - make the choose of the dish easier */
+		/* adapter for the auto-completion */
+		addDish = (AutoCompleteTextView) findViewById(R.id.dish);
+		dishesList = Dish.getDishName(Dish.getDishInRestaurant(resto));
+		adapterAddDishes = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, dishesList);
+		addDish.setAdapter(adapterAddDishes);
 
 		/* adapter for the list of dishes */
 		adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_activated_1, listDish);
@@ -140,7 +140,7 @@ public class ReservationCreateView extends Activity
 	 * onClick Behavior - button SEND
 	 * @param view
 	 */
-	public void SendReservation (View view)
+	public void sendReservation (View view)
 	{
 		/* variables for the toast */
 		Context context = getApplicationContext(); 
@@ -157,7 +157,7 @@ public class ReservationCreateView extends Activity
 		
 		/* Manage Exception */
 		try{nbrResv = Integer.parseInt(nbrReservation.getText().toString());}
-		catch (NumberFormatException e){correctValues = false; text = "Nbr unfilled";}
+		catch (Exception e){correctValues = false; text = "Nbr unfilled";}
 		
 		/* Check if the reservation passed */
 		if (correctValues) {checkAddReservation = Reservation.addReservation(restoID, email, nbrResv, date);}
@@ -222,13 +222,13 @@ public class ReservationCreateView extends Activity
 			/* get the first element from the remaining list */
 			recurrence = 0; index = 0;
 			dish = list.get(index);
+			
 			/* remove the element from the list, and increment the recurrence of this one */
 			while(index >= 0){
 				list.remove(index);
 				recurrence += 1;
 				index = list.indexOf(dish);
 			}
-
 			/* Check if the reservation passed */
 			check = Reservation.addReservationDish(resvID, dish, recurrence);
 			if (check == -1) {return false;}
