@@ -83,7 +83,7 @@ public class RestaurantAdapter extends ArrayAdapter<Restaurant>
         if(lastLocation != null)
         	dist = restaurant.getLocation().distanceTo(lastLocation);
         if(dist >= 0)
-        	viewIds.distance.setText("Distance: "+new DecimalFormat("#.##").format(dist/1000)+" Km");
+        	viewIds.distance.setText("Distance: "+new DecimalFormat("#.##").format(dist/1000000)+" Km");
         else
         	viewIds.distance.setText("");
         return row;
