@@ -50,7 +50,7 @@ public class RestaurantListView extends Activity implements GourmetLocationRecei
 
 		List<Restaurant> restaurants = Restaurant.getAllRestaurants(city);
 		// On recupere la vue "liste"
-		if (restaurants == null)
+		if (restaurants == null || restaurants.size() == 0)
 		{
 			Toast toast = Toast.makeText(getApplicationContext(),"Il n'y a pas de restaurants dans le ville sélectionnée",Toast.LENGTH_LONG);
 			toast.show();
