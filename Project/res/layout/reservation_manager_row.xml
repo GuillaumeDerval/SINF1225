@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableRow xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    <TextView
+    android:id="@+id/reservationRowName"
+    android:textColor="@android:color/black"
+    android:layout_margin="1dp"
+    android:gravity="center_horizontal"
+    android:layout_weight="1"
+    android:background="@android:color/white"
+    android:text="Name" />
+   <TextView
+    android:textColor="@android:color/black"
+    android:gravity="center_horizontal"
+    android:layout_weight="1"
+    android:layout_margin="1dp"
+    android:background="@android:color/white"
+    android:text="Date" />
+   <TextView
+    android:textColor="@android:color/black"
+    android:gravity="center_horizontal"
+    android:layout_weight="1"
+    android:layout_margin="1dp"
+    android:background="@android:color/white"
+    android:text="Time" />
+   <TextView
+    android:textColor="@android:color/black"
+    android:gravity="center_horizontal"
+    android:layout_weight="1"
+    android:layout_margin="1dp"
+    android:background="@android:color/white"
+    android:text="Restaurant" />
+   <TextView
+    android:textColor="@android:color/black"
+    android:gravity="center_horizontal"
+    android:layout_weight="1"
+    android:layout_margin="1dp"
+    android:background="@android:color/white"
+    android:text="# people" />
+
+</TableRow>
