@@ -50,7 +50,8 @@ public class RestaurantImageView extends Activity
 		final Button addButton = (Button) findViewById(R.id.addRestaurantImage); // à changer
 		final Button okButton = (Button) findViewById(R.id.okRestaurantImageButton);
 		//get images
-		List<Image> images = Image.getAllImages("restaurant", restoId);
+		List<Image> images = resto.getImages();
+		
 		ImageAdapter adapter = new ImageAdapter(this, R.layout.restaurant_image_list_row, images);
 		imageList.setAdapter(adapter);
 		imageList.setOnItemClickListener(new OnItemClickListener()

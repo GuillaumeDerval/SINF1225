@@ -54,7 +54,7 @@ public class DishListView extends Activity
 		// Récupération du restaurant sur lequel on a cliqué et les plats qui lui appartiennent
 		restaurant = Restaurant.getRestaurant(getIntent().getExtras().getInt("restoId"));
 
-		List<Dish> dishes = Dish.getDishInRestaurant(restaurant);
+		List<Dish> dishes = restaurant.getDishes();
 		//MARKER
 
 		List<Dish> dishesEntree = new ArrayList<Dish>();

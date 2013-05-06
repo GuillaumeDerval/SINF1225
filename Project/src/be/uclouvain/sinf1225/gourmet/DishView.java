@@ -107,7 +107,7 @@ public class DishView extends Activity
 			}
 		});
 		
-		Image image = Dish.getImage(dish.getDishId());
+		Image image = dish.getImg();
 		ImageView imageView = (ImageView) findViewById(R.id.DishViewImage);
 		imageView.setImageBitmap(BitmapFactory.decodeFile(GourmetFiles.getRealPath(image.getPath())));
 

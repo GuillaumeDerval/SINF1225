@@ -52,7 +52,7 @@ public class ViewDishImage extends Activity
 		setContentView(R.layout.activity_image_dish_view);
 		int dishId = Integer.valueOf(getIntent().getExtras().getInt("dishId"));
 		dish = Dish.getDish(dishId);
-		final Image img = Dish.getImage(dishId);
+		final Image img = dish.getImg();
 
 		final Button deleteButton = (Button) findViewById(R.id.delete_image_dish);
 		final Button changeButton = (Button) findViewById(R.id.change_image_dish);
@@ -81,7 +81,7 @@ public class ViewDishImage extends Activity
 			 */
 			public void onClick(View v)
 			{
-				Image.deleteImage(img.getPath()); // delete the image in the database
+				img.deleteImage(); // delete the image in the database
 				finish();
 			}
 		});
@@ -138,7 +138,7 @@ public class ViewDishImage extends Activity
 				Toast toast = Toast.makeText(getApplicationContext(), "Previous image will be deleted", Toast.LENGTH_LONG);
 				toast.show();
 				GourmetFiles.deleteExternalStoragePrivateFile(dish.getImg().getPath());
-				Image.deleteImage(dish.getImg().getPath()); // delete
+				dish.getImg().deleteImage();
 
 			}
 			Image.addImage(img); // ajoute l'image dans la DB

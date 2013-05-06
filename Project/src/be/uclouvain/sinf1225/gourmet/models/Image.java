@@ -1,28 +1,28 @@
 package be.uclouvain.sinf1225.gourmet.models;
 
-import java.util.ArrayList;
-import java.util.List;
+
 /**
  * 
  * @author qeggerickx
- *
+ * 
  */
-public class Image 
+public class Image
 {
-	
+
 	private String legend; // legend
 	private String path;
 	private String objectType;
 	private int objectId;
-	
+
 	/**
 	 * Images are define by a legend , a path, an object type ( restaurant / dish) and the id of this object
+	 * 
 	 * @param legend
 	 * @param path
 	 * @param objectType
 	 * @param objectId
 	 */
-	public Image(String legend, String path, String objectType, int objectId) 
+	public Image(String legend, String path, String objectType, int objectId)
 	{
 		super();
 		this.legend = legend;
@@ -30,9 +30,10 @@ public class Image
 		this.objectType = objectType;
 		this.objectId = objectId;
 	}
-	
+
 	/**
 	 * add an image in the database
+	 * 
 	 * @param img
 	 */
 	public static void addImage(Image img)
@@ -41,9 +42,10 @@ public class Image
 		db.addImage(img);
 		db.close();
 	}
-	
+
 	/**
-	 * delete one image from the path
+	 * delete image with this path from the database
+	 * 
 	 * @param path
 	 */
 	public static void deleteImage(String path)
@@ -52,48 +54,53 @@ public class Image
 		db.deleteImage(path);
 		db.close();
 	}
-	
+
 	/**
-	 * return images link to type and the id
-	 * @return all images
+	 * Delete image from database
 	 */
-	public static List<Image> getAllImages(String type, int Id)
+	public void deleteImage()
 	{
 		GourmetDatabase db = new GourmetDatabase();
-		List<Image> images = new ArrayList<Image>();
-		images = db.getAllImages(type, Id);
+		db.deleteImage(this.path);
 		db.close();
-		return images;
 	}
-	public String getLegend() 
+
+	public String getLegend()
 	{
 		return legend;
 	}
-	public void setLegend(String legend) 
+
+	public void setLegend(String legend)
 	{
 		this.legend = legend;
 	}
-	public String getPath() 
+
+	public String getPath()
 	{
 		return path;
 	}
-	public void setPath(String path) 
+
+	public void setPath(String path)
 	{
 		this.path = path;
 	}
-	public String getObjectType() 
+
+	public String getObjectType()
 	{
 		return objectType;
 	}
-	public void setObjectType(String objectType) 
+
+	public void setObjectType(String objectType)
 	{
 		this.objectType = objectType;
 	}
-	public int getObjectId() 
+
+	public int getObjectId()
 	{
 		return objectId;
 	}
-	public void setObjectId(int objectId) 
+
+	public void setObjectId(int objectId)
 	{
 		this.objectId = objectId;
 	}

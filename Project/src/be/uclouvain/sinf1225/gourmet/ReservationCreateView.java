@@ -44,18 +44,18 @@ public class ReservationCreateView extends Activity
 	private ArrayList<String> listDish = new ArrayList<String>(); // list of dishes booked by the user
 
 	/* adapters */
-	private ArrayAdapter<String> adapter; 			// list of dishes
-	private ArrayAdapter<String> adapterAddDishes; 	// auto-completion
+	private ArrayAdapter<String> adapter; // list of dishes
+	private ArrayAdapter<String> adapterAddDishes; // auto-completion
 
 	/* intent keys */
-	private static final String RESTAURANT = "restoId"; 	// intent's key - restoID
-	private static final String DISH = "dishId"; 			// intent's key - dishID
+	private static final String RESTAURANT = "restoId"; // intent's key - restoID
+	private static final String DISH = "dishId"; // intent's key - dishID
 
 	/* intent values */
 	private static Restaurant resto;
 	private static Dish dish;
-	private static int resvID;
-	
+	// private static int resvID;
+
 	/* list of dishes from resto */
 	private List<String> dishesList;
 
@@ -77,14 +77,17 @@ public class ReservationCreateView extends Activity
 		list = (ListView) findViewById(R.id.listDish);
 		restaurant = (TextView) findViewById(R.id.restaurant);
 		nbrReservation = (EditText) findViewById(R.id.nbrReservation);
-		
+
 		/* Receive the data */
 		getDataTransfer(getIntent());
-		
+
 		/* auto-completion - make the choose of the dish easier */
 		/* adapter for the auto-completion */
 		addDish = (AutoCompleteTextView) findViewById(R.id.dish);
-		dishesList = Dish.getDishName(Dish.getDishInRestaurant(resto));
+		dishesList = new ArrayList<String>();
+		for (Dish dish : resto.getDishes())
+			dishesList.add(dish.getName());
+
 		adapterAddDishes = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, dishesList);
 		addDish.setAdapter(adapterAddDishes);
 
@@ -107,18 +110,20 @@ public class ReservationCreateView extends Activity
 
 	/**
 	 * OnClick Behavior - button ADD
+	 * 
 	 * @param v
 	 */
 	public void addItems(View v)
 	{
 		/* Variables for the Toast */
-		Context context = getApplicationContext(); String text;
-		
+		Context context = getApplicationContext();
+		String text;
+
 		/* get the text from the addDish */
 		String message = addDish.getText().toString();
-		
+
 		/* check if the dish is contained into the list of dishes from resto */
-		if(!dishesList.contains(message)) 
+		if (!dishesList.contains(message))
 		{
 			text = "dish unknown";
 			addDish.setText("");
@@ -130,52 +135,77 @@ public class ReservationCreateView extends Activity
 			adapter.notifyDataSetChanged();
 			text = "dish added";
 		}
-		
+
 		/* display the toast */
-		Toast toast = Toast.makeText(context,text, Toast.LENGTH_SHORT);
+		Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
 		toast.show();
 	}
 
 	/**
 	 * onClick Behavior - button SEND
+	 * 
 	 * @param view
 	 */
-	public void sendReservation (View view)
+	public void sendReservation(View view)
 	{
 		/* variables for the toast */
-		Context context = getApplicationContext(); 
-		String text= "";
+		Context context = getApplicationContext();
+		String text = "";
 		boolean correctValues = true;
-		int checkAddReservation = -1;
 		int nbrResv = 0;
-		
+
 		/* Variables for the reservation */
 		String email = User.getUserConnected().getEmail();
 		Date date = dateTime.getTime();
 		int restoID = resto.getId();
-		resvID = Reservation.getResvID(email, restoID, date);
-		
+
 		/* Manage Exception */
-		try{nbrResv = Integer.parseInt(nbrReservation.getText().toString());}
-		catch (Exception e){correctValues = false; text = "Nbr unfilled";}
+		try
+		{
+			nbrResv = Integer.parseInt(nbrReservation.getText().toString());
+		}
+		catch (Exception e)
+		{
+			correctValues = false;
+			text = "Nbr unfilled";
+		}
+
+		/* Check if the reservation does not exists yet */
 		
-		/* Check if the reservation passed */
-		if (correctValues) {checkAddReservation = Reservation.addReservation(restoID, email, nbrResv, date);}
-		if (checkAddReservation == -1 && correctValues) {correctValues = false; text = "Reservation Failed";}
-		
-		/* Check if the reservation of dishes passed */
-		if (correctValues && !InsertIntoDatabase(listDish)) {correctValues = false; text = "Reservation Failed";}
-		
+		if (correctValues && Reservation.getReservation(email, restoID, date) != null)
+		{
+			correctValues = false;
+			text = "Vous avez déjà une réservation à cette date";
+		}
+
+		/* Create reservation */
+		if (correctValues)
+		{
+			Reservation resv = new Reservation(email, Restaurant.getRestaurant(restoID), nbrResv, date);
+			
+			//TODO correct listDish to be a real list of Dish.
+			/*for(Reservation.DishNode dishNode : listDish)
+			{
+				resv.addDishNode(dishNode.dish, dishNode.nbrDishes);
+			}*/
+			correctValues = false;
+			text = "Reservation Failed";
+		}
+
 		/* if all the insertion into the dataBase passed */
-		if (correctValues){text = "Reservation sent";}
-		
+		if (correctValues)
+		{
+			text = "Reservation sent";
+		}
+
 		/* display the toast */
 		Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
-		toast.show();		
+		toast.show();
 	}
 
 	/**
 	 * Get the data from the intent
+	 * 
 	 * @param intent
 	 */
 	public void getDataTransfer(Intent intent)
@@ -184,7 +214,10 @@ public class ReservationCreateView extends Activity
 		int restoID = intent.getIntExtra(RESTAURANT, 0);
 		int dishID = intent.getIntExtra(DISH, 0);
 
-		if ((dishID == 0 && restoID == 0) || (dishID != 0 && restoID != 0)) {finish();}
+		if ((dishID == 0 && restoID == 0) || (dishID != 0 && restoID != 0))
+		{
+			finish();
+		}
 		else if (dishID != 0)
 		{
 			dish = Dish.getDish(dishID);
@@ -196,44 +229,48 @@ public class ReservationCreateView extends Activity
 			/* get restoID */
 			restoID = dish.getRestoId();
 		}
-		
+
 		/* display the restaurant's name */
 		resto = Restaurant.getRestaurant(restoID);
 		restaurant.setText(resto.getName());
 	}
-	
+
 	/**
 	 * Insert the dishes into the database
+	 * 
 	 * @param list
 	 * @param reference
-	 * @return success : true
-	 * 			error (the insertion failed) : false
+	 * @return success : true error (the insertion failed) : false
 	 */
-	
-	public static boolean InsertIntoDatabase (List<String> list)
+
+	/*public static boolean InsertIntoDatabase(List<String> list)
 	{
-		/* variables */
-		int recurrence, index, check; 
+		// variables
+		int recurrence, index, check;
 		String dish;
 
-		/* continue until the list is empty */
-		while(!list.isEmpty())
+		// continue until the list is empty
+		while (!list.isEmpty())
 		{
-			/* get the first element from the remaining list */
-			recurrence = 0; index = 0;
+			// get the first element from the remaining list
+			recurrence = 0;
+			index = 0;
 			dish = list.get(index);
-			
-			/* remove the element from the list, and increment the recurrence of this one */
-			while(index >= 0){
+
+			// remove the element from the list, and increment the recurrence of this one
+			while (index >= 0)
+			{
 				list.remove(index);
 				recurrence += 1;
 				index = list.indexOf(dish);
 			}
-			/* Check if the reservation passed */
+			// Check if the reservation passed
 			check = Reservation.addReservationDish(resvID, dish, recurrence);
-			if (check == -1) {return false;}
+			if (check == -1)
+			{
+				return false;
+			}
 		}
 		return true;
-	}
+	}*/
 }
-

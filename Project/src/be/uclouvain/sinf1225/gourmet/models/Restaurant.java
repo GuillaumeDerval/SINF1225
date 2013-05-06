@@ -57,18 +57,17 @@ public class Restaurant
 		this.email = email;
 		this.reservations = null;
 		this.dishes = null;
+		this.images = null;
 		this.dishesID = dishesID;
 	}
 
 	/**
 	 * update restaurant in DB
-	 * 
-	 * @param restaurant
 	 */
-	public static void updateRestaurant(Restaurant restaurant)
+	public void updateRestaurant()
 	{
 		GourmetDatabase db = new GourmetDatabase();
-		db.updateRestaurant(restaurant);
+		db.updateRestaurant(this);
 		db.close();
 	}
 
@@ -228,11 +227,22 @@ public class Restaurant
 
 	public void addImage(Image image)
 	{
-		this.images.add(image);
+		getImages().add(image);
 	}
 
 	public void deleteImage(Image image)
 	{
-		this.images.remove(image);
+		getImages().remove(image);
+	}
+	
+	public List<Image> getImages()
+	{
+		if(images == null)
+		{
+			GourmetDatabase db = new GourmetDatabase();
+			images = db.getImages(this);
+			db.close();
+		}
+		return images;
 	}
 }

@@ -1,11 +1,8 @@
 package be.uclouvain.sinf1225.gourmet.models;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Dish
 {
-	//TODO implement.
+	// TODO implement.
 	private int dishId;
 	private String name;
 	private int restoId;
@@ -18,6 +15,7 @@ public class Dish
 	private String category;
 	private Restaurant restaurant;
 	private Image img; // 1 dish = 1 picture
+
 	/**
 	 * 
 	 * @param dishId
@@ -33,9 +31,7 @@ public class Dish
 	 * @param restaurant
 	 * @param img
 	 */
-	public Dish(int dishId, String name, int restoId, String description,
-			double price, int spicy, int vegan, int available, int allergen,
-			String category, Restaurant restaurant, Image img) 
+	public Dish(int dishId, String name, int restoId, String description, double price, int spicy, int vegan, int available, int allergen, String category, Restaurant restaurant, Image img)
 	{
 		super();
 		this.dishId = dishId;
@@ -51,51 +47,34 @@ public class Dish
 		this.restaurant = restaurant;
 		this.img = img;
 	}
-	public Dish(int dishId, String name, int restoId, String description,
-			double price, int spicy, int vegan, int available, int allergen,
-			String category, Restaurant restaurant) 
-	{
-		super();
-		this.dishId = dishId;
-		this.name = name;
-		this.restoId = restoId;
-		this.description = description;
-		this.price = price;
-		this.spicy = spicy;
-		this.vegan = vegan;
-		this.available = available;
-		this.allergen = allergen;
-		this.category = category;
-		this.restaurant = restaurant;
-	}
-	public Dish() 
-	{
-		super();
-	}
 
 	/**
 	 * Delete dish in database
+	 * 
 	 * @param dish
 	 */
-	public void deleteDish( Dish dish)
+	public void deleteDish()
 	{
 		GourmetDatabase db = new GourmetDatabase();
-		db.deleteDish(dish);
+		db.deleteDish(this);
 		db.close();
 	}
+
 	/**
 	 * update dish in data base
+	 * 
 	 * @param dish
 	 */
-	public static void updateDish( Dish dish)
+	public void updateDish()
 	{
 		GourmetDatabase db = new GourmetDatabase();
-		db.updateDish(dish);
+		db.updateDish(this);
 		db.close();
-		
 	}
+
 	/**
 	 * get dish in database
+	 * 
 	 * @param dishId
 	 * @return dish object if it exists.
 	 */
@@ -106,124 +85,119 @@ public class Dish
 		db.close();
 		return dish;
 	}
-	public String getCategory() 
+
+	public String getCategory()
 	{
 		return category;
 	}
-	public void setCategory(String category) 
+
+	public void setCategory(String category)
 	{
 		this.category = category;
 	}
-	public String getDescription() 
+
+	public String getDescription()
 	{
 		return description;
 	}
-	public void setDescription(String description) 
+
+	public void setDescription(String description)
 	{
 		this.description = description;
 	}
-	public double getPrice() 
+
+	public double getPrice()
 	{
 		return price;
 	}
-	public void setPrice(double price) 
+
+	public void setPrice(double price)
 	{
 		this.price = price;
 	}
-	public int getSpicy() 
+
+	public int getSpicy()
 	{
 		return spicy;
 	}
-	public void setSpicy(int spicy) 
+
+	public void setSpicy(int spicy)
 	{
 		this.spicy = spicy;
 	}
-	public int getVegan() 
+
+	public int getVegan()
 	{
 		return vegan;
 	}
-	public void setVegan(int vegan) 
+
+	public void setVegan(int vegan)
 	{
 		this.vegan = vegan;
 	}
-	public int getAvailable() 
+
+	public int getAvailable()
 	{
 		return available;
 	}
-	public void setAvailable(int available) 
+
+	public void setAvailable(int available)
 	{
 		this.available = available;
 	}
-	public int getAllergen() 
+
+	public int getAllergen()
 	{
 		return allergen;
 	}
-	public void setAllergen(int allergen) 
+
+	public void setAllergen(int allergen)
 	{
 		this.allergen = allergen;
 	}
-	public String getName() 
+
+	public String getName()
 	{
 		return this.name;
 	}
-	public void setName(String name) 
+
+	public void setName(String name)
 	{
 		this.name = name;
 	}
-	public Restaurant getRestaurant() 
+
+	public Restaurant getRestaurant()
 	{
 		return restaurant;
 	}
-	public void setRestaurant(Restaurant restaurant) 
+
+	public void setRestaurant(Restaurant restaurant)
 	{
 		this.restaurant = restaurant;
 	}
-	public int getDishId() 
+
+	public int getDishId()
 	{
 		return dishId;
 	}
-	public void setDishId(int dishId) 
+
+	public void setDishId(int dishId)
 	{
 		this.dishId = dishId;
 	}
-	public Image getImg() 
+
+	public Image getImg()
 	{
 		return img;
 	}
-	public void setImg(Image img) 
+
+	public void setImg(Image img)
 	{
 		this.img = img;
 	}
+
 	public int getRestoId()
 	{
 		return restoId;
-	}
-	public static Image getImage(int id)
-	{
-		GourmetDatabase db = new GourmetDatabase();
-		Image image = db.getImage(id , "dish");
-		db.close();
-		return image;
-	}
-	
-	public static List<Dish> getDishInRestaurant(Restaurant restaurant)
-	{
-		GourmetDatabase db = new GourmetDatabase();
-		List<Dish> dishes = db.getDishInRestaurant(restaurant);
-		db.close();
-		return dishes;
-	}
-	
-	/**
-	 * Return dishes' name
-	 * @param dishes the list of dishes
-	 * @return list of dishes' name
-	 */
-	
-	public static List<String> getDishName (List<Dish> dishes)
-	{
-		List<String> list = new ArrayList<String>();
-		for (int i = 0; i<list.size();i++) {list.add(dishes.get(i).getName());}
-		return list;
 	}
 }

@@ -15,6 +15,7 @@ import android.util.Log;
 import be.uclouvain.sinf1225.gourmet.Gourmet;
 import be.uclouvain.sinf1225.gourmet.R;
 import be.uclouvain.sinf1225.gourmet.enums.PriceCategory;
+import be.uclouvain.sinf1225.gourmet.models.Reservation.DishNode;
 import be.uclouvain.sinf1225.gourmet.utils.GourmetFiles;
 import be.uclouvain.sinf1225.gourmet.utils.GourmetUtils;
 
@@ -201,14 +202,10 @@ class GourmetDatabase extends SQLiteOpenHelper
 	{
 		//TODO implement. Must works with Restaurator too.
 	}
-	//TODO implement. Commented lines are not essential
-
-	public User getUser(String username) { return null; }
-	//public List<User> getAllUsers() { return null; }
-	//public void deleteUser(User user) {}
 
 	
 	/*Image*/
+	
 	/**
 	 * add an image
 	 * @param img
@@ -226,21 +223,9 @@ class GourmetDatabase extends SQLiteOpenHelper
 	    
 	    db.close(); // Closing database connection
 	}
+	
 	/**
-	 * YOU CAN ONLY USE THIS METHOD WITH A DISH! A RESTAURANT CAN HAVE MORE THAN ONE IMAGE
-	 * @param type
-	 * @param id
-	 */
-	public void deleteImage(String type, int id)
-	{
-		Log.d("es", type + " --->" + id);
-		SQLiteDatabase db = this.getWritableDatabase();
-	    int i = db.delete("image", "`objectType` = ? AND `objectId` = ?", new String[] {type, ""+id});
-	    Log.d("es", i + "");
-	    db.close();
-	}
-	/**
-	 * delete one image from the path
+	 * delete image with this path
 	 * @param path
 	 */
 	public void deleteImage(String path)
@@ -250,11 +235,35 @@ class GourmetDatabase extends SQLiteOpenHelper
 	    Log.d("MyApp", "------->"+i);
 	    db.close();
 	}
+	
 	/**
-	 * 
-	 * @return imageList
+	 * Return images representing this restaurant
+	 * @param restaurant
+	 * @return list of images
 	 */
-	public List<Image> getAllImages(String objectType, int objectId)
+	public List<Image> getImages(Restaurant restaurant)
+	{
+		return getImages("restaurant", restaurant.getId());
+	}
+	
+	/**
+	 * Return images representing this dish
+	 * @param dish
+	 * @return list of images
+	 */
+	public List<Image> getImages(Dish dish)
+	{
+		return getImages("dish", dish.getDishId());
+	}
+	
+	/**
+	 * Return images corresponding to this object.
+	 * Private, because models should not be aware of the sqlite database and how data is stocked inside.
+	 * @param objectType
+	 * @param objectId
+	 * @return list of images
+	 */
+	private List<Image> getImages(String objectType, int objectId)
 	{
 		SQLiteDatabase db = this.getReadableDatabase();
 		
@@ -290,52 +299,7 @@ class GourmetDatabase extends SQLiteOpenHelper
 		db.close();
 		return images;
 	}
-	/**
-	 * 
-	 * @param objectId
-	 * @param objectType
-	 * @return image link to an object
-	 */
-	public Image getImage(int id, String type)
-	{
-		List<Image> images =getAllImages(type, id);
-		if ( images == null || images.size() == 0) return null;
-		else return images.get(0);
-		
-	}
-	/**
-	 * 
-	 * @param imageId
-	 * @return image with the id
-	 */
-	public Image getImage(int imageId)
-	{
-		SQLiteDatabase db = this.getReadableDatabase();
-		
-		Cursor cursor = db.query("image", //table to select on
-				new String[]{"legend","path","objectType","objectId"}, //column to get
-				 "`rowId` = ?", //where
-				new String[] {""+imageId}, //where string
-				null, //group by
-				null, //having
-				null); //orderby
-		
-		if(cursor == null)
-		{
-			db.close();
-			return null;
-		}
-			
-		cursor.moveToFirst();
-		Image image = new Image(
-				cursor.getString(0),
-				cursor.getString(1),
-				cursor.getString(2),
-				cursor.getInt(3)
-				);
-		db.close();
-		return image;
-	}
+	
 	/* Dish */
 	/**
 	 * Add a dish to database
@@ -420,7 +384,8 @@ class GourmetDatabase extends SQLiteOpenHelper
 		
 		cursor.moveToFirst();
 		Restaurant resto = getRestaurant(cursor.getInt(2));
-		Image img = getImage(cursor.getInt(0), "dish");
+		List<Image> imgs = getImages("dish", cursor.getInt(0));
+		Image img = imgs.size() == 0 ? null : imgs.get(0);
 		Dish dish= new Dish(
 				cursor.getInt(0), //dishId
 				cursor.getString(1), //name
@@ -477,6 +442,8 @@ class GourmetDatabase extends SQLiteOpenHelper
 		List<Dish> dishes = new ArrayList<Dish>();
 		for(int j = 0; j < cursor.getCount(); j++)
 		{
+			List<Image> imgs = getImages("dish", cursor.getInt(0));
+			Image img = imgs.size() == 0 ? null : imgs.get(0);
 			Dish dish = new Dish(cursor.getInt(0), 
 					cursor.getString(1), 
 					cursor.getInt(2), 
@@ -487,11 +454,11 @@ class GourmetDatabase extends SQLiteOpenHelper
 					cursor.getInt(7), 
 					cursor.getInt(8),
 					cursor.getString(9), 
-					restaurant);
+					restaurant,
+					img);
 
 			dishes.add(dish);
 			cursor.moveToNext();
-
 		}
 		
 	    db.close();
@@ -836,168 +803,85 @@ class GourmetDatabase extends SQLiteOpenHelper
 	/** 
 	 * Add a reservation in the database
 	 * @param reservation
+	 * @return new reservation id.
 	 */
 	public int addReservation(Reservation reservation)
 	{
-		// ouverture de la base de données
 		SQLiteDatabase db = this.getWritableDatabase();
 	    ContentValues values1 = new ContentValues();
 	    
-	    // valeur des diffŽrents champs
 	    values1.put("userEmail", reservation.getUserEmail());
 	    values1.put("resto", reservation.getRestaurant().getName());
 	    values1.put("nbrReservation", Integer.toString(reservation.getnbrReservation()));
 	    values1.put("date", reservation.getDate().toString());
 	    
-	    // insertion dans la base de donnŽes
 	    long resvId = db.insert("reservation", null, values1);
 	    
-	    // insertion des diffŽrents plats commandŽs dans la base de donnŽes
-	    ContentValues values2 = new ContentValues();
-	    for(DishNode node : reservation.getDish())
+	    for(Reservation.DishNode node : reservation.getDish())
 	    {
+	    	ContentValues values2 = new ContentValues();
 	    	values2.put("nameDish", node.dish.getName());
 	    	values2.put("nbrDish", node.nbrDishes);
 	    	values2.put("resvId", resvId);
 	    	db.insert("reservationDish", null, values2);
 	    }
 	    db.close();
-	    return 1;
-	}
-	
-	/**
-	 * Insert a new reservation into the database
-	 * @param restoID
-	 * @param email
-	 * @param nbr
-	 * @param date
-	 * @return the rowID of the new reservation (-1 in case of error)
-	 */
-	public int addReservation(int restoID, String email, int nbr, Date date)
-	{
-		/* open database */
-		SQLiteDatabase db = this.getWritableDatabase();
-	    ContentValues values = new ContentValues();
 	    
-	    /* put values */
-	    values.put("userEmail", email);
-	    values.put("restoId", restoID);
-	    values.put("nbrReservation", Integer.toString(nbr));
-	    values.put("date", date.toString());
-	    
-	    /* insert the new reservation into the database */
-	    int rowID = (int) db.insert("reservation", null, values);
-	    
-	    /* Close database */
-	    db.close();
-	    
-	    /* return the rowID */
-	    return rowID; 
+	    return (int) resvId;
 	}
 	
 	/**
 	 * Remove the reservation from the database
-	 * @param resvID
-	 * @return 0 in case of error, 
-	 * 			the rowID otherwise
+	 * @param reservation
 	 */
-	public int deleteReservation(int resvID)
+	public void deleteReservation(Reservation reservation)
 	{
-		/* open database */
 		SQLiteDatabase db = this.getWritableDatabase();
-		
-		/* remove the reservation */
-	    int rowID = db.delete("reservation", "`resvId` = ?", new String[] {Integer.toString(resvID)});
-	    
-	    /* close database */
+	    db.delete("reservation", "`resvId` = ?", new String[] {Integer.toString(reservation.getId())});
+	    db.delete("reservationDish", "`resvId` = ?", new String[] {Integer.toString(reservation.getId())});
 	    db.close();
-	    
-	    /* return the rowID */
-		return rowID;
 	}
 	
 	/**
-	 * @param email
-	 * @param restoID
-	 * @param date
-	 * @return success : the resvID
-	 * 			error : -1
+	 * Update reservation in database
+	 * @param reservation
 	 */
-	public int getResvID(String email, int restoID, Date date)
+	public void updateReservation(Reservation reservation)
 	{
-		/* Open database */
-	    SQLiteDatabase db = this.getReadableDatabase();
+		SQLiteDatabase db = this.getWritableDatabase();
+	    ContentValues values1 = new ContentValues();
 	    
-	    /* Get the resvID */
-	    String str[] = new String[] {email, Integer.toString(restoID), date.toString()};
-	    Cursor cursor = db.rawQuery("select resvId from reservation where userEmail = ? AND restoId = ? AND date = ?", str);
-	    if(cursor == null || cursor.getCount() != 1) return (-1);
-	    cursor.moveToFirst();
-	    int resvID = cursor.getInt(0);
+	    values1.put("userEmail", reservation.getUserEmail());
+	    values1.put("resto", reservation.getRestaurant().getName());
+	    values1.put("nbrReservation", Integer.toString(reservation.getnbrReservation()));
+	    values1.put("date", reservation.getDate().toString());
+	    db.update("reservation", values1, "`resvId` = ?", new String[] {Integer.toString(reservation.getId())});
 	    
-	    /* close database */
+	    //delete reservationDish dishes
+	    db.delete("reservationDish", "`resvId` = ?", new String[] {Integer.toString(reservation.getId())});
+	    //and re-add them
+	    for(Reservation.DishNode node : reservation.getDish())
+	    {
+	    	ContentValues values2 = new ContentValues();
+	    	values2.put("nameDish", node.dish.getName());
+	    	values2.put("nbrDish", node.nbrDishes);
+	    	values2.put("resvId", reservation.getId());
+	    	db.insert("reservationDish", null, values2);
+	    }
+	    
 	    db.close();
-	    
-	    /* return the resvId of the reservation */
-		return resvID;
 	}
 	
 	/**
-	 * add a dish to a reservation
-	 * @param resvID
-	 * @param dish
-	 * @param nbr
-	 * @return success : rowID where the new dish has been added
-	 * 			error : -1
+	 * Get reservation in database
 	 */
-	public int addReservationDish (int resvID, String dish, int nbr)
+	public Reservation getReservation(String userEmail, int restaurantId, Date date)
 	{
-		/* open database */
-		SQLiteDatabase db = this.getWritableDatabase();
-	    ContentValues values = new ContentValues();
-	    
-	    /* put values */
-	    values.put("resvId", Integer.toString(resvID));
-	    values.put("nameDish", dish);
-	    values.put("nbrDish", Integer.toString(nbr));
-	    
-	    /* insert the new reservation into the database */
-	    int rowID = (int) db.insert("reservationDish", null, values);
-	    
-	    /* Close database */
-	    db.close();
-	    
-	    /* return the rowID */
-	    return rowID; 
-	}
-	
-	/**
-	 * remove a dish from a reservation
-	 * @param resvID
-	 * @param dish
-	 * @param nbr
-	 * @return success : rowID from the removed element
-	 * 			error : 0
-	 */
-	public int deleteResvervationDish (int resvID, String dish, int nbr)
-	{
-		/* open database */
-		SQLiteDatabase db = this.getWritableDatabase();
-		
-		/* remove the reservation */
-		String str[] = new String[] {Integer.toString(resvID), dish, Integer.toString(nbr)};
-	    int rowID = db.delete("reservationDish", "`resvId` = ? AND `nameDish`= ? AND `nbrDish`= ?", str);
-	    
-	    /* close database */
-	    db.close();
-	    
-	    /* return the rowID */
-		return rowID;
+		return null; //TODO implement.
 	}
 	
 	// TODO
-	//public List<Reservation> getAllReservations() { return null; }
 	public List<Reservation> getReservationInRestaurant(Restaurant restaurant) { return null; }
 	public List<Reservation> getReservationByUser(User user) { return null; }
-	public void updateReservation(Reservation reservation) {}	
+	
 }

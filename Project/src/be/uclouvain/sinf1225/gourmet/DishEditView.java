@@ -101,7 +101,7 @@ public class DishEditView extends Activity
 				else
 					dish.setAllergen(0);
 
-				Dish.updateDish(dish); // to be checked
+				dish.updateDish();
 				finish();
 			}
 		});
@@ -109,7 +109,7 @@ public class DishEditView extends Activity
 		{
 			public void onClick(View v)
 			{
-				(new Dish()).deleteDish(dish);
+				dish.deleteDish();
 				finish();
 			}
 		});

@@ -1,4 +1,5 @@
 package be.uclouvain.sinf1225.gourmet.models;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -13,14 +14,55 @@ import java.util.List;
  */
 public class Reservation
 {
+	public class DishNode
+	{
+		public Dish dish;
+		public int nbrDishes;
+		
+		public DishNode (Dish dish, int nbrDishes)
+		{
+			this.dish = dish;
+			this.nbrDishes = nbrDishes;
+		}
+	}
+	
+	private int id;
 	private String userEmail;
 	private Restaurant restaurant;
 	private int nbrReservation;
 	private List<DishNode> dishes;
 	private Date date;
 	
-	public Reservation(String userEmail, Restaurant restaurant, int nbrReservation, List<DishNode> dishes, Date date)
+	/**
+	 * Create a new reservation, to be saved to database
+	 * @param userEmail
+	 * @param restaurant
+	 * @param nbrReservation
+	 * @param date
+	 */
+	public Reservation(String userEmail, Restaurant restaurant, int nbrReservation, Date date)
 	{
+		this.id = -1;
+		this.userEmail = userEmail;
+		this.restaurant = restaurant;
+		this.nbrReservation = nbrReservation;
+		this.dishes = new ArrayList<DishNode>();
+		this.date = date;
+		this.updateReservation(); //will set id.
+	}
+	
+	/**
+	 * Create a new reservation, from database.
+	 * @param id
+	 * @param userEmail
+	 * @param restaurant
+	 * @param nbrReservation
+	 * @param dishes
+	 * @param date
+	 */
+	public Reservation(int id, String userEmail, Restaurant restaurant, int nbrReservation, List<DishNode> dishes, Date date)
+	{
+		this.id = id;
 		this.userEmail = userEmail;
 		this.restaurant = restaurant;
 		this.nbrReservation = nbrReservation;
@@ -29,6 +71,7 @@ public class Reservation
 	}
 	
 	/* Lecture des variables d'instances*/
+	public int getId() { return this.id; }
 	public String getUserEmail() {return this.userEmail;}
 	public Restaurant getRestaurant () {return this.restaurant;}
 	public int getnbrReservation() {return this.nbrReservation;}
@@ -48,9 +91,8 @@ public class Reservation
 	public void setDishNodeNbr (Dish dish, int nbr)
 	{
 		for(DishNode node : this.dishes)
-		{
-			if(node.dish == dish) node.nbrDishes = nbr;
-		}
+			if(node.dish == dish) 
+				node.nbrDishes = nbr;
 	}
 	
 	/**
@@ -58,7 +100,10 @@ public class Reservation
 	 * @param dish plat à ajouter
 	 * @param nbr nombre d'exemplaire souhaité
 	 */
-	public void addDishNode (Dish dish, int nbr) {this.dishes.add(new DishNode(dish, nbr));}
+	public void addDishNode (Dish dish, int nbr)
+	{
+		dishes.add(new DishNode(dish, nbr));
+	}
 	
 	/**
 	 * Suppression d'un plat commandé
@@ -72,39 +117,45 @@ public class Reservation
 		}
 	}
 	
-	public static int addReservation(int restoID, String email, int nbr, Date date)
+	/**
+	 * Get reservation from database
+	 * @param userEmail
+	 * @param restaurantId
+	 * @param date
+	 * @return
+	 */
+	public static Reservation getReservation(String userEmail, int restaurantId, Date date)
 	{
 		GourmetDatabase db = new GourmetDatabase();
-		int i = db.addReservation(restoID, email, nbr, date);
+		Reservation resv = db.getReservation(userEmail, restaurantId, date);
 		db.close();
-		return i;
+		return resv;
 	}
-	public static int deleteReservation(int resvID)
+	
+	/**
+	 * Update this reservation in database
+	 */
+	public void updateReservation()
 	{
 		GourmetDatabase db = new GourmetDatabase();
-		int i = db.deleteReservation(resvID);
+		if(id == -1) //add
+		{
+			id = db.addReservation(this);
+		}
+		else //update
+		{
+			db.updateReservation(this);
+		}
 		db.close();
-		return i;
 	}
-	public static int getResvID(String email, int restoID, Date date)
+	
+	/**
+	 * Delete reservation from database
+	 */
+	public void deleteReservation()
 	{
 		GourmetDatabase db = new GourmetDatabase();
-		int i = db.getResvID(email, restoID, date);
+		db.deleteReservation(this);
 		db.close();
-		return i;
-	}
-	public static int addReservationDish(int resvID, String dish, int nbr)
-	{
-		GourmetDatabase db = new GourmetDatabase();
-		int i = db.addReservationDish(resvID, dish, nbr);
-		db.close();
-		return i;
-	}
-	public static int deleteResvervationDish (int resvID, String dish, int nbr)
-	{
-		GourmetDatabase db = new GourmetDatabase();
-		int i = db.deleteResvervationDish(resvID, dish, nbr);
-		db.close();
-		return i;
 	}
 }

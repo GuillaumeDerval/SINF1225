@@ -6,11 +6,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import be.uclouvain.sinf1225.gourmet.models.Restaurant;
 import be.uclouvain.sinf1225.gourmet.utils.GourmetUtils;
-import android.widget.Button;
 
 /**
  * 
@@ -19,17 +19,19 @@ import android.widget.Button;
  */
 public class RestaurantEditView extends Activity
 {
+	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
-	    GourmetUtils.createMenu(menu, this, R.id.search);
-	    return true;
+		GourmetUtils.createMenu(menu, this, R.id.search);
+		return true;
 	}
-	
+
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
 		return GourmetUtils.onMenuItemSelected(item, this);
 	}
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
@@ -43,7 +45,7 @@ public class RestaurantEditView extends Activity
 		final EditText EditName = (EditText) this.findViewById(R.id.EditName);
 		final EditText EditPhone = (EditText) this.findViewById(R.id.EditPhoneNumber);
 		final EditText EditAdress = (EditText) this.findViewById(R.id.EditAdress);
-		//final EditText EditPriceCat = (EditText) this.findViewById(R.id.EditPriceCat); //TODO should be a spinner
+		// final EditText EditPriceCat = (EditText) this.findViewById(R.id.EditPriceCat); //TODO should be a spinner
 		final EditText EditEmail = (EditText) this.findViewById(R.id.EditEmail);
 		final EditText EditSeats = (EditText) this.findViewById(R.id.EditSeats);
 		final EditText EditDescription = (EditText) this.findViewById(R.id.EditDescription);
@@ -58,7 +60,7 @@ public class RestaurantEditView extends Activity
 		EditAdress.setText(resto.getAddress());
 		// EditPriceCat.setText(resto.getPriceCate());
 		EditEmail.setText(resto.getEmail());
-		EditSeats.setText(""+resto.getSeats());
+		EditSeats.setText("" + resto.getSeats());
 		EditDescription.setText(resto.getDescription());
 		EditWebsite.setText(resto.getWebsite());
 
@@ -66,17 +68,18 @@ public class RestaurantEditView extends Activity
 		Stars.setMax(5); // set max just to be sure
 		Stars.setRating(resto.getStars());
 		Stars.setStepSize(1);
-		
+
 		imageButton.setOnClickListener(new View.OnClickListener()
 		{
 			/**
 			 * perform action on click
 			 */
+			@Override
 			public void onClick(View v)
-			{	
+			{
 				Intent intent = new Intent(RestaurantEditView.this, RestaurantImageView.class);
-			    intent.putExtra("restoId", resto.getId());
-			    startActivity(intent);
+				intent.putExtra("restoId", resto.getId());
+				startActivity(intent);
 			}
 		});
 
@@ -85,6 +88,7 @@ public class RestaurantEditView extends Activity
 			/**
 			 * perform action on click
 			 */
+			@Override
 			public void onClick(View v)
 			{
 				resto.setName(EditName.getText().toString());
@@ -95,8 +99,8 @@ public class RestaurantEditView extends Activity
 				resto.setSeats(Integer.parseInt(EditSeats.getText().toString()));
 				resto.setDescription(EditDescription.getText().toString());
 				resto.setWebsite(EditWebsite.getText().toString());
-				resto.setStars((int)Stars.getRating()); // to be checked
-				Restaurant.updateRestaurant(resto); // to be checked
+				resto.setStars((int) Stars.getRating()); // to be checked
+				resto.updateRestaurant(); // to be checked
 				finish();
 			}
 		});
