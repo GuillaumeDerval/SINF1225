@@ -22,8 +22,8 @@
       android:id="@+id/DishViewDescription"
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
-      android:layout_alignParentBottom="true"
       android:layout_centerHorizontal="true"
+      android:layout_below="@+id/DishViewVegan"
       android:gravity="center"
       android:text="Description of the restaurant"
       android:textAppearance="?android:attr/textAppearanceSmall" />
@@ -34,6 +34,8 @@
       android:layout_height="wrap_content"
       android:layout_alignParentLeft="true"
       android:layout_below="@+id/DishViewImage"
+      android:clickable="false"
+      android:longClickable="false"
       android:text="Spicy" />
 
   <CheckBox
@@ -42,6 +44,8 @@
       android:layout_height="wrap_content"
       android:layout_alignParentLeft="true"
       android:layout_below="@+id/DishViewSpicy"
+      android:clickable="false"
+      android:longClickable="false"
       android:text="Vegan" />
 
   <ImageView
@@ -51,8 +55,7 @@
       android:layout_below="@+id/DishViewAvailable"
       android:layout_centerHorizontal="true"
       android:adjustViewBounds="true"
-      android:scaleType="centerInside"
-      android:src="@drawable/no_image_available" />
+      android:scaleType="centerInside" />
 
   <CheckBox
       android:id="@+id/DishViewAvailable"
@@ -60,6 +63,8 @@
       android:layout_height="wrap_content"
       android:layout_alignParentLeft="true"
       android:layout_below="@+id/DishViewName"
+      android:clickable="false"
+      android:longClickable="false"
       android:text="Available" />
 
   <TextView

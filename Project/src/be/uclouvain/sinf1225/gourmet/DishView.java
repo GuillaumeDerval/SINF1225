@@ -2,6 +2,7 @@ package be.uclouvain.sinf1225.gourmet;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -9,11 +10,14 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
 import be.uclouvain.sinf1225.gourmet.models.Dish;
+import be.uclouvain.sinf1225.gourmet.models.Image;
 import be.uclouvain.sinf1225.gourmet.models.Restaurant;
 import be.uclouvain.sinf1225.gourmet.models.Restaurator;
 import be.uclouvain.sinf1225.gourmet.models.User;
+import be.uclouvain.sinf1225.gourmet.utils.GourmetFiles;
 import be.uclouvain.sinf1225.gourmet.utils.GourmetUtils;
 
 /**
@@ -49,6 +53,7 @@ public class DishView extends Activity
 		((TextView) findViewById(R.id.DishViewName)).setText(dish.getName());
 		((TextView) findViewById(R.id.DishViewDescription)).setText(dish.getDescription());
 		((TextView) findViewById(R.id.DishViewPrice)).setText("" + dish.getPrice());
+		
 		
 		// ((TextView)findViewById(R.id.RestaurantListDistance)).setText(new
 		// DecimalFormat("#.##").format(city.getLocation().distanceTo(locationListener.getLastLocation())/1000));
@@ -101,6 +106,10 @@ public class DishView extends Activity
 			    startActivity(intent);
 			}
 		});
+		
+		Image image = Dish.getImage(dish.getDishId());
+		ImageView imageView = (ImageView) findViewById(R.id.DishViewImage);
+		imageView.setImageBitmap(BitmapFactory.decodeFile(GourmetFiles.getRealPath(image.getPath())));
 
 	}
 }
