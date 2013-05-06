@@ -122,7 +122,7 @@ public class Reservation
 	 * @param userEmail
 	 * @param restaurantId
 	 * @param date
-	 * @return
+	 * @return Reservation object if it exists, null else
 	 */
 	public static Reservation getReservation(String userEmail, int restaurantId, Date date)
 	{
