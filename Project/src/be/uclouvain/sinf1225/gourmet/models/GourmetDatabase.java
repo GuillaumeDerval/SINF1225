@@ -381,7 +381,6 @@ class GourmetDatabase extends SQLiteOpenHelper
 	 */
 	public Dish getDish(int dishId)
 	{
-		//TODO implements
 		SQLiteDatabase db = this.getReadableDatabase();
 
 		Cursor cursor = db.query("dish", //table to select on
@@ -435,7 +434,7 @@ class GourmetDatabase extends SQLiteOpenHelper
 				"allergen",
 			 	"category"},//column to get
 				"`restoId` = ?", 
-				new String[]{String.valueOf(restaurant.getId())}, 
+				new String[]{Integer.valueOf(restaurant.getId()).toString()}, 
 				null,
 				null,
 				null,
@@ -463,7 +462,6 @@ class GourmetDatabase extends SQLiteOpenHelper
 			cursor.moveToNext();
 
 		}
-		
 		return dishes;
 	}
 	
