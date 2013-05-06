@@ -5,12 +5,8 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.location.Location;
 import android.os.Bundle;
 import be.uclouvain.sinf1225.gourmet.models.City;
-import be.uclouvain.sinf1225.gourmet.utils.GourmetLocationListener;
-import be.uclouvain.sinf1225.gourmet.utils.GourmetLocationReceiver;
-
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.MapFragment;
@@ -19,9 +15,8 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 
-public class CityMapView extends Activity implements GourmetLocationReceiver
+public class CityMapView extends Activity
 {
-	private GourmetLocationListener locationListener;
 	private HashMap<Marker,City> markerToCity = null;
 	
 	protected GoogleMap getMap()
@@ -35,15 +30,14 @@ public class CityMapView extends Activity implements GourmetLocationReceiver
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_city_list_map);
 		
-		// Initialisation des services de localisation
-		locationListener = new GourmetLocationListener(this,this).init();
-		
 		GoogleMap map = getMap();
+		map.setMyLocationEnabled(true);
+		map.getUiSettings().setMyLocationButtonEnabled(true);
+		map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 		
 		if(markerToCity == null)
 		{
 			markerToCity = new HashMap<Marker,City>();
-			map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
 		
 			List<City> cities = City.getAllCities();
 			for(City city : cities)
@@ -70,36 +64,5 @@ public class CityMapView extends Activity implements GourmetLocationReceiver
 				}
 			});
 		}
-	}
-
-	@Override
-	public void onPause()
-	{
-		if(locationListener != null)
-			locationListener.close();
-		locationListener = null;
-		super.onPause();
-	}
-	
-	@Override
-	public void onStop()
-	{
-		if(locationListener != null)
-			locationListener.close();
-		locationListener = null;
-		super.onPause();
-	}
-	
-	@Override
-	public void onResume()
-	{
-		if(locationListener == null)
-			locationListener = new GourmetLocationListener(this,this);
-		super.onResume();
-	}
-	
-	@Override
-	public void onLocationUpdate(Location loc)
-	{
 	}
 }

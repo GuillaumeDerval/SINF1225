@@ -13,7 +13,7 @@ import android.os.Bundle;
 public class GourmetLocationListener implements LocationListener
 {
 	private LocationManager locationManager = null;
-	private Location lastLocation = null;
+	private static Location lastLocation = null;
 	private GourmetLocationReceiver callbackObjet = null;
 	
 	/**
@@ -59,7 +59,7 @@ public class GourmetLocationListener implements LocationListener
 	 * Return the more precise location available
 	 * @return more precise location available
 	 */
-	public Location getLastLocation()
+	public static Location getLastLocation()
 	{
 		return lastLocation;
 	}

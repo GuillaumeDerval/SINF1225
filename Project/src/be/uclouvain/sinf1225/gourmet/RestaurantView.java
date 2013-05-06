@@ -1,11 +1,15 @@
 package be.uclouvain.sinf1225.gourmet;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Point;
+import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Display;
 import android.view.Menu;
@@ -19,6 +23,7 @@ import android.widget.TextView;
 import be.uclouvain.sinf1225.gourmet.models.Restaurant;
 import be.uclouvain.sinf1225.gourmet.models.Restaurator;
 import be.uclouvain.sinf1225.gourmet.models.User;
+import be.uclouvain.sinf1225.gourmet.utils.GourmetLocationListener;
 import be.uclouvain.sinf1225.gourmet.utils.GourmetUtils;
 
 /**
@@ -119,5 +124,25 @@ public class RestaurantView extends Activity
 			legend.setText("Image test legend"); //TODO adapt for restaurant :-)
 			imageContainer.addView(v);
 		}
+		
+		Button beginNav = (Button) findViewById(R.id.beginNav);
+		beginNav.setOnClickListener(new OnClickListener()
+		{
+			@Override
+			public void onClick(View arg0)
+			{
+				try
+				{
+					String addr = URLEncoder.encode(RestaurantView.this.restaurant.getAddress() + ", " + RestaurantView.this.restaurant.getCity().getName() + ", " + RestaurantView.this.restaurant.getCity().getCountry(), "utf-8");
+					final Intent intent = new Intent(Intent.ACTION_VIEW,Uri.parse("http://maps.google.com/maps?" + "daddr=" + addr));
+					intent.setClassName("com.google.android.apps.maps","com.google.android.maps.MapsActivity");
+					startActivity(intent);
+				}
+				catch (UnsupportedEncodingException e)
+				{
+					
+				}
+			}
+		});
 	}
 }
