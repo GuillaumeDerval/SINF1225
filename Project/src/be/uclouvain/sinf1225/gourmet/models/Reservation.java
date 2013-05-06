@@ -71,4 +71,40 @@ public class Reservation
 			if (node.dish == dish) this.dishes.remove(node);			
 		}
 	}
+	
+	public static int addReservation(int restoID, String email, int nbr, Date date)
+	{
+		GourmetDatabase db = new GourmetDatabase();
+		int i = db.addReservation(restoID, email, nbr, date);
+		db.close();
+		return i;
+	}
+	public static int deleteReservation(int resvID)
+	{
+		GourmetDatabase db = new GourmetDatabase();
+		int i = db.deleteReservation(resvID);
+		db.close();
+		return i;
+	}
+	public static int getResvID(String email, int restoID, Date date)
+	{
+		GourmetDatabase db = new GourmetDatabase();
+		int i = db.getResvID(email, restoID, date);
+		db.close();
+		return i;
+	}
+	public static int addReservationDish(int resvID, String dish, int nbr)
+	{
+		GourmetDatabase db = new GourmetDatabase();
+		int i = db.addReservationDish(resvID, dish, nbr);
+		db.close();
+		return i;
+	}
+	public static int deleteResvervationDish (int resvID, String dish, int nbr)
+	{
+		GourmetDatabase db = new GourmetDatabase();
+		int i = db.deleteResvervationDish(resvID, dish, nbr);
+		db.close();
+		return i;
+	}
 }
