@@ -144,4 +144,19 @@ public class GourmetFiles
 		futureSubDirTree = subdirTreeList.subList(0, subdirTreeList.size()-1);
 		return subdirTreeList.get(subdirTreeList.size()-1);
 	}
+	
+	/**
+	 * Convert db file path to real filepath in SD card
+	 */
+	public static String getRealPath(String path)
+	{
+		StringTokenizer st = new StringTokenizer(path, "/");
+		String rpath = "";
+		while(st.hasMoreElements())
+		{
+			String t = st.nextToken();
+			rpath += File.separator+t;
+		}
+		return Gourmet.getAppContext().getExternalFilesDir(null)+rpath;
+	}
 }
