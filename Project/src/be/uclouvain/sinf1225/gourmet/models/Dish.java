@@ -50,8 +50,6 @@ public class Dish
 
 	/**
 	 * Delete dish in database
-	 * 
-	 * @param dish
 	 */
 	public void deleteDish()
 	{
@@ -61,9 +59,7 @@ public class Dish
 	}
 
 	/**
-	 * update dish in data base
-	 * 
-	 * @param dish
+	 * update dish in database
 	 */
 	public void updateDish()
 	{
