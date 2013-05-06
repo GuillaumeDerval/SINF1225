@@ -1,48 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
-
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/rsv_welcome" />
-
-    <EditText
-        android:id="@+id/editText1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/rsv_name"
-        android:hint="@string/rsv_hint_name"
-        android:ems="10" >
-
-        <requestFocus />
-    </EditText>
-
-    <EditText
-        android:id="@+id/editText2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:text="@string/rsv_fname"
-        android:hint="@string/rsv_hint_fname" />
-
-    <EditText
-        android:id="@+id/editText3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/rsv_hint_date"
-        android:text="@string/rsv_date" />
-
-    <EditText
-        android:id="@+id/editText4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/rsv_hint_hour"
-        android:text="@string/rsv_hour" />
-
-</LinearLayout>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@+id/header"
+  android:layout_width="fill_parent"
+  android:layout_height="wrap_content">
+  
+    
+    
+    
+  <TableRow>
+   <TextView
+    android:textColor="@android:color/black"
+    android:layout_margin="1dp"
+    android:gravity="center_horizontal"
+    android:layout_weight="1"
+    android:background="@android:color/white"
+    android:text="Name" />
+   <TextView
+    android:textColor="@android:color/black"
+    android:gravity="center_horizontal"
+    android:layout_weight="1"
+    android:layout_margin="1dp"
+    android:background="@android:color/white"
+    android:text="Date" />
+   <TextView
+    android:textColor="@android:color/black"
+    android:gravity="center_horizontal"
+    android:layout_weight="1"
+    android:layout_margin="1dp"
+    android:background="@android:color/white"
+    android:text="Time" />
+   <TextView
+    android:textColor="@android:color/black"
+    android:gravity="center_horizontal"
+    android:layout_weight="1"
+    android:layout_margin="1dp"
+    android:background="@android:color/white"
+    android:text="Restaurant" />
+   <TextView
+    android:textColor="@android:color/black"
+    android:gravity="center_horizontal"
+    android:layout_weight="1"
+    android:layout_margin="1dp"
+    android:background="@android:color/white"
+    android:text="# people" />
+  </TableRow>
+ </TableLayout>

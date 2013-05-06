@@ -63,7 +63,7 @@
       android:text="Available" />
 
   <TextView
-      android:id="@+id/textView1"
+      android:id="@+id/rsv_wlcm"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_alignParentRight="true"
@@ -79,7 +79,7 @@
       android:layout_height="wrap_content"
       android:layout_above="@+id/DishViewAvailable"
       android:layout_alignParentTop="true"
-      android:layout_toLeftOf="@+id/textView1"
+      android:layout_toLeftOf="@+id/rsv_wlcm"
       android:background="#9ACD32"
       android:gravity="center_vertical|center_horizontal"
       android:text="Price"
