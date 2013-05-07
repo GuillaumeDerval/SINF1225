@@ -74,10 +74,19 @@ public class LoginView extends Activity
 				public void onClick(View arg0)
 				{
 					User.UserManagerReturn ret;
+					String emailText = email.getText().toString();
+					
+					if(!android.util.Patterns.EMAIL_ADDRESS.matcher(emailText).matches())
+					{
+						Toast toast = Toast.makeText(getApplicationContext(), "Email ou mot de passe invalide", Toast.LENGTH_LONG);
+						toast.show();
+						return;
+					}
+					
 					if(inscription.isChecked())
-						ret = User.registerUser(name.getText().toString(),surname.getText().toString(),email.getText().toString(),password.getText().toString());
+						ret = User.registerUser(name.getText().toString(),surname.getText().toString(),emailText,password.getText().toString());
 					else
-						ret = User.loginUser(email.getText().toString(),password.getText().toString());
+						ret = User.loginUser(emailText,password.getText().toString());
 					
 					if(ret == User.UserManagerReturn.LOGIN_OK)
 					{
