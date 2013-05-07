@@ -23,3 +23,6 @@ local.properties
 *.aux
 *.tex.bak
 *.synctex.gz
+
+#Eclispe metadata
+Project/.metadata/*
