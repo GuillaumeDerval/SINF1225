@@ -39,7 +39,6 @@ public class ReservationCreateView extends Activity
 	private ListView list;
 	private TextView restaurant;
 	private EditText nbrReservation;
-	private ArrayList<String> listDish = new ArrayList<String>(); // list of dishes booked by the user
 
 	/* adapters */
 	private ArrayAdapter<String> adapter; // list of dishes
@@ -107,23 +106,23 @@ public class ReservationCreateView extends Activity
 	}
 
 	@Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
+	protected void onActivityResult(int requestCode, int resultCode, Intent data)
+	{
 		super.onActivityResult(requestCode, resultCode, data);
-		
+
 		/* add the id into the list of dishes */
 		dish_id_list.add(resultCode);
-		
+
 		/* update the adapter*/
 		String name = Dish.getDish(resultCode).getName();
 		dish_name_list.add(name);
-   		adapter.notifyDataSetChanged();
-   		
-   		/* Display a toast */
-   		Context context = getApplicationContext();
+		adapter.notifyDataSetChanged();
+
+		/* Display a toast */
+		Context context = getApplicationContext();
 		Toast toast = Toast.makeText(context, "plat ajouté", Toast.LENGTH_SHORT);
 		toast.show();
-    }
+	}
 	
 	/**
 	 * onClick Behavior - button SEND
@@ -185,8 +184,8 @@ public class ReservationCreateView extends Activity
 		if ((dish_id == 0 && resto_id == 0) || (dish_id != 0 && resto_id != 0)) {finish();}
 		else if (dish_id != 0)
 		{
-			/* add item to the listDish */
-			listDish.add(Dish.getDish(dish_id).getName());
+			/* add item to the dish_name_list */
+			dish_name_list.add(Dish.getDish(dish_id).getName());
 			adapter.notifyDataSetChanged();
 			
 			/* add to the list of dishId */

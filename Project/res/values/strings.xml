@@ -55,7 +55,7 @@
 
     <!-- string - reservation -->
     <string name="action_settings">Settings</string>
-    <string name="restaurant">Restaurant :</string>
+    <string name="restaurant">Restaurant : </string>
     <string name="time">Time</string>
     <string name="date">Date</string>
     <string name="nbrReservation">Nbr</string>
