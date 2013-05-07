@@ -360,7 +360,8 @@ class GourmetDatabase extends SQLiteOpenHelper
 	public void deleteDish(Dish dish)
 	{
 		SQLiteDatabase db = this.getWritableDatabase();
-	    db.delete("dish", "`name` = ?", new String[] {""+dish.getDishId()});
+	    int i = db.delete("dish", "`dishId` = ?", new String[] {""+dish.getDishId()});
+	    Log.d("","------------->" +i);
 	    db.close();
 	}
 	

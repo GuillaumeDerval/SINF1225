@@ -1,9 +1,15 @@
 package be.uclouvain.sinf1225.gourmet;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,6 +36,7 @@ import be.uclouvain.sinf1225.gourmet.utils.GourmetUtils;
 public class DishView extends Activity
 {
 	private Dish dish = null;
+	private static int RESULT_EDIT_DISH = 1;
 
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
@@ -120,7 +127,7 @@ public class DishView extends Activity
 			{
 				Intent intent = new Intent(DishView.this, DishEditView.class);
 			    intent.putExtra("dishId", dish.getDishId());
-			    startActivity(intent);
+			    startActivityForResult(intent, RESULT_EDIT_DISH);
 			}
 		});
 		
@@ -131,5 +138,18 @@ public class DishView extends Activity
 			imageView.setImageBitmap(BitmapFactory.decodeFile(GourmetFiles.getRealPath(image.getPath())));
 		else
 			imageView.setVisibility(ImageView.GONE);
+	}
+	protected void onActivityResult(int requestCode, int resultCode, Intent data)
+	{
+		super.onActivityResult(requestCode, resultCode, data);
+
+		if (requestCode == RESULT_EDIT_DISH)
+		{
+			 super.onRestart();
+			 Intent i = new Intent(this, DishView.class);  //your class
+			 i.putExtra("dishId", dish.getDishId());
+			 startActivity(i);
+			 finish();
+		}
 	}
 }

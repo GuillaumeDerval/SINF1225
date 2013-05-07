@@ -207,4 +207,8 @@ public class Dish
 	{
 		return restoId;
 	}
+
+	public void setRestoId(int restoId) {
+		this.restoId = restoId;
+	}
 }

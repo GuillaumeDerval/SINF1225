@@ -32,6 +32,7 @@ import be.uclouvain.sinf1225.gourmet.utils.GourmetUtils;
 public class RestaurantView extends Activity
 {
 	private Restaurant restaurant = null;
+	private static int RESULT_EDIT_RESTO = 1;
 	
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
@@ -102,7 +103,7 @@ public class RestaurantView extends Activity
 			{
 				Intent intent = new Intent(RestaurantView.this, RestaurantEditView.class);
 			    intent.putExtra("restoId", restaurant.getId());
-			    startActivity(intent);
+			    startActivityForResult(intent, RESULT_EDIT_RESTO);
 			}
 		});
 		
@@ -154,5 +155,18 @@ public class RestaurantView extends Activity
 				}
 			}
 		});
+	}
+	protected void onActivityResult(int requestCode, int resultCode, Intent data)
+	{
+		super.onActivityResult(requestCode, resultCode, data);
+
+		if (requestCode == RESULT_EDIT_RESTO)
+		{
+			 super.onRestart();
+			 Intent i = new Intent(this, RestaurantView.class);  //your class
+			 i.putExtra("restoId", restaurant.getId());
+			 startActivity(i);
+			 finish();
+		}
 	}
 }

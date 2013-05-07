@@ -82,7 +82,8 @@ public class AddDishView extends Activity
 					dish.setAllergen(1);
 				else
 					dish.setAllergen(0);
-
+				
+				dish.setRestoId(resto.getId());
 				dish.addDish();
 				finish();
 			}
