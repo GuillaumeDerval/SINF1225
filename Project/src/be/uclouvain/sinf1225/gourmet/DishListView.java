@@ -31,6 +31,11 @@ import android.widget.ToggleButton;
 public class DishListView extends Activity 
 {
 	private Restaurant restaurant = null;
+	
+	
+	/* true if the ReservationCreateView launches the activity */
+	/* false otherwise */
+	private boolean goToReservation;
 
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
@@ -53,6 +58,8 @@ public class DishListView extends Activity
 		// locationListener = new GourmetLocationListener(this,this).init();
 		// R√©cup√©ration du restaurant sur lequel on a cliqu√© et les plats qui lui appartiennent
 		restaurant = Restaurant.getRestaurant(getIntent().getExtras().getInt("restoId"));
+		
+		goToReservation = getIntent().hasExtra("key");
 
 		List<Dish> dishes = restaurant.getDishes();
 		//MARKER
@@ -113,9 +120,25 @@ public class DishListView extends Activity
 
 				Dish dish = adapter.getItem(position);
 
-				Intent intent = new Intent(DishListView.this, DishView.class);
-				intent.putExtra("dishId", dish.getDishId());
-				startActivity(intent);
+				if (goToReservation)
+				{
+					if (dish.getAvailable() > 0)
+					{
+						// TODO ne sert à rien, il faut modifer dans la dataBase
+						dish.setAvailable(dish.getAvailable() - 1);
+						Intent intent = new Intent(DishListView.this, ReservationCreateView.class);
+						intent.putExtra("dishId", dish.getDishId());
+						setResult(RESULT_OK, intent);
+						finish();
+					}
+					else {setResult(RESULT_CANCELED);}
+				}
+				else
+				{
+					Intent intent = new Intent(DishListView.this, DishView.class);
+					intent.putExtra("dishId", dish.getDishId());
+					startActivity(intent);
+				}
 			}
 		});
 		DishListPlat.setAdapter(adapterPlat);
@@ -130,9 +153,25 @@ public class DishListView extends Activity
 
 				Dish dish = adapter.getItem(position);
 
-				Intent intent = new Intent(DishListView.this, DishView.class);
-				intent.putExtra("dishId", dish.getDishId());
-				startActivity(intent);
+				if (goToReservation)
+				{
+					if (dish.getAvailable() > 0)
+					{
+						// TODO ne sert à rien, il faut modifer dans la dataBase
+						dish.setAvailable(dish.getAvailable() - 1);
+						Intent intent = new Intent(DishListView.this, ReservationCreateView.class);
+						intent.putExtra("dishId", dish.getDishId());
+						setResult(RESULT_OK, intent);
+						finish();
+					}
+					else {setResult(RESULT_CANCELED);}
+				}
+				else
+				{
+					Intent intent = new Intent(DishListView.this, DishView.class);
+					intent.putExtra("dishId", dish.getDishId());
+					startActivity(intent);
+				}
 			}
 		});
 		DishListDessert.setAdapter(adapterDessert);
@@ -147,9 +186,25 @@ public class DishListView extends Activity
 
 				Dish dish = adapter.getItem(position);
 
-				Intent intent = new Intent(DishListView.this, DishView.class);
-				intent.putExtra("dishId", dish.getDishId());
-				startActivity(intent);
+				if (goToReservation)
+				{
+					if (dish.getAvailable() > 0)
+					{
+						// TODO ne sert à rien, il faut modifer dans la dataBase
+						dish.setAvailable(dish.getAvailable() - 1);
+						Intent intent = new Intent(DishListView.this, ReservationCreateView.class);
+						intent.putExtra("dishId", dish.getDishId());
+						setResult(RESULT_OK, intent);
+						finish();
+					}
+					else {setResult(RESULT_CANCELED);}
+				}
+				else
+				{
+					Intent intent = new Intent(DishListView.this, DishView.class);
+					intent.putExtra("dishId", dish.getDishId());
+					startActivity(intent);
+				}
 			}
 		});
 		DishListAutre.setAdapter(adapterAutre);
@@ -164,9 +219,25 @@ public class DishListView extends Activity
 
 				Dish dish = adapter.getItem(position);
 
-				Intent intent = new Intent(DishListView.this, DishView.class);
-				intent.putExtra("dishId", dish.getDishId());
-				startActivity(intent);
+				if (goToReservation)
+				{
+					if (dish.getAvailable() > 0)
+					{
+						// TODO ne sert à rien, il faut modifer dans la dataBase
+						dish.setAvailable(dish.getAvailable() - 1);
+						Intent intent = new Intent(DishListView.this, ReservationCreateView.class);
+						intent.putExtra("dishId", dish.getDishId());
+						setResult(RESULT_OK, intent);
+						finish();
+					}
+					else {setResult(RESULT_CANCELED);}
+				}
+				else
+				{
+					Intent intent = new Intent(DishListView.this, DishView.class);
+					intent.putExtra("dishId", dish.getDishId());
+					startActivity(intent);
+				}
 			}
 		});
 
