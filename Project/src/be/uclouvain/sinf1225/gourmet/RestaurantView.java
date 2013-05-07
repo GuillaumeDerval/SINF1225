@@ -2,17 +2,12 @@ package be.uclouvain.sinf1225.gourmet;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
-import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,7 +21,6 @@ import be.uclouvain.sinf1225.gourmet.models.Restaurant;
 import be.uclouvain.sinf1225.gourmet.models.Restaurator;
 import be.uclouvain.sinf1225.gourmet.models.User;
 import be.uclouvain.sinf1225.gourmet.utils.GourmetFiles;
-import be.uclouvain.sinf1225.gourmet.utils.GourmetLocationListener;
 import be.uclouvain.sinf1225.gourmet.utils.GourmetUtils;
 
 /**
@@ -55,14 +49,18 @@ public class RestaurantView extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_restaurant_view);
+		
+		// On récupère le restaurant
 		restaurant = Restaurant.getRestaurant(getIntent().getExtras().getInt("restoId"));
 		
+		// On affiche les informations du restaurant
 		((TextView) findViewById(R.id.RestaurantViewName)).setText(restaurant.getName());
 		((TextView) findViewById(R.id.RestaurantViewAddress)).setText(restaurant.getAddress());
 		((TextView) findViewById(R.id.RestaurantViewDescription)).setText(restaurant.getDescription());
 		// ((TextView)findViewById(R.id.RestaurantListDistance)).setText(new
 		// DecimalFormat("#.##").format(city.getLocation().distanceTo(locationListener.getLastLocation())/1000));
 		
+		// Bouton pour afficher le menu du restaurant
 		Button menu = (Button) findViewById(R.id.RestaurantViewMenu);
 		menu.setOnClickListener(new OnClickListener()
 		{
@@ -70,11 +68,12 @@ public class RestaurantView extends Activity
 			public void onClick(View arg0)
 			{
 				Intent intent = new Intent(RestaurantView.this, DishListView.class);
-			    intent.putExtra("restoId", 1);
+			    intent.putExtra("restoId", restaurant.getId());
 			    startActivity(intent);
 			}
 		});
 		
+		// Bouton pour créer une réservation dans ce restaurant
 		Button book = (Button) findViewById(R.id.RestaurantViewReservation);
 		book.setOnClickListener(new OnClickListener()
 		{
@@ -82,13 +81,15 @@ public class RestaurantView extends Activity
 			public void onClick(View arg0)
 			{
 				Intent intent = new Intent(RestaurantView.this, ReservationCreateView.class);
-			    intent.putExtra("restoId", 1);
+			    intent.putExtra("restoId", restaurant.getId());
 			    startActivity(intent);
 			}
 		});
 		
+		// Bouton pour modifier le restaurant
 		Button editresto = (Button) findViewById(R.id.RestaurantViewEdit);
 		User user = User.getUserConnected();
+		// Visible seulement par le restaurateur du restaurant
 		if(user instanceof Restaurator && ((Restaurator)user).hasRightsForRestaurant(restaurant))
 			editresto.setVisibility(View.VISIBLE);	
 		else
@@ -100,20 +101,19 @@ public class RestaurantView extends Activity
 			public void onClick(View arg0)
 			{
 				Intent intent = new Intent(RestaurantView.this, RestaurantEditView.class);
-			    intent.putExtra("restoId", 1);
+			    intent.putExtra("restoId", restaurant.getId());
 			    startActivity(intent);
 			}
 		});
 		
+		// On affiche les images du restaurant si elles existent
 		Point p = new Point();
 		getWindowManager().getDefaultDisplay().getSize(p);
 		int width = p.x;
 		int height = p.y;
 		
 		final LinearLayout imageContainer = (LinearLayout)this.findViewById(R.id.RestaurantViewImageContainer);
-		//int[] toadd = Image.getAllImages(Restaurant, restaurant.getId());
-		//int[] toadd = {R.drawable.picture1, R.drawable.picture2, R.drawable.picture3}; //TODO adapt for restaurant :-)
-		//for(int imgRes : toadd)
+		
 		for(Image img:restaurant.getImages())
 		{
 			View v = getLayoutInflater().inflate(R.layout.image_gallery_element, null);
@@ -124,13 +124,16 @@ public class RestaurantView extends Activity
 	        image.setAdjustViewBounds(true);
 			image.setMaxWidth(width/2);
 			image.setMaxHeight(height/2);
-			//image.setImageResource(imgRes); //TODO adapt for restaurant :-)
 			
-			image.setImageBitmap(BitmapFactory.decodeFile(GourmetFiles.getRealPath(img.getPath())));
-			legend.setText(img.getLegend()); //TODO adapt for restaurant :-)
+			if(img != null)
+				image.setImageBitmap(BitmapFactory.decodeFile(GourmetFiles.getRealPath(img.getPath())));
+			else
+				image.setVisibility(ImageView.GONE);
+			legend.setText(img.getLegend()); 
 			imageContainer.addView(v);
 		}
 		
+		// Bouton pour lancer le service de navigation
 		Button beginNav = (Button) findViewById(R.id.beginNav);
 		beginNav.setOnClickListener(new OnClickListener()
 		{

@@ -47,9 +47,11 @@ public class DishView extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_dish_view);
 		
+		// On récupère le plat et le restaurant associé
 		dish = Dish.getDish(getIntent().getExtras().getInt("dishId"));
 		Restaurant restaurant = dish.getRestaurant();
 
+		// On affiche les infos du plat
 		((TextView) findViewById(R.id.DishViewName)).setText(dish.getName());
 		((TextView) findViewById(R.id.DishViewDescription)).setText(dish.getDescription());
 		((TextView) findViewById(R.id.DishViewPrice)).setText("" + dish.getPrice());
@@ -58,6 +60,7 @@ public class DishView extends Activity
 		// ((TextView)findViewById(R.id.RestaurantListDistance)).setText(new
 		// DecimalFormat("#.##").format(city.getLocation().distanceTo(locationListener.getLastLocation())/1000));
 		
+		// Checkboxes non modifiables pour afficher les booléens
 		final CheckBox ViewSpicy = (CheckBox) findViewById(R.id.DishViewSpicy);
 		final CheckBox ViewVegan = (CheckBox) findViewById(R.id.DishViewVegan);
 		final CheckBox ViewAvailable = (CheckBox) findViewById(R.id.DishViewAvailable);
@@ -72,13 +75,14 @@ public class DishView extends Activity
 		else
 			ViewVegan.setChecked(false);
 
-		if (dish.getAllergen() == 1)
+		if (dish.getAvailable() == 1)
 			ViewAvailable.setChecked(true);
 		else
 			ViewAvailable.setChecked(false);
 		
-		Button menu = (Button) findViewById(R.id.DishViewReservation);
-		menu.setOnClickListener(new OnClickListener()
+		// Bouton pour créer une nouvelle réservation contenant ce plat
+		Button book = (Button) findViewById(R.id.DishViewReservation);
+		book.setOnClickListener(new OnClickListener()
 		{
 			@Override
 			public void onClick(View arg0)
@@ -89,8 +93,11 @@ public class DishView extends Activity
 			}
 		});
 		
+		// Bouton pour modifier le plat
 		Button editdish = (Button) findViewById(R.id.DishViewEdit);
 		User user = User.getUserConnected();
+		
+		// Visible seulement par le restaurateur
 		if(user instanceof Restaurator && ((Restaurator)user).hasRightsForRestaurant(restaurant))
 			editdish.setVisibility(View.VISIBLE);	
 		else
@@ -107,6 +114,7 @@ public class DishView extends Activity
 			}
 		});
 		
+		// Affichage de l'image associée au plat si elle existe
 		Image image = dish.getImg();
 		ImageView imageView = (ImageView) findViewById(R.id.DishViewImage);
 		if(image != null)
