@@ -60,8 +60,8 @@
     <string name="date">Date</string>
     <string name="nbrReservation">Nbr</string>
     <string name="dish">Dish</string>
-    <string name="button_add">Add</string>
-    <string name="send_reservation">Send</string>
+    <string name="button_add">Ajouter un plat</string>
+    <string name="send_reservation">Envoyer</string>
     <string name="rsv_name"></string>
     <string name="rsv_fname"></string>
     <string name="rsv_date">06-05-13</string>

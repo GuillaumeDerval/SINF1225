@@ -15,7 +15,6 @@ import android.util.Log;
 import be.uclouvain.sinf1225.gourmet.Gourmet;
 import be.uclouvain.sinf1225.gourmet.R;
 import be.uclouvain.sinf1225.gourmet.enums.PriceCategory;
-import be.uclouvain.sinf1225.gourmet.models.Reservation.DishNode;
 import be.uclouvain.sinf1225.gourmet.utils.GourmetFiles;
 import be.uclouvain.sinf1225.gourmet.utils.GourmetUtils;
 
@@ -795,11 +794,10 @@ class GourmetDatabase extends SQLiteOpenHelper
 	    
 	    long resvId = db.insert("reservation", null, values1);
 	    
-	    for(Reservation.DishNode node : reservation.getDish())
+	    for(int id : reservation.getDish())
 	    {
 	    	ContentValues values2 = new ContentValues();
-	    	values2.put("nameDish", node.dish.getName());
-	    	values2.put("nbrDish", node.nbrDishes);
+	    	values2.put("dishId", id);
 	    	values2.put("resvId", resvId);
 	    	db.insert("reservationDish", null, values2);
 	    }
@@ -838,13 +836,12 @@ class GourmetDatabase extends SQLiteOpenHelper
 	    //delete reservationDish dishes
 	    db.delete("reservationDish", "`resvId` = ?", new String[] {Integer.toString(reservation.getId())});
 	    //and re-add them
-	    for(Reservation.DishNode node : reservation.getDish())
+	    for(int id : reservation.getDish())
 	    {
-	    	ContentValues values2 = new ContentValues();
-	    	values2.put("nameDish", node.dish.getName());
-	    	values2.put("nbrDish", node.nbrDishes);
-	    	values2.put("resvId", reservation.getId());
-	    	db.insert("reservationDish", null, values2);
+	    	ContentValues values = new ContentValues();
+	    	values.put("dishId", id);
+	    	values.put("resvId", reservation.getId());
+	    	db.insert("reservationDish", null, values);
 	    }
 	    
 	    db.close();
@@ -853,10 +850,65 @@ class GourmetDatabase extends SQLiteOpenHelper
 	/**
 	 * Get reservation in database
 	 */
-	public Reservation getReservation(String userEmail, int restaurantId, Date date)
+	public Reservation getReservation(String userEmail, int restoId, Date date)
 	{
-		return null; //TODO implement.
+		/* open database */
+		SQLiteDatabase db = this.getReadableDatabase();
+		
+		/* query - get all the rows concerned */
+		String str[] = {userEmail, Integer.toString(restoId), date.toString()};
+		Cursor cursor = db.query("reservation", //table to select on
+				new String[]{"resvId","nbrReservation"},
+				"`userEmail` = ? AND `restoId` = ? AND `date` = ?", //where
+				str, //where string
+				null, //group by
+				null, //having
+				null); //orderby
+		
+		if(cursor == null || cursor.getCount() != 1) 
+		{
+			db.close();
+			return null;
+		}
+		cursor.moveToFirst();
+		
+		/* missing data */
+		int resvId = cursor.getInt(0);
+		int nbrResv = cursor.getInt(1);
+		
+		/* Reservation to return */
+		Reservation resv = new Reservation(userEmail, Restaurant.getRestaurant(restoId), nbrResv, date);
+		resv.setId(resvId);
+		
+		/* get the dishes */
+		cursor = db.query("reservationDish", //table to select on
+				new String[]{"dishId"},
+				"`resvId` = ?", //where
+				new String[] {Integer.toString(resvId)}, //where string
+				null, //group by
+				null, //having
+				null); //orderby
+		
+		if(cursor == null) 
+		{
+			db.close();
+			return null;
+		}
+		
+		/* add the dishes to the list of dishes */
+		cursor.moveToFirst();
+		while(cursor.isAfterLast())
+		{
+			resv.addDish(cursor.getInt(0));
+			cursor.moveToNext();
+		}
+		
+	    /* close database */
+	    db.close();
+	    
+		return resv;
 	}
+
 	
 	// TODO
 	public List<Reservation> getReservationInRestaurant(Restaurant restaurant) { return null; }
@@ -904,7 +956,4 @@ class GourmetDatabase extends SQLiteOpenHelper
 			
 		return reservations;
 	}
-	
-	
-	
 }

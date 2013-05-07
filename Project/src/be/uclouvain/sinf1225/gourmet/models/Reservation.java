@@ -3,34 +3,17 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-//REMARQUES : 
-/* faire une table reservationDish avec les plats (+ le nombre souhaité) et le resvId de la réservation */
-
-
-//TODO Documentation (in english, of course).
 /**
- * Represents a Reservation
+ * Reservation
  * @author Alexandre Laterre
  */
 public class Reservation
-{
-	public class DishNode
-	{
-		public Dish dish;
-		public int nbrDishes;
-		
-		public DishNode (Dish dish, int nbrDishes)
-		{
-			this.dish = dish;
-			this.nbrDishes = nbrDishes;
-		}
-	}
-	
+{	
 	private int id;
 	private String userEmail;
 	private Restaurant restaurant;
 	private int nbrReservation;
-	private List<DishNode> dishes;
+	private List<Integer> dishes;
 	private Date date;
 	
 	/**
@@ -46,7 +29,7 @@ public class Reservation
 		this.userEmail = userEmail;
 		this.restaurant = restaurant;
 		this.nbrReservation = nbrReservation;
-		this.dishes = new ArrayList<DishNode>();
+		this.dishes = new ArrayList<Integer>();
 		this.date = date;
 		this.updateReservation(); //will set id.
 	}
@@ -60,7 +43,7 @@ public class Reservation
 	 * @param dishes
 	 * @param date
 	 */
-	public Reservation(int id, String userEmail, Restaurant restaurant, int nbrReservation, List<DishNode> dishes, Date date)
+	public Reservation(int id, String userEmail, Restaurant restaurant, int nbrReservation, List<Integer> dishes, Date date)
 	{
 		this.id = id;
 		this.userEmail = userEmail;
@@ -75,46 +58,46 @@ public class Reservation
 	public String getUserEmail() {return this.userEmail;}
 	public Restaurant getRestaurant () {return this.restaurant;}
 	public int getnbrReservation() {return this.nbrReservation;}
-	public List<DishNode> getDish() {return this.dishes;}
+	public List<Integer> getDish() {return this.dishes;}
 	public Date getDate() {return this.date;}
 	
 	/* Modification des variables d'instances */
 	public void setRestaurant (Restaurant resto) {this.restaurant = resto;}
 	public void setNbrReservation (int nbr) {this.nbrReservation = nbr;}
 	public void setDate (Date date) {this.date = date;}
-	
-	/**
-	 * Modification du nombre de plats souhaités
-	 * @param dish plat à modifier
-	 * @param nbr nombre souhaité
-	 */
-	public void setDishNodeNbr (Dish dish, int nbr)
-	{
-		for(DishNode node : this.dishes)
-			if(node.dish == dish) 
-				node.nbrDishes = nbr;
-	}
+	public void setId (int id) {this.id = id;}
 	
 	/**
 	 * Ajout d'un plat à la réservation
 	 * @param dish plat à ajouter
 	 * @param nbr nombre d'exemplaire souhaité
 	 */
-	public void addDishNode (Dish dish, int nbr)
+	public void addDish (int dishId)
 	{
-		dishes.add(new DishNode(dish, nbr));
+		dishes.add(dishId);
 	}
-	
+
 	/**
 	 * Suppression d'un plat commandé
 	 * @param dish plat à supprimer de la réservation
 	 */
-	public void deleteDishNode (Dish dish)
+	public void delete (int dishId)
 	{
-		for(DishNode node : this.dishes)
-		{
-			if (node.dish == dish) this.dishes.remove(node);			
+		for(int id : this.dishes)
+		{ 
+			if (id == dishId) this.dishes.remove(id);
 		}
+	}
+
+	/********************* DATABASE *********************/
+	
+	
+	public static int addReservation(Reservation reservation)
+	{
+		GourmetDatabase db = new GourmetDatabase();
+		int ans = db.addReservation(reservation);
+		db.close();
+	    return ans;
 	}
 	
 	/**

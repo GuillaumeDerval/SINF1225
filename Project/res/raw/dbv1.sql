@@ -100,8 +100,7 @@ DROP TABLE IF EXISTS "reservationDish";
 CREATE TABLE "reservationDish"
 (
 	"resvId" integer NOT NULL,
-	"nameDish" text NOT NULL,
-	"nbrDish" integer NOT NULL,
+	"dishId" text NOT NULL,
 	CONSTRAINT "resvID_contrainte" FOREIGN KEY ("resvId") REFERENCES "reservation" ("resvId"),
 	CONSTRAINT "nameDish_contrainte" FOREIGN KEY ("nameDish") REFERENCES "dish" ("name")
 );
@@ -120,7 +119,7 @@ DROP TABLE IF EXISTS "users_manages";
 CREATE TABLE "users_manages"
 (
 	"email"  NOT NULL,
-	 "restoId"  NOT NULL,
+	"restoId"  NOT NULL,
 	PRIMARY KEY("email","restoId"),
 	CONSTRAINT "users_manages_resto" FOREIGN KEY ("restoId") REFERENCES "restaurant" ("restoId")
 );
