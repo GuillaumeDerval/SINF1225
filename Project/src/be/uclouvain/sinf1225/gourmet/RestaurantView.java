@@ -7,6 +7,7 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.location.Location;
 import android.net.Uri;
@@ -20,9 +21,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import be.uclouvain.sinf1225.gourmet.models.Image;
 import be.uclouvain.sinf1225.gourmet.models.Restaurant;
 import be.uclouvain.sinf1225.gourmet.models.Restaurator;
 import be.uclouvain.sinf1225.gourmet.models.User;
+import be.uclouvain.sinf1225.gourmet.utils.GourmetFiles;
 import be.uclouvain.sinf1225.gourmet.utils.GourmetLocationListener;
 import be.uclouvain.sinf1225.gourmet.utils.GourmetUtils;
 
@@ -108,8 +111,10 @@ public class RestaurantView extends Activity
 		int height = p.y;
 		
 		final LinearLayout imageContainer = (LinearLayout)this.findViewById(R.id.RestaurantViewImageContainer);
-		int[] toadd = {R.drawable.picture1, R.drawable.picture2, R.drawable.picture3}; //TODO adapt for restaurant :-)
-		for(int imgRes : toadd)
+		//int[] toadd = Image.getAllImages(Restaurant, restaurant.getId());
+		//int[] toadd = {R.drawable.picture1, R.drawable.picture2, R.drawable.picture3}; //TODO adapt for restaurant :-)
+		//for(int imgRes : toadd)
+		for(Image img:restaurant.getImages())
 		{
 			View v = getLayoutInflater().inflate(R.layout.image_gallery_element, null);
 			
@@ -119,9 +124,10 @@ public class RestaurantView extends Activity
 	        image.setAdjustViewBounds(true);
 			image.setMaxWidth(width/2);
 			image.setMaxHeight(height/2);
-			image.setImageResource(imgRes); //TODO adapt for restaurant :-)
-
-			legend.setText("Image test legend"); //TODO adapt for restaurant :-)
+			//image.setImageResource(imgRes); //TODO adapt for restaurant :-)
+			
+			image.setImageBitmap(BitmapFactory.decodeFile(GourmetFiles.getRealPath(img.getPath())));
+			legend.setText(img.getLegend()); //TODO adapt for restaurant :-)
 			imageContainer.addView(v);
 		}
 		
