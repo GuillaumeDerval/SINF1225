@@ -89,12 +89,14 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/RestaurantViewReservation"
-        android:layout_centerVertical="true" >
+        android:layout_centerVertical="true"
+        android:background="#EEE8AA" >
 
         <LinearLayout
             android:id="@+id/RestaurantViewImageContainer"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
             android:orientation="horizontal" >            
         </LinearLayout>
         
