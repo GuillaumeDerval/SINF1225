@@ -125,6 +125,7 @@ CREATE TABLE "users_manages"
 	CONSTRAINT "users_manages_resto" FOREIGN KEY ("restoId") REFERENCES "restaurant" ("restoId")
 );
 INSERT INTO "users_manages" VALUES ('test','1');
+INSERT INTO "users_manages" VALUES ('test','2');
 
 /* La derniere requete ne doit pas contenir de point-virgule!!!
    Last request should not contain semicolon!!!

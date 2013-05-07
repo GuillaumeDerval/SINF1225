@@ -76,7 +76,7 @@ public class DishView extends Activity
 		else
 			ViewVegan.setChecked(false);
 
-		if (dish.getAvailable() == 1)
+		if (dish.getAvailable() >0)
 			ViewAvailable.setChecked(true);
 		else
 			ViewAvailable.setChecked(false);
@@ -88,7 +88,7 @@ public class DishView extends Activity
 			@Override
 			public void onClick(View arg0)
 			{ // Non réservable si non disponible
-				if (dish.getAvailable() != 1)
+				if (dish.getAvailable() ==0)
 					{
 					Toast toast = Toast.makeText(getApplicationContext(), "This dish is no longer available", Toast.LENGTH_LONG);
 				    toast.show();
