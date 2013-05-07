@@ -179,4 +179,10 @@ public class RestaurantView extends Activity
 			 finish();
 		}
 	}
+	 public void onBackPressed() {
+		 	RestaurantListView.restaurants = Restaurant.getAllRestaurants(RestaurantListView.city);
+			RestaurantListView.adapter = new RestaurantAdapter(this, R.layout.restaurant_list_row, RestaurantListView.restaurants,RestaurantListView.locationListener.getLastLocation());
+			RestaurantListView.RestaurantList.setAdapter(RestaurantListView.adapter);
+			finish();
+		 }
 }
