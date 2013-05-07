@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -31,63 +30,23 @@ public class ReservationManagerView extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_reservation_manager);
 		
+		//linking current layout
 		TableLayout rsv_tab = (TableLayout)findViewById(R.id.rsv_manager);
-		
+
+		//loading a model
 		TableRow row = (TableRow) ( (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.reservation_manager_row, null);
 		rsv_tab.addView(row);
-		((TextView)row.findViewById(R.id.reservationRowName)).setText("Du texte");
-		
-		/*TableRow rsv_item = new TableRow(this);
-        rsv_item.setLayoutParams(new LayoutParams(
-                LayoutParams.FILL_PARENT,
-                LayoutParams.WRAP_CONTENT));
-        
-        TextView name = new TextView(this);
-        name.setText("Horgnies");
-        name.setId(1);
-        name.setLayoutParams(new LayoutParams(
-                LayoutParams.FILL_PARENT,
-                LayoutParams.WRAP_CONTENT));
-        
-        TextView date = new TextView(this);
-        date.setText("06-05-13");
-        date.setId(2);
-        date.setLayoutParams(new LayoutParams(
-                LayoutParams.FILL_PARENT,
-                LayoutParams.WRAP_CONTENT));
-        
-        TextView time = new TextView(this);
-        time.setText("18:30");
-        time.setId(3);
-        time.setLayoutParams(new LayoutParams(
-                LayoutParams.FILL_PARENT,
-                LayoutParams.WRAP_CONTENT));
-        
-        TextView restaurant = new TextView(this);
-        restaurant.setText("Le sot l'y laisse");
-        restaurant.setId(4);
-        restaurant.setLayoutParams(new LayoutParams(
-                LayoutParams.FILL_PARENT,
-                LayoutParams.WRAP_CONTENT));
-        
-        TextView number = new TextView(this);
-        number.setText("5");
-        number.setId(5);
-        number.setLayoutParams(new LayoutParams(
-                LayoutParams.FILL_PARENT,
-                LayoutParams.WRAP_CONTENT));
-        
-        ((TableRow) rsv_item).addView(name);
-        ((TableRow) rsv_item).addView(date);
-        ((TableRow) rsv_item).addView(time);
-        ((TableRow) rsv_item).addView(restaurant);
-        ((TableRow) rsv_item).addView(number);
-        
-
-        ((TableLayout) rsv_tab).addView(rsv_item,new TableLayout.LayoutParams(
-                  LayoutParams.MATCH_PARENT,
-                  LayoutParams.WRAP_CONTENT));*/
-        
-        System.out.println("COUCOU !");
+		setRow(row,"Horgnies","12-05-13", "18:30", "Le sot l'y laisse", "5");
+		TableRow row2 = (TableRow) ( (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.reservation_manager_row, null);
+		rsv_tab.addView(row2);
+		setRow(row2,"Legrand","11-05-13", "20:30", "L'o à la bouche", "2");
+	}
+	
+	private void setRow(TableRow row, String name, String date, String time, String restaurant, String effectif){
+		((TextView)row.findViewById(R.id.rsvName)).setText(name);
+		((TextView)row.findViewById(R.id.rsvDate)).setText(date);
+		((TextView)row.findViewById(R.id.rsvTime)).setText(time);
+		((TextView)row.findViewById(R.id.rsvRest)).setText(restaurant);
+		((TextView)row.findViewById(R.id.rsvNbPeople)).setText(effectif);
 	}
 }
