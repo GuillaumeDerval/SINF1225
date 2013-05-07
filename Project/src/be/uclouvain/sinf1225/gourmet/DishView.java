@@ -10,6 +10,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -144,11 +145,16 @@ public class DishView extends Activity
 
 		if (requestCode == RESULT_EDIT_DISH)
 		{
-			 super.onRestart();
-			 Intent i = new Intent(this, DishView.class);  //your class
-			 i.putExtra("dishId", dish.getDishId());
-			 startActivity(i);
-			 finish();
+			String result=data.getStringExtra("deleted");
+			if(result.equals("done")) finish();
+			else
+			{
+				super.onRestart();
+				Intent i = new Intent(this, DishView.class);  //your class
+				i.putExtra("dishId", dish.getDishId());
+				startActivity(i);
+				finish();
+			}
 		}
 	}
 }
