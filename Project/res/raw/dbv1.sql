@@ -102,7 +102,7 @@ CREATE TABLE "reservationDish"
 	"resvId" integer NOT NULL,
 	"dishId" integer NOT NULL,
 	CONSTRAINT "resvID_contrainte" FOREIGN KEY ("resvId") REFERENCES "reservation" ("resvId"),
-	CONSTRAINT "nameDish_contrainte" FOREIGN KEY ("nameDish") REFERENCES "dish" ("name")
+	CONSTRAINT "DishID_contrainte" FOREIGN KEY ("dishId") REFERENCES "dish" ("dishId")
 );
 
 DROP TABLE IF EXISTS "users";
