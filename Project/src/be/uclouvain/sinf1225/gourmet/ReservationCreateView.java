@@ -39,7 +39,6 @@ public class ReservationCreateView extends Activity
 	private ListView list;
 	private TextView restaurant;
 	private EditText nbrReservation;
-	private ArrayList<String> listDish = new ArrayList<String>(); // list of dishes booked by the user
 
 	/* adapters */
 	private ArrayAdapter<String> adapter; // list of dishes
@@ -185,8 +184,8 @@ public class ReservationCreateView extends Activity
 		if ((dish_id == 0 && resto_id == 0) || (dish_id != 0 && resto_id != 0)) {finish();}
 		else if (dish_id != 0)
 		{
-			/* add item to the listDish */
-			listDish.add(Dish.getDish(dish_id).getName());
+			/* add item to the dish_name_list */
+			dish_name_list.add(Dish.getDish(dish_id).getName());
 			adapter.notifyDataSetChanged();
 			
 			/* add to the list of dishId */
