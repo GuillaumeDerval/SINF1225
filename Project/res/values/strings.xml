@@ -23,6 +23,7 @@
     
         <string-array name="dish_sort">
         <item>Nom</item>
+        <item>Prix</item>
     </string-array>
     
         <string-array name="dish_category">

@@ -226,8 +226,8 @@ public class RestaurantAdapter extends ArrayAdapter<Restaurant>
 
 		Restaurant restaurant = filteredRestaurants.get(position);
 		viewIds.name.setText(restaurant.getName());
-		viewIds.pricecat.setText("Catégorie de prix:" + restaurant.getPriceCategory().toString());
-		viewIds.seats.setText("Places disponibles:" + String.valueOf(restaurant.getSeats()));
+		viewIds.pricecat.setText("Catégorie de prix: " + restaurant.getPriceCategory().toString());
+		viewIds.seats.setText("Places disponibles: " + String.valueOf(restaurant.getSeats()));
 		double dist = -1;
 		if(lastLocation != null)
 			dist = restaurant.getLocation().distanceTo(lastLocation);

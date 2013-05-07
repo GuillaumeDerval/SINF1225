@@ -28,6 +28,7 @@ public class DishAdapter extends ArrayAdapter<Dish>
 	static class ViewIds
 	{
 		TextView name;
+		TextView price;
 	}
 	private class DishComparator implements Comparator<Dish>
 	{
@@ -37,6 +38,9 @@ public class DishAdapter extends ArrayAdapter<Dish>
 			int ret = 0;
 			if(orderby.equals("name"))
 				ret = dish1.getName().compareTo(dish2.getName());
+			
+			if(orderby.equals("price"))
+				ret = Double.valueOf(dish1.getPrice()).compareTo((double)dish2.getPrice());
 			
 			if(!orderasc) ret = -ret;
 			return ret;
@@ -190,6 +194,7 @@ public class DishAdapter extends ArrayAdapter<Dish>
 			//Et une correspondance entre cette ligne et les champs de texte
 			viewIds = new ViewIds();
 			viewIds.name = (TextView)row.findViewById(R.id.DishListName);
+			viewIds.price = (TextView)row.findViewById(R.id.DishListPrice);
 			row.setTag(viewIds);
 		}
 		else
@@ -199,6 +204,7 @@ public class DishAdapter extends ArrayAdapter<Dish>
 
 		Dish dish = filteredDishes.get(position);
 		viewIds.name.setText(dish.getName());
+		viewIds.price.setText("Prix: " + String.valueOf(dish.getPrice()));
 		return row;
 	}
 }
