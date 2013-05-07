@@ -110,6 +110,9 @@ public class DishEditView extends Activity
 					dish.setAllergen(0);
 
 				dish.updateDish();
+				Intent returnIntent = new Intent();
+				returnIntent.putExtra("deleted","notdone");
+				setResult(RESULT_OK,returnIntent);
 				finish();
 			}
 		});
@@ -118,6 +121,9 @@ public class DishEditView extends Activity
 			public void onClick(View v)
 			{
 				dish.deleteDish();
+				Intent returnIntent = new Intent();
+				returnIntent.putExtra("deleted","done");
+				setResult(RESULT_OK,returnIntent);
 				finish();
 			}
 		});
