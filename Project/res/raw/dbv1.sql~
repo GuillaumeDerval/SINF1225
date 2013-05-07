@@ -34,7 +34,7 @@ CREATE TABLE "restaurant" (
 CREATE UNIQUE INDEX "resto_p_key" ON "restaurant" ("name" ASC, "cityName" ASC, "cityCountry" ASC, "address" ASC);
 
 INSERT INTO "restaurant" VALUES (1,'THE Resto', 'Louvain-la-Neuve', 'Belgique', 'Rue de la neuville, 26', 50.668081, 4.611832, 'Un restaurant de test', 'test@itself.be', 5, '81680085', 'http://www.guillaumederval.be', 10, 0);
-INSERT INTO "restaurant" VALUES (2,'Alérez-vous', 'Louvain-la-Neuve', 'Belgique', 'Place des Brabançons, 6A', 50.690368, 4.615402, 'Altérez-vous est un café citoyen, espace d échanges conviviaux avec des produits locaux ou bio ou issus du commerce équitable pour un projet DURABLE!', 'info@alterezvous.be', 5, '10844003', 'http://www.alterezvous.be', 30, 0);
+INSERT INTO "restaurant" VALUES (2,'Altérez-vous', 'Louvain-la-Neuve', 'Belgique', 'Place des Brabançons, 6A', 50.690368, 4.615402, 'Altérez-vous est un café citoyen, espace d échanges conviviaux avec des produits locaux ou bio ou issus du commerce équitable pour un projet DURABLE!', 'info@alterezvous.be', 5, '10844003', 'http://www.alterezvous.be', 30, 0);
 
 DROP TABLE IF EXISTS "dish";
 CREATE TABLE "dish" (
@@ -60,6 +60,10 @@ INSERT INTO "dish" VALUES (5,'ABCCourgetteEntree ', 1, 'GreenEntree', 10, 1, 1, 
 INSERT INTO "dish" VALUES (6,'ABCCourgettePlat ', 1, 'GreenPlat', 10, 1, 1, 1, 1, 'Plat');
 INSERT INTO "dish" VALUES (7,'ABCCourgetteDessert ', 1, 'GreenDessert', 10, 1, 1, 1, 1, 'Dessert');
 INSERT INTO "dish" VALUES (8,'ABCCourgetteAutre ', 1, 'GreenAutre', 10, 1, 1, 1, 1, 'HelloWorld');
+INSERT INTO "dish" VALUES (9,'Mousse au chocolat', 2, 'Une délicieuse mousse au chocolat fairtrade', 6.5, 0, 1, 0, 1, 'Dessert');
+INSERT INTO "dish" VALUES (10,'Quiche aux poireaux', 2, 'Cuisinée avec des poireaux d une ferme voisine, accompagnée d une salade légère', 11, 0, 0, 1, 0, 'Plat');
+INSERT INTO "dish" VALUES (11,'Soupe aux légumes', 2, 'Une délicieuse soupe saine et bio, n oubliez pas: MEN Sana in corpore sano!', 4, 1, 1, 1, 0, 'Entree');
+
 
 DROP TABLE IF EXISTS "reservation";
 CREATE TABlE "reservation"
@@ -84,6 +88,10 @@ CREATE TABLE "image"
 INSERT INTO "image" VALUES ('img/picture1.png','restaurant', 'Legende 1',1);
 INSERT INTO "image" VALUES ('img/picture2.png','restaurant', 'Legende 2',1);
 INSERT INTO "image" VALUES ('img/picture3.png','dish', 'Legende 1',1);
+INSERT INTO "image" VALUES ('img/alterezvous1.png','restaurant', 'Intérieur du café',2);
+INSERT INTO "image" VALUES ('img/alterezvous2.png','restaurant', 'Le piano désaccordé',2);
+INSERT INTO "image" VALUES ('img/alterezvous3.png','restaurant', 'La terrasse du café',2);
+INSERT INTO "image" VALUES ('img/alterezvous4.png','restaurant', 'Un concert à l altérez-vous',2);
 
 DROP TABLE IF EXISTS "reservationDish";
 CREATE TABLE "reservationDish"
@@ -104,7 +112,7 @@ CREATE TABLE "users"
 	"surname" text NOT NULL,
 	PRIMARY KEY("email")
 );
-
+INSERT INTO "users" VALUES ('test','A94A8FE5CCB19BA61C4C0873D391E987982FBBD3','test','test');
 DROP TABLE IF EXISTS "users_manages";
 CREATE TABLE "users_manages"
 (
@@ -113,6 +121,7 @@ CREATE TABLE "users_manages"
 	PRIMARY KEY("email","restoId"),
 	CONSTRAINT "users_manages_resto" FOREIGN KEY ("restoId") REFERENCES "restaurant" ("restoId")
 );
+INSERT INTO "users_manages" VALUES ('test','1');
 
 /* La derniere requete ne doit pas contenir de point-virgule!!!
    Last request should not contain semicolon!!!
