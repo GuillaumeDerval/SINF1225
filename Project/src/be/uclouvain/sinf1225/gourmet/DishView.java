@@ -109,7 +109,9 @@ public class DishView extends Activity
 		
 		Image image = dish.getImg();
 		ImageView imageView = (ImageView) findViewById(R.id.DishViewImage);
-		imageView.setImageBitmap(BitmapFactory.decodeFile(GourmetFiles.getRealPath(image.getPath())));
-
+		if(image != null)
+			imageView.setImageBitmap(BitmapFactory.decodeFile(GourmetFiles.getRealPath(image.getPath())));
+		else
+			imageView.setVisibility(ImageView.GONE);
 	}
 }
