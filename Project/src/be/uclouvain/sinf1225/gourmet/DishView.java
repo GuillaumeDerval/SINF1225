@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import be.uclouvain.sinf1225.gourmet.models.Dish;
 import be.uclouvain.sinf1225.gourmet.models.Image;
 import be.uclouvain.sinf1225.gourmet.models.Restaurant;
@@ -86,10 +87,19 @@ public class DishView extends Activity
 		{
 			@Override
 			public void onClick(View arg0)
-			{
-				Intent intent = new Intent(DishView.this, ReservationCreateView.class);
-			    intent.putExtra("dishId", 1);
-			    startActivity(intent);
+			{ // Non réservable si non disponible
+				if (dish.getAvailable() != 1)
+					{
+					Toast toast = Toast.makeText(getApplicationContext(), "This dish is no longer available", Toast.LENGTH_LONG);
+				    toast.show();
+					ViewAvailable.setChecked(true);
+					}
+				else
+					{
+					Intent intent = new Intent(DishView.this, ReservationCreateView.class);
+					intent.putExtra("dishId", dish.getDishId());
+					startActivity(intent);
+					}
 			}
 		});
 		
@@ -109,7 +119,7 @@ public class DishView extends Activity
 			public void onClick(View arg0)
 			{
 				Intent intent = new Intent(DishView.this, DishEditView.class);
-			    intent.putExtra("dishId", 1);
+			    intent.putExtra("dishId", dish.getDishId());
 			    startActivity(intent);
 			}
 		});

@@ -129,6 +129,7 @@ public class RestaurantView extends Activity
 				image.setImageBitmap(BitmapFactory.decodeFile(GourmetFiles.getRealPath(img.getPath())));
 			else
 				image.setVisibility(ImageView.GONE);
+			
 			legend.setText(img.getLegend()); 
 			imageContainer.addView(v);
 		}
