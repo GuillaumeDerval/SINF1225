@@ -56,11 +56,14 @@
     	    android:layout_width="wrap_content"
     	    android:layout_height="wrap_content"
     	    android:text="Prix" />
+
         	<EditText
-        	android:id="@+id/EditDishPrice"
-        	android:layout_width="fill_parent"
-        	android:layout_height="wrap_content"
-        	android:text="Price" >
+        	    android:id="@+id/EditDishPrice"
+        	    android:layout_width="fill_parent"
+        	    android:layout_height="wrap_content"
+        	    android:inputType="numberDecimal"
+        	    android:text="Price" >
+
         	</EditText>
 		</LinearLayout>
     		
@@ -73,11 +76,14 @@
     	    android:layout_width="wrap_content"
     	    android:layout_height="wrap_content"
     	    android:text="Plat disponibles" />
-           <EditText  
-        	android:id="@+id/EditDishAvailable"  
-        	android:layout_height="wrap_content"  
-        	android:layout_width="fill_parent"
-        	android:text="Available">  
+
+           <EditText
+               android:id="@+id/EditDishAvailable"
+               android:layout_width="fill_parent"
+               android:layout_height="wrap_content"
+               android:inputType="number"
+               android:text="Available" >
+  
     		</EditText>
 		</LinearLayout>
     	<LinearLayout
@@ -101,17 +107,17 @@
                 android:id="@+id/EditDishSpicy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Spicy" />
+                android:text="Epice" />
             <CheckBox
                 android:id="@+id/EditDishVegan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Vegan" />
+                android:text="Vegetarien" />
             <CheckBox
                 android:id="@+id/EditDishAllergen"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Allergen" />
+                android:text="Présence d'allergene" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -122,14 +128,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
-                    android:text="Apply" />
+                    android:text="Appliquer" />
 
                 <Button
                     android:id="@+id/buttonDishDelete"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="Delete" />
+                    android:text="Supprimer" />
 
                 <Button
                     android:id="@+id/dishImageButton"

@@ -855,6 +855,11 @@ class GourmetDatabase extends SQLiteOpenHelper
 	
 	// TODO
 	public List<Reservation> getReservationInRestaurant(Restaurant restaurant) { return null; }
-	public List<Reservation> getReservationByUser(User user) { return null; }
+	public List<Reservation> getReservationByUser(User user) {
+		//Adrien : I'm working on this one right now, DO NO TOUCH
+		return null;
+	}
+	
+	
 	
 }
