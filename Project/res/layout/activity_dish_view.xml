@@ -10,22 +10,23 @@
       android:id="@+id/DishViewName"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_alignParentLeft="true"
+      android:layout_alignBottom="@+id/DishViewEdit"
       android:layout_alignParentTop="true"
       android:layout_toLeftOf="@+id/DishViewPrice"
+      android:layout_toRightOf="@+id/DishViewEdit"
       android:background="#9ACD32"
       android:gravity="center_vertical|center_horizontal"
-      android:text="Name"
-      android:textAppearance="?android:attr/textAppearanceLarge" />
+      android:text="Nom"
+      android:textAppearance="?android:attr/textAppearanceMedium" />
 
   <TextView
       android:id="@+id/DishViewDescription"
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
       android:layout_centerHorizontal="true"
-      android:layout_below="@+id/DishViewVegan"
+      android:layout_below="@+id/DishViewAllergen"
       android:gravity="center"
-      android:text="Description of the restaurant"
+      android:text="Description du Plat"
       android:textAppearance="?android:attr/textAppearanceSmall" />
 
   <CheckBox
@@ -36,7 +37,7 @@
       android:layout_below="@+id/DishViewImage"
       android:clickable="false"
       android:longClickable="false"
-      android:text="Spicy" />
+      android:text="Épicé" />
 
   <CheckBox
       android:id="@+id/DishViewVegan"
@@ -46,13 +47,22 @@
       android:layout_below="@+id/DishViewSpicy"
       android:clickable="false"
       android:longClickable="false"
-      android:text="Vegan" />
+      android:text="Végétarien" />
+   <CheckBox
+      android:id="@+id/DishViewAllergen"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentLeft="true"
+      android:layout_below="@+id/DishViewVegan"
+      android:clickable="false"
+      android:longClickable="false"
+      android:text="Présence d'allergènes" />
 
   <ImageView
       android:id="@+id/DishViewImage"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_below="@+id/DishViewAvailable"
+      android:layout_below="@+id/DishViewReservation"
       android:layout_centerHorizontal="true"
       android:adjustViewBounds="true"
       android:scaleType="centerInside" />
@@ -65,14 +75,15 @@
       android:layout_below="@+id/DishViewName"
       android:clickable="false"
       android:longClickable="false"
-      android:text="Available" />
+      android:text="Disponible" />
 
   <TextView
-      android:id="@+id/rsv_wlcm"
+      android:id="@+id/euro"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_alignParentRight="true"
       android:layout_alignParentTop="true"
+      android:layout_alignBottom="@+id/DishViewPrice"
       android:background="#9ACD32"
       android:gravity="center_vertical|center_horizontal"
       android:text=" € "
@@ -84,10 +95,10 @@
       android:layout_height="wrap_content"
       android:layout_above="@+id/DishViewAvailable"
       android:layout_alignParentTop="true"
-      android:layout_toLeftOf="@+id/rsv_wlcm"
+      android:layout_toLeftOf="@+id/euro"
       android:background="#9ACD32"
       android:gravity="center_vertical|center_horizontal"
-      android:text="Price"
+      android:text="Prix"
       android:textAppearance="?android:attr/textAppearanceMedium" />
 
   <Button
@@ -95,22 +106,27 @@
       style="?android:attr/buttonStyleSmall"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_above="@+id/DishViewImage"
+      android:layout_below="@+id/DishViewName"
       android:layout_alignParentRight="true"
-      android:layout_alignTop="@+id/DishViewAvailable"
       android:gravity="center"
-      android:text="Book" />
+      android:text="Réserver" />
+
+  <TextView
+      android:id="@+id/header"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignBottom="@+id/DishViewName"
+      android:layout_alignParentLeft="true"
+      android:layout_alignParentTop="true"
+      android:background="#9ACD32"
+      android:layout_toLeftOf="@+id/DishViewName"
+      android:text=" " />
+
   <Button
-        android:id="@+id/DishViewEdit"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/DishViewName"
-        android:layout_alignLeft="@+id/DishViewName"
-        android:layout_alignTop="@+id/DishViewName"
-        android:minHeight="0dp"
-        android:minWidth="0dp"
-        android:text="Edit"
-        android:textSize="10dp" />
+      android:id="@+id/DishViewEdit"
+      style="?android:attr/buttonStyleSmall"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Modifier" />
 
 </RelativeLayout>
