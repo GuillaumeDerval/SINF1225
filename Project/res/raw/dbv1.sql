@@ -103,7 +103,7 @@ CREATE TABLE "users"
 	"surname" text NOT NULL,
 	PRIMARY KEY("email")
 );
-
+INSERT INTO "users" VALUES ('test','A94A8FE5CCB19BA61C4C0873D391E987982FBBD3','test','test');
 DROP TABLE IF EXISTS "users_manages";
 CREATE TABLE "users_manages"
 (
@@ -112,6 +112,7 @@ CREATE TABLE "users_manages"
 	PRIMARY KEY("email","restoId"),
 	CONSTRAINT "users_manages_resto" FOREIGN KEY ("restoId") REFERENCES "restaurant" ("restoId")
 );
+INSERT INTO "users_manages" VALUES ('test','1');
 
 /* La derniere requete ne doit pas contenir de point-virgule!!!
    Last request should not contain semicolon!!!

@@ -1,5 +1,7 @@
 package be.uclouvain.sinf1225.gourmet;
 
+import java.util.Date;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import android.app.Activity;
@@ -141,7 +143,11 @@ public class RestaurantImageView extends Activity
 			cursor.close();
 			final String objectType = "restaurant";
 			final int objectId = resto.getId();
-			String finalFilePath = "img/" + objectType + "_" + objectId+ "_"+filePath+ ".png";
+			
+			Date d = new Date();
+			SimpleDateFormat f = new SimpleDateFormat("yyyyMMdd'T'HHmmss");
+			String s = f.format(d);
+			String finalFilePath = "img/" + objectType + "_" + objectId+ "_"+s+ ".png";
 			GourmetFiles.copyImageToDisk(finalFilePath, filePath);
 			
 			Image img = new Image(null, finalFilePath, objectType, objectId); // create a new image
