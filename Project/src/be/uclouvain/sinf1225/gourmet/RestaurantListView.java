@@ -43,7 +43,6 @@ public class RestaurantListView extends Activity implements GourmetLocationRecei
 	static City city = null;
 	static GourmetLocationListener locationListener = null;
 	static RestaurantAdapter adapter;
-	private static int RESULT_VIEW_RESTAURANT= 1;
 	static ListView RestaurantList;
 	static List<Restaurant> restaurants;
 
@@ -108,7 +107,7 @@ public class RestaurantListView extends Activity implements GourmetLocationRecei
 
 				Intent intent = new Intent(RestaurantListView.this, RestaurantView.class);
 				intent.putExtra("restoId", restaurant.getId());
-				startActivityForResult(intent, RESULT_VIEW_RESTAURANT);
+				startActivity(intent);
 			}
 		});
 
@@ -217,15 +216,5 @@ public void onLocationUpdate(Location loc)
 	final ListView restaurantList = (ListView) findViewById(R.id.RestaurantListView);
 	RestaurantAdapter a = (RestaurantAdapter)restaurantList.getAdapter();
 	a.updateLocation(loc);
-}
-protected void onActivityResult(int requestCode, int resultCode, Intent data)
-{
-	super.onActivityResult(requestCode, resultCode, data);
-
-	if (requestCode == RESULT_VIEW_RESTAURANT)
-	{
-		adapter = new RestaurantAdapter(this, R.layout.restaurant_list_row, restaurants,locationListener.getLastLocation());
-		RestaurantList.setAdapter(adapter);
-	}
 }
 }
