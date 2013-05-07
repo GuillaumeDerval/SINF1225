@@ -48,9 +48,20 @@ public class Dish
 		this.img = img;
 	}
 
+	public Dish() {
+		// TODO Auto-generated constructor stub
+	}
+
 	/**
 	 * Delete dish in database
 	 */
+	
+	public void addDish()
+	{
+		GourmetDatabase db = new GourmetDatabase();
+		db.addDish(this);
+		db.close();
+	}
 	public void deleteDish()
 	{
 		GourmetDatabase db = new GourmetDatabase();
