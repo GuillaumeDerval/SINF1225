@@ -60,6 +60,10 @@ INSERT INTO "dish" VALUES (5,'ABCCourgetteEntree ', 1, 'GreenEntree', 10, 1, 1, 
 INSERT INTO "dish" VALUES (6,'ABCCourgettePlat ', 1, 'GreenPlat', 10, 1, 1, 1, 1, 'Plat');
 INSERT INTO "dish" VALUES (7,'ABCCourgetteDessert ', 1, 'GreenDessert', 10, 1, 1, 1, 1, 'Dessert');
 INSERT INTO "dish" VALUES (8,'ABCCourgetteAutre ', 1, 'GreenAutre', 10, 1, 1, 1, 1, 'HelloWorld');
+INSERT INTO "dish" VALUES (9,'Mousse au chocolat', 2, 'Une délicieuse mousse au chocolat fairtrade', 6.5, 0, 1, 0, 1, 'Dessert');
+INSERT INTO "dish" VALUES (10,'Quiche aux poireaux', 2, 'Cuisinée avec des poireaux d une ferme voisine, accompagnée d une salade légère', 11, 0, 0, 1, 0, 'Plat');
+INSERT INTO "dish" VALUES (11,'Soupe aux légumes', 2, 'Une délicieuse soupe saine et bio, n oubliez pas: MEN Sana in corpore sano!', 4, 1, 1, 1, 0, 'Entree');
+
 
 DROP TABLE IF EXISTS "reservation";
 CREATE TABlE "reservation"
@@ -88,6 +92,9 @@ INSERT INTO "image" VALUES ('img/alterezvous1.png','restaurant', 'Intérieur du 
 INSERT INTO "image" VALUES ('img/alterezvous2.png','restaurant', 'Le piano désaccordé',2);
 INSERT INTO "image" VALUES ('img/alterezvous3.png','restaurant', 'La terrasse du café',2);
 INSERT INTO "image" VALUES ('img/alterezvous4.png','restaurant', 'Un concert à l altérez-vous',2);
+INSERT INTO "image" VALUES ('img/mousse_alterezvous.png','dish', 'Mousse au chocolat',9);
+INSERT INTO "image" VALUES ('img/quichepoireaux_alterezvous.png','dish', 'Quiche aux poireaux',10);
+INSERT INTO "image" VALUES ('img/soupe_alterezvous.png','dish', 'Soupe aux légumes',11);
 
 DROP TABLE IF EXISTS "reservationDish";
 CREATE TABLE "reservationDish"

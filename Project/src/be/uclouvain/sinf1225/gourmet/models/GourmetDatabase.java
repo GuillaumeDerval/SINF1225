@@ -28,7 +28,7 @@ import be.uclouvain.sinf1225.gourmet.utils.GourmetUtils;
 class GourmetDatabase extends SQLiteOpenHelper
 {
 
-	private static final int DATABASE_VERSION = 44;
+	private static final int DATABASE_VERSION = 45;
 
 
 
@@ -56,8 +56,10 @@ class GourmetDatabase extends SQLiteOpenHelper
 	
 	private void initImages()
 	{
-		int[] ressources = {R.drawable.picture1, R.drawable.picture2, R.drawable.picture3, R.drawable.alterezvous1, R.drawable.alterezvous2, R.drawable.alterezvous3, R.drawable.alterezvous4};
-		String[] links = {"img/picture1.png", "img/picture2.png", "img/picture3.png", "img/alterezvous1.png", "img/alterezvous2.png", "img/alterezvous3.png", "img/alterezvous4.png"};
+		int[] ressources = {R.drawable.picture1, R.drawable.picture2, R.drawable.picture3, R.drawable.alterezvous1, R.drawable.alterezvous2, R.drawable.alterezvous3, R.drawable.alterezvous4,
+				 R.drawable.mousse_alterezvous, R.drawable.quichepoireaux_alterezvous, R.drawable.soupe_alterezvous};
+		String[] links = {"img/picture1.png", "img/picture2.png", "img/picture3.png", "img/alterezvous1.png", "img/alterezvous2.png", "img/alterezvous3.png", "img/alterezvous4.png", 
+				 "img/mousse_alterezvous.png", "img/quichepoireaux_alterezvous.png", "img/soupe_alterezvous.png"};
 		for(int i = 0; i < ressources.length; i++)
 			GourmetFiles.exportFileFromResToDisk(links[i], ressources[i]);
 	}
