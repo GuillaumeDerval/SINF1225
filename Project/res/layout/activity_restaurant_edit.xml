@@ -38,11 +38,14 @@
         		android:layout_width="wrap_content"
         		android:layout_height="wrap_content"
         		android:text="Numero de telephone" />
+
         	<EditText
-            android:id="@+id/EditPhoneNumber"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="PhoneNumber" >
+        	    android:id="@+id/EditPhoneNumber"
+        	    android:layout_width="fill_parent"
+        	    android:layout_height="wrap_content"
+        	    android:inputType="phone"
+        	    android:text="PhoneNumber" >
+
         	</EditText>
  		</LinearLayout>
  
@@ -88,11 +91,14 @@
         		android:layout_width="wrap_content"
         		android:layout_height="wrap_content"
         		android:text="Email" />
+
         	<EditText
-            android:id="@+id/EditEmail"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Email" >
+        	    android:id="@+id/EditEmail"
+        	    android:layout_width="fill_parent"
+        	    android:layout_height="wrap_content"
+        	    android:inputType="textEmailAddress"
+        	    android:text="Email" >
+
         	</EditText>
  		</LinearLayout>
  		
@@ -105,11 +111,14 @@
         		android:layout_width="wrap_content"
         		android:layout_height="wrap_content"
         		android:text="Place maximum" />
+
         	<EditText
-            android:id="@+id/EditSeats"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Max seats" >
+        	    android:id="@+id/EditSeats"
+        	    android:layout_width="fill_parent"
+        	    android:layout_height="wrap_content"
+        	    android:inputType="number"
+        	    android:text="Max seats" >
+
         	</EditText>
 		</LinearLayout>
        	<LinearLayout
@@ -139,11 +148,14 @@
         		android:layout_width="wrap_content"
         		android:layout_height="wrap_content"
         		android:text="Site internet" />
+
         	<EditText
-            android:id="@+id/EditWebsite"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Website" >
+        	    android:id="@+id/EditWebsite"
+        	    android:layout_width="fill_parent"
+        	    android:layout_height="wrap_content"
+        	    android:inputType="textWebEmailAddress"
+        	    android:text="Website" >
+
         	</EditText>
 		</LinearLayout>
         	<RatingBar
@@ -171,7 +183,7 @@
                 android:layout_gravity="right"
                 android:layout_weight="0.5"
                 android:paddingLeft="10dip"
-                android:text="Apply" />
+                android:text="Appliquer" />
         </LinearLayout>
     </LinearLayout>
 

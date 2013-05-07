@@ -146,7 +146,6 @@ public class RestaurantImageView extends Activity
 			int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
 			filePath =cursor.getString(columnIndex);
 			cursor.close();
-			Log.d("", filePath);
 			final String objectType = "restaurant";
 			final int objectId = resto.getId();
 			String finalFilePath = "img/" + objectType + "_" + objectId+ "_"+filePath+ ".png";
@@ -156,7 +155,8 @@ public class RestaurantImageView extends Activity
 
 			Image.addImage(img); // ajoute l'image dans la DB
 			resto.addImage(img);
-			adapter.notifyDataSetChanged();
+			adapter.updateImages(resto.getImages());
+
 			//myImage.setImageBitmap(BitmapFactory.decodeFile(GourmetFiles.getRealPath(finalFilePath)));
 		}
 	}

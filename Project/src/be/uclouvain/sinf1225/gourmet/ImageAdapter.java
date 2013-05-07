@@ -83,4 +83,8 @@ public class ImageAdapter extends ArrayAdapter<Image>
 		}
 		return row;
 	}
+	public void updateImages(List<Image>images){
+		this.images = images;
+		notifyDataSetChanged();
+	}
 }

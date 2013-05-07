@@ -70,7 +70,7 @@ public class ViewDishImage extends Activity
 		else 
 		{
 			deleteButton.setVisibility(View.GONE);
-			changeButton.setText("Add");
+			changeButton.setText("Ajouter");
 			Toast toast = Toast.makeText(getApplicationContext(), "Aucune image pour ce plat", Toast.LENGTH_LONG);
 			toast.show();
 		}
@@ -83,7 +83,6 @@ public class ViewDishImage extends Activity
 			{
 				GourmetFiles.deleteExternalStoragePrivateFile(img.getPath());
 				img.deleteImage(); // delete the image in the database
-				RestaurantImageView.adapter.notifyDataSetChanged();
 				finish();
 			}
 		});
@@ -127,10 +126,13 @@ public class ViewDishImage extends Activity
 			int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
 			filePath =cursor.getString(columnIndex);
 			cursor.close();
-			Log.d("", filePath);
 			final String objectType = "dish";
 			final int objectId = dish.getDishId();
-			String finalFilePath = "img/" + objectType + "_" + objectId+ "_"+filePath+ ".png";
+			int i = filePath.indexOf(".");
+			String temp = filePath.substring(0, i);
+			String finalFilePath = "img/" + objectType + "_" + objectId+ "_"+temp+ ".png";
+			Log.d("", filePath);
+			Log.d("", finalFilePath);
 			GourmetFiles.copyImageToDisk(finalFilePath, filePath);
 			
 			img = new Image(null, finalFilePath, objectType, objectId); // create a new image
