@@ -36,6 +36,7 @@ public class ViewDishImage extends Activity
 	private String filePath;
 	private ImageView myImage;
 	Image img;
+	int dishId;
 	
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
@@ -53,27 +54,37 @@ public class ViewDishImage extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_image_dish_view);
-		int dishId = Integer.valueOf(getIntent().getExtras().getInt("dishId"));
-		dish = Dish.getDish(dishId);
-		img = dish.getImg();
+		dishId = Integer.valueOf(getIntent().getExtras().getInt("dishId"));
 		final Button deleteButton = (Button) findViewById(R.id.delete_image_dish);
 		final Button changeButton = (Button) findViewById(R.id.change_image_dish);
-		myImage = (ImageView) findViewById(R.id.dish_image_icon);
-
-		if (img != null)
+		if (dishId!= -1)
 		{
-			File imgFile = new File(GourmetFiles.getRealPath(img.getPath()));
-			if (imgFile.exists())
-			{
+			dish = Dish.getDish(dishId);
+			img = dish.getImg();
+			myImage = (ImageView) findViewById(R.id.dish_image_icon);
 
-				myImage.setImageBitmap( BitmapFactory.decodeFile(GourmetFiles.getRealPath(dish.getImg().getPath())));
+			if (img != null)
+			{
+				File imgFile = new File(GourmetFiles.getRealPath(img.getPath()));
+				if (imgFile.exists())
+				{
+
+					myImage.setImageBitmap( BitmapFactory.decodeFile(GourmetFiles.getRealPath(dish.getImg().getPath())));
+				}
+			}
+			else 
+			{
+				deleteButton.setVisibility(View.GONE);
+				changeButton.setText("Ajouter");
+				Toast toast = Toast.makeText(getApplicationContext(), "Aucune image pour ce plat", Toast.LENGTH_LONG);
+				toast.show();
 			}
 		}
 		else 
 		{
 			deleteButton.setVisibility(View.GONE);
 			changeButton.setText("Ajouter");
-			Toast toast = Toast.makeText(getApplicationContext(), "Aucune image pour ce plat", Toast.LENGTH_LONG);
+			Toast toast = Toast.makeText(getApplicationContext(), "Vous venez de créer ce plat, veuillez choisir une image", Toast.LENGTH_LONG);
 			toast.show();
 		}
 		deleteButton.setOnClickListener(new View.OnClickListener()
@@ -148,7 +159,7 @@ public class ViewDishImage extends Activity
 
 			}
 			Image.addImage(img); // ajoute l'image dans la DB
-			dish.setImg(img);
+			if (dishId!=-1)dish.setImg(img);
 			myImage.setImageBitmap(BitmapFactory.decodeFile(GourmetFiles.getRealPath(finalFilePath)));
 			finish(); // end the activity
 		}

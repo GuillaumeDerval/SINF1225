@@ -25,7 +25,7 @@ CREATE TABLE "restaurant" (
 	 "description" text,
 	 "email" text,
 	 "stars" integer,
-	 "phone" integer,
+	 "phone" text,
 	 "website" integer,
 	 "seats" integer NOT NULL,
 	 "priceCat" integer NOT NULL,
@@ -33,8 +33,8 @@ CREATE TABLE "restaurant" (
 );
 CREATE UNIQUE INDEX "resto_p_key" ON "restaurant" ("name" ASC, "cityName" ASC, "cityCountry" ASC, "address" ASC);
 
-INSERT INTO "restaurant" VALUES (1,'THE Resto', 'Louvain-la-Neuve', 'Belgique', 'Rue de la neuville, 26', 50.668081, 4.611832, 'Un restaurant de test', 'test@itself.be', 5, '81680085', 'http://www.guillaumederval.be', 10, 0);
-INSERT INTO "restaurant" VALUES (2,'Altérez-vous', 'Louvain-la-Neuve', 'Belgique', 'Place des Brabançons, 6A', 50.690368, 4.615402, 'Altérez-vous est un café citoyen, espace d échanges conviviaux avec des produits locaux ou bio ou issus du commerce équitable pour un projet DURABLE!', 'info@alterezvous.be', 5, '10844003', 'http://www.alterezvous.be', 30, 0);
+INSERT INTO "restaurant" VALUES (1,'THE Resto', 'Louvain-la-Neuve', 'Belgique', 'Rue de la neuville, 26', 50.668081, 4.611832, 'Un restaurant de test', 'test@itself.be', 5, '0032/81680085', 'http://www.guillaumederval.be', 10, 0);
+INSERT INTO "restaurant" VALUES (2,'Altérez-vous', 'Louvain-la-Neuve', 'Belgique', 'Place des Brabançons, 6A', 50.690368, 4.615402, 'Altérez-vous est un café citoyen, espace d échanges conviviaux avec des produits locaux ou bio ou issus du commerce équitable pour un projet DURABLE!', 'info@alterezvous.be', 5, '0032/10844003', 'http://www.alterezvous.be', 30, 0);
 
 DROP TABLE IF EXISTS "dish";
 CREATE TABLE "dish" (

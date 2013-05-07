@@ -60,7 +60,7 @@
         	    android:layout_width="fill_parent"
         	    android:layout_height="wrap_content"
         	    android:inputType="numberDecimal"
-        	    android:text="Price" >
+        	    android:text="0.00" >
 
         	</EditText>
 		</LinearLayout>
@@ -80,7 +80,7 @@
                android:layout_width="fill_parent"
                android:layout_height="wrap_content"
                android:inputType="number"
-               android:text="Available" >
+               android:text="0" >
   
     		</EditText>
 		</LinearLayout>
