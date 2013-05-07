@@ -71,14 +71,15 @@ public class ReservationCreateView extends Activity
 		restaurant = (TextView) findViewById(R.id.restaurant);
 		nbrReservation = (EditText) findViewById(R.id.nbrReservation);
 
-		/* Receive the data */
-		getDataTransfer(getIntent());
-
 		dish_name_list = new ArrayList<String>();
-		
+		dish_id_list = new ArrayList<Integer>();
+
 		/* adapter for the list of dishes */
 		adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_activated_1, dish_name_list);
 		list.setAdapter(adapter);
+		
+		/* Receive the data */
+		getDataTransfer(getIntent());
 	}
 
 	public void showTimePickerDialog(View v)
@@ -102,6 +103,7 @@ public class ReservationCreateView extends Activity
 		/* launch the activity with the list of dishes*/
 		Intent intent=new Intent(this,DishListView.class);
 		intent.putExtra("restoId", resto_id);
+		intent.putExtra("key","ComeBack");
 	    startActivityForResult(intent, 1);
 	}
 
@@ -109,21 +111,32 @@ public class ReservationCreateView extends Activity
 	protected void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
 		super.onActivityResult(requestCode, resultCode, data);
+		Context context = getApplicationContext();
+		Toast toast;
 
 		/* add the id into the list of dishes */
-		dish_id_list.add(resultCode);
+		int dish_id = data.getIntExtra("dishId",-1);
 
-		/* update the adapter*/
-		String name = Dish.getDish(resultCode).getName();
-		dish_name_list.add(name);
-		adapter.notifyDataSetChanged();
+		if (dish_id == -1)
+		{
+			toast = Toast.makeText(context, "plat épuisé", Toast.LENGTH_SHORT);
+		}
+		else
+		{
+			/* add the dish into the list of dish_id */
+			dish_id_list.add(dish_id);
 
-		/* Display a toast */
-		Context context = getApplicationContext();
-		Toast toast = Toast.makeText(context, "plat ajouté", Toast.LENGTH_SHORT);
+			/* add the dish into the listView */
+			dish_name_list.add(Dish.getDish(dish_id).getName());
+			
+			/* update the adapter*/
+			adapter.notifyDataSetChanged();
+
+			toast = Toast.makeText(context, "plat ajouté", Toast.LENGTH_SHORT);
+		}
 		toast.show();
 	}
-	
+
 	/**
 	 * onClick Behavior - button SEND
 	 * @param view

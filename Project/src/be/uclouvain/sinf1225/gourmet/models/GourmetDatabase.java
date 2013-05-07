@@ -789,7 +789,7 @@ class GourmetDatabase extends SQLiteOpenHelper
 	    ContentValues values1 = new ContentValues();
 	    
 	    values1.put("userEmail", reservation.getUserEmail());
-	    values1.put("resto", reservation.getRestaurant().getName());
+	    values1.put("restoId", reservation.getRestaurant().getId());
 	    values1.put("nbrReservation", Integer.toString(reservation.getnbrReservation()));
 	    values1.put("date", reservation.getDate().toString());
 	    

@@ -35,7 +35,7 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
 
 	public void onTimeSet(TimePicker view, int hourOfDay, int minute)
 	{
-		Calendar cal = Calendar.getInstance();
+		Calendar cal = ReservationCreateView.dateTime;
 		cal.set(Calendar.HOUR_OF_DAY, hourOfDay);
 		cal.set(Calendar.MINUTE, minute);
 		
@@ -45,18 +45,19 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
 		LOW = ReservationCreateView.dateTime;
 		LOW.set(Calendar.HOUR_OF_DAY, 10);
 		LOW.set(Calendar.AM_PM, Calendar.AM);
+		LOW.set(Calendar.MINUTE, 0);
 		
 		/* High bound */
 		HIGH = ReservationCreateView.dateTime;
 		HIGH.set(Calendar.HOUR_OF_DAY, 11);
 		HIGH.set(Calendar.AM_PM, Calendar.PM);
-		
+		HIGH.set(Calendar.MINUTE, 0);
+
 		if (cal.after(Calendar.getInstance()) && cal.after(LOW) && cal.before(HIGH))
 		{
 			ReservationCreateView.dateTime.set(Calendar.HOUR_OF_DAY, hourOfDay);
 			ReservationCreateView.dateTime.set(Calendar.MINUTE, minute);
 			ReservationCreateView.timePicker.setText(ReservationCreateView.timeFormatter.format(ReservationCreateView.dateTime.getTime()));
-
 		}
 	}
 

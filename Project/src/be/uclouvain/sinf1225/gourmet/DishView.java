@@ -104,7 +104,8 @@ public class DishView extends Activity
 				else
 					{
 					Intent intent = new Intent(DishView.this, ReservationCreateView.class);
-					intent.putExtra("dishId", dish.getDishId());
+					intent.putExtra("dishId", getIntent().getExtras().getInt("dishId"));
+					// intent.putExtra("dishId", dish.getDishId());
 					startActivity(intent);
 					}
 			}
