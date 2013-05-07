@@ -15,6 +15,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import be.uclouvain.sinf1225.gourmet.models.Image;
 import be.uclouvain.sinf1225.gourmet.models.Restaurant;
@@ -62,6 +63,12 @@ public class RestaurantView extends Activity
 		((TextView) findViewById(R.id.RestaurantViewEmail)).setText(restaurant.getEmail());
 		// ((TextView)findViewById(R.id.RestaurantListDistance)).setText(new
 		// DecimalFormat("#.##").format(city.getLocation().distanceTo(locationListener.getLastLocation())/1000));
+		
+		((RatingBar) findViewById(R.id.RestaurantViewStars)).setRating(restaurant.getStars());
+		//Stars.setNumStars(5);
+		//Stars.setMax(5); // set max just to be sure
+		//Stars.setRating(restaurant.getStars());
+		//Stars.setStepSize(1);
 		
 		// Bouton pour afficher le menu du restaurant
 		Button menu = (Button) findViewById(R.id.RestaurantViewMenu);
