@@ -65,7 +65,7 @@ public class RestaurantView extends Activity
 		// ((TextView)findViewById(R.id.RestaurantListDistance)).setText(new
 		// DecimalFormat("#.##").format(city.getLocation().distanceTo(locationListener.getLastLocation())/1000));
 		
-		((RatingBar) findViewById(R.id.RestaurantViewStars)).setRating(restaurant.getStars());
+		((RatingBar) findViewById(R.id.RatingBar)).setRating(restaurant.getStars());
 		//Stars.setNumStars(5);
 		//Stars.setMax(5); // set max just to be sure
 		//Stars.setRating(restaurant.getStars());
