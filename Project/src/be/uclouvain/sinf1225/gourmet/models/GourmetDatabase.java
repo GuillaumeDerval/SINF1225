@@ -27,7 +27,10 @@ import be.uclouvain.sinf1225.gourmet.utils.GourmetUtils;
  */
 class GourmetDatabase extends SQLiteOpenHelper
 {
+
 	private static final int DATABASE_VERSION = 44;
+
+
 
     private static final String DATABASE_NAME = "gourmet";
     private Context context;
