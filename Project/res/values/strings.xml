@@ -17,6 +17,8 @@
         <string-array name="restaurant_sort">
         <item>Nom</item>
         <item>Distance</item>
+        <item>Catégorie de prix</item>
+        <item>Places Disponibles</item>
     </string-array>
     
         <string-array name="dish_sort">

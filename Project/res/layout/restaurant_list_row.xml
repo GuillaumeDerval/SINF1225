@@ -1,34 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    >
- 
+    android:orientation="horizontal" >
 
- 
-  <LinearLayout
-	    android:orientation="vertical"
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	   	android:layout_gravity="center_vertical"
-	   	android:paddingLeft="10dp"
-	    android:layout_weight="1"
-	    >
- 
-	    <TextView
-	        android:id="@+id/RestaurantListName"
-	        android:layout_width="fill_parent"
-	        android:layout_height="fill_parent"
-	        android:text="Restaurant Name"
-	        android:textSize="20sp"
-	        android:textStyle="bold" />
-	    <TextView
-	        android:id="@+id/RestaurantListDistance"
-	        android:layout_width="fill_parent"
-	        android:layout_height="fill_parent"
-	        android:text="Restaurant Distance" />
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:paddingLeft="10dp" >
 
+        <TextView
+            android:id="@+id/RestaurantListName"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:text="Restaurant Name"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/RestaurantListDistance"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:text="Restaurant Distance" />
     </LinearLayout>
- 
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:paddingLeft="10dp" >
+
+        <TextView
+            android:id="@+id/RestaurantListPriceCat"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:text="Restaurant Category" />
+
+        <TextView
+            android:id="@+id/RestaurantListSeats"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Restaurant Seats" />
+    </LinearLayout>
+
 </LinearLayout>

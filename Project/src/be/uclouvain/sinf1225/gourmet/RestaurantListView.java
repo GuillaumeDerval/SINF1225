@@ -155,6 +155,8 @@ public class RestaurantListView extends Activity implements GourmetLocationRecei
 			final RestaurantAdapter adapter = (RestaurantAdapter)restaurantList.getAdapter();
 			if(pos == 0) adapter.setSort("name");
 			else if(pos == 1) adapter.setSort("distance");
+			else if(pos == 2) adapter.setSort("pricecat");
+			else if(pos == 3) adapter.setSort("seats");
 		}
 
 		@Override
