@@ -25,7 +25,7 @@ CREATE TABLE "restaurant" (
 	 "description" text,
 	 "email" text,
 	 "stars" integer,
-	 "phone" text,
+	 "phone" integer,
 	 "website" integer,
 	 "seats" integer NOT NULL,
 	 "priceCat" integer NOT NULL,
@@ -33,8 +33,8 @@ CREATE TABLE "restaurant" (
 );
 CREATE UNIQUE INDEX "resto_p_key" ON "restaurant" ("name" ASC, "cityName" ASC, "cityCountry" ASC, "address" ASC);
 
-INSERT INTO "restaurant" VALUES (1,'THE Resto', 'Louvain-la-Neuve', 'Belgique', 'Rue de la neuville, 26', 50.668081, 4.611832, 'Un restaurant de test', 'test@itself.be', 5, '0032/81680085', 'http://www.guillaumederval.be', 10, 0);
-INSERT INTO "restaurant" VALUES (2,'Altérez-vous', 'Louvain-la-Neuve', 'Belgique', 'Place des Brabançons, 6A', 50.690368, 4.615402, 'Altérez-vous est un café citoyen, espace d échanges conviviaux avec des produits locaux ou bio ou issus du commerce équitable pour un projet DURABLE!', 'info@alterezvous.be', 5, '0032/10844003', 'http://www.alterezvous.be', 30, 0);
+INSERT INTO "restaurant" VALUES (1,'THE Resto', 'Louvain-la-Neuve', 'Belgique', 'Rue de la neuville, 26', 50.668081, 4.611832, 'Un restaurant de test', 'test@itself.be', 5, '81680085', 'http://www.guillaumederval.be', 10, 0);
+INSERT INTO "restaurant" VALUES (2,'Altérez-vous', 'Louvain-la-Neuve', 'Belgique', 'Place des Brabançons, 6A', 50.690368, 4.615402, 'Altérez-vous est un café citoyen, espace d échanges conviviaux avec des produits locaux ou bio ou issus du commerce équitable pour un projet DURABLE!', 'info@alterezvous.be', 5, '10844003', 'http://www.alterezvous.be', 30, 0);
 
 DROP TABLE IF EXISTS "dish";
 CREATE TABLE "dish" (
@@ -70,7 +70,7 @@ CREATE TABlE "reservation"
 (
 	"resvId" integer NOT NULL PRIMARY KEY AUTOINCREMENT,
 	"userEmail" text NOT NULL,
-	"restoId" integer NOT NULL,
+	"restoId" interger NOT NULL,
 	"nbrReservation" integer NOT NULL,
 	"date" text NOT NULL,
 	CONSTRAINT "resto_name_contrainte" FOREIGN KEY ("restoID") REFERENCES "restaurant" ("restoId"),
@@ -92,17 +92,15 @@ INSERT INTO "image" VALUES ('img/alterezvous1.png','restaurant', 'Intérieur du 
 INSERT INTO "image" VALUES ('img/alterezvous2.png','restaurant', 'Le piano désaccordé',2);
 INSERT INTO "image" VALUES ('img/alterezvous3.png','restaurant', 'La terrasse du café',2);
 INSERT INTO "image" VALUES ('img/alterezvous4.png','restaurant', 'Un concert à l altérez-vous',2);
-INSERT INTO "image" VALUES ('img/mousse_alterezvous.png','dish', 'Mousse au chocolat',9);
-INSERT INTO "image" VALUES ('img/quichepoireaux_alterezvous.png','dish', 'Quiche aux poireaux',10);
-INSERT INTO "image" VALUES ('img/soupe_alterezvous.png','dish', 'Soupe aux légumes',11);
 
 DROP TABLE IF EXISTS "reservationDish";
 CREATE TABLE "reservationDish"
 (
 	"resvId" integer NOT NULL,
-	"dishId" integer NOT NULL,
+	"nameDish" text NOT NULL,
+	"nbrDish" integer NOT NULL,
 	CONSTRAINT "resvID_contrainte" FOREIGN KEY ("resvId") REFERENCES "reservation" ("resvId"),
-	CONSTRAINT "DishID_contrainte" FOREIGN KEY ("dishId") REFERENCES "dish" ("dishId")
+	CONSTRAINT "nameDish_contrainte" FOREIGN KEY ("nameDish") REFERENCES "dish" ("name")
 );
 
 DROP TABLE IF EXISTS "users";
@@ -119,12 +117,11 @@ DROP TABLE IF EXISTS "users_manages";
 CREATE TABLE "users_manages"
 (
 	"email"  NOT NULL,
-	"restoId"  NOT NULL,
+	 "restoId"  NOT NULL,
 	PRIMARY KEY("email","restoId"),
 	CONSTRAINT "users_manages_resto" FOREIGN KEY ("restoId") REFERENCES "restaurant" ("restoId")
 );
 INSERT INTO "users_manages" VALUES ('test','1');
-INSERT INTO "users_manages" VALUES ('test','2');
 
 /* La derniere requete ne doit pas contenir de point-virgule!!!
    Last request should not contain semicolon!!!

@@ -14,7 +14,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -40,24 +39,18 @@ public class ReservationCreateView extends Activity
 	private ListView list;
 	private TextView restaurant;
 	private EditText nbrReservation;
-	private AutoCompleteTextView addDish;
-	private ArrayList<String> listDish = new ArrayList<String>(); // list of dishes booked by the user
 
 	/* adapters */
 	private ArrayAdapter<String> adapter; // list of dishes
-	private ArrayAdapter<String> adapterAddDishes; // auto-completion
 
 	/* intent keys */
 	private static final String RESTAURANT = "restoId"; // intent's key - restoID
-	private static final String DISH = "dishId"; // intent's key - dishID
-
-	/* intent values */
-	private static Restaurant resto;
-	private static Dish dish;
-	// private static int resvID;
+	private static final String DISH = "dishId"; 		// intent's key - dishID
 
 	/* list of dishes from resto */
-	private List<String> dishesList;
+	private ArrayList<Integer> dish_id_list;
+	private List<String> dish_name_list;
+	private static int resto_id;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -81,18 +74,10 @@ public class ReservationCreateView extends Activity
 		/* Receive the data */
 		getDataTransfer(getIntent());
 
-		/* auto-completion - make the choose of the dish easier */
-		/* adapter for the auto-completion */
-		addDish = (AutoCompleteTextView) findViewById(R.id.dish);
-		dishesList = new ArrayList<String>();
-		for (Dish dish : resto.getDishes())
-			dishesList.add(dish.getName());
-
-		adapterAddDishes = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, dishesList);
-		addDish.setAdapter(adapterAddDishes);
-
+		dish_name_list = new ArrayList<String>();
+		
 		/* adapter for the list of dishes */
-		adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_activated_1, listDish);
+		adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_activated_1, dish_name_list);
 		list.setAdapter(adapter);
 	}
 
@@ -110,40 +95,37 @@ public class ReservationCreateView extends Activity
 
 	/**
 	 * OnClick Behavior - button ADD
-	 * 
 	 * @param v
 	 */
 	public void addItems(View v)
 	{
-		/* Variables for the Toast */
-		Context context = getApplicationContext();
-		String text;
-
-		/* get the text from the addDish */
-		String message = addDish.getText().toString();
-
-		/* check if the dish is contained into the list of dishes from resto */
-		if (!dishesList.contains(message))
-		{
-			text = "dish unknown";
-			addDish.setText("");
-		}
-		else
-		{
-			/* add the dish to the listView */
-			listDish.add(message);
-			adapter.notifyDataSetChanged();
-			text = "dish added";
-		}
-
-		/* display the toast */
-		Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
-		toast.show();
+		/* launch the activity with the list of dishes*/
+		Intent intent=new Intent(this,DishListView.class);
+		intent.putExtra("restoId", resto_id);
+	    startActivityForResult(intent, 1);
 	}
 
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data)
+	{
+		super.onActivityResult(requestCode, resultCode, data);
+
+		/* add the id into the list of dishes */
+		dish_id_list.add(resultCode);
+
+		/* update the adapter*/
+		String name = Dish.getDish(resultCode).getName();
+		dish_name_list.add(name);
+		adapter.notifyDataSetChanged();
+
+		/* Display a toast */
+		Context context = getApplicationContext();
+		Toast toast = Toast.makeText(context, "plat ajouté", Toast.LENGTH_SHORT);
+		toast.show();
+	}
+	
 	/**
 	 * onClick Behavior - button SEND
-	 * 
 	 * @param view
 	 */
 	public void sendReservation(View view)
@@ -151,52 +133,38 @@ public class ReservationCreateView extends Activity
 		/* variables for the toast */
 		Context context = getApplicationContext();
 		String text = "";
-		boolean correctValues = true;
+		boolean exception = false;
 		int nbrResv = 0;
 
 		/* Variables for the reservation */
 		String email = User.getUserConnected().getEmail();
 		Date date = dateTime.getTime();
-		int restoID = resto.getId();
 
 		/* Manage Exception */
-		try
-		{
-			nbrResv = Integer.parseInt(nbrReservation.getText().toString());
-		}
-		catch (Exception e)
-		{
-			correctValues = false;
-			text = "Nbr unfilled";
-		}
+		try{nbrResv = Integer.parseInt(nbrReservation.getText().toString());}
+		catch (Exception e) {exception = true;	text = "Nbr inrempli";}
 
 		/* Check if the reservation does not exists yet */
-		
-		if (correctValues && Reservation.getReservation(email, restoID, date) != null)
+		if ( !exception && Reservation.getReservation(email, resto_id, date) != null)
 		{
-			correctValues = false;
-			text = "Vous avez déjà une réservation à cette date";
+			exception = true; text = "Vous avez déjà une réservation à cette date";
 		}
 
 		/* Create reservation */
-		if (correctValues)
+		if (!exception)
 		{
-			Reservation resv = new Reservation(email, Restaurant.getRestaurant(restoID), nbrResv, date);
+			Reservation resv = new Reservation(email, Restaurant.getRestaurant(resto_id), nbrResv, date);			
+			for(int id : dish_id_list){resv.addDish(id);}
 			
-			//TODO correct listDish to be a real list of Dish.
-			/*for(Reservation.DishNode dishNode : listDish)
-			{
-				resv.addDishNode(dishNode.dish, dishNode.nbrDishes);
-			}*/
-			correctValues = false;
-			text = "Reservation Failed";
+			/* add the reservation into the database */
+			exception = ( Reservation.addReservation(resv)  == -1);
+			
+			/* check if the reservation passed */
+			if (exception) text = "Reservation échouée";
 		}
 
 		/* if all the insertion into the dataBase passed */
-		if (correctValues)
-		{
-			text = "Reservation sent";
-		}
+		if (!exception) {text = "Reservation envoyée";}
 
 		/* display the toast */
 		Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
@@ -205,72 +173,29 @@ public class ReservationCreateView extends Activity
 
 	/**
 	 * Get the data from the intent
-	 * 
 	 * @param intent
 	 */
 	public void getDataTransfer(Intent intent)
 	{
 		/* get intent values */
-		int restoID = intent.getIntExtra(RESTAURANT, 0);
-		int dishID = intent.getIntExtra(DISH, 0);
+		resto_id = intent.getIntExtra(RESTAURANT, 0);
+		int dish_id = intent.getIntExtra(DISH, 0);
 
-		if ((dishID == 0 && restoID == 0) || (dishID != 0 && restoID != 0))
+		if ((dish_id == 0 && resto_id == 0) || (dish_id != 0 && resto_id != 0)) {finish();}
+		else if (dish_id != 0)
 		{
-			finish();
-		}
-		else if (dishID != 0)
-		{
-			dish = Dish.getDish(dishID);
-
-			/* add item to the listDish */
-			listDish.add(dish.getName());
+			/* add item to the dish_name_list */
+			dish_name_list.add(Dish.getDish(dish_id).getName());
 			adapter.notifyDataSetChanged();
+			
+			/* add to the list of dishId */
+			dish_id_list.add(dish_id);
 
 			/* get restoID */
-			restoID = dish.getRestoId();
+			resto_id = Dish.getDish(dish_id).getRestoId();
 		}
 
 		/* display the restaurant's name */
-		resto = Restaurant.getRestaurant(restoID);
-		restaurant.setText(resto.getName());
+		restaurant.setText(Restaurant.getRestaurant(resto_id).getName());
 	}
-
-	/**
-	 * Insert the dishes into the database
-	 * 
-	 * @param list
-	 * @param reference
-	 * @return success : true error (the insertion failed) : false
-	 */
-
-	/*public static boolean InsertIntoDatabase(List<String> list)
-	{
-		// variables
-		int recurrence, index, check;
-		String dish;
-
-		// continue until the list is empty
-		while (!list.isEmpty())
-		{
-			// get the first element from the remaining list
-			recurrence = 0;
-			index = 0;
-			dish = list.get(index);
-
-			// remove the element from the list, and increment the recurrence of this one
-			while (index >= 0)
-			{
-				list.remove(index);
-				recurrence += 1;
-				index = list.indexOf(dish);
-			}
-			// Check if the reservation passed
-			check = Reservation.addReservationDish(resvID, dish, recurrence);
-			if (check == -1)
-			{
-				return false;
-			}
-		}
-		return true;
-	}*/
 }

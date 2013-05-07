@@ -1,5 +1,7 @@
 package be.uclouvain.sinf1225.gourmet;
 
+import java.util.Date;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import android.app.Activity;
@@ -31,10 +33,12 @@ import be.uclouvain.sinf1225.gourmet.utils.GourmetUtils;
 public class RestaurantImageView extends Activity
 {
 	private static int RESULT_LOAD_IMAGE = 1;
+	private static int RESULT_DELETE_IMAGE = 2;
 	private String filePath;
 	static Restaurant resto;
 	static ImageAdapter adapter;
 	static Image imageOnClic;
+	ListView imageList;
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
 	    GourmetUtils.createMenu(menu, this, R.id.search);
@@ -58,7 +62,7 @@ public class RestaurantImageView extends Activity
 		int restoId = getIntent().getExtras().getInt("restoId");
 		resto = Restaurant.getRestaurant(restoId);
 
-		final ListView imageList = (ListView) findViewById(R.id.restaurantImageList);
+		imageList = (ListView) findViewById(R.id.restaurantImageList);
 		// getting button
 		final Button addButton = (Button) findViewById(R.id.addRestaurantImage); // à changer
 		final Button okButton = (Button) findViewById(R.id.okRestaurantImageButton);
@@ -81,7 +85,7 @@ public class RestaurantImageView extends Activity
 			    Intent intent = new Intent(RestaurantImageView.this, ViewRestaurantImage.class);
 			    intent.putExtra("path", imageOnClic.getPath());
 			    intent.putExtra("legend", imageOnClic.getLegend());
-			    startActivity(intent);
+			    startActivityForResult(intent, RESULT_DELETE_IMAGE);
 			}
 		});
 		addButton.setOnClickListener(new View.OnClickListener() 
@@ -92,19 +96,10 @@ public class RestaurantImageView extends Activity
             @Override
 			public void onClick(View v) 
             {
-			    //Activity galleryView = new ImageGalleryActivity(); //On crŽe le fragment
-			    /*Bundle args = new Bundle(); //un conteneur pour ses arguments
-			    args.putString("objectType", "restaurant");//type
-			    args.putString("id", ""+resto.getId());// id
-			    Intent intent = new Intent(RestaurantImageView.this, ImageGalleryActivity.class);
-			    
-			    intent.putExtras(args); //On affecte à l'Intent le Bundle que l'on a créé
-			    startActivityForResult(intent, R.layout.activity_gallery_view);// not sure of this	*/
 				Intent i = new Intent(
 						Intent.ACTION_PICK,
 						android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-				startActivityForResult(i, RESULT_LOAD_IMAGE);
-			    
+				startActivityForResult(i, RESULT_LOAD_IMAGE);	    
             }
         });
 		okButton.setOnClickListener(new View.OnClickListener() 
@@ -148,16 +143,26 @@ public class RestaurantImageView extends Activity
 			cursor.close();
 			final String objectType = "restaurant";
 			final int objectId = resto.getId();
-			String finalFilePath = "img/" + objectType + "_" + objectId+ "_"+filePath+ ".png";
+			
+			Date d = new Date();
+			SimpleDateFormat f = new SimpleDateFormat("yyyyMMdd'T'HHmmss");
+			String s = f.format(d);
+			String finalFilePath = "img/" + objectType + "_" + objectId+ "_"+s+ ".png";
 			GourmetFiles.copyImageToDisk(finalFilePath, filePath);
 			
 			Image img = new Image(null, finalFilePath, objectType, objectId); // create a new image
 
 			Image.addImage(img); // ajoute l'image dans la DB
 			resto.addImage(img);
-			adapter.updateImages(resto.getImages());
-
+			//adapter.updateImages(resto.getImages());
+			adapter = new ImageAdapter(this, R.layout.restaurant_image_list_row, resto.getImages());
+			imageList.setAdapter(adapter);
 			//myImage.setImageBitmap(BitmapFactory.decodeFile(GourmetFiles.getRealPath(finalFilePath)));
+		}
+		if (requestCode == RESULT_DELETE_IMAGE)
+		{
+			adapter = new ImageAdapter(this, R.layout.restaurant_image_list_row, resto.getImages());
+			imageList.setAdapter(adapter);
 		}
 	}
 }

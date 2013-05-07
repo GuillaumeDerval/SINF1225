@@ -10,12 +10,13 @@
         android:id="@+id/RestaurantViewName"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/RestaurantViewEdit"
+        android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
+        android:background="#9ACD32"
         android:gravity="center_vertical|center_horizontal"
         android:text="Name"
-        android:textAppearance="?android:attr/textAppearanceLarge" 
-        android:background="#9ACD32"/>
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <Button
         android:id="@+id/RestaurantViewMenu"
@@ -24,8 +25,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/RestaurantViewName"
-        android:minHeight="0dp"
-        android:minWidth="0dp"
         android:text="Menu" />
 
     <TextView
@@ -33,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignTop="@+id/RestaurantViewMenu"
+        android:layout_below="@+id/RestaurantViewName"
         android:layout_toLeftOf="@+id/RestaurantViewMenu"
         android:text="Address"
         android:textAppearance="?android:attr/textAppearanceSmall" />
@@ -45,7 +44,6 @@
         android:layout_alignParentLeft="true"
         android:layout_alignRight="@+id/RestaurantViewAddress"
         android:layout_below="@+id/RestaurantViewAddress"
-        android:layout_toLeftOf="@+id/RestaurantViewMenu"
         android:text="Website"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -67,8 +65,6 @@
         android:layout_alignLeft="@+id/RestaurantViewMenu"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/RestaurantViewMenu"
-        android:minHeight="0dp"
-        android:minWidth="0dp"
         android:text="Book" />
 
     <TextView
@@ -89,12 +85,14 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/RestaurantViewReservation"
-        android:layout_centerVertical="true" >
+        android:layout_centerVertical="true"
+        android:background="#EEE8AA" >
 
         <LinearLayout
             android:id="@+id/RestaurantViewImageContainer"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
             android:orientation="horizontal" >            
         </LinearLayout>
         
@@ -105,24 +103,38 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/RestaurantViewName"
-        android:layout_alignLeft="@+id/RestaurantViewName"
-        android:layout_alignTop="@+id/RestaurantViewName"
-        android:minHeight="0dp"
-        android:minWidth="0dp"
-        android:text="Edit"
-        android:textSize="10dp" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="Edit"/>
 
     <Button
         android:id="@+id/beginNav"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/RestaurantViewMenu"
         android:layout_alignParentRight="true"
-        android:minHeight="0dp"
-        android:minWidth="0dp"
-        android:text="Aller vers"
-        android:textSize="10dp" />
+        android:layout_alignParentTop="true"
+        android:text="Map" />
+
+    <TextView
+        android:id="@+id/RestaurantViewEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/RestaurantViewReservation"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/RestaurantViewPhone"
+        android:text="Email"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <RatingBar
+        android:id="@+id/RestaurantViewStars"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/RestaurantViewDescription"
+        android:clickable="false"
+        android:longClickable="false"
+        android:isIndicator="true"
+        android:maxHeight="30dp" />
 
 </RelativeLayout>

@@ -6,10 +6,31 @@ package be.uclouvain.sinf1225.gourmet.enums;
  */
 public enum PriceCategory
 {
-	PRICECAT_UNKNOWN,
-	PRICECAT_VERYCHEAP,
-	PRICECAT_CHEAP,
-	PRICECAT_MIDDLE,
-	PRICECAT_EXPENSIVE,
-	PRICECAT_VERYEXPENSIVE
+	PRICECAT_UNKNOWN ("Autre"),
+	PRICECAT_VERYCHEAP("Trés bon marché"),
+	PRICECAT_CHEAP("Bon marché"),
+	PRICECAT_MIDDLE("Abordable"),
+	PRICECAT_EXPENSIVE("Cher"),
+	PRICECAT_VERYEXPENSIVE("Trés cher");
+	private String name = "";
+	    
+	  //Constructeur
+	  PriceCategory(String name)
+	  {
+		  this.name = name;
+	  }
+	  public String toString()
+	  {
+		  return name;
+	  }
+	  public static PriceCategory fromString(String text) {
+		    if (text != null) {
+		      for (PriceCategory b : PriceCategory.values()) {
+		        if (text.equalsIgnoreCase(b.name)) {
+		          return b;
+		        }
+		      }
+		    }
+		    return null;
+		  }
 }

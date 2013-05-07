@@ -1,16 +1,23 @@
 package be.uclouvain.sinf1225.gourmet;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import be.uclouvain.sinf1225.gourmet.models.City;
+import be.uclouvain.sinf1225.gourmet.models.Image;
 import be.uclouvain.sinf1225.gourmet.models.Restaurant;
+import be.uclouvain.sinf1225.gourmet.utils.GourmetFiles;
 import be.uclouvain.sinf1225.gourmet.utils.GourmetLocationListener;
 import be.uclouvain.sinf1225.gourmet.utils.GourmetLocationReceiver;
 import be.uclouvain.sinf1225.gourmet.utils.GourmetUtils;
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
@@ -33,8 +40,11 @@ import android.widget.ToggleButton;
 
 public class RestaurantListView extends Activity implements GourmetLocationReceiver
 {
-	private City city = null;
-	GourmetLocationListener locationListener = null;
+	static City city = null;
+	static GourmetLocationListener locationListener = null;
+	static RestaurantAdapter adapter;
+	static ListView RestaurantList;
+	static List<Restaurant> restaurants;
 
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
@@ -58,7 +68,7 @@ public class RestaurantListView extends Activity implements GourmetLocationRecei
 		//Recuperation de la ville sur laquelle on a clique et les restaurant qui lui appartiennent
 		city = City.getCity(getIntent().getExtras().getString("name"), getIntent().getExtras().getString("country"));
 
-		List<Restaurant> restaurants = Restaurant.getAllRestaurants(city);
+		restaurants = Restaurant.getAllRestaurants(city);
 		//On recupere les boutons pour le tri
 		final Spinner sortType = (Spinner) findViewById(R.id.RestaurantListSort);
 		final RadioGroup sortDirection = (RadioGroup) findViewById(R.id.RestaurantListSortDirection);
@@ -69,10 +79,10 @@ public class RestaurantListView extends Activity implements GourmetLocationRecei
 			Toast toast = Toast.makeText(getApplicationContext(),"Il n'y a pas de restaurants dans le ville sélectionnée",Toast.LENGTH_LONG);
 			toast.show();
 		}
-		ListView RestaurantList = (ListView) this.findViewById(R.id.RestaurantListView);
+		RestaurantList = (ListView) this.findViewById(R.id.RestaurantListView);
 
 		// On cree un adapter qui va mettre dans la liste les donnes adequates des villes
-		RestaurantAdapter adapter = new RestaurantAdapter(this, R.layout.restaurant_list_row, restaurants,locationListener.getLastLocation());
+		adapter = new RestaurantAdapter(this, R.layout.restaurant_list_row, restaurants,locationListener.getLastLocation());
 		if(locationListener.getLastLocation() == null) //si on a pas de position GPS
 		{
 			adapter.setSort("name"); //on trie par nom
@@ -155,6 +165,8 @@ public class RestaurantListView extends Activity implements GourmetLocationRecei
 			final RestaurantAdapter adapter = (RestaurantAdapter)restaurantList.getAdapter();
 			if(pos == 0) adapter.setSort("name");
 			else if(pos == 1) adapter.setSort("distance");
+			else if(pos == 2) adapter.setSort("pricecat");
+			else if(pos == 3) adapter.setSort("seats");
 		}
 
 		@Override

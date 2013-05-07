@@ -1,7 +1,6 @@
 package be.uclouvain.sinf1225.gourmet;
 
 import java.util.Calendar;
-import java.util.TimeZone;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -16,7 +15,6 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState)
 	{
-
 		// Check whether we're recreating a previously destroyed instance
 		if (savedInstanceState != null)
 		{
@@ -34,10 +32,16 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
 
 	public void onDateSet(DatePicker view, int year, int month, int day)
 	{
-		ReservationCreateView.dateTime.set(Calendar.YEAR, year);
-		ReservationCreateView.dateTime.set(Calendar.MONTH, month);
-		ReservationCreateView.dateTime.set(Calendar.DAY_OF_MONTH, day);
-		ReservationCreateView.datePicker.setText(ReservationCreateView.dateFormatter.format(ReservationCreateView.dateTime.getTime()));
+		Calendar cal = Calendar.getInstance();
+		cal.set(year,month,day);
+		
+		if (cal.after(Calendar.getInstance()))
+		{
+			ReservationCreateView.dateTime.set(Calendar.YEAR, year);
+			ReservationCreateView.dateTime.set(Calendar.MONTH, month);
+			ReservationCreateView.dateTime.set(Calendar.DAY_OF_MONTH, day);
+			ReservationCreateView.datePicker.setText(ReservationCreateView.dateFormatter.format(ReservationCreateView.dateTime.getTime()));
+		}
 	}
 
 	@Override
@@ -52,7 +56,6 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
 	public Dialog Default()
 	{
 		// Use the current date as the default date in the picker
-		ReservationCreateView.dateTime.setTimeZone(TimeZone.getTimeZone("Europe/Brussels"));
 		int year = ReservationCreateView.dateTime.get(Calendar.YEAR);
 		int month = ReservationCreateView.dateTime.get(Calendar.MONTH);
 		int day = ReservationCreateView.dateTime.get(Calendar.DAY_OF_MONTH);

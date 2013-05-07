@@ -1,9 +1,16 @@
 package be.uclouvain.sinf1225.gourmet;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,6 +19,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import be.uclouvain.sinf1225.gourmet.models.Dish;
 import be.uclouvain.sinf1225.gourmet.models.Image;
 import be.uclouvain.sinf1225.gourmet.models.Restaurant;
@@ -29,6 +37,7 @@ import be.uclouvain.sinf1225.gourmet.utils.GourmetUtils;
 public class DishView extends Activity
 {
 	private Dish dish = null;
+	private static int RESULT_EDIT_DISH = 1;
 
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
@@ -47,9 +56,11 @@ public class DishView extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_dish_view);
 		
+		// On récupère le plat et le restaurant associé
 		dish = Dish.getDish(getIntent().getExtras().getInt("dishId"));
 		Restaurant restaurant = dish.getRestaurant();
 
+		// On affiche les infos du plat
 		((TextView) findViewById(R.id.DishViewName)).setText(dish.getName());
 		((TextView) findViewById(R.id.DishViewDescription)).setText(dish.getDescription());
 		((TextView) findViewById(R.id.DishViewPrice)).setText("" + dish.getPrice());
@@ -58,6 +69,7 @@ public class DishView extends Activity
 		// ((TextView)findViewById(R.id.RestaurantListDistance)).setText(new
 		// DecimalFormat("#.##").format(city.getLocation().distanceTo(locationListener.getLastLocation())/1000));
 		
+		// Checkboxes non modifiables pour afficher les booléens
 		final CheckBox ViewSpicy = (CheckBox) findViewById(R.id.DishViewSpicy);
 		final CheckBox ViewVegan = (CheckBox) findViewById(R.id.DishViewVegan);
 		final CheckBox ViewAvailable = (CheckBox) findViewById(R.id.DishViewAvailable);
@@ -72,25 +84,37 @@ public class DishView extends Activity
 		else
 			ViewVegan.setChecked(false);
 
-		if (dish.getAllergen() == 1)
+		if (dish.getAvailable() >0)
 			ViewAvailable.setChecked(true);
 		else
 			ViewAvailable.setChecked(false);
 		
-		Button menu = (Button) findViewById(R.id.DishViewReservation);
-		menu.setOnClickListener(new OnClickListener()
+		// Bouton pour créer une nouvelle réservation contenant ce plat
+		Button book = (Button) findViewById(R.id.DishViewReservation);
+		book.setOnClickListener(new OnClickListener()
 		{
 			@Override
 			public void onClick(View arg0)
-			{
-				Intent intent = new Intent(DishView.this, ReservationCreateView.class);
-			    intent.putExtra("dishId", 1);
-			    startActivity(intent);
+			{ // Non réservable si non disponible
+				if (dish.getAvailable() ==0)
+					{
+					Toast toast = Toast.makeText(getApplicationContext(), "This dish is no longer available", Toast.LENGTH_LONG);
+				    toast.show();
+					}
+				else
+					{
+					Intent intent = new Intent(DishView.this, ReservationCreateView.class);
+					intent.putExtra("dishId", dish.getDishId());
+					startActivity(intent);
+					}
 			}
 		});
 		
+		// Bouton pour modifier le plat
 		Button editdish = (Button) findViewById(R.id.DishViewEdit);
 		User user = User.getUserConnected();
+		
+		// Visible seulement par le restaurateur
 		if(user instanceof Restaurator && ((Restaurator)user).hasRightsForRestaurant(restaurant))
 			editdish.setVisibility(View.VISIBLE);	
 		else
@@ -102,16 +126,35 @@ public class DishView extends Activity
 			public void onClick(View arg0)
 			{
 				Intent intent = new Intent(DishView.this, DishEditView.class);
-			    intent.putExtra("dishId", 1);
-			    startActivity(intent);
+			    intent.putExtra("dishId", dish.getDishId());
+			    startActivityForResult(intent, RESULT_EDIT_DISH);
 			}
 		});
 		
+		// Affichage de l'image associée au plat si elle existe
 		Image image = dish.getImg();
 		ImageView imageView = (ImageView) findViewById(R.id.DishViewImage);
 		if(image != null)
 			imageView.setImageBitmap(BitmapFactory.decodeFile(GourmetFiles.getRealPath(image.getPath())));
 		else
 			imageView.setVisibility(ImageView.GONE);
+	}
+	protected void onActivityResult(int requestCode, int resultCode, Intent data)
+	{
+		super.onActivityResult(requestCode, resultCode, data);
+
+		if (requestCode == RESULT_EDIT_DISH)
+		{
+			String result=data.getStringExtra("deleted");
+			if(result.equals("done")) finish();
+			else
+			{
+				super.onRestart();
+				Intent i = new Intent(this, DishView.class);  //your class
+				i.putExtra("dishId", dish.getDishId());
+				startActivity(i);
+				finish();
+			}
+		}
 	}
 }

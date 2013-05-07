@@ -1,6 +1,5 @@
 package be.uclouvain.sinf1225.gourmet;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -8,18 +7,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import be.uclouvain.sinf1225.gourmet.models.Dish;
+import be.uclouvain.sinf1225.gourmet.models.Restaurant;
 import be.uclouvain.sinf1225.gourmet.utils.GourmetUtils;
-import android.widget.CheckBox;
+import android.app.Activity;
 
-/**
- * 
- * @author qeggerickx
- * 
- */
-public class DishEditView extends Activity
+public class AddDishView extends Activity
 {
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
@@ -39,8 +35,9 @@ public class DishEditView extends Activity
 
 		setContentView(R.layout.activity_dish_edit);
 
-		int dishId = getIntent().getExtras().getInt("dishId");		
-		final Dish dish = Dish.getDish(dishId);
+		int restaurantId = getIntent().getExtras().getInt("restaurantId");		
+		final Restaurant resto = Restaurant.getRestaurant(restaurantId);
+		final Dish dish = new Dish();
 		// button's creation
 		final EditText EditName = (EditText) findViewById(R.id.EditDishName);
 		final Spinner EditCategory = (Spinner) findViewById(R.id.dish_category_edit);
@@ -60,29 +57,6 @@ public class DishEditView extends Activity
 		        R.array.dish_category, android.R.layout.simple_spinner_item);
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		EditCategory.setAdapter(adapter);
-		int position = adapter.getPosition(dish.getCategory());
-		
-		// field's init
-		EditName.setText(dish.getName());
-		EditPrice.setText("" + dish.getPrice());
-		EditAvailable.setText(""+dish.getAvailable());
-		EditDescription.setText(dish.getDescription());
-		EditCategory.setSelection(position);
-
-		if (dish.getSpicy() == 1)
-			EditSpicy.setChecked(true); // to be checked, true equals 1 or 0
-		else
-			EditSpicy.setChecked(false);
-
-		if (dish.getVegan() == 1)
-			EditVegan.setChecked(true);
-		else
-			EditVegan.setChecked(false);
-
-		if (dish.getAllergen() == 1)
-			EditAllergen.setChecked(true);
-		else
-			EditAllergen.setChecked(false);
 
 		ApplyButton.setOnClickListener(new View.OnClickListener()
 		{
@@ -108,11 +82,9 @@ public class DishEditView extends Activity
 					dish.setAllergen(1);
 				else
 					dish.setAllergen(0);
-
-				dish.updateDish();
-				Intent returnIntent = new Intent();
-				returnIntent.putExtra("deleted","notdone");
-				setResult(RESULT_OK,returnIntent);
+				
+				dish.setRestoId(resto.getId());
+				dish.addDish();
 				finish();
 			}
 		});
@@ -121,9 +93,6 @@ public class DishEditView extends Activity
 			public void onClick(View v)
 			{
 				dish.deleteDish();
-				Intent returnIntent = new Intent();
-				returnIntent.putExtra("deleted","done");
-				setResult(RESULT_OK,returnIntent);
 				finish();
 			}
 		});
@@ -131,7 +100,29 @@ public class DishEditView extends Activity
 		{
 			public void onClick(View v)
 			{
-				Intent intent = new Intent(DishEditView.this, ViewDishImage.class);
+				dish.setName(EditName.getText().toString());
+				dish.setCategory(EditCategory.getSelectedItem().toString());
+				dish.setPrice(Double.parseDouble(EditPrice.getText().toString()));
+				dish.setAvailable(Integer.parseInt(EditAvailable.getText().toString()));
+				dish.setDescription(EditDescription.getText().toString());
+
+				if (EditSpicy.isChecked())
+					dish.setSpicy(1);
+				else
+					dish.setSpicy(0);
+
+				if (EditVegan.isChecked())
+					dish.setVegan(1);
+				else
+					dish.setVegan(0);
+
+				if (EditAllergen.isChecked())
+					dish.setAllergen(1);
+				else
+					dish.setAllergen(0);
+
+				dish.addDish();
+				Intent intent = new Intent(AddDishView.this, ViewDishImage.class);
 				intent.putExtra("dishId", dish.getDishId());
 				startActivity(intent);
 			}
@@ -149,3 +140,5 @@ public class DishEditView extends Activity
 	}
 
 }
+
+

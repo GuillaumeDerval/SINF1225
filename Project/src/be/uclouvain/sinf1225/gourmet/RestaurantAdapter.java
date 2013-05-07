@@ -29,6 +29,8 @@ public class RestaurantAdapter extends ArrayAdapter<Restaurant>
 	{
 		TextView name;
 		TextView distance;
+		TextView pricecat;
+		TextView seats;
 	}
 	private class RestaurantComparator implements Comparator<Restaurant>
 	{
@@ -43,7 +45,14 @@ public class RestaurantAdapter extends ArrayAdapter<Restaurant>
 	        	if(lastLocation == null) return 0;
 	        	ret = Double.valueOf(restaurant1.getLocation().distanceTo(lastLocation)).compareTo((double) restaurant2.getLocation().distanceTo(lastLocation));
 	        }
-	        
+	        else if(orderby.equals("pricecat"))
+	        {
+	        	ret = restaurant1.getPriceCategory().compareTo(restaurant2.getPriceCategory());
+	        }
+	        else if(orderby.equals("seats"))
+	        {
+	        	ret = Integer.valueOf(restaurant1.getSeats()).compareTo(restaurant2.getSeats());
+	        }
 	        if(!orderasc) ret = -ret;
 	        return ret;
 	    }
@@ -205,6 +214,8 @@ public class RestaurantAdapter extends ArrayAdapter<Restaurant>
 			//Et une correspondance entre cette ligne et les champs de texte
 			viewIds = new ViewIds();
 			viewIds.name = (TextView)row.findViewById(R.id.RestaurantListName);
+			viewIds.pricecat = (TextView)row.findViewById(R.id.RestaurantListPriceCat);
+			viewIds.seats = (TextView)row.findViewById(R.id.RestaurantListSeats);
 			viewIds.distance = (TextView)row.findViewById(R.id.RestaurantListDistance);
 			row.setTag(viewIds);
 		}
@@ -215,6 +226,8 @@ public class RestaurantAdapter extends ArrayAdapter<Restaurant>
 
 		Restaurant restaurant = filteredRestaurants.get(position);
 		viewIds.name.setText(restaurant.getName());
+		viewIds.pricecat.setText("Catégorie de prix: " + restaurant.getPriceCategory().toString());
+		viewIds.seats.setText("Places disponibles: " + String.valueOf(restaurant.getSeats()));
 		double dist = -1;
 		if(lastLocation != null)
 			dist = restaurant.getLocation().distanceTo(lastLocation);

@@ -11,10 +11,7 @@
         android:orientation="vertical" >
 
         <!-- Put form controls here -->
-   		 <LinearLayout
-        	android:layout_width="match_parent"
-        	android:layout_height="match_parent"
-        	android:orientation="horizontal" >
+
             	<TextView
        	 		android:id="@+id/textView1"
         		android:layout_width="wrap_content"
@@ -27,12 +24,6 @@
             	android:inputType="textPersonName"
             	android:text="Name" >
         	</EditText>
- 		</LinearLayout>
-
-    	<LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal" >
             	<TextView
        	 		android:id="@+id/textView1"
         		android:layout_width="wrap_content"
@@ -47,12 +38,6 @@
         	    android:text="PhoneNumber" >
 
         	</EditText>
- 		</LinearLayout>
- 
-        <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal" >
         	    <TextView
        	 		android:id="@+id/textView1"
         		android:layout_width="wrap_content"
@@ -65,27 +50,17 @@
             android:lines="3"
             android:text="Adress" >
         	</EditText>
- 		</LinearLayout>
-		<LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal" >
+
             	<TextView
        	 		android:id="@+id/textView1"
         		android:layout_width="wrap_content"
         		android:layout_height="wrap_content"
         		android:text="Catégorie de prix" />
-        	<EditText
-            android:id="@+id/EditPriceCat"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="PriceCat" >
-        	</EditText>
-        </LinearLayout>
-        <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal" >
+			<Spinner
+    		android:id="@+id/edit_restaurant_price_cat"
+    		android:layout_width="fill_parent"
+    		android:layout_height="wrap_content" />
+
             	<TextView
        	 		android:id="@+id/textView1"
         		android:layout_width="wrap_content"
@@ -100,12 +75,7 @@
         	    android:text="Email" >
 
         	</EditText>
- 		</LinearLayout>
- 		
-       	<LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal" >
+
             	<TextView
        	 		android:id="@+id/textView1"
         		android:layout_width="wrap_content"
@@ -120,11 +90,7 @@
         	    android:text="Max seats" >
 
         	</EditText>
-		</LinearLayout>
-       	<LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal" >
+
             	<TextView
        	 		android:id="@+id/textView1"
         		android:layout_width="wrap_content"
@@ -137,12 +103,8 @@
             android:lines="3"
             android:text="Description" >
         	</EditText>
-	</LinearLayout>
-	
-       	<LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal" >
+
+
             	<TextView
        	 		android:id="@+id/textView1"
         		android:layout_width="wrap_content"
@@ -157,7 +119,6 @@
         	    android:text="Website" >
 
         	</EditText>
-		</LinearLayout>
         	<RatingBar
             android:id="@+id/restaurantStars"
             android:layout_width="wrap_content"
