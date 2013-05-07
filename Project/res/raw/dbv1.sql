@@ -38,11 +38,11 @@ INSERT INTO "restaurant" VALUES (2,'Altérez-vous', 'Louvain-la-Neuve', 'Belgiqu
 
 DROP TABLE IF EXISTS "dish";
 CREATE TABLE "dish" (
-	 "dishId" integer NOT NULL PRIMARY KEY AUTOINCREMENT,
+	 "dishId" integer PRIMARY KEY AUTOINCREMENT,
 	 "name" text NOT NULL,
 	 "restoId" integer NOT NULL,
 	 "description" text,
-	 "price" integer NOT NULL,
+	 "price" real NOT NULL,
 	 "spicy" integer NOT NULL,
 	 "vegan" integer NOT NULL,
 	 "available" integer,
@@ -50,7 +50,7 @@ CREATE TABLE "dish" (
 	 "category" text NOT NULL,
 	CONSTRAINT "Link_Dish_Resto" FOREIGN KEY ("restoId") REFERENCES "restaurant" ("restoId")
 );
-CREATE UNIQUE INDEX "dish_p_key" ON "dish" ("name" ASC, "restoId" ASC, "description" ASC, "price" ASC, "spicy" ASC, "vegan" ASC,"allergen" ASC);
+CREATE UNIQUE INDEX "dish_p_key" ON "dish" ("name" ASC, "restoId" ASC, "category" ASC);
 
 INSERT INTO "dish" VALUES (1,'CourgetteEntree ', 1, 'GreenEntree', 10, 1, 1, 1, 1, 'Entree');
 INSERT INTO "dish" VALUES (2,'CourgettePlat ', 1, 'GreenPlat', 10, 1, 1, 1, 1, 'Plat');
@@ -68,7 +68,7 @@ INSERT INTO "dish" VALUES (11,'Soupe aux légumes', 2, 'Une délicieuse soupe sa
 DROP TABLE IF EXISTS "reservation";
 CREATE TABlE "reservation"
 (
-	"resvId" integer NOT NULL PRIMARY KEY AUTOINCREMENT,
+	"resvId" integer PRIMARY KEY AUTOINCREMENT,
 	"userEmail" text NOT NULL,
 	"restoId" integer NOT NULL,
 	"nbrReservation" integer NOT NULL,
