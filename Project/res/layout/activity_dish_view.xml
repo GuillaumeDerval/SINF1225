@@ -23,7 +23,7 @@
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
       android:layout_centerHorizontal="true"
-      android:layout_below="@+id/DishViewVegan"
+      android:layout_below="@+id/DishViewAllergen"
       android:gravity="center"
       android:text="Description of the restaurant"
       android:textAppearance="?android:attr/textAppearanceSmall" />
@@ -47,6 +47,15 @@
       android:clickable="false"
       android:longClickable="false"
       android:text="Vegan" />
+   <CheckBox
+      android:id="@+id/DishViewAllergen"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentLeft="true"
+      android:layout_below="@+id/DishViewVegan"
+      android:clickable="false"
+      android:longClickable="false"
+      android:text="Allergens" />
 
   <ImageView
       android:id="@+id/DishViewImage"

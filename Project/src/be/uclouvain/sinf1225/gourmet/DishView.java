@@ -73,6 +73,7 @@ public class DishView extends Activity
 		final CheckBox ViewSpicy = (CheckBox) findViewById(R.id.DishViewSpicy);
 		final CheckBox ViewVegan = (CheckBox) findViewById(R.id.DishViewVegan);
 		final CheckBox ViewAvailable = (CheckBox) findViewById(R.id.DishViewAvailable);
+		final CheckBox ViewAllergen = (CheckBox) findViewById(R.id.DishViewAllergen);
 		
 		if (dish.getSpicy() == 1)
 			ViewSpicy.setChecked(true); // to be checked, true equals 1 or 0
@@ -88,6 +89,11 @@ public class DishView extends Activity
 			ViewAvailable.setChecked(true);
 		else
 			ViewAvailable.setChecked(false);
+		
+		if (dish.getAllergen() == 1)
+			ViewAllergen.setChecked(true); 
+		else
+			ViewAllergen.setChecked(false);
 		
 		// Bouton pour créer une nouvelle réservation contenant ce plat
 		Button book = (Button) findViewById(R.id.DishViewReservation);
