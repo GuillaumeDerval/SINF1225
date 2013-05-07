@@ -134,6 +134,7 @@
         android:layout_below="@+id/RestaurantViewDescription"
         android:clickable="false"
         android:longClickable="false"
+        android:isIndicator="true"
         android:maxHeight="30dp" />
 
 </RelativeLayout>
