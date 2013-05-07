@@ -13,13 +13,32 @@
         <item>Distance</item>
         <item>Restaurants</item>
     </string-array>
+    
         <string-array name="restaurant_sort">
         <item>Nom</item>
         <item>Distance</item>
     </string-array>
+    
         <string-array name="dish_sort">
         <item>Nom</item>
     </string-array>
+    
+        <string-array name="dish_category">
+        <item>Entrée</item>
+        <item>Plat</item>
+        <item>Dessert</item>
+        <item>Autre</item>
+        </string-array>
+        
+        <string-array name="restaurant_price_category">
+        <item>Autre</item>
+        <item>Trés bon marché</item>
+        <item>Bon marché</item>
+        <item>Abordable</item>
+        <item>Cher</item>
+        <item>Trés cher</item>
+ 	 	</string-array>
+
 
     <string name="hello_world">hello_world</string> <!-- TODO what? -->
     <string name="salut">salut</string> <!-- TODO what? -->

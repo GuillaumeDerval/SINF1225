@@ -75,12 +75,10 @@
         		android:layout_width="wrap_content"
         		android:layout_height="wrap_content"
         		android:text="Catégorie de prix" />
-        	<EditText
-            android:id="@+id/EditPriceCat"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="PriceCat" >
-        	</EditText>
+			<Spinner
+    		android:id="@+id/edit_restaurant_price_cat"
+    		android:layout_width="fill_parent"
+    		android:layout_height="wrap_content" />
         </LinearLayout>
         <LinearLayout
         android:layout_width="match_parent"

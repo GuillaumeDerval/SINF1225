@@ -6,8 +6,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import be.uclouvain.sinf1225.gourmet.models.Dish;
 import be.uclouvain.sinf1225.gourmet.utils.GourmetUtils;
 import android.widget.CheckBox;
@@ -41,7 +43,7 @@ public class DishEditView extends Activity
 		final Dish dish = Dish.getDish(dishId);
 		// button's creation
 		final EditText EditName = (EditText) findViewById(R.id.EditDishName);
-		final EditText EditCategory = (EditText) findViewById(R.id.EditDishCategory);
+		final Spinner EditCategory = (Spinner) findViewById(R.id.dish_category_edit);
 		final EditText EditPrice = (EditText) findViewById(R.id.EditDishPrice);
 		final EditText EditAvailable = (EditText) findViewById(R.id.EditDishAvailable);
 		final EditText EditDescription = (EditText) findViewById(R.id.EditDishDescription);
@@ -54,12 +56,18 @@ public class DishEditView extends Activity
 		final Button DeleteButton = (Button) findViewById(R.id.buttonDishDelete);
 		final Button imageButton = (Button) findViewById(R.id.dishImageButton);
 
+		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+		        R.array.dish_category, android.R.layout.simple_spinner_item);
+		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		EditCategory.setAdapter(adapter);
+		int position = adapter.getPosition(dish.getCategory());
+		
 		// field's init
 		EditName.setText(dish.getName());
-		//EditCategory.setText(dish.getCategory());
 		EditPrice.setText("" + dish.getPrice());
 		EditAvailable.setText(""+dish.getAvailable());
 		EditDescription.setText(dish.getDescription());
+		EditCategory.setSelection(position);
 
 		if (dish.getSpicy() == 1)
 			EditSpicy.setChecked(true); // to be checked, true equals 1 or 0
@@ -81,7 +89,7 @@ public class DishEditView extends Activity
 			public void onClick(View v)
 			{	
 				dish.setName(EditName.getText().toString());
-				dish.setCategory(EditCategory.getText().toString());
+				dish.setCategory(EditCategory.getSelectedItem().toString());
 				dish.setPrice(Double.parseDouble(EditPrice.getText().toString()));
 				dish.setAvailable(Integer.parseInt(EditAvailable.getText().toString()));
 				dish.setDescription(EditDescription.getText().toString());
