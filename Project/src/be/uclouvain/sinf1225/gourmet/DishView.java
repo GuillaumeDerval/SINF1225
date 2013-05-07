@@ -92,7 +92,6 @@ public class DishView extends Activity
 					{
 					Toast toast = Toast.makeText(getApplicationContext(), "This dish is no longer available", Toast.LENGTH_LONG);
 				    toast.show();
-					ViewAvailable.setChecked(true);
 					}
 				else
 					{
