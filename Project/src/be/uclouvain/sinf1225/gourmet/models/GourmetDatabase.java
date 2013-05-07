@@ -862,7 +862,47 @@ class GourmetDatabase extends SQLiteOpenHelper
 	public List<Reservation> getReservationInRestaurant(Restaurant restaurant) { return null; }
 	public List<Reservation> getReservationByUser(User user) {
 		//Adrien : I'm working on this one right now, DO NO TOUCH
-		return null;
+		
+
+		
+		SQLiteDatabase db = this.getReadableDatabase();
+		
+		Cursor cursor = db.query(true,"reservation", //table to select on
+				new String[]{"name","resto","nbrReservation","date"}, //column to get WARNING MISSING TIME
+				"`UserEmail` = ?", 
+				new String[]{user.getEmail()}, 
+				null,
+				null,
+				null,
+				null);
+		if(cursor == null)
+		{
+		    return null;
+		}
+		
+		cursor.moveToFirst();
+
+		List<Reservation> reservations = new ArrayList<Reservation>();
+		/*
+		for(int j = 0; j < cursor.getCount(); j++)
+		{
+			//getting all necessary informations to construct a reservation object.
+			int id;
+			String userEmail;
+			Restaurant restaurant;
+			int nbrReservation;
+			List<DishNode> dishes;
+			Date date;
+			
+			
+			Reservation rsv = new Reservation(id,userEmail,restaurant,nbrReservation,dishes,date);
+
+			reservations.add(rsv);
+			cursor.moveToNext();
+
+		}//*/
+			
+		return reservations;
 	}
 	
 	
