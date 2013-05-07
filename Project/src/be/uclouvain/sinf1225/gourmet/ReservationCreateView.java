@@ -107,23 +107,23 @@ public class ReservationCreateView extends Activity
 	}
 
 	@Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
+	protected void onActivityResult(int requestCode, int resultCode, Intent data)
+	{
 		super.onActivityResult(requestCode, resultCode, data);
-		
+
 		/* add the id into the list of dishes */
 		dish_id_list.add(resultCode);
-		
+
 		/* update the adapter*/
 		String name = Dish.getDish(resultCode).getName();
 		dish_name_list.add(name);
-   		adapter.notifyDataSetChanged();
-   		
-   		/* Display a toast */
-   		Context context = getApplicationContext();
+		adapter.notifyDataSetChanged();
+
+		/* Display a toast */
+		Context context = getApplicationContext();
 		Toast toast = Toast.makeText(context, "plat ajouté", Toast.LENGTH_SHORT);
 		toast.show();
-    }
+	}
 	
 	/**
 	 * onClick Behavior - button SEND
