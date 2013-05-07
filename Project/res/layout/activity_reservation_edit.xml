@@ -18,7 +18,7 @@
         	android:layout_height="wrap_content"
         	android:textStyle="bold"
         	android:textSize="20sp"
-        	android:text="Restaurant:"
+        	android:text="@string/restaurant"
         	android:textIsSelectable="true" />
   	    
     	<TextView
@@ -71,29 +71,13 @@
             android:drawSelectorOnTop="false"/>
         
     </LinearLayout>
- 	        
- 	<LinearLayout
-        android:id="@+id/input"
+
+  	<Button
+     	android:id="@+id/button_add"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
- 	    
- 	    <AutoCompleteTextView
- 	        android:id="@+id/dish"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:hint="@string/dish"
-            android:ems="10" />
-
-        <Button
-            android:id="@+id/button_add"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/button_add"
-            android:onClick="addItems" />
-    </LinearLayout>
+        android:layout_height="wrap_content"
+        android:text="@string/button_add"
+        android:onClick="addItems" />
    	        
 	<Button 
        	android:id = "@+id/send_reservation"
