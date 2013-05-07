@@ -10,11 +10,13 @@
         android:id="@+id/RestaurantViewName"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/RestaurantViewEdit"
+        android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
+        android:background="#9ACD32"
         android:gravity="center_vertical|center_horizontal"
         android:text="Name"
-        android:textAppearance="?android:attr/textAppearanceLarge" 
-        android:background="#9ACD32"/>
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <Button
         android:id="@+id/RestaurantViewMenu"
@@ -30,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignTop="@+id/RestaurantViewMenu"
+        android:layout_below="@+id/RestaurantViewName"
         android:layout_toLeftOf="@+id/RestaurantViewMenu"
         android:text="Address"
         android:textAppearance="?android:attr/textAppearanceSmall" />
@@ -42,7 +44,6 @@
         android:layout_alignParentLeft="true"
         android:layout_alignRight="@+id/RestaurantViewAddress"
         android:layout_below="@+id/RestaurantViewAddress"
-        android:layout_toLeftOf="@+id/RestaurantViewMenu"
         android:text="Website"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -72,7 +73,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/RestaurantViewStars"
+        android:layout_below="@+id/RestaurantViewGallery"
         android:gravity="center"
         android:text="Description"
         android:textAppearance="?android:attr/textAppearanceSmall" />
@@ -102,6 +103,8 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
         android:text="Edit"/>
 
     <Button
@@ -109,9 +112,9 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/RestaurantViewMenu"
         android:layout_alignParentRight="true"
-        android:text="Get directions" />
+        android:layout_alignParentTop="true"
+        android:text="Map" />
 
     <TextView
         android:id="@+id/RestaurantViewEmail"
@@ -128,8 +131,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/RestaurantViewGallery"
+        android:layout_below="@+id/RestaurantViewDescription"
         android:clickable="false"
-        android:longClickable="false" />
+        android:longClickable="false"
+        android:maxHeight="30dp" />
 
 </RelativeLayout>
