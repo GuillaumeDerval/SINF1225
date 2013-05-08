@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -40,6 +41,9 @@ public class ReservationManagerView extends Activity
 		TableRow row2 = (TableRow) ( (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.reservation_manager_row, null);
 		rsv_tab.addView(row2);
 		setRow(row2,"Legrand","11-05-13", "20:30", "L'o à la bouche", "2");
+		
+		Button edit = (Button) ( (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.reservation_manager_button, null);
+		rsv_tab.addView(edit);
 	}
 	
 	private void setRow(TableRow row, String name, String date, String time, String restaurant, String effectif){
