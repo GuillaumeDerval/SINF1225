@@ -131,7 +131,7 @@ public class DishListView extends Activity
 						setResult(RESULT_OK, intent);
 						finish();
 					}
-					else {setResult(RESULT_CANCELED);}
+					else {setResult(RESULT_CANCELED); finish();}
 				}
 				else
 				{
@@ -164,7 +164,7 @@ public class DishListView extends Activity
 						setResult(RESULT_OK, intent);
 						finish();
 					}
-					else {setResult(RESULT_CANCELED);}
+					else {setResult(RESULT_CANCELED); finish();}
 				}
 				else
 				{
@@ -197,7 +197,7 @@ public class DishListView extends Activity
 						setResult(RESULT_OK, intent);
 						finish();
 					}
-					else {setResult(RESULT_CANCELED);}
+					else {setResult(RESULT_CANCELED); finish();}
 				}
 				else
 				{
@@ -230,7 +230,7 @@ public class DishListView extends Activity
 						setResult(RESULT_OK, intent);
 						finish();
 					}
-					else {setResult(RESULT_CANCELED);}
+					else {setResult(RESULT_CANCELED); finish();}
 				}
 				else
 				{

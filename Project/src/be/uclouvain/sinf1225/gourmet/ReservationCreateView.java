@@ -80,6 +80,8 @@ public class ReservationCreateView extends Activity
 		
 		/* Receive the data */
 		getDataTransfer(getIntent());
+		
+		nbrReservation.setHint("Nbr max ("+ Restaurant.getRestaurant(resto_id).getSeats() + ")");
 	}
 
 	public void showTimePickerDialog(View v)
@@ -155,7 +157,10 @@ public class ReservationCreateView extends Activity
 
 		/* Manage Exception */
 		try{nbrResv = Integer.parseInt(nbrReservation.getText().toString());}
-		catch (Exception e) {exception = true;	text = "Nbr inrempli";}
+		catch (Exception e) {exception = true;	text = "Nbr non rempli";}
+		
+		if(!exception && nbrResv > Restaurant.getRestaurant(resto_id).getSeats())
+		{exception = true; text = "Nbr trop grand";}
 
 		/* Check if the reservation does not exists yet */
 		if ( !exception && Reservation.getReservation(email, resto_id, date) != null)
