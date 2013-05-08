@@ -13,12 +13,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import be.uclouvain.sinf1225.gourmet.models.City;
 import be.uclouvain.sinf1225.gourmet.models.Dish;
 import be.uclouvain.sinf1225.gourmet.models.Reservation;
 import be.uclouvain.sinf1225.gourmet.models.Restaurant;
@@ -82,6 +85,22 @@ public class ReservationCreateView extends Activity
 		getDataTransfer(getIntent());
 		
 		nbrReservation.setHint("Nbr max ("+ Restaurant.getRestaurant(resto_id).getSeats() + ")");
+		
+		list.setOnItemClickListener(new OnItemClickListener()
+		{
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+			{
+				int ID = dish_id_list.remove(position);		/* remove the dish into the list of dish_id */
+				dish_name_list.remove(position); 			/* remove the dish into the listView */
+				adapter.notifyDataSetChanged(); 			/* update the adapter */
+
+				Dish dish = Dish.getDish(ID);
+
+				/* increment the values of available */
+				dish.setAvailable(dish.getAvailable() + 1);
+				dish.updateDish();
+			}
+		});
 	}
 
 	public void showTimePickerDialog(View v)
@@ -229,5 +248,5 @@ public class ReservationCreateView extends Activity
 
 		/* display the restaurant's name */
 		restaurant.setText(Restaurant.getRestaurant(resto_id).getName());
-	}	
+	}
 }

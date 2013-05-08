@@ -15,7 +15,7 @@
         android:gravity="center"
         android:text="@string/restaurant"
         android:textIsSelectable="true"
-        android:textSize="17sp"
+        android:textSize="20sp"
         android:textStyle="bold" />
 
     <LinearLayout
@@ -29,7 +29,7 @@
             android:layout_weight="3"
             android:gravity="left"
             android:textIsSelectable="true"
-            android:textSize="15sp"
+            android:textSize="17sp"
             android:textStyle="bold" />
 
         <EditText
@@ -49,7 +49,7 @@
         android:gravity="center"
         android:text="@string/DateTime"
         android:textIsSelectable="true"
-        android:textSize="17sp"
+        android:textSize="20sp"
         android:textStyle="bold" />
 
     <LinearLayout
