@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ScrollView01"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     android:scrollbars="vertical" >
 
@@ -144,18 +144,19 @@
         
     </HorizontalScrollView>
 
-    <LinearLayout 
+    <ScrollView 
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical" >
-        
+    android:orientation="vertical"
+    android:layout_below="@+id/RestaurantViewGallery" >
+     <LinearLayout 
+        android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:orientation="vertical">
     <TextView
         android:id="@+id/RestaurantViewDescription"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/RestaurantViewGallery"
         android:gravity="center"
         android:text="Description du restaurant"
         android:textAppearance="?android:attr/textAppearanceSmall" />
@@ -167,5 +168,7 @@
         android:layout_alignParentLeft="true"
         android:isIndicator="true"
         android:layout_below="@+id/RestaurantViewDescription" />
-    </LinearLayout>
+    </LinearLayout>   
+    </ScrollView>
+    
 </LinearLayout>
