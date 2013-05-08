@@ -17,6 +17,8 @@ import android.app.Activity;
 
 public class AddDishView extends Activity
 {
+	int restaurantId;
+	Dish dish;
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
 	    GourmetUtils.createMenu(menu, this, R.id.search);
@@ -35,9 +37,9 @@ public class AddDishView extends Activity
 
 		setContentView(R.layout.activity_dish_edit);
 
-		int restaurantId = getIntent().getExtras().getInt("restaurantId");		
+		restaurantId = getIntent().getExtras().getInt("restaurantId");		
 		final Restaurant resto = Restaurant.getRestaurant(restaurantId);
-		final Dish dish = new Dish();
+		dish = new Dish();
 		// button's creation
 		final EditText EditName = (EditText) findViewById(R.id.EditDishName);
 		final Spinner EditCategory = (Spinner) findViewById(R.id.dish_category_edit);
@@ -67,7 +69,7 @@ public class AddDishView extends Activity
 				dish.setPrice(Double.parseDouble(EditPrice.getText().toString()));
 				dish.setAvailable(Integer.parseInt(EditAvailable.getText().toString()));
 				dish.setDescription(EditDescription.getText().toString());
-
+				dish.setRestoId(restaurantId);
 				if (EditSpicy.isChecked())
 					dish.setSpicy(1);
 				else
@@ -105,7 +107,7 @@ public class AddDishView extends Activity
 				dish.setPrice(Double.parseDouble(EditPrice.getText().toString()));
 				dish.setAvailable(Integer.parseInt(EditAvailable.getText().toString()));
 				dish.setDescription(EditDescription.getText().toString());
-
+				dish.setRestoId(restaurantId);
 				if (EditSpicy.isChecked())
 					dish.setSpicy(1);
 				else
@@ -122,6 +124,8 @@ public class AddDishView extends Activity
 					dish.setAllergen(0);
 
 				dish.addDish();
+				String name = dish.getName();
+				dish = Dish.getDish(name, restaurantId);
 				Intent intent = new Intent(AddDishView.this, ViewDishImage.class);
 				intent.putExtra("dishId", dish.getDishId());
 				startActivity(intent);

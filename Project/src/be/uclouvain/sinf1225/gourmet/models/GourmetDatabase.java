@@ -27,7 +27,8 @@ import be.uclouvain.sinf1225.gourmet.utils.GourmetUtils;
 class GourmetDatabase extends SQLiteOpenHelper
 {
 
-	private static final int DATABASE_VERSION = 49;
+
+	private static final int DATABASE_VERSION = 55;
 
 
 
@@ -318,6 +319,7 @@ class GourmetDatabase extends SQLiteOpenHelper
 		 
 	    ContentValues values = new ContentValues();
 	    values.put("name", dish.getName());
+	    values.put("restoId", dish.getRestoId());
 	    values.put("category", dish.getCategory());
 	    values.put("description", dish.getDescription());
 	    values.put("price", dish.getPrice());
@@ -361,7 +363,6 @@ class GourmetDatabase extends SQLiteOpenHelper
 	{
 		SQLiteDatabase db = this.getWritableDatabase();
 	    int i = db.delete("dish", "`dishId` = ?", new String[] {""+dish.getDishId()});
-	    Log.d("","------------->" +i);
 	    db.close();
 	}
 	
@@ -409,7 +410,45 @@ class GourmetDatabase extends SQLiteOpenHelper
 	    db.close();
 		return dish;
 	}
-	
+	public Dish getDish(String name, int restoId)
+	{
+		SQLiteDatabase db = this.getReadableDatabase();
+
+		Cursor cursor = db.query("dish", //table to select on
+				new String[]{"dishId","name","restoId","description","price", "spicy","vegan","available","allergen","category"},//column to get
+				"`name` = ? AND `restoId` = ?", //where clause, ?s will be replaced by...
+				new String[]{name, ""+restoId}, //... these values
+				null, //group by
+				null, //having
+				null); //orderby
+		
+		if(cursor == null)
+		{
+			db.close();
+			return null;
+		}
+		
+		cursor.moveToFirst();
+		Restaurant resto = getRestaurant(cursor.getInt(2));
+		List<Image> imgs = getImages("dish", cursor.getInt(0));
+		Image img = imgs.size() == 0 ? null : imgs.get(0);
+		Dish dish= new Dish(
+				cursor.getInt(0), //dishId
+				cursor.getString(1), //name
+				cursor.getInt(2), // restoId
+				cursor.getString(3), //description
+				cursor.getDouble(4), //price
+				cursor.getInt(5), //spicy
+				cursor.getInt(6), //vegan
+				cursor.getInt(7), //available
+				cursor.getInt(8), //allergen
+				cursor.getString(9),//category
+				resto, // restaurant
+				img); // image
+
+	    db.close();
+		return dish;
+	}
 	/**
 	 * Return all dishes availables in a certain restaurant
 	 * @param restaurant

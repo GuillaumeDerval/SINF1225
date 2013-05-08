@@ -92,6 +92,13 @@ public class Dish
 		db.close();
 		return dish;
 	}
+	public static Dish getDish(String name,int restoId)
+	{
+		GourmetDatabase db = new GourmetDatabase();
+		Dish dish = db.getDish(name, restoId);
+		db.close();
+		return dish;
+	}
 
 	public String getCategory()
 	{
