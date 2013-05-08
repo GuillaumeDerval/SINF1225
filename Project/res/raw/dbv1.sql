@@ -34,7 +34,8 @@ CREATE TABLE "restaurant" (
 CREATE UNIQUE INDEX "resto_p_key" ON "restaurant" ("name" ASC, "cityName" ASC, "cityCountry" ASC, "address" ASC);
 
 INSERT INTO "restaurant" VALUES (1,'THE Resto', 'Louvain-la-Neuve', 'Belgique', 'Rue de la neuville, 26', 50.668081, 4.611832, 'Un restaurant de test', 'test@itself.be', 5, '0032/81680085', 'http://www.guillaumederval.be', 10, 0);
-INSERT INTO "restaurant" VALUES (2,'Altérez-vous', 'Louvain-la-Neuve', 'Belgique', 'Place des Brabançons, 6A', 50.690368, 4.615402, 'Altérez-vous est un café citoyen, espace d échanges conviviaux avec des produits locaux ou bio ou issus du commerce équitable pour un projet DURABLE!', 'info@alterezvous.be', 5, '0032/10844003', 'http://www.alterezvous.be', 30, 0);
+INSERT INTO "restaurant" VALUES (2,'Altérez-vous', 'Louvain-la-Neuve', 'Belgique', 'Place des Brabançons, 6A', 50.690368, 4.615402, 'Altérez-vous est un café citoyen, espace d échanges conviviaux avec des produits locaux ou bio ou issus du commerce équitable pour un projet DURABLE!', 'info@alterezvous.be', 5, '0032 (0)10844003', 'http://www.alterezvous.be', 30, 0);
+INSERT INTO "restaurant" VALUES (3,'Aux armes de Bruxelles', 'Bruxelles', 'Belgique', 'Rue des Bouchers, 13', 50.848684, 4.354141, 'Situé au cœur du vieux Bruxelles, la brasserie Aux Armes de Bruxelles est une véritable institution dans le quartier historique de l îlot Sacré. La décoration chaleureuse, le respect de la cuisine traditionnelle belge et un service de qualité font des Armes un des hauts lieux de la restauration bruxelloise, depuis 1921', 'Email absent', 3.5, '0032 (0)25115598', 'http://www.auxarmesdebruxelles.com', 50, 1);
 
 DROP TABLE IF EXISTS "dish";
 CREATE TABLE "dish" (
@@ -95,6 +96,10 @@ INSERT INTO "image" VALUES ('img/alterezvous4.png','restaurant', 'Un concert à 
 INSERT INTO "image" VALUES ('img/mousse_alterezvous.png','dish', 'Mousse au chocolat',9);
 INSERT INTO "image" VALUES ('img/quichepoireaux_alterezvous.png','dish', 'Quiche aux poireaux',10);
 INSERT INTO "image" VALUES ('img/soupe_alterezvous.png','dish', 'Soupe aux légumes',11);
+INSERT INTO "image" VALUES ('img/armes1.png','restaurant', 'Intérieur de la brasserie',3);
+INSERT INTO "image" VALUES ('img/armes2.png','restaurant', 'Vue de l extérieur',3);
+INSERT INTO "image" VALUES ('img/armes3.png','restaurant', 'Notre chef cuisinier',3);
+INSERT INTO "image" VALUES ('img/armes4.png','restaurant', 'Photos d époque',3);
 
 DROP TABLE IF EXISTS "reservationDish";
 CREATE TABLE "reservationDish"
