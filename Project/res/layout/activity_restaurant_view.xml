@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ScrollView01"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:orientation="vertical"
     android:scrollbars="vertical" >
 
 	<RelativeLayout 
@@ -75,37 +76,6 @@
         android:text="Réserver" />
 
     <TextView
-        android:id="@+id/RestaurantViewDescription"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/RestaurantViewGallery"
-        android:gravity="center"
-        android:text="Description du restaurant"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    <HorizontalScrollView
-        android:id="@+id/RestaurantViewGallery"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/RestaurantViewReservation"
-        android:layout_centerVertical="true"
-        android:background="#EEE8AA" >
-
-        <LinearLayout
-            android:id="@+id/RestaurantViewImageContainer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal" >            
-        </LinearLayout>
-        
-    </HorizontalScrollView>
-
-    <TextView
         android:id="@+id/RestaurantViewEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -152,6 +122,43 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:text="Aller vers" />
+    </RelativeLayout>
+    
+    <HorizontalScrollView
+        android:id="@+id/RestaurantViewGallery"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/RestaurantViewReservation"
+        android:layout_centerVertical="true"
+        android:background="#EEE8AA" >
+
+        <LinearLayout
+            android:id="@+id/RestaurantViewImageContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >            
+        </LinearLayout>
+        
+    </HorizontalScrollView>
+
+    <LinearLayout 
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+        
+    <TextView
+        android:id="@+id/RestaurantViewDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/RestaurantViewGallery"
+        android:gravity="center"
+        android:text="Description du restaurant"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <RatingBar
         android:id="@+id/RatingBar"
@@ -160,6 +167,5 @@
         android:layout_alignParentLeft="true"
         android:isIndicator="true"
         android:layout_below="@+id/RestaurantViewDescription" />
-
-</RelativeLayout>
-</ScrollView>
+    </LinearLayout>
+</LinearLayout>
