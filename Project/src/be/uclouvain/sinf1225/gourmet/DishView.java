@@ -102,7 +102,7 @@ public class DishView extends Activity
 			@Override
 			public void onClick(View arg0)
 			{ // Non réservable si non disponible
-				if (dish.getAvailable() ==0)
+				if (dish.getAvailable() == 0)
 				{
 					Toast toast = Toast.makeText(getApplicationContext(), "This dish is no longer available", Toast.LENGTH_LONG);
 					toast.show();
@@ -111,6 +111,11 @@ public class DishView extends Activity
 				{
 					Intent intent = new Intent(DishView.this, ReservationCreateView.class);
 					intent.putExtra("dishId", dish.getDishId());
+					
+					/* decrement the values of available */
+					dish.setAvailable(dish.getAvailable() - 1);
+					dish.updateDish();
+
 					startActivity(intent);
 				}
 			}

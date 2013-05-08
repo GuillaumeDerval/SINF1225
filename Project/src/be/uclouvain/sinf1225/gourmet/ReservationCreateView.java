@@ -117,12 +117,9 @@ public class ReservationCreateView extends Activity
 		Toast toast;
 
 		/* add the id into the list of dishes */
-		int dish_id = data.getIntExtra("dishId",-1);
+		int dish_id = data.getIntExtra("dishId",0);
 
-		if (dish_id == -1)
-		{
-			toast = Toast.makeText(context, "plat ŽpuisŽ", Toast.LENGTH_SHORT);
-		}
+		if (dish_id == 0) toast = Toast.makeText(context, "aucun plat ajoutŽ", Toast.LENGTH_SHORT);
 		else
 		{
 			/* add the dish into the list of dish_id */
@@ -161,6 +158,8 @@ public class ReservationCreateView extends Activity
 		
 		if(!exception && nbrResv > Restaurant.getRestaurant(resto_id).getSeats())
 		{exception = true; text = "Nbr trop grand";}
+		if(!exception && nbrResv <= 0)
+		{exception = true; text = "Nbr incorrect";}
 
 		/* Check if the reservation does not exists yet */
 		if ( !exception && Reservation.getReservation(email, resto_id, date) != null)
@@ -179,10 +178,20 @@ public class ReservationCreateView extends Activity
 			
 			/* check if the reservation passed */
 			if (exception) text = "Reservation ŽchouŽe";
+			else 
+			{
+				/* remove the places booked */
+				Restaurant resto = Restaurant.getRestaurant(resto_id);
+				resto.setSeats(resto.getSeats() - nbrResv);
+				resto.updateRestaurant();
+				
+				/* all the insertion into the dataBase passed */
+				text = "Reservation envoyŽe";
+				
+				/* REFRESH ACTIVITY */
+				finish(); startActivity(getIntent());
+			}
 		}
-
-		/* if all the insertion into the dataBase passed */
-		if (!exception) {text = "Reservation envoyŽe";}
 
 		/* display the toast */
 		Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
@@ -206,6 +215,11 @@ public class ReservationCreateView extends Activity
 			dish_name_list.add(Dish.getDish(dish_id).getName());
 			adapter.notifyDataSetChanged();
 			
+			/* information for the user */
+			Context context = getApplicationContext();
+			Toast toast = Toast.makeText(context, "plat ajoutŽ", Toast.LENGTH_SHORT);
+			toast.show();
+			
 			/* add to the list of dishId */
 			dish_id_list.add(dish_id);
 
@@ -215,5 +229,5 @@ public class ReservationCreateView extends Activity
 
 		/* display the restaurant's name */
 		restaurant.setText(Restaurant.getRestaurant(resto_id).getName());
-	}
+	}	
 }

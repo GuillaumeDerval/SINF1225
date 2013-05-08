@@ -3,36 +3,37 @@ package be.uclouvain.sinf1225.gourmet;
 import java.util.ArrayList;
 import java.util.List;
 
-import be.uclouvain.sinf1225.gourmet.models.Dish;
-import be.uclouvain.sinf1225.gourmet.models.Restaurant;
-import be.uclouvain.sinf1225.gourmet.utils.GourmetUtils;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.RadioGroup.OnCheckedChangeListener;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioGroup;
+import android.widget.Toast;
+import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Spinner;
 import android.widget.ToggleButton;
+import be.uclouvain.sinf1225.gourmet.models.Dish;
+import be.uclouvain.sinf1225.gourmet.models.Restaurant;
+import be.uclouvain.sinf1225.gourmet.utils.GourmetUtils;
 
 public class DishListView extends Activity 
 {
 	private Restaurant restaurant = null;
-	
-	
+
+
 	/* true if the ReservationCreateView launches the activity */
 	/* false otherwise */
 	private boolean goToReservation;
@@ -58,7 +59,7 @@ public class DishListView extends Activity
 		// locationListener = new GourmetLocationListener(this,this).init();
 		// R√©cup√©ration du restaurant sur lequel on a cliqu√© et les plats qui lui appartiennent
 		restaurant = Restaurant.getRestaurant(getIntent().getExtras().getInt("restoId"));
-		
+
 		goToReservation = getIntent().hasExtra("key");
 
 		List<Dish> dishes = restaurant.getDishes();
@@ -124,14 +125,19 @@ public class DishListView extends Activity
 				{
 					if (dish.getAvailable() > 0)
 					{
-						// TODO ne sert à rien, il faut modifer dans la dataBase
+						/* decrement the values of available */
 						dish.setAvailable(dish.getAvailable() - 1);
+						dish.updateDish();
+
 						Intent intent = new Intent(DishListView.this, ReservationCreateView.class);
 						intent.putExtra("dishId", dish.getDishId());
 						setResult(RESULT_OK, intent);
 						finish();
 					}
-					else {setResult(RESULT_CANCELED); finish();}
+					else 
+					{
+						Toast.makeText(getApplicationContext(), "plat épuisé", Toast.LENGTH_SHORT).show();						
+					}
 				}
 				else
 				{
@@ -157,14 +163,19 @@ public class DishListView extends Activity
 				{
 					if (dish.getAvailable() > 0)
 					{
-						// TODO ne sert à rien, il faut modifer dans la dataBase
+						/* decrement the values of available */
 						dish.setAvailable(dish.getAvailable() - 1);
+						dish.updateDish();
+
 						Intent intent = new Intent(DishListView.this, ReservationCreateView.class);
 						intent.putExtra("dishId", dish.getDishId());
 						setResult(RESULT_OK, intent);
 						finish();
 					}
-					else {setResult(RESULT_CANCELED); finish();}
+					else 
+					{
+						Toast.makeText(getApplicationContext(), "plat épuisé", Toast.LENGTH_SHORT).show();	
+					}
 				}
 				else
 				{
@@ -190,14 +201,19 @@ public class DishListView extends Activity
 				{
 					if (dish.getAvailable() > 0)
 					{
-						// TODO ne sert à rien, il faut modifer dans la dataBase
+						/* decrement the values of available */
 						dish.setAvailable(dish.getAvailable() - 1);
+						dish.updateDish();
+
 						Intent intent = new Intent(DishListView.this, ReservationCreateView.class);
 						intent.putExtra("dishId", dish.getDishId());
 						setResult(RESULT_OK, intent);
 						finish();
 					}
-					else {setResult(RESULT_CANCELED); finish();}
+					else 
+					{
+						Toast.makeText(getApplicationContext(), "plat épuisé", Toast.LENGTH_SHORT).show();	
+					}
 				}
 				else
 				{
@@ -223,14 +239,19 @@ public class DishListView extends Activity
 				{
 					if (dish.getAvailable() > 0)
 					{
-						// TODO ne sert à rien, il faut modifer dans la dataBase
+						/* decrement the values of available */
 						dish.setAvailable(dish.getAvailable() - 1);
+						dish.updateDish();
+
 						Intent intent = new Intent(DishListView.this, ReservationCreateView.class);
 						intent.putExtra("dishId", dish.getDishId());
 						setResult(RESULT_OK, intent);
 						finish();
 					}
-					else {setResult(RESULT_CANCELED); finish();}
+					else 
+					{
+						Toast.makeText(getApplicationContext(), "plat épuisé", Toast.LENGTH_SHORT).show();	
+					}
 				}
 				else
 				{
@@ -241,118 +262,133 @@ public class DishListView extends Activity
 			}
 		});
 
+
+		//Les filtres
+		final EditText filter = (EditText) findViewById(R.id.DishListFilter);
+		filter.addTextChangedListener(new TextWatcher()
+		{
+			@Override
+			public void afterTextChanged(Editable s) { }
+			@Override
+			public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) { }
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count)
+			{
+				final ListView dishListEntree = (ListView) findViewById(R.id.DishListEntreeView);
+				final ListView dishListPlat = (ListView) findViewById(R.id.DishListPlatView);
+				final ListView dishListDessert = (ListView) findViewById(R.id.DishListDessertView);
+				final ListView dishListAutre = (ListView) findViewById(R.id.DishListAutreView);
+				//MARKER
+				final DishAdapter adapterEntree = (DishAdapter)dishListEntree.getAdapter();
+				final DishAdapter adapterPlat = (DishAdapter)dishListPlat.getAdapter();
+				final DishAdapter adapterDessert = (DishAdapter)dishListDessert.getAdapter();
+				final DishAdapter adapterAutre = (DishAdapter)dishListAutre.getAdapter();
+				adapterEntree.getFilter().filter(s);
+				adapterPlat.getFilter().filter(s);
+				adapterDessert.getFilter().filter(s);
+				adapterAutre.getFilter().filter(s);
+			}
+		});
+
+		final ToggleButton sortActivate = (ToggleButton) findViewById(R.id.DishListSortActivate);
+		sortActivate.setOnCheckedChangeListener(new ToggleButton.OnCheckedChangeListener()
+		{
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+			{
+				final LinearLayout layout = (LinearLayout) findViewById(R.id.DishListSortContainer);
+				layout.setVisibility(isChecked ? ToggleButton.VISIBLE : ToggleButton.GONE);
+			}
+		});
+
+
+
+		sortType.setOnItemSelectedListener(new OnItemSelectedListener()
+		{
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
+			{
+				final ListView dishListEntree = (ListView) findViewById(R.id.DishListEntreeView);
+				final ListView dishListPlat = (ListView) findViewById(R.id.DishListPlatView);
+				final ListView dishListDessert = (ListView) findViewById(R.id.DishListDessertView);
+				final ListView dishListAutre = (ListView) findViewById(R.id.DishListAutreView);
+
+				//MARKER
+				final DishAdapter adapterEntree = (DishAdapter)dishListEntree.getAdapter();
+				final DishAdapter adapterPlat = (DishAdapter)dishListPlat.getAdapter();
+				final DishAdapter adapterDessert = (DishAdapter)dishListDessert.getAdapter();
+				final DishAdapter adapterAutre = (DishAdapter)dishListAutre.getAdapter();
+				if(pos == 0) adapterEntree.setSort("name");
+				if(pos == 0) adapterPlat.setSort("name");
+				if(pos == 0) adapterDessert.setSort("name");
+				if(pos == 0) adapterAutre.setSort("name");
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) { }
+		});
+
+		sortDirection.setOnCheckedChangeListener(new OnCheckedChangeListener()
+		{
+			@Override
+			public void onCheckedChanged(RadioGroup group, int checkedId)
+			{
+				final ListView dishListEntree = (ListView) findViewById(R.id.DishListEntreeView);
+				final ListView dishListPlat = (ListView) findViewById(R.id.DishListPlatView);
+				final ListView dishListDessert = (ListView) findViewById(R.id.DishListDessertView);
+				final ListView dishListAutre = (ListView) findViewById(R.id.DishListAutreView);
+				//MARKER
+				final DishAdapter adapterEntree = (DishAdapter)dishListEntree.getAdapter();
+				final DishAdapter adapterPlat = (DishAdapter)dishListPlat.getAdapter();
+				final DishAdapter adapterDessert = (DishAdapter)dishListDessert.getAdapter();
+				final DishAdapter adapterAutre = (DishAdapter)dishListAutre.getAdapter();
+
+				if(checkedId == R.id.DishListSortDirectionAsc) adapterEntree.setSortOrder(true);
+				else if(checkedId == R.id.DishListSortDirectionDesc) adapterEntree.setSortOrder(false);
+
+				if(checkedId == R.id.DishListSortDirectionAsc) adapterPlat.setSortOrder(true);
+				else if(checkedId == R.id.DishListSortDirectionDesc) adapterPlat.setSortOrder(false);
+
+				if(checkedId == R.id.DishListSortDirectionAsc) adapterDessert.setSortOrder(true);
+				else if(checkedId == R.id.DishListSortDirectionDesc) adapterDessert.setSortOrder(false);
+
+				if(checkedId == R.id.DishListSortDirectionAsc) adapterAutre.setSortOrder(true);
+				else if(checkedId == R.id.DishListSortDirectionDesc) adapterAutre.setSortOrder(false);
+			}
+		});
+	}
+
+	@Override
+	public void onPause()
+	{
+		super.onPause();
+	}
+
+	@Override
+	public void onStop()
+	{
+		super.onStop();
+	}
+
+	@Override
+	public void onResume()
+	{
+		super.onResume();
+	}
 	
-	//Les filtres
-	final EditText filter = (EditText) findViewById(R.id.DishListFilter);
-	filter.addTextChangedListener(new TextWatcher()
+	@Override
+	public void onBackPressed() 
 	{
-		@Override
-		public void afterTextChanged(Editable s) { }
-		@Override
-		public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) { }
-
-		@Override
-		public void onTextChanged(CharSequence s, int start, int before, int count)
+		if(goToReservation)
 		{
-			final ListView dishListEntree = (ListView) findViewById(R.id.DishListEntreeView);
-			final ListView dishListPlat = (ListView) findViewById(R.id.DishListPlatView);
-			final ListView dishListDessert = (ListView) findViewById(R.id.DishListDessertView);
-			final ListView dishListAutre = (ListView) findViewById(R.id.DishListAutreView);
-			//MARKER
-			final DishAdapter adapterEntree = (DishAdapter)dishListEntree.getAdapter();
-			final DishAdapter adapterPlat = (DishAdapter)dishListPlat.getAdapter();
-			final DishAdapter adapterDessert = (DishAdapter)dishListDessert.getAdapter();
-			final DishAdapter adapterAutre = (DishAdapter)dishListAutre.getAdapter();
-			adapterEntree.getFilter().filter(s);
-			adapterPlat.getFilter().filter(s);
-			adapterDessert.getFilter().filter(s);
-			adapterAutre.getFilter().filter(s);
+			Intent intent = new Intent(DishListView.this, ReservationCreateView.class);
+			intent.putExtra("dishId", 0);
+			setResult(RESULT_CANCELED, intent);
+			finish();
 		}
-	});
-
-	final ToggleButton sortActivate = (ToggleButton) findViewById(R.id.DishListSortActivate);
-	sortActivate.setOnCheckedChangeListener(new ToggleButton.OnCheckedChangeListener()
-	{
-		@Override
-		public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
-		{
-			final LinearLayout layout = (LinearLayout) findViewById(R.id.DishListSortContainer);
-			layout.setVisibility(isChecked ? ToggleButton.VISIBLE : ToggleButton.GONE);
-		}
-	});
-
+		else {super.onBackPressed();}
+		return;
+	}
 	
-
-	sortType.setOnItemSelectedListener(new OnItemSelectedListener()
-	{
-		@Override
-		public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
-		{
-			final ListView dishListEntree = (ListView) findViewById(R.id.DishListEntreeView);
-			final ListView dishListPlat = (ListView) findViewById(R.id.DishListPlatView);
-			final ListView dishListDessert = (ListView) findViewById(R.id.DishListDessertView);
-			final ListView dishListAutre = (ListView) findViewById(R.id.DishListAutreView);
-			
-			//MARKER
-			final DishAdapter adapterEntree = (DishAdapter)dishListEntree.getAdapter();
-			final DishAdapter adapterPlat = (DishAdapter)dishListPlat.getAdapter();
-			final DishAdapter adapterDessert = (DishAdapter)dishListDessert.getAdapter();
-			final DishAdapter adapterAutre = (DishAdapter)dishListAutre.getAdapter();
-			if(pos == 0) adapterEntree.setSort("name");
-			if(pos == 0) adapterPlat.setSort("name");
-			if(pos == 0) adapterDessert.setSort("name");
-			if(pos == 0) adapterAutre.setSort("name");
-		}
-
-		@Override
-		public void onNothingSelected(AdapterView<?> arg0) { }
-	});
-
-	sortDirection.setOnCheckedChangeListener(new OnCheckedChangeListener()
-	{
-		@Override
-		public void onCheckedChanged(RadioGroup group, int checkedId)
-		{
-			final ListView dishListEntree = (ListView) findViewById(R.id.DishListEntreeView);
-			final ListView dishListPlat = (ListView) findViewById(R.id.DishListPlatView);
-			final ListView dishListDessert = (ListView) findViewById(R.id.DishListDessertView);
-			final ListView dishListAutre = (ListView) findViewById(R.id.DishListAutreView);
-			//MARKER
-			final DishAdapter adapterEntree = (DishAdapter)dishListEntree.getAdapter();
-			final DishAdapter adapterPlat = (DishAdapter)dishListPlat.getAdapter();
-			final DishAdapter adapterDessert = (DishAdapter)dishListDessert.getAdapter();
-			final DishAdapter adapterAutre = (DishAdapter)dishListAutre.getAdapter();
-			
-			if(checkedId == R.id.DishListSortDirectionAsc) adapterEntree.setSortOrder(true);
-			else if(checkedId == R.id.DishListSortDirectionDesc) adapterEntree.setSortOrder(false);
-			
-			if(checkedId == R.id.DishListSortDirectionAsc) adapterPlat.setSortOrder(true);
-			else if(checkedId == R.id.DishListSortDirectionDesc) adapterPlat.setSortOrder(false);
-
-			if(checkedId == R.id.DishListSortDirectionAsc) adapterDessert.setSortOrder(true);
-			else if(checkedId == R.id.DishListSortDirectionDesc) adapterDessert.setSortOrder(false);
-			
-			if(checkedId == R.id.DishListSortDirectionAsc) adapterAutre.setSortOrder(true);
-			else if(checkedId == R.id.DishListSortDirectionDesc) adapterAutre.setSortOrder(false);
-		}
-	});
-}
-
-@Override
-public void onPause()
-{
-	super.onPause();
-}
-
-@Override
-public void onStop()
-{
-	super.onStop();
-}
-
-@Override
-public void onResume()
-{
-	super.onResume();
-}
 }

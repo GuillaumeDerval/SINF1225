@@ -350,7 +350,7 @@ class GourmetDatabase extends SQLiteOpenHelper
 	    values.put("available", dish.getAvailable());
 	    values.put("allergen", dish.getAllergen());
 	    values.put("restoId", dish.getRestoId());
-	    db.update("dish", values, "`dishId`= ? " , new String[] {""+dish.getDishId()});
+	    db.update("dish", values, "`dishId`= ? " , new String[] {Integer.toString(dish.getDishId())});
 	    
 	    db.close(); // Closing database connection
 	}
@@ -362,7 +362,7 @@ class GourmetDatabase extends SQLiteOpenHelper
 	public void deleteDish(Dish dish)
 	{
 		SQLiteDatabase db = this.getWritableDatabase();
-	    int i = db.delete("dish", "`dishId` = ?", new String[] {""+dish.getDishId()});
+	    int i = db.delete("dish", "`dishId` = ?", new String[] {Integer.toString(dish.getDishId())});
 	    db.close();
 	}
 	
@@ -582,6 +582,7 @@ class GourmetDatabase extends SQLiteOpenHelper
 		values.put("seats", restaurant.getSeats());
 		values.put("priceCat", restaurant.getPriceCategory().ordinal());
 		db.update("restaurant", values, "`restoId` = ?", new String[]{ ""+restaurant.getId()});
+		db.close();
 	}
 	
 	/**
