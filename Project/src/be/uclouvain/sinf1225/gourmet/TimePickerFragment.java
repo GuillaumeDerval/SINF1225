@@ -42,18 +42,32 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
 		//TODO to implement more seriously ^
 		
 		/* low bound */
-		LOW = ReservationCreateView.dateTime;
+		/* LOW = ReservationCreateView.dateTime;
+		
+		System.out.println("LOW : " + LOW.getTime().toString() );
+		
 		LOW.set(Calendar.HOUR_OF_DAY, 10);
-		LOW.set(Calendar.AM_PM, Calendar.AM);
 		LOW.set(Calendar.MINUTE, 0);
+		LOW.set(Calendar.SECOND, 0);
+		
+		System.out.println("LOW : " + LOW.getTime().toString() ); */
 		
 		/* High bound */
-		HIGH = ReservationCreateView.dateTime;
-		HIGH.set(Calendar.HOUR_OF_DAY, 11);
-		HIGH.set(Calendar.AM_PM, Calendar.PM);
-		HIGH.set(Calendar.MINUTE, 0);
+		/*HIGH = ReservationCreateView.dateTime;
+		
+		System.out.println("HIGH : " + HIGH.getTime().toString() );
+		
+		HIGH.set(Calendar.HOUR_OF_DAY, 23);
+		HIGH.set(Calendar.MINUTE, 59);
+		HIGH.set(Calendar.SECOND, 0);
+		
+		System.out.println("HIGH : " + HIGH.getTime().toString() );
 
-		if (cal.after(Calendar.getInstance()) && cal.after(LOW) && cal.before(HIGH))
+		System.out.println("current : "+cal.after(Calendar.getInstance()) );
+		System.out.println("LOW : "+cal.after(LOW));
+		System.out.println("HIGH : "+cal.before(HIGH)); */
+		
+		if (cal.after(Calendar.getInstance()) && hourOfDay >= 10 && hourOfDay <= 23)
 		{
 			ReservationCreateView.dateTime.set(Calendar.HOUR_OF_DAY, hourOfDay);
 			ReservationCreateView.dateTime.set(Calendar.MINUTE, minute);
@@ -74,6 +88,8 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
 	{
 		int hour = ReservationCreateView.dateTime.get(Calendar.HOUR_OF_DAY);
 		int minute = ReservationCreateView.dateTime.get(Calendar.MINUTE);
+		
+		System.out.println(hour + " : " + minute);
 
 		// Create a new instance of TimePickerDialog and return it
 		return new TimePickerDialog(getActivity(), this, hour, minute, DateFormat.is24HourFormat(getActivity()));

@@ -21,7 +21,6 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import be.uclouvain.sinf1225.gourmet.models.City;
 import be.uclouvain.sinf1225.gourmet.models.Dish;
 import be.uclouvain.sinf1225.gourmet.models.Reservation;
 import be.uclouvain.sinf1225.gourmet.models.Restaurant;
@@ -34,7 +33,7 @@ public class ReservationCreateView extends Activity
 	protected static Calendar dateTime = Calendar.getInstance();
 	// TODO check if we should use SimpleDateFormat.getDate/TimeInstance() or not.
 	protected static SimpleDateFormat dateFormatter = new SimpleDateFormat("EEE, dd MMM yyyy", Locale.getDefault());
-	protected static SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm a", Locale.getDefault());
+	protected static SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm", Locale.getDefault());
 	protected static Button datePicker;
 	protected static Button timePicker;
 
@@ -42,6 +41,7 @@ public class ReservationCreateView extends Activity
 	private ListView list;
 	private TextView restaurant;
 	private EditText nbrReservation;
+	private TextView price_view;
 
 	/* adapters */
 	private ArrayAdapter<String> adapter; // list of dishes
@@ -54,6 +54,9 @@ public class ReservationCreateView extends Activity
 	private ArrayList<Integer> dish_id_list;
 	private List<String> dish_name_list;
 	private static int resto_id;
+	
+	/* Price */
+	private double price;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -61,6 +64,14 @@ public class ReservationCreateView extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_reservation_edit);
 
+		/* if the date is incorrect, set 08:00:00 */
+		if (dateTime.get(Calendar.HOUR_OF_DAY) < 8) 
+			{
+				dateTime.set(Calendar.HOUR_OF_DAY, 8);
+				dateTime.set(Calendar.MINUTE,0);
+				dateTime.set(Calendar.SECOND,0);
+			}
+		
 		/* date picker - choose the date of the reservation */
 		datePicker = (Button) findViewById(R.id.datepicker);
 		datePicker.setText(dateFormatter.format(dateTime.getTime()));
@@ -73,6 +84,7 @@ public class ReservationCreateView extends Activity
 		list = (ListView) findViewById(R.id.listDish);
 		restaurant = (TextView) findViewById(R.id.restaurant);
 		nbrReservation = (EditText) findViewById(R.id.nbrReservation);
+		price_view = (TextView) findViewById(R.id.price);
 
 		dish_name_list = new ArrayList<String>();
 		dish_id_list = new ArrayList<Integer>();
@@ -95,12 +107,17 @@ public class ReservationCreateView extends Activity
 				adapter.notifyDataSetChanged(); 			/* update the adapter */
 
 				Dish dish = Dish.getDish(ID);
+				
+				/* set the price */
+				price -= dish.getPrice();
+				price_view.setText("" + Double.toString( Math.round(price*100)/100.0) + " \u20ac");
 
 				/* increment the values of available */
 				dish.setAvailable(dish.getAvailable() + 1);
 				dish.updateDish();
 			}
 		});
+		
 	}
 
 	public void showTimePickerDialog(View v)
@@ -144,8 +161,14 @@ public class ReservationCreateView extends Activity
 			/* add the dish into the list of dish_id */
 			dish_id_list.add(dish_id);
 
+			Dish dish = Dish.getDish(dish_id);
+			
 			/* add the dish into the listView */
-			dish_name_list.add(Dish.getDish(dish_id).getName());
+			dish_name_list.add(dish.getName());
+			
+			/* set price */
+			price += dish.getPrice();
+			price_view.setText("" + Double.toString( Math.round(price*100)/100.0) + " \u20ac");
 			
 			/* update the adapter*/
 			adapter.notifyDataSetChanged();
@@ -226,6 +249,7 @@ public class ReservationCreateView extends Activity
 		/* get intent values */
 		resto_id = intent.getIntExtra(RESTAURANT, 0);
 		int dish_id = intent.getIntExtra(DISH, 0);
+		price = 0;
 
 		if ((dish_id == 0 && resto_id == 0) || (dish_id != 0 && resto_id != 0)) {finish();}
 		else if (dish_id != 0)
@@ -244,9 +268,13 @@ public class ReservationCreateView extends Activity
 
 			/* get restoID */
 			resto_id = Dish.getDish(dish_id).getRestoId();
+			
+			/* set the price */
+			price = Dish.getDish(dish_id).getPrice();
 		}
 
 		/* display the restaurant's name */
 		restaurant.setText(Restaurant.getRestaurant(resto_id).getName());
+		price_view.setText("" + Double.toString( Math.round(price*100)/100.0) + " \u20ac");
 	}
 }
