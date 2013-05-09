@@ -1,5 +1,6 @@
 package be.uclouvain.sinf1225.gourmet;
 
+import java.text.NumberFormat.Field;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -12,11 +13,13 @@ import be.uclouvain.sinf1225.gourmet.models.Restaurant;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.location.Location;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.Filter;
 import android.widget.TextView;
 
@@ -28,6 +31,7 @@ public class DishAdapter extends ArrayAdapter<Dish>
 	static class ViewIds
 	{
 		TextView name;
+		TextView menu;
 		TextView price;
 	}
 	private class DishComparator implements Comparator<Dish>
@@ -37,12 +41,32 @@ public class DishAdapter extends ArrayAdapter<Dish>
 		{
 			int ret = 0;
 			if(orderby.equals("name"))
+			{
 				ret = dish1.getName().compareTo(dish2.getName());
-			
+				if(dish1.getCategory().toString().compareTo(dish2.getCategory().toString())!=0)
+				{
+
+					ret = 0;
+
+				}
+
+			}
 			if(orderby.equals("price"))
+			{
 				ret = Double.valueOf(dish1.getPrice()).compareTo((double)dish2.getPrice());
-			
-			if(!orderasc) ret = -ret;
+				if(dish1.getCategory().toString().compareTo(dish2.getCategory().toString())!=0)
+				{
+					ret= 0;
+
+				}
+
+			}
+			if(orderby.equals("menu"))
+			{
+				ret = dish1.getCategory().toString().compareTo(dish2.getCategory().toString());
+				ret = -ret;
+			}
+			if(!orderasc && !orderby.equals("menu")) ret = -ret;
 			return ret;
 		}
 	}
@@ -91,7 +115,7 @@ public class DishAdapter extends ArrayAdapter<Dish>
 		protected void publishResults(CharSequence constraint, FilterResults results)
 		{
 			filteredDishes = (ArrayList<Dish>)results.values;
-
+			
 			clear();
 			int count = filteredDishes.size();
 			for (int i=0; i<count; i++)
@@ -124,59 +148,61 @@ public class DishAdapter extends ArrayAdapter<Dish>
 		this.filteredDishes = new ArrayList<Dish>(dishes);
 	}
 
-    @Override
-    public Filter getFilter()
-    {
-        if (filter == null)
-            filter = new DishFilter();
+	@Override
+	public Filter getFilter()
+	{
+		if (filter == null)
+			filter = new DishFilter();
 
-        return filter;
-    }
-    
-    /**
-     * re-sort lines
-     */
-    public void sort()
-    {
-    	Collections.sort(filteredDishes, new DishComparator());
-    	clear();
-        int count = filteredDishes.size();
-        for (int i=0; i<count; i++)
-            add(filteredDishes.get(i));
-    }
-    
-    /**
-     * Sort lines
-     * @param sort Type of sort. Must be "distance","restaurants" or "name"
-     */
-    public void setSort(String sort)
-    {
-    	orderby = sort;
-    	sort();
-    }
-    
-    /**
-     * Sort lines
-     * @param sort Type of sort. Must be "distance","restaurants" or "name"
-     * @param sortorder true if order is Asc
-     */
-    public void setSort(String sort, boolean sortorder)
-    {
-    	orderby = sort;
-    	orderasc = sortorder;
-    	sort();
-    }
-    
-    /**
-     * Sort lines
-     * @param sort true if order is Asc
-     */
-    public void setSortOrder(boolean sort)
-    {
-    	orderasc = sort;
-    	sort();
-    }
-    
+		return filter;
+	}
+	
+
+
+	/**
+	 * re-sort lines
+	 */
+	public void sort()
+	{
+		Collections.sort(filteredDishes, new DishComparator());
+		clear();
+		int count = filteredDishes.size();
+		for (int i=0; i<count; i++)
+			add(filteredDishes.get(i));
+	}
+
+	/**
+	 * Sort lines
+	 * @param sort Type of sort. Must be "distance","restaurants" or "name"
+	 */
+	public void setSort(String sort)
+	{
+		orderby = sort;
+		sort();
+	}
+
+	/**
+	 * Sort lines
+	 * @param sort Type of sort. Must be "distance","restaurants" or "name"
+	 * @param sortorder true if order is Asc
+	 */
+	public void setSort(String sort, boolean sortorder)
+	{
+		orderby = sort;
+		orderasc = sortorder;
+		sort();
+	}
+
+	/**
+	 * Sort lines
+	 * @param sort true if order is Asc
+	 */
+	public void setSortOrder(boolean sort)
+	{
+		orderasc = sort;
+		sort();
+	}
+
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup p)
@@ -194,6 +220,7 @@ public class DishAdapter extends ArrayAdapter<Dish>
 			//Et une correspondance entre cette ligne et les champs de texte
 			viewIds = new ViewIds();
 			viewIds.name = (TextView)row.findViewById(R.id.DishListName);
+			viewIds.menu = (TextView)row.findViewById(R.id.DishListMenu);
 			viewIds.price = (TextView)row.findViewById(R.id.DishListPrice);
 			row.setTag(viewIds);
 		}
@@ -204,7 +231,8 @@ public class DishAdapter extends ArrayAdapter<Dish>
 
 		Dish dish = filteredDishes.get(position);
 		viewIds.name.setText(dish.getName());
-		viewIds.price.setText("Prix: " + String.valueOf(dish.getPrice()));
+		viewIds.menu.setText(dish.getCategory().toString());
+		viewIds.price.setText("Prix: " + String.valueOf(dish.getPrice()) + "\u20ac");
 		return row;
 	}
 }
