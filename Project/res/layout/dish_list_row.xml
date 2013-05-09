@@ -5,6 +5,29 @@
     android:orientation="horizontal" >
 
     <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp" >
+
+        <TextView
+            android:id="@+id/DishListMenu"
+            android:minWidth="120dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="#9ACD32"
+            android:text="Dish Menu"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="3dip"
+        android:layout_height="fill_parent"
+        android:background="?android:attr/listDivider" />
+
+    <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
@@ -28,12 +51,12 @@
         android:layout_weight="1"
         android:orientation="vertical"
         android:paddingLeft="10dp" >
-        
+
         <TextView
             android:id="@+id/DishListPrice"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:text="Dish Price"/>
+            android:text="Dish Price" />
     </LinearLayout>
 
 </LinearLayout>

@@ -53,9 +53,9 @@ CREATE TABLE "dish" (
 );
 CREATE UNIQUE INDEX "dish_p_key" ON "dish" ("name" ASC, "restoId" ASC, "category" ASC);
 
-INSERT INTO "dish" VALUES (1,'CourgetteEntree ', 1, 'GreenEntree', 10, 1, 1, 10, 1, 'Entree');
-INSERT INTO "dish" VALUES (2,'CourgettePlat ', 1, 'GreenPlat', 10, 1, 1, 1, 1, 'Plat');
-INSERT INTO "dish" VALUES (3,'CourgetteDessert ', 1, 'GreenDessert', 10, 1, 1, 1, 1, 'Dessert');
+INSERT INTO "dish" VALUES (1,'CourgetteEntree ', 1, 'GreenEntree', 9.5, 1, 1, 10, 1, 'Entree');
+INSERT INTO "dish" VALUES (2,'CourgettePlat ', 1, 'GreenPlat', 10, 1, 0, 1, 1, 'Plat');
+INSERT INTO "dish" VALUES (3,'CourgetteDessert ', 1, 'GreenDessert', 10, 1, 1, 1, 0, 'Dessert');
 INSERT INTO "dish" VALUES (4,'CourgetteAutre ', 1, 'GreenAutre', 10, 1, 1, 1, 1, 'HelloWorld');
 INSERT INTO "dish" VALUES (5,'ABCCourgetteEntree ', 1, 'GreenEntree', 10, 1, 1, 1, 1, 'Entree');
 INSERT INTO "dish" VALUES (6,'ABCCourgettePlat ', 1, 'GreenPlat', 10, 1, 1, 1, 1, 'Plat');
