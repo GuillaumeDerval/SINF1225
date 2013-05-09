@@ -84,5 +84,11 @@
         <item >Beaucoups</item>
         <item >Diablement</item>
     </string-array>
+    <string name="rsv_name">Nom</string>
+    <string name="rsv_date">Date</string>
+    <string name="rsv_time">Heure</string>
+    <string name="rsv_rest">Restaurant</string>
+    <string name="rsv_nb_people"># p.</string>
+    <string name="rsv_edit">Éditer la sélection</string>
 
 </resources>
