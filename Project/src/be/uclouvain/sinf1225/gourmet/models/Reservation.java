@@ -115,6 +115,13 @@ public class Reservation
 		return resv;
 	}
 	
+	public static List<Reservation> getReservationByUser(User user){
+		GourmetDatabase db = new GourmetDatabase();
+		List<Reservation> reservations = db.getReservationByUser(user);
+		db.close();
+		return reservations;
+	}
+	
 	/**
 	 * Update this reservation in database
 	 */

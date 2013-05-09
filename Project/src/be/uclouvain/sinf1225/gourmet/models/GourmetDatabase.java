@@ -1,6 +1,8 @@
 package be.uclouvain.sinf1225.gourmet.models;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -962,7 +964,7 @@ class GourmetDatabase extends SQLiteOpenHelper
 		SQLiteDatabase db = this.getReadableDatabase();
 		
 		Cursor cursor = db.query(true,"reservation", //table to select on
-				new String[]{"resvId","userEmail","nbrReservation","date"}, //column to get WARNING MISSING TIME
+				new String[]{"resvId","userEmail", "restoId", "nbrReservation","date"}, //column to get WARNING MISSING TIME
 				"`UserEmail` = ?", 
 				new String[]{user.getEmail()}, 
 				null,
@@ -977,19 +979,22 @@ class GourmetDatabase extends SQLiteOpenHelper
 		cursor.moveToFirst();
 
 		List<Reservation> reservations = new ArrayList<Reservation>();
-		/*
+		//*
 		for(int j = 0; j < cursor.getCount(); j++)
 		{
 			//getting all necessary informations to construct a reservation object.
-			int id;
-			String userEmail;
-			Restaurant restaurant;
-			int nbrReservation;
-			List<DishNode> dishes;
-			Date date;
+			int resvId = cursor.getInt(0);
+			String userEmail = cursor.getString(1);
+			int restoId = cursor.getInt(2);
+			Restaurant restaurant = Restaurant.getRestaurant(restoId);
+			int nbrReservation = cursor.getInt(3);
+			List<Integer> dishes = null; //TODO GET DISHES
+			String dateText = cursor.getString(4);
+			@SuppressWarnings("deprecation")
+			Date date = new Date(dateText);
 			
 			
-			Reservation rsv = new Reservation(id,userEmail,restaurant,nbrReservation,dishes,date);
+			Reservation rsv = new Reservation(resvId,userEmail,restaurant,nbrReservation,dishes,date);
 
 			reservations.add(rsv);
 			cursor.moveToNext();

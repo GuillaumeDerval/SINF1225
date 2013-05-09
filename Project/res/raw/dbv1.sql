@@ -82,6 +82,11 @@ CREATE TABlE "reservation"
 	CONSTRAINT "resto_name_contrainte" FOREIGN KEY ("restoID") REFERENCES "restaurant" ("restoId"),
 	CONSTRAINT "user_contrainte" FOREIGN KEY ("userEmail") REFERENCES "user" ("email")
 );
+INSERT INTO "reservation" VALUES (4201,"adrien.horgnies@student.uclouvain.be", 3, 6, "Thu May 09 18:00:00 GMT 2013");
+INSERT INTO "reservation" VALUES (4201,"adrien.horgnies@student.uclouvain.be", 3, 6, "Thu May 09 18:00:00 GMT 2014");
+INSERT INTO "reservation" VALUES (4201,"adrien.horgnies@student.uclouvain.be", 3, 6, "Thu May 09 18:00:00 GMT 2015");
+
+
 DROP TABLE IF EXISTS "image";
 CREATE TABLE "image"
 (
