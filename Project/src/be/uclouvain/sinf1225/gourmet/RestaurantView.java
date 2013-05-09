@@ -134,7 +134,7 @@ public class RestaurantView extends Activity
 			
 	        image.setAdjustViewBounds(true);
 			image.setMaxWidth(width/2);
-			image.setMaxHeight(height/2);
+			image.setMaxHeight(height/3);
 			
 			if(img != null)
 				image.setImageBitmap(BitmapFactory.decodeFile(GourmetFiles.getRealPath(img.getPath())));
