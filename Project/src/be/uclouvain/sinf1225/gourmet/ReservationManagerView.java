@@ -1,5 +1,7 @@
 package be.uclouvain.sinf1225.gourmet;
 
+import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import be.uclouvain.sinf1225.gourmet.models.Reservation;
@@ -39,16 +41,38 @@ public class ReservationManagerView extends Activity
 		
 		//linking current layout
 		TableLayout rsv_tab = (TableLayout)findViewById(R.id.rsv_manager_table);
-
-		//TODO make a cursor to get the reservations of the user
+		
 		//TODO load all the reservations and put them in the GUI 
 		//TODO each row much contains one reservation and be able to get the focus and show it got the focus.
-		TableRow row = (TableRow) ( (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.reservation_manager_row, null);
+		Context context = getApplicationContext();
+		//TODO clicklistener must open reservation edit view and fills informations with the row which has focus.
+		User currentUser = User.getUserConnected();
+		List<Reservation> userReservations = Reservation.getReservationByUser(currentUser);
+
+		Iterator<Reservation> it = userReservations.iterator();
+		while(it.hasNext()) {
+          Reservation oneRsv=(Reservation) it.next();
+          String name = User.getUserConnected().getName();
+          Date date = oneRsv.getDate();
+          @SuppressWarnings("deprecation")
+          String dateText = date.getDay()+"-"+date.getMonth()+"-"+date.getYear();
+          @SuppressWarnings("deprecation")
+          String timeText = date.getHours()+":"+date.getMinutes();
+          String restoName = oneRsv.getRestaurant().getName();
+          String nbPeople = ""+oneRsv.getnbrReservation();
+
+          TableRow row = (TableRow) ( (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.reservation_manager_row, null);
+  		  rsv_tab.addView(row);
+  		  setRow(row, name ,dateText, timeText, restoName, nbPeople);
+        }
+		
+		
+		/*TableRow row = (TableRow) ( (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.reservation_manager_row, null);
 		rsv_tab.addView(row);
 		setRow(row,"Horgnies","12-05-13", "18:30", "Le sot l'y laisse", "5");
 		TableRow row2 = (TableRow) ( (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.reservation_manager_row, null);
 		rsv_tab.addView(row2);
-		setRow(row2,"Legrand","11-05-13", "20:30", "L'o à la bouche", "2");
+		setRow(row2,"Legrand","11-05-13", "20:30", "L'o à la bouche", "2");*/
 		
 		//button to edit the selection
 		Button edit = (Button) findViewById(R.id.rsvEdit);
@@ -58,10 +82,6 @@ public class ReservationManagerView extends Activity
 	View.OnClickListener handler_edit = new View.OnClickListener() {
 		public void onClick(View v) {
 			Context context = getApplicationContext();
-			//TODO clicklistener must open reservation edit view and fills informations with the row which has focus.
-			User currentUser = User.getUserConnected();
-			List<Reservation> userReservations = Reservation.getReservationByUser(currentUser);
-			
 			
 			Toast toast = Toast.makeText(context, " Handler not implemented", Toast.LENGTH_SHORT);
 			toast.show();
