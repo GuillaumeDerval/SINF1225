@@ -10,7 +10,7 @@
     android:gravity="center_horizontal"
     android:layout_weight="1"
     android:background="@android:color/white"
-    android:text="Nom" />
+    android:text="@string/rsv_name" />
    
    <TextView
   	android:id="@+id/rsvDate"
@@ -19,7 +19,7 @@
     android:layout_weight="1"
     android:layout_margin="1dp"
     android:background="@android:color/white"
-    android:text="Date" />
+    android:text="@string/rsv_date" />
    
    <TextView
   	android:id="@+id/rsvTime"
@@ -28,7 +28,7 @@
     android:layout_weight="1"
     android:layout_margin="1dp"
     android:background="@android:color/white"
-    android:text="Heure" />
+    android:text="@string/rsv_time" />
    
    <TextView
   	android:id="@+id/rsvRest"
@@ -37,7 +37,7 @@
     android:layout_weight="1"
     android:layout_margin="1dp"
     android:background="@android:color/white"
-    android:text="Restaurant" />
+    android:text="@string/rsv_rest" />
    
    <TextView
   	android:id="@+id/rsvNbPeople"
@@ -46,6 +46,6 @@
     android:layout_weight="1"
     android:layout_margin="1dp"
     android:background="@android:color/white"
-    android:text="# p." />
+    android:text="@string/rsv_nb_people" />
 
 </TableRow>

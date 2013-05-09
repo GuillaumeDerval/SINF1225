@@ -23,7 +23,6 @@
             android:layout_height="wrap_content" />
 
     </TableRow>
-    <!-- Add a button which enables the user to choose allergen in a list -->
 
     <TableRow
         android:id="@+id/allergen_row"
@@ -36,22 +35,13 @@
             android:layout_height="wrap_content"
             android:text="@string/pref_allergen" />
 
-        <Button
-            android:id="@+id/allergen_add"
-            android:textSize="12sp"
+        <CheckBox
+            android:id="@+id/checkBox2"
             android:layout_width="wrap_content"
-            android:layout_height="30dip"
-            android:text="@string/pref_add" />
+            android:layout_height="wrap_content"
+            android:text="" />
 
     </TableRow>
-
-    <!--  WARNING DO NOT LET THAT BETWEEN COMMENTS TAGS
-    <ListView
-        android:id="@+id/allergen_list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="false" >
-    </ListView> -->
 
     <TableRow
         android:id="@+id/veg_row"
@@ -83,10 +73,11 @@
             android:layout_height="wrap_content"
             android:text="@string/pref_spicy" />
 
-        <Spinner
-            android:id="@+id/spicy_spinner"
+        <CheckBox
+            android:id="@+id/checkBox1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="" />
 
     </TableRow>
 
