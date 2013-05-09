@@ -45,11 +45,13 @@
 
     </TableRow>
 
+    <!--  WARNING DO NOT LET THAT BETWEEN COMMENTS TAGS
     <ListView
         android:id="@+id/allergen_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-    </ListView>
+        android:layout_height="wrap_content"
+        android:visibility="false" >
+    </ListView> -->
 
     <TableRow
         android:id="@+id/veg_row"
