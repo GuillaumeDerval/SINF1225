@@ -67,7 +67,7 @@ INSERT INTO "dish" VALUES (10,'Quiche aux poireaux', 2, 'Cuisinée avec des poir
 INSERT INTO "dish" VALUES (11,'Soupe aux légumes', 2, 'Une délicieuse soupe saine et bio, n oubliez pas: MEN Sana in corpore sano!', 4, 1, 1, 1, 0, 'Entree');
 INSERT INTO "dish" VALUES (12,'Le duo d asperges et saumon', 4, 'Duo d asperges blanches et saumon au gros sel. Le saumon est frais et d élevage, efin d éviter de vider nos océans ', 18, 0, 0, 10, 0, 'Entree');
 INSERT INTO "dish" VALUES (13,'Les couteaux rotis', 4, 'Parfumés au beurre persillé et sa salade vinaigrette de Viandox.', 14, 0, 0, 5, 1, 'Entree');
-NSERT INTO "dish" VALUES (14,'Filet de turbo sauce hollandaise', 4, 'Filet de turbot cuit vapeur accompagné de la traditionnelle sauce hollandaise ', 22.5, 0, 0, 4, 0, 'Plat');
+INSERT INTO "dish" VALUES (14,'Filet de turbo sauce hollandaise', 4, 'Filet de turbot cuit vapeur accompagné de la traditionnelle sauce hollandaise ', 22.5, 0, 0, 4, 0, 'Plat');
 INSERT INTO "dish" VALUES (15,'L assiette Grand Large', 4, 'Un assortiment de tous les produits de la mer disponbible dans notre restaurant!', 28, 0, 0, 7, 1, 'Plat');
 INSERT INTO "dish" VALUES (16,'Le mille feuille maison', 4, 'Feuilleté croustillant et sa crème légère, velouté de framboises. ', 8.5, 0, 1, 12, 1, 'Dessert');
 INSERT INTO "dish" VALUES (17,'Le champagne gourmand', 4, 'Coupe de champagne et son assortiments de desserts maisons', 12, 0, 1, 18, 1, 'Dessert');
@@ -107,6 +107,16 @@ INSERT INTO "image" VALUES ('img/armes1.png','restaurant', 'Intérieur de la bra
 INSERT INTO "image" VALUES ('img/armes2.png','restaurant', 'Vue de l extérieur',3);
 INSERT INTO "image" VALUES ('img/armes3.png','restaurant', 'Notre chef cuisinier',3);
 INSERT INTO "image" VALUES ('img/armes4.png','restaurant', 'Photos d époque',3);
+INSERT INTO "image" VALUES ('img/quai1.png','restaurant', 'Le bar',4);
+INSERT INTO "image" VALUES ('img/quai2.png','restaurant', 'Vue de l extérieur',4);
+INSERT INTO "image" VALUES ('img/quai3.png','restaurant', 'La salle',4);
+INSERT INTO "image" VALUES ('img/quai_asp_saum.png','dish', '',12);
+INSERT INTO "image" VALUES ('img/quai_couteaux.png','dish', '',13);
+INSERT INTO "image" VALUES ('img/quai_feuille.png','dish', '',16);
+INSERT INTO "image" VALUES ('img/quai_gourmand.png','dish', '',17);
+INSERT INTO "image" VALUES ('img/quai_grandlarge.png','dish', '',15);
+INSERT INTO "image" VALUES ('img/quai_turbo.png','dish', '',14);
+
 
 DROP TABLE IF EXISTS "reservationDish";
 CREATE TABLE "reservationDish"

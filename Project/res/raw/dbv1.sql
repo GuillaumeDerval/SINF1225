@@ -107,6 +107,16 @@ INSERT INTO "image" VALUES ('img/armes1.png','restaurant', 'Intérieur de la bra
 INSERT INTO "image" VALUES ('img/armes2.png','restaurant', 'Vue de l extérieur',3);
 INSERT INTO "image" VALUES ('img/armes3.png','restaurant', 'Notre chef cuisinier',3);
 INSERT INTO "image" VALUES ('img/armes4.png','restaurant', 'Photos d époque',3);
+INSERT INTO "image" VALUES ('img/quai1.png','restaurant', 'Le bar',4);
+INSERT INTO "image" VALUES ('img/quai2.png','restaurant', 'Vue de l extérieur',4);
+INSERT INTO "image" VALUES ('img/quai3.png','restaurant', 'La salle',4);
+INSERT INTO "image" VALUES ('img/quai_asp_saum.png','dish', 'Le duo d asperges et saumon',12);
+INSERT INTO "image" VALUES ('img/quai_couteaux.png','dish', 'Les couteaux rotis',13);
+INSERT INTO "image" VALUES ('img/quai_feuille.png','dish', 'Le mille feuille maison',16);
+INSERT INTO "image" VALUES ('img/quai_gourmand.png','dish', 'Le champagne gourmand',17);
+INSERT INTO "image" VALUES ('img/quai_grandlarge.png','dish', 'L assiette grand large',15);
+INSERT INTO "image" VALUES ('img/quai_turbo.png','dish', 'Filet de turbo sauce Hollandaise',14);
+
 
 DROP TABLE IF EXISTS "reservationDish";
 CREATE TABLE "reservationDish"

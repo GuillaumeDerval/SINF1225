@@ -28,7 +28,7 @@ class GourmetDatabase extends SQLiteOpenHelper
 {
 
 
-	private static final int DATABASE_VERSION = 63;
+	private static final int DATABASE_VERSION = 65;
 
 
 
@@ -57,9 +57,13 @@ class GourmetDatabase extends SQLiteOpenHelper
 	private void initImages()
 	{
 		int[] ressources = {R.drawable.picture1, R.drawable.picture2, R.drawable.picture3, R.drawable.alterezvous1, R.drawable.alterezvous2, R.drawable.alterezvous3, R.drawable.alterezvous4,
-				 R.drawable.mousse_alterezvous, R.drawable.quichepoireaux_alterezvous, R.drawable.soupe_alterezvous, R.drawable.armes1, R.drawable.armes2, R.drawable.armes3, R.drawable.armes4};
+				 R.drawable.mousse_alterezvous, R.drawable.quichepoireaux_alterezvous, R.drawable.soupe_alterezvous, R.drawable.armes1, R.drawable.armes2, R.drawable.armes3, R.drawable.armes4, 
+				 R.drawable.quai1, R.drawable.quai2, R.drawable.quai3, R.drawable.quai_asp_saum, R.drawable.quai_couteaux, R.drawable.quai_feuille, R.drawable.quai_gourmand, R.drawable.quai_grandlarge, 
+				 R.drawable.quai_turbo};
 		String[] links = {"img/picture1.png", "img/picture2.png", "img/picture3.png", "img/alterezvous1.png", "img/alterezvous2.png", "img/alterezvous3.png", "img/alterezvous4.png", 
-				 "img/mousse_alterezvous.png", "img/quichepoireaux_alterezvous.png", "img/soupe_alterezvous.png", "img/armes1.png", "img/armes2.png", "img/armes3.png", "img/armes4.png"};
+				 "img/mousse_alterezvous.png", "img/quichepoireaux_alterezvous.png", "img/soupe_alterezvous.png", "img/armes1.png", "img/armes2.png", "img/armes3.png", "img/armes4.png", 
+				 "img/quai1.png", "img/quai2.png", "img/quai3.png", "img/quai_asp_saum.png", "img/quai_couteaux.png", "img/quai_feuille.png", "img/quai_gourmand.png", "img/quai_grandlarge.png",
+				 "img/quai_turbo.png"};
 		for(int i = 0; i < ressources.length; i++)
 			GourmetFiles.exportFileFromResToDisk(links[i], ressources[i]);
 	}
