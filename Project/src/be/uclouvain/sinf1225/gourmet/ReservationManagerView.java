@@ -42,6 +42,7 @@ public class ReservationManagerView extends Activity
 		rsv_tab.addView(row2);
 		setRow(row2,"Legrand","11-05-13", "20:30", "L'o à la bouche", "2");
 		
+		//button to edit the selection
 		Button edit = (Button) ( (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.reservation_manager_button, null);
 		rsv_tab.addView(edit);
 	}
