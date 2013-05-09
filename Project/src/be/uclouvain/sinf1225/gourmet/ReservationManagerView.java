@@ -7,10 +7,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ReservationManagerView extends Activity
 {	
@@ -46,9 +48,19 @@ public class ReservationManagerView extends Activity
 		
 		//button to edit the selection
 		Button edit = (Button) ( (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.reservation_manager_button, null);
+		edit.setOnClickListener(handler_edit);
 		rsv_tab.addView(edit);
-		//TODO clicklistener must open reservation edit view and fills informations with the row who has focus.
 	}
+	
+	View.OnClickListener handler_edit = new View.OnClickListener() {
+		public void onClick(View v) {
+			Context context = getApplicationContext();
+			//TODO clicklistener must open reservation edit view and fills informations with the row which has focus.
+			Toast toast = Toast.makeText(context, "Handler not implemented", Toast.LENGTH_SHORT);
+			toast.show();
+		}
+		
+	};
 	
 	private void setRow(TableRow row, String name, String date, String time, String restaurant, String effectif){
 		((TextView)row.findViewById(R.id.rsvName)).setText(name);
