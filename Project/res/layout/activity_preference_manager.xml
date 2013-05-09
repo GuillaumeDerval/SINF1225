@@ -3,11 +3,71 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
+    
+    <!-- Functionality to add : spicy, allergens, country food, budget, vegetarien  -->
 
-    <TextView
-        android:id="@+id/rsv_wlcm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Welcome in preference manager" />
+    <TableRow
+        android:id="@+id/tableRow1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/budget_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/pref_budget" />
+
+        <Spinner
+            android:id="@+id/budget_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </TableRow>
+    <!-- Add a button which enables the user to choose allergen in a list -->
+
+    <TableRow
+        android:id="@+id/allergen_row"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/allergen_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/pref_allergen" />
+
+        <Button
+            android:id="@+id/allergen_add"
+            android:textSize="12sp"
+            android:layout_width="wrap_content"
+            android:layout_height="30dip"
+            android:text="@string/pref_add" />
+
+    </TableRow>
+
+    <ListView
+        android:id="@+id/allergen_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+    </ListView>
+
+    <TableRow
+        android:id="@+id/veg_row"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/veg_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/pref_veg" />
+
+        <CheckBox
+            android:id="@+id/veg_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="" />
+
+    </TableRow>
 
 </LinearLayout>

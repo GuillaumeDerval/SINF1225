@@ -63,14 +63,18 @@
     <string name="dish">Dish</string>
     <string name="button_add">Ajouter un plat</string>
     <string name="send_reservation">Envoyer</string>
-    <string name="rsv_name"></string>
-    <string name="rsv_fname"></string>
-    <string name="rsv_date">06-05-13</string>
-    <string name="rsv_hour">12:00</string>
-    <string name="rsv_hint_name">Name</string>
-    <string name="rsv_hint_fname">Firstname</string>
-    <string name="rsv_hint_date">Date</string>
-    <string name="rsv_hint_hour">Start time (hh:mm)</string>
-    <string name="rsv_welcome">Welcome in reservation manager</string>
+    <string name="pref_allergen">Allergènes :</string>
+    <string name="pref_budget">Budget :</string>
+    <string name="pref_style">Style de cuisine :</string>
+    <string name="pref_veg">Végétarien :</string>
+    <string name="pref_add">Ajouter</string>
+    <string-array name="pref_budget_list">
+        <item >2-5 €</item>
+        <item >5-10 €</item>
+        <item >10-20 €</item>
+        <item >20-50 €</item>
+        <item >50 - 100 €</item>
+        <item >&gt; 100 €</item>
+    </string-array>
 
 </resources>

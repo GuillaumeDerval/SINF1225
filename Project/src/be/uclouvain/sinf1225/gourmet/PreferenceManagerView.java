@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 public class PreferenceManagerView extends Activity
 {
@@ -24,5 +26,12 @@ public class PreferenceManagerView extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_preference_manager);
+		
+		//Ajout des options sur le budget_spinner
+		Spinner budgetSpinner = (Spinner) findViewById(R.id.budget_spinner);
+		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.pref_budget_list, android.R.layout.simple_spinner_item);
+		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		budgetSpinner.setAdapter(adapter);
+		
 	}
 }
