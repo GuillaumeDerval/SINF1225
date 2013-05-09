@@ -28,7 +28,7 @@ class GourmetDatabase extends SQLiteOpenHelper
 {
 
 
-	private static final int DATABASE_VERSION = 61;
+	private static final int DATABASE_VERSION = 63;
 
 
 

@@ -65,6 +65,12 @@ INSERT INTO "dish" VALUES (8,'ABCCourgetteAutre ', 1, 'GreenAutre', 10, 1, 1, 1,
 INSERT INTO "dish" VALUES (9,'Mousse au chocolat', 2, 'Une délicieuse mousse au chocolat fairtrade', 6.5, 0, 1, 0, 1, 'Dessert');
 INSERT INTO "dish" VALUES (10,'Quiche aux poireaux', 2, 'Cuisinée avec des poireaux d une ferme voisine, accompagnée d une salade légère', 11, 0, 0, 1, 0, 'Plat');
 INSERT INTO "dish" VALUES (11,'Soupe aux légumes', 2, 'Une délicieuse soupe saine et bio, n oubliez pas: MEN Sana in corpore sano!', 4, 1, 1, 1, 0, 'Entree');
+INSERT INTO "dish" VALUES (12,'Le duo d asperges et saumon', 4, 'Duo d asperges blanches et saumon au gros sel. Le saumon est frais et d élevage, efin d éviter de vider nos océans ', 18, 0, 0, 10, 0, 'Entree');
+INSERT INTO "dish" VALUES (13,'Les couteaux rotis', 4, 'Parfumés au beurre persillé et sa salade vinaigrette de Viandox.', 14, 0, 0, 5, 1, 'Entree');
+INSERT INTO "dish" VALUES (14,'Filet de turbo sauce hollandaise', 4, 'Filet de turbot cuit vapeur accompagné de la traditionnelle sauce hollandaise ', 22.5, 0, 0, 4, 0, 'Plat');
+INSERT INTO "dish" VALUES (15,'L assiette Grand Large', 4, 'Un assortiment de tous les produits de la mer disponbible dans notre restaurant!', 28, 0, 0, 7, 1, 'Plat');
+INSERT INTO "dish" VALUES (16,'Le mille feuille maison', 4, 'Feuilleté croustillant et sa crème légère, velouté de framboises. ', 8.5, 0, 1, 12, 1, 'Dessert');
+INSERT INTO "dish" VALUES (17,'Le champagne gourmand', 4, 'Coupe de champagne et son assortiments de desserts maisons', 12, 0, 1, 18, 1, 'Dessert');
 
 
 DROP TABLE IF EXISTS "reservation";
