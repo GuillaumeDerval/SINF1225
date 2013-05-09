@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,13 +64,14 @@ public class TimeTableAdapter extends ArrayAdapter<TimeTable>{
 		{
 			viewIds = (ViewIds) row.getTag();
 		}
+		if( table.getClose() != 0) {viewIds.day.setTextColor(0xffff0000); Log.d("",table.getDay()+"<----------------------" );}
 		viewIds.day.setText(table.getDay());
 		viewIds.opening1.setText(table.getMorningOpening());
 		viewIds.closing1.setText(table.getMorningClosing());
 		viewIds.opening2.setText(table.getEveningOpening());
 		viewIds.closing2.setText(table.getEveningClosing());
-		
 		return row;
+		
 	}
 
 }

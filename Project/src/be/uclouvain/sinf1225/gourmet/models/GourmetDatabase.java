@@ -28,7 +28,7 @@ import be.uclouvain.sinf1225.gourmet.utils.GourmetUtils;
  */
 class GourmetDatabase extends SQLiteOpenHelper
 {
-	private static final int DATABASE_VERSION = 68;
+	private static final int DATABASE_VERSION = 71;
     private static final String DATABASE_NAME = "gourmet";
     private Context context;
     
@@ -1003,12 +1003,26 @@ class GourmetDatabase extends SQLiteOpenHelper
 			
 		return reservations;
 	}
+	public void updateTimeTable(TimeTable table)
+	{
+		SQLiteDatabase db = this.getWritableDatabase();
+	    ContentValues values1 = new ContentValues();
+	    
+	    values1.put("day", table.getDay());
+	    values1.put("morningopening", table.getMorningOpening());
+	    values1.put("morningclosing", table.getMorningClosing());
+	    values1.put("eveningopening", table.getEveningOpening());
+	    values1.put("eveningclosing", table.getEveningClosing());
+	    values1.put("close", table.getClose());
+	    db.update("horaire", values1, "`restoId` = ? AND `day` = ? ", new String[] {Integer.toString(table.getRestoId()), table.getDay()});
+	    db.close();
+	}
 	public List<TimeTable> getTimeTable(int restoId){
 		
 		SQLiteDatabase db = this.getReadableDatabase();
 		
 		Cursor cursor = db.query("horaire", //table to select on
-				new String[]{"day","morningopening","morningclosing","eveningopening", "eveningclosing", "restoId"}, //column to get
+				new String[]{"day","morningopening","morningclosing","eveningopening", "eveningclosing", "restoId", "close"}, //column to get
 				"`restoId` = ?", //where
 				new String[]{restoId + ""}, //where string
 				null, //group by
@@ -1028,7 +1042,8 @@ class GourmetDatabase extends SQLiteOpenHelper
 		List<TimeTable> timeTable = new ArrayList<TimeTable>();
 		for(int j = 0; j < cursor.getCount(); j++)
 		{
-			timeTable.add(new TimeTable(cursor.getString(1),cursor.getString(2), cursor.getString(3), cursor.getString(4),cursor.getString(0)));
+			if (cursor.getInt(6) ==0){
+			timeTable.add(new TimeTable(cursor.getString(1),cursor.getString(2), cursor.getString(3), cursor.getString(4),cursor.getString(0), cursor.getInt(6), cursor.getInt(5)));}
 			cursor.moveToNext();
 		}
 		/* close database */
@@ -1036,5 +1051,38 @@ class GourmetDatabase extends SQLiteOpenHelper
 	    
 		return timeTable;
 		
+	}
+	public List<TimeTable> getFullTimeTable(int restoId){
+		
+		SQLiteDatabase db = this.getReadableDatabase();
+		
+		Cursor cursor = db.query("horaire", //table to select on
+				new String[]{"day","morningopening","morningclosing","eveningopening", "eveningclosing", "restoId", "close"}, //column to get
+				"`restoId` = ?", //where
+				new String[]{restoId + ""}, //where string
+				null, //group by
+				null, //having
+				null); //orderby
+		
+		if(cursor == null || cursor.getCount() == 0)
+		{
+		    /* close database */
+		    db.close();
+		    
+		    return null;
+		}
+			
+		cursor.moveToFirst();
+		
+		List<TimeTable> timeTable = new ArrayList<TimeTable>();
+		for(int j = 0; j < cursor.getCount(); j++)
+		{
+			timeTable.add(new TimeTable(cursor.getString(1),cursor.getString(2), cursor.getString(3), cursor.getString(4),cursor.getString(0), cursor.getInt(6), cursor.getInt(5)));
+			cursor.moveToNext();
+		}
+		/* close database */
+	    db.close();
+	    
+		return timeTable;
 	}
 }

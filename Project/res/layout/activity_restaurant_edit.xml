@@ -145,6 +145,14 @@
                 android:layout_weight="0.5"
                 android:paddingLeft="10dip"
                 android:text="Appliquer" />
+            	            	<Button
+                android:id="@+id/editTableTableButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_weight="0.5"
+                android:paddingLeft="10dip"
+                android:text="Horaire" />
         </LinearLayout>
     </LinearLayout>
 
