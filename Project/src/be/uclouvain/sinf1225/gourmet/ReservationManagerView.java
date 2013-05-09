@@ -1,5 +1,6 @@
 package be.uclouvain.sinf1225.gourmet;
 
+import be.uclouvain.sinf1225.gourmet.models.User;
 import be.uclouvain.sinf1225.gourmet.utils.GourmetUtils;
 import android.app.Activity;
 import android.content.Context;
@@ -55,7 +56,10 @@ public class ReservationManagerView extends Activity
 		public void onClick(View v) {
 			Context context = getApplicationContext();
 			//TODO clicklistener must open reservation edit view and fills informations with the row which has focus.
-			Toast toast = Toast.makeText(context, "Handler not implemented", Toast.LENGTH_SHORT);
+			User currentUser = User.getUserConnected();
+			String usermail = currentUser.getEmail();
+			
+			Toast toast = Toast.makeText(context, usermail+" Handler not implemented", Toast.LENGTH_SHORT);
 			toast.show();
 		}
 		

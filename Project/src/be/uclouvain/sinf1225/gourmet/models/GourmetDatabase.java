@@ -952,6 +952,8 @@ class GourmetDatabase extends SQLiteOpenHelper
 	
 	// TODO
 	public List<Reservation> getReservationInRestaurant(Restaurant restaurant) { return null; }
+	
+	
 	public List<Reservation> getReservationByUser(User user) {
 		//Adrien : I'm working on this one right now, DO NO TOUCH
 		
@@ -960,7 +962,7 @@ class GourmetDatabase extends SQLiteOpenHelper
 		SQLiteDatabase db = this.getReadableDatabase();
 		
 		Cursor cursor = db.query(true,"reservation", //table to select on
-				new String[]{"name","resto","nbrReservation","date"}, //column to get WARNING MISSING TIME
+				new String[]{"resvId","userEmail","nbrReservation","date"}, //column to get WARNING MISSING TIME
 				"`UserEmail` = ?", 
 				new String[]{user.getEmail()}, 
 				null,
