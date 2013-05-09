@@ -133,19 +133,21 @@ CREATE TABLE "reservationDish"
 DROP TABLE IF EXISTS "horaire";
 CREATE TABLE "horaire"
 (
+	"restoId" integer NOT NULL
 	"day" text NOT NULL,
 	"morningopening" text NOT NULL,
 	"morningclosing" text NOT NULL,
 	"eveningopening" text NOT NULL,
 	"eveningclosing" text NOT NULL,
-	"restoId" integer NOT NULL
 );
+
 INSERT INTO "horaire" VALUES ('lundi','11:45', '14:45','16:45', '23:45', 1);
 INSERT INTO "horaire" VALUES ('mardi','11:45', '14:45','16:45', '23:45', 1);
 INSERT INTO "horaire" VALUES ('mercredi','11:45', '14:45','16:45', '23:45', 1);
 INSERT INTO "horaire" VALUES ('jeudi','11:45', '14:45','16:45', '23:45', 1);
 INSERT INTO "horaire" VALUES ('vendredi','11:45', '14:45','16:45', '23:45', 1);
 INSERT INTO "horaire" VALUES ('samedi','11:45', '14:45','16:45', '23:45', 1);
+
 DROP TABLE IF EXISTS "users";
 CREATE TABLE "users"
 (
