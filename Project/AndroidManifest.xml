@@ -110,6 +110,14 @@
             android:label="@string/app_name" >
         </activity>
                 <activity
+            android:name="be.uclouvain.sinf1225.gourmet.TimeSheetRestaurantEdit"
+            android:label="@string/app_name" >
+        </activity>
+                <activity
+            android:name="be.uclouvain.sinf1225.gourmet.TimeTableEdit"
+            android:label="@string/app_name" >
+        </activity>
+                <activity
             android:name="be.uclouvain.sinf1225.gourmet.TimeSheetRestaurant"
             android:label="@string/app_name" >
         </activity>

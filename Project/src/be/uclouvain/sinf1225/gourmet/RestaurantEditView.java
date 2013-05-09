@@ -56,6 +56,7 @@ public class RestaurantEditView extends Activity
 		final RatingBar Stars = (RatingBar) this.findViewById(R.id.restaurantStars);
 		final Button ApplyButton = (Button) this.findViewById(R.id.buttonApply);
 		final Button imageButton = (Button) this.findViewById(R.id.seeImageRestaurant);
+		final Button timeTable = (Button) this.findViewById(R.id.editTableTableButton);
 
 		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
 		        R.array.restaurant_price_category, android.R.layout.simple_spinner_item);
@@ -76,6 +77,19 @@ public class RestaurantEditView extends Activity
 		Stars.setMax(5); // set max just to be sure
 		Stars.setRating(resto.getStars());
 		Stars.setStepSize(1);
+		timeTable.setOnClickListener(new View.OnClickListener()
+		{
+			/**
+			 * perform action on click
+			 */
+			@Override
+			public void onClick(View v)
+			{
+				Intent intent = new Intent(RestaurantEditView.this, TimeSheetRestaurantEdit.class);
+				intent.putExtra("restoId", resto.getId());
+				startActivity(intent);
+			}
+		});
 
 		imageButton.setOnClickListener(new View.OnClickListener()
 		{

@@ -141,6 +141,7 @@ CREATE TABLE "horaire"
 	"morningclosing" text NOT NULL,
 	"eveningopening" text NOT NULL,
 	"eveningclosing" text NOT NULL,
+<<<<<<< Updated upstream
 );
 
 INSERT INTO "horaire" VALUES ('lundi','11:45', '14:45','16:45', '23:45', 1);
@@ -151,6 +152,18 @@ INSERT INTO "horaire" VALUES ('vendredi','11:45', '14:45','16:45', '23:45', 1);
 INSERT INTO "horaire" VALUES ('samedi','11:45', '14:45','16:45', '23:45', 1);
 >>>>>>> c1e1a54fb382d3b4ae52e8289e46e322f70b1529
 
+=======
+	"restoId" integer NOT NULL,
+	"close" integer NOT NULL
+);
+INSERT INTO "horaire" VALUES ('lundi','11:45', '14:45','16:45', '23:45', 1, 0);
+INSERT INTO "horaire" VALUES ('mardi','11:45', '14:45','16:45', '23:45', 1, 0);
+INSERT INTO "horaire" VALUES ('mercredi','11:45', '14:45','16:45', '23:45', 1, 0);
+INSERT INTO "horaire" VALUES ('jeudi','11:45', '14:45','16:45', '23:45', 1, 0);
+INSERT INTO "horaire" VALUES ('vendredi','11:45', '14:45','16:45', '23:45', 1, 0);
+INSERT INTO "horaire" VALUES ('samedi','11:45', '14:45','16:45', '23:45', 1, 0);
+INSERT INTO "horaire" VALUES ('dimanche','11:45', '14:45','16:45', '23:45', 1, 1);
+>>>>>>> Stashed changes
 DROP TABLE IF EXISTS "users";
 CREATE TABLE "users"
 (

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?><LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/day_clic_timesheet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Jour"
+         android:layout_gravity="left"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+
+    <CheckBox
+        android:id="@+id/check_ferme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:text="Ferme" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Service de midi" />
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" >
+
+        <EditText
+            android:id="@+id/text_morning_open"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:text="Button" />
+
+        <EditText
+            android:id="@+id/text_morning_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:text="Button" />
+
+    </LinearLayout>
+        <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Service du soir" />
+
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" >
+
+        <EditText
+            android:id="@+id/text_evening_open"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:text="Button" />
+
+        <EditText
+            android:id="@+id/text_evening_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:text="Button" />
+
+
+
+    </LinearLayout>
+        <Button
+            android:id="@+id/apply_time_sheet_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Appliquer" />
+
+
+
+</LinearLayout>

@@ -89,6 +89,13 @@ public class Restaurant
 		db.close();
 		return resto;
 	}
+	public static List<TimeTable> getTFullTimeTable(int restoId)
+	{
+		GourmetDatabase db = new GourmetDatabase();
+		List<TimeTable> resto = db.getFullTimeTable(restoId);
+		db.close();
+		return resto;
+	}
 
 	public int getId()
 	{
