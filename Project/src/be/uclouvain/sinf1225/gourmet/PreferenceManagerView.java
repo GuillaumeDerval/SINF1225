@@ -29,9 +29,15 @@ public class PreferenceManagerView extends Activity
 		
 		//Ajout des options sur le budget_spinner
 		Spinner budgetSpinner = (Spinner) findViewById(R.id.budget_spinner);
-		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.pref_budget_list, android.R.layout.simple_spinner_item);
-		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		budgetSpinner.setAdapter(adapter);
+		ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this, R.array.pref_budget_list, android.R.layout.simple_spinner_item);
+		adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		budgetSpinner.setAdapter(adapter1);
+		
+		//Ajout des options sur le spicy_spinner
+		Spinner spicySpinner = (Spinner) findViewById(R.id.spicy_spinner);
+		ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this, R.array.pref_spicy_list, android.R.layout.simple_spinner_item);
+		adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		spicySpinner.setAdapter(adapter2);
 		
 	}
 }

@@ -76,5 +76,13 @@
         <item >50 - 100 €</item>
         <item >&gt; 100 €</item>
     </string-array>
+    <string name="pref_spicy">Épicé :</string>
+    <string-array name="pref_spicy_list">
+        <item >Pas du tout</item>
+        <item >Un peu</item>
+        <item >Moyennement</item>
+        <item >Beaucoups</item>
+        <item >Diablement</item>
+    </string-array>
 
 </resources>
