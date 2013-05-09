@@ -34,7 +34,9 @@ public class ReservationManagerView extends Activity
 		//linking current layout
 		TableLayout rsv_tab = (TableLayout)findViewById(R.id.rsv_manager);
 
-		//loading a model
+		//TODO make a cursor to get the reserveration of the user
+		//TODO load all the reservations and put them in the GUI 
+		//TODO each row much contains one reservation and be able to get the focus and show it got the focus.
 		TableRow row = (TableRow) ( (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.reservation_manager_row, null);
 		rsv_tab.addView(row);
 		setRow(row,"Horgnies","12-05-13", "18:30", "Le sot l'y laisse", "5");
@@ -45,6 +47,7 @@ public class ReservationManagerView extends Activity
 		//button to edit the selection
 		Button edit = (Button) ( (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.reservation_manager_button, null);
 		rsv_tab.addView(edit);
+		//TODO clicklistener must open reservation edit view and fills informations with the row who has focus.
 	}
 	
 	private void setRow(TableRow row, String name, String date, String time, String restaurant, String effectif){
