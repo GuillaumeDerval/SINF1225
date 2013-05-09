@@ -138,7 +138,7 @@ public class ReservationCreateView extends Activity
 		/* add the id into the list of dishes */
 		int dish_id = data.getIntExtra("dishId",0);
 
-		if (dish_id == 0) toast = Toast.makeText(context, "aucun plat ajoutŽ", Toast.LENGTH_SHORT);
+		if (dish_id == 0) toast = Toast.makeText(context, "aucun plat ajouté", Toast.LENGTH_SHORT);
 		else
 		{
 			/* add the dish into the list of dish_id */

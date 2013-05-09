@@ -81,4 +81,25 @@
 
     </TableRow>
 
+    <TableRow
+        android:id="@+id/tableRow2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+        
+        
+
+    <Button 
+        android:id="@+id/saveButton" 
+        android:layout_width="wrap_content"
+        android:layout_height="20dip"
+        android:textSize="16sp"
+    	android:padding="0dip"
+        android:gravity="center_horizontal"
+        android:layout_weight="1"
+        android:background="@color/green"
+        android:text="@string/pref_save"
+        android:textColor="@android:color/white" />
+    </TableRow>
+    
+
 </LinearLayout>

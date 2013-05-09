@@ -1,4 +1,4 @@
-PRAGMA foreign_keys = OFF;
+﻿PRAGMA foreign_keys = OFF;
 
 DROP TABLE IF EXISTS "city";
 CREATE TABLE "city" (
@@ -130,22 +130,7 @@ CREATE TABLE "reservationDish"
 	CONSTRAINT "resvID_contrainte" FOREIGN KEY ("resvId") REFERENCES "reservation" ("resvId"),
 	CONSTRAINT "DishID_contrainte" FOREIGN KEY ("dishId") REFERENCES "dish" ("dishId")
 );
-DROP TABLE IF EXISTS "horaire";
-CREATE TABLE "horaire"
-(
-	"day" text NOT NULL,
-	"morningopening" text NOT NULL,
-	"morningclosing" text NOT NULL,
-	"eveningopening" text NOT NULL,
-	"eveningclosing" text NOT NULL,
-	"restoId" integer NOT NULL
-);
-INSERT INTO "horaire" VALUES ('lundi','11:45', '14:45','16:45', '23:45', 1);
-INSERT INTO "horaire" VALUES ('mardi','11:45', '14:45','16:45', '23:45', 1);
-INSERT INTO "horaire" VALUES ('mercredi','11:45', '14:45','16:45', '23:45', 1);
-INSERT INTO "horaire" VALUES ('jeudi','11:45', '14:45','16:45', '23:45', 1);
-INSERT INTO "horaire" VALUES ('vendredi','11:45', '14:45','16:45', '23:45', 1);
-INSERT INTO "horaire" VALUES ('samedi','11:45', '14:45','16:45', '23:45', 1);
+
 DROP TABLE IF EXISTS "users";
 CREATE TABLE "users"
 (
@@ -166,6 +151,19 @@ CREATE TABLE "users_manages"
 );
 INSERT INTO "users_manages" VALUES ('test','1');
 INSERT INTO "users_manages" VALUES ('test','2');
+
+DROP TABLE IF EXISTS "preferences";
+CREATE TABLE "preferences"
+(
+	"email" text NOT NULL,
+	"budget" integer,
+	"allergen" integer,
+	"vegetarian" interger,
+	"spicy" integer,
+	PRIMARY KEY("email")
+);
+
+
 
 /* La derniere requete ne doit pas contenir de point-virgule!!!
    Last request should not contain semicolon!!!

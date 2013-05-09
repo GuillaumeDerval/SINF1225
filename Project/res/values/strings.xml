@@ -90,5 +90,7 @@
     <string name="rsv_rest">Restaurant</string>
     <string name="rsv_nb_people"># p.</string>
     <string name="rsv_edit">Éditer la sélection</string>
+    <string name="pref_save">Enregistrer</string>
+    <string name="pref_cancel">Annuler</string>
 
 </resources>
