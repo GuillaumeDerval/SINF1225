@@ -168,6 +168,18 @@
         android:layout_alignParentLeft="true"
         android:isIndicator="true"
         android:layout_below="@+id/RestaurantViewDescription" />
+    
+    
+    
+        <Button
+        android:id="@+id/TimeTableButton"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignLeft="@+id/RestaurantViewReservation"
+        android:layout_below="@+id/RestaurantViewName"
+        android:text="Horaires" />
     </LinearLayout>   
     </ScrollView>
     

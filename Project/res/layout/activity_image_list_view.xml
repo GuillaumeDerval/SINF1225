@@ -33,7 +33,7 @@
   
   <ListView
       android:id="@+id/restaurantImageList"
-      android:layout_width="wrap_content"
+      android:layout_width="fill_parent"
       android:layout_gravity="center"
       android:layout_height="fill_parent" >
     

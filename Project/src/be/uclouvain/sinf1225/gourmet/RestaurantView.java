@@ -165,6 +165,18 @@ public class RestaurantView extends Activity
 				}
 			}
 		});
+		Button timeTable = (Button) findViewById(R.id.TimeTableButton);
+		timeTable.setOnClickListener(new OnClickListener()
+		{
+			@Override
+			public void onClick(View arg0)
+			{
+				Intent intent = new Intent(RestaurantView.this, TimeSheetRestaurant.class);
+			    intent.putExtra("restoId", restaurant.getId());
+			    startActivity(intent);
+
+			}
+		});
 	}
 	protected void onActivityResult(int requestCode, int resultCode, Intent data)
 	{

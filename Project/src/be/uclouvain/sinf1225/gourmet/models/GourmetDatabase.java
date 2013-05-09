@@ -28,7 +28,7 @@ class GourmetDatabase extends SQLiteOpenHelper
 {
 
 
-	private static final int DATABASE_VERSION = 63;
+	private static final int DATABASE_VERSION = 65;
 
 
 
@@ -887,7 +887,7 @@ class GourmetDatabase extends SQLiteOpenHelper
 	    
 	    db.close();
 	}
-	
+
 	/**
 	 * Get reservation in database
 	 */
@@ -996,5 +996,39 @@ class GourmetDatabase extends SQLiteOpenHelper
 		}//*/
 			
 		return reservations;
+	}
+	public List<TimeTable> getTimeTable(int restoId){
+		
+		SQLiteDatabase db = this.getReadableDatabase();
+		
+		Cursor cursor = db.query("horaire", //table to select on
+				new String[]{"day","morningopening","morningclosing","eveningopening", "eveningclosing", "restoId"}, //column to get
+				"`restoId` = ?", //where
+				new String[]{restoId + ""}, //where string
+				null, //group by
+				null, //having
+				null); //orderby
+		
+		if(cursor == null || cursor.getCount() == 0)
+		{
+		    /* close database */
+		    db.close();
+		    
+		    return null;
+		}
+			
+		cursor.moveToFirst();
+		
+		List<TimeTable> timeTable = new ArrayList<TimeTable>();
+		for(int j = 0; j < cursor.getCount(); j++)
+		{
+			timeTable.add(new TimeTable(cursor.getString(1),cursor.getString(2), cursor.getString(3), cursor.getString(4),cursor.getString(0)));
+			cursor.moveToNext();
+		}
+		/* close database */
+	    db.close();
+	    
+		return timeTable;
+		
 	}
 }
