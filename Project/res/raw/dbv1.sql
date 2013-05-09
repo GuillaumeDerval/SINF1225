@@ -33,7 +33,7 @@ CREATE TABLE "restaurant" (
 );
 CREATE UNIQUE INDEX "resto_p_key" ON "restaurant" ("name" ASC, "cityName" ASC, "cityCountry" ASC, "address" ASC);
 
-INSERT INTO "restaurant" VALUES (1,'Madzebu', 'Louvain-la-Neuve', 'Belgique', 'Place de l université, 15', 50.668081, 4.611832, 'Un restaurant de test', 'test@itself.be', 4, '0032 (0)10450757', 'http://www.guillaumederval.be', 10, 0);
+INSERT INTO "restaurant" VALUES (1,'Madzebu', 'Louvain-la-Neuve', 'Belgique', 'Place de l université, 15', 50.689498, 4.616775, 'Jérôme, le Chef de cuisine, vous y propose une carte aux inspirations méditerranéennes, saisonnières et d aujourd hui, de 12 h à 15 h et de 18 h à 23 h, du lundi au dimanche. Pour les couche-tard, la cuisine reste ouverte les vendredis et samedis soirs, jusqu à minuit. Le bar, son salon et la terrasse "pop" vous accueillent toute la journée, pour prendre un cocktail ou grignoter sucré-salé. Tous les midis, du lundi au vendredi, nous vous proposons un lunch frais et sympathique entrée/plat pour 15,90 EUR. Service rapide et détendu garanti. ', 'Email absent', 4, '0032 (0)10450757', 'http://www.madzebu.be', 30, 3);
 INSERT INTO "restaurant" VALUES (2,'Altérez-vous', 'Louvain-la-Neuve', 'Belgique', 'Place des Brabançons, 6A', 50.690368, 4.615402, 'Altérez-vous est un café citoyen, espace d échanges conviviaux avec des produits locaux ou bio ou issus du commerce équitable pour un projet DURABLE!', 'info@alterezvous.be', 5, '0032 (0)10844003', 'http://www.alterezvous.be', 30, 0);
 INSERT INTO "restaurant" VALUES (3,'Aux armes de Bruxelles', 'Bruxelles', 'Belgique', 'Rue des Bouchers, 13', 50.848684, 4.354141, 'Situé au cœur du vieux Bruxelles, la brasserie Aux Armes de Bruxelles est une véritable institution dans le quartier historique de l îlot Sacré. La décoration chaleureuse, le respect de la cuisine traditionnelle belge et un service de qualité font des Armes un des hauts lieux de la restauration bruxelloise, depuis 1921', 'Email absent', 3.5, '0032 (0)25115598', 'http://www.auxarmesdebruxelles.com', 50, 1);
 INSERT INTO "restaurant" VALUES (4,'Quai 38', 'Lille', 'France', 'Rue Saint-Sébastien, 38', 50.649025, 3.058119, 'Spécialisés en poissons, le chef Bertrand et son équipe proposent une carte à l ardoise. Les plats peuvent ainsi variés selon l arrivage et la saison. Si toute fois, l un de vous n aimez pas le poisson, une viande est à la carte. Le cadre est soigné et les tables espacées.', 'Email absent', 4.5, '0033 (0)320421068', 'http://www.quai38-lille.fr', 15, 2);
@@ -54,14 +54,12 @@ CREATE TABLE "dish" (
 );
 CREATE UNIQUE INDEX "dish_p_key" ON "dish" ("name" ASC, "restoId" ASC, "category" ASC);
 
-INSERT INTO "dish" VALUES (1,'CourgetteEntree ', 1, 'GreenEntree', 9.5, 1, 1, 10, 1, 'Entree');
-INSERT INTO "dish" VALUES (2,'CourgettePlat ', 1, 'GreenPlat', 10, 1, 0, 1, 1, 'Plat');
-INSERT INTO "dish" VALUES (3,'CourgetteDessert ', 1, 'GreenDessert', 10, 1, 1, 1, 0, 'Dessert');
-INSERT INTO "dish" VALUES (4,'CourgetteAutre ', 1, 'GreenAutre', 10, 1, 1, 1, 1, 'HelloWorld');
-INSERT INTO "dish" VALUES (5,'ABCCourgetteEntree ', 1, 'GreenEntree', 10, 1, 1, 1, 1, 'Entree');
-INSERT INTO "dish" VALUES (6,'ABCCourgettePlat ', 1, 'GreenPlat', 10, 1, 1, 1, 1, 'Plat');
-INSERT INTO "dish" VALUES (7,'ABCCourgetteDessert ', 1, 'GreenDessert', 10, 1, 1, 1, 1, 'Dessert');
-INSERT INTO "dish" VALUES (8,'ABCCourgetteAutre ', 1, 'GreenAutre', 10, 1, 1, 1, 1, 'HelloWorld');
+INSERT INTO "dish" VALUES (1,'Carpaccio de bœuf', 1, 'Huile d’olive citronnée, basilic, parmesan, roquette et pignons de pin', 13, 0, 0, 10, 1, 'Entree');
+INSERT INTO "dish" VALUES (2,'Filet pur de bœuf Simenthal', 1, 'Filet pur de boeuf Simenthal poêlé, 220gr, servi avec des frites', 27.9, 1, 0, 3, 0, 'Plat');
+INSERT INTO "dish" VALUES (3,'Dame blanche', 1, 'Deux boules de glace vanille avec couli de chocolat maison et un biscuit croquant', 7.5, 0, 1, 13, 0, 'Dessert');
+INSERT INTO "dish" VALUES (5,'Vitello Tonato', 1, 'Carpaccio de veau cuit à basse température, mayonnaise fine au thon et câpres, poutargue et asters maritimes ', 10, 1, 0, 5, 1, 'Entree');
+INSERT INTO "dish" VALUES (6,'Salade au chèvre', 1, 'Salade de croustillants de chèvre frais, poêlée de pommes et miel', 13.90, 0, 1, 9, 1, 'Plat');
+INSERT INTO "dish" VALUES (7,'Crème brûlée', 1, 'Crème soupoudrée de sucre de canne caramélisé, à déguster sans modération!', 9.3, 0, 1, 14, 1, 'Dessert');
 INSERT INTO "dish" VALUES (9,'Mousse au chocolat', 2, 'Une délicieuse mousse au chocolat fairtrade', 6.5, 0, 1, 0, 1, 'Dessert');
 INSERT INTO "dish" VALUES (10,'Quiche aux poireaux', 2, 'Cuisinée avec des poireaux d une ferme voisine, accompagnée d une salade légère', 11, 0, 0, 1, 0, 'Plat');
 INSERT INTO "dish" VALUES (11,'Soupe aux légumes', 2, 'Une délicieuse soupe saine et bio, n oubliez pas: MEN Sana in corpore sano!', 4, 1, 1, 1, 0, 'Entree');
@@ -93,9 +91,9 @@ CREATE TABLE "image"
 	"objectId" integer NOT NULL,
 	PRIMARY KEY("path")
 );
-INSERT INTO "image" VALUES ('img/picture1.png','restaurant', 'Legende 1',1);
-INSERT INTO "image" VALUES ('img/picture2.png','restaurant', 'Legende 2',1);
-INSERT INTO "image" VALUES ('img/picture3.png','dish', 'Legende 1',1);
+INSERT INTO "image" VALUES ('img/picture1.png','restaurant', 'La salle',1);
+INSERT INTO "image" VALUES ('img/picture2.png','restaurant', 'Le bar',1);
+INSERT INTO "image" VALUES ('img/picture3.png','restaurant', 'Grande table',1);
 INSERT INTO "image" VALUES ('img/alterezvous1.png','restaurant', 'Intérieur du café',2);
 INSERT INTO "image" VALUES ('img/alterezvous2.png','restaurant', 'Le piano désaccordé',2);
 INSERT INTO "image" VALUES ('img/alterezvous3.png','restaurant', 'La terrasse du café',2);
@@ -116,6 +114,12 @@ INSERT INTO "image" VALUES ('img/quai_feuille.png','dish', 'Le mille feuille mai
 INSERT INTO "image" VALUES ('img/quai_gourmand.png','dish', 'Le champagne gourmand',17);
 INSERT INTO "image" VALUES ('img/quai_grandlarge.png','dish', 'L assiette grand large',15);
 INSERT INTO "image" VALUES ('img/quai_turbo.png','dish', 'Filet de turbo sauce Hollandaise',14);
+INSERT INTO "image" VALUES ('img/madzebu_carpboeuf.png','dish', 'Carpaccio de boeuf',1);
+INSERT INTO "image" VALUES ('img/madzebu_simenthal.png','dish', 'Boeuf Simenthal',2);
+INSERT INTO "image" VALUES ('img/madzebu_dame.png','dish', 'Dame blanche',3);
+INSERT INTO "image" VALUES ('img/madzebu_vitello.png','dish', 'Vitello tonnato',5);
+INSERT INTO "image" VALUES ('img/madzebu_salade.png','dish', 'Salade de chèvre',6);
+INSERT INTO "image" VALUES ('img/madzebu_creme.png','dish', 'Crème brûlée',7);
 
 
 DROP TABLE IF EXISTS "reservationDish";

@@ -76,7 +76,7 @@ public class RestaurantListView extends Activity implements GourmetLocationRecei
 		// On recupere la vue "liste"
 		if (restaurants == null || restaurants.size()==0)
 		{
-			Toast toast = Toast.makeText(getApplicationContext(),"Il n'y a pas de restaurants dans le ville sélectionnée",Toast.LENGTH_LONG);
+			Toast toast = Toast.makeText(getApplicationContext(),"Il n'y a pas de restaurants dans le ville s√©lectionn√©e",Toast.LENGTH_LONG);
 			toast.show();
 		}
 		RestaurantList = (ListView) this.findViewById(R.id.RestaurantListView);
