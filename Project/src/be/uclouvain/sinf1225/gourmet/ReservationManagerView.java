@@ -62,26 +62,10 @@ public class ReservationManagerView extends Activity
           rsv_tab.addView(row);
           registerForContextMenu(row);
 
- 
-          Intent intent = new Intent(ReservationManagerView.this, ReservationCreateView.class);
-          intent.putExtra("resvId", oneRsv.getId());
-          
-          View.OnClickListener handler_edit = new ReservationRowListener(intent);
-          row.setOnClickListener(handler_edit);
         }
 		
 		
 	}
-	
-	View.OnClickListener handler_edit = new View.OnClickListener() {
-		public void onClick(View v) {
-			Context context = getApplicationContext();
-			
-			Toast toast = Toast.makeText(context, " Handler not implemented", Toast.LENGTH_SHORT);
-			toast.show();
-		}
-		
-	};
 	
 	private void setRow(TableRow row, String date, String time, String restaurant, String effectif){
 		((TextView)row.findViewById(R.id.rsvDate)).setText(date);
