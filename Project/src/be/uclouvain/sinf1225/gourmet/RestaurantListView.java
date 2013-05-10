@@ -146,6 +146,8 @@ public class RestaurantListView extends Activity implements GourmetLocationRecei
 		public void onClick(View v)
 		{
 			Intent intent = new Intent(RestaurantListView.this, RestaurantMapView.class);
+			intent.putExtra("name", city.getName());
+			intent.putExtra("country", city.getCountry());
 			startActivity(intent);
 		}
 	});
