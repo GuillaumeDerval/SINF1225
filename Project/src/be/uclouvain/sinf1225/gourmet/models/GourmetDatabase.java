@@ -848,7 +848,6 @@ class GourmetDatabase extends SQLiteOpenHelper
 	}
 	
 	public void addPreference(Preference pref){
-		System.out.println("YOU JUST ADDED : "+pref);
 		SQLiteDatabase db = this.getWritableDatabase();
 		ContentValues values = new ContentValues();
 		//1 means true, 0 means false
@@ -936,7 +935,6 @@ class GourmetDatabase extends SQLiteOpenHelper
 	}
 	
 	public void updatePreference(Preference pref){
-		System.out.println("YOU JUST UPDATED : "+pref);
 		SQLiteDatabase db = this.getWritableDatabase();
 		ContentValues values = new ContentValues();
 		

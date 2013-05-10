@@ -19,14 +19,12 @@ public class Preference {
 			GourmetDatabase db = new GourmetDatabase();
 			db.addPreference(preference);
 			db.close();
-			System.out.println("You added a preference");
 	}
 	
 	public static void updatePreference(Preference pref){
 		GourmetDatabase db = new GourmetDatabase();
 		db.updatePreference(pref);
 		db.close();
-		System.out.println("You updated a preference");
 	}
 	
 	public static boolean isTherePref(String email){

@@ -44,7 +44,6 @@ public class PreferenceManagerView extends Activity
 		final String userEmail = User.getUserConnected().getEmail();
 		if (Preference.isTherePref(userEmail)){
 			Preference pref = Preference.getPrefByUserEmail(userEmail);
-			System.out.println("LOADING EXISTING PREF : " + pref);
 			
 			final CheckBox allergenBox = (CheckBox) findViewById(R.id.allergen_checkbox);
 			final CheckBox vegBox = (CheckBox) findViewById(R.id.veg_checkbox);
@@ -80,14 +79,11 @@ public class PreferenceManagerView extends Activity
 				Toast toast;
 				
 				if (Preference.isTherePref(userEmail)){
-					System.out.println("old pref = "+Preference.getPrefByUserEmail(userEmail));
 					Preference.updatePreference(currentPreference);
-					System.out.println("new pref = "+Preference.getPrefByUserEmail(userEmail));
 					toast = Toast.makeText(context, "Vos préférences ont été modifiées.", Toast.LENGTH_SHORT);
 					
 				} else {
 					Preference.addPreference(currentPreference);
-					System.out.println("pref added = "+Preference.getPrefByUserEmail(userEmail));
 					toast = Toast.makeText(context, "Vos préférences ont été sauvées.", Toast.LENGTH_SHORT);
 				}
 				
