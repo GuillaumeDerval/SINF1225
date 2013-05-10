@@ -12,15 +12,6 @@
 	  
 	    
 	  <TableRow>
-	      
-	   <TextView
-	  	android:id="@+id/rsvName"
-	    android:textColor="@android:color/white"
-	    android:layout_margin="1dp"
-	    android:gravity="center_horizontal"
-	    android:layout_weight="1"
-	    android:background="@color/green"
-	    android:text="@string/rsv_name" />
 	   
 	   <TextView
 	  	android:id="@+id/rsvDate"
@@ -59,16 +50,14 @@
 	   
 	  </TableRow>
 	 </TableLayout>
-	 
-	 <Button
-	android:id="@+id/rsvEdit"
-	android:textColor="@android:color/white"
-    android:layout_width="match_parent"
-    android:layout_height="20dip" 
-    android:text="@string/rsv_edit"
-    android:textSize="16sp"
-    android:background="@color/green">
-    
 
-</Button>
+	<TextView
+	    android:id="@+id/textView1"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:gravity="center_horizontal"
+	    android:background="@color/green"
+	    android:textColor="@android:color/white"
+	    android:text="@string/rsv_edit" />
+	
 </LinearLayout>

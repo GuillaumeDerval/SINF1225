@@ -48,16 +48,10 @@ public class ReservationManagerView extends Activity
 		//TODO clicklistener must open reservation edit view and fills informations with the row which has focus.
 		User currentUser = User.getUserConnected();
 		List<Reservation> userReservations = Reservation.getReservationByUser(currentUser);
-		System.out.println("SIZE OF RSV LIST : " + userReservations.size());
 
 		Iterator<Reservation> it = userReservations.iterator();
 		while(it.hasNext()) {
           Reservation oneRsv=(Reservation) it.next();
-          System.out.println("LOADING INFORMATION OF ONE RESERVATION");
-          
-          String initial = User.getUserConnected().getName().substring(0,1)+". ";
-          String name = initial + User.getUserConnected().getSurname(); //Initial of firstname + name (F. Name)
-          name = name.length() <= 10 ? name : name.substring(0,10)+"..." ; //Droping last letters if too long, not to destroy GUI
           
           String date = oneRsv.getDateText();
           String[] dateTime = parseDateTime(date);
@@ -67,13 +61,12 @@ public class ReservationManagerView extends Activity
           String nbPeople = ""+oneRsv.getnbrReservation();
 
           TableRow row = (TableRow) ( (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.reservation_manager_row, null);
-          setRow(row, name ,dateTime[1], dateTime[0], restoName, nbPeople);
+          setRow(row ,dateTime[1], dateTime[0], restoName, nbPeople);
           rsv_tab.addView(row);
+          registerForContextMenu(row);
         }
 		
-		//button to edit the selection
-		Button edit = (Button) findViewById(R.id.rsvEdit);
-		edit.setOnClickListener(handler_edit);
+		
 	}
 	
 	View.OnClickListener handler_edit = new View.OnClickListener() {
@@ -86,8 +79,7 @@ public class ReservationManagerView extends Activity
 		
 	};
 	
-	private void setRow(TableRow row, String name, String date, String time, String restaurant, String effectif){
-		((TextView)row.findViewById(R.id.rsvName)).setText(name);
+	private void setRow(TableRow row, String date, String time, String restaurant, String effectif){
 		((TextView)row.findViewById(R.id.rsvDate)).setText(date);
 		((TextView)row.findViewById(R.id.rsvTime)).setText(time);
 		((TextView)row.findViewById(R.id.rsvRest)).setText(restaurant);
