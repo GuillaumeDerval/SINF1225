@@ -851,6 +851,7 @@ class GourmetDatabase extends SQLiteOpenHelper
 	}
 	
 	public void addPreference(Preference pref){
+		System.out.println("YOU JUST ADDED : "+pref);
 		SQLiteDatabase db = this.getWritableDatabase();
 		ContentValues values = new ContentValues();
 		//1 means true, 0 means false
@@ -908,13 +909,13 @@ class GourmetDatabase extends SQLiteOpenHelper
 		db.close();
 	}
 	
-	public boolean isTherePref(Preference pref){
+	public boolean isTherePref(String email){
 		SQLiteDatabase db = this.getReadableDatabase();
 
 		Cursor cursor = db.query(true,"preferences", //table to select on
 				new String[]{"email"}, //column to get
 				"`email` = ?", 
-				new String[]{pref.getUserEmail()}, 
+				new String[]{email}, 
 				null,
 				null,
 				null,
@@ -938,6 +939,7 @@ class GourmetDatabase extends SQLiteOpenHelper
 	}
 	
 	public void updatePreference(Preference pref){
+		System.out.println("YOU JUST UPDATED : "+pref);
 		SQLiteDatabase db = this.getWritableDatabase();
 		ContentValues values = new ContentValues();
 		
@@ -1166,6 +1168,33 @@ class GourmetDatabase extends SQLiteOpenHelper
 	{
 		
 		return 0;
+	}
+
+	public Preference getPrefByUserEmail(String userEmail) {
+		SQLiteDatabase db = this.getReadableDatabase();
+
+		Cursor cursor = db.query(true,"preferences", //table to select on
+				new String[]{"budget","allergen", "vegetarian", "spicy"}, //column to get
+				"`email` = ?", 
+				new String[]{userEmail}, 
+				null,
+				null,
+				null,
+				null);
+		if(cursor == null)
+		{
+			return null;
+		}
+		cursor.moveToFirst();
+
+		int budget = cursor.getInt(0);
+		boolean allergen = cursor.getInt(1) == 1;
+		boolean vegetarian = cursor.getInt(2) == 1;
+		boolean spicy = cursor.getInt(3) == 1;
+
+		cursor.close();
+		db.close();
+		return new Preference(userEmail, budget, allergen, spicy, vegetarian);
 	}
 	
 	

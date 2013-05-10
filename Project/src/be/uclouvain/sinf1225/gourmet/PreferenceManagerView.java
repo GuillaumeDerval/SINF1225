@@ -40,6 +40,23 @@ public class PreferenceManagerView extends Activity
 		adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		budgetSpinner.setAdapter(adapter1);
 		
+		//loading existing preference if there is.
+		final String userEmail = User.getUserConnected().getEmail();
+		if (Preference.isTherePref(userEmail)){
+			Preference pref = Preference.getPrefByUserEmail(userEmail);
+			System.out.println("LOADING EXISTING PREF : " + pref);
+			
+			final CheckBox allergenBox = (CheckBox) findViewById(R.id.allergen_checkbox);
+			final CheckBox vegBox = (CheckBox) findViewById(R.id.veg_checkbox);
+			final CheckBox spicyBox = (CheckBox) findViewById(R.id.spicy_checkbox);
+			
+			budgetSpinner.setSelection(pref.getBudget()-1);
+			allergenBox.setChecked(pref.isAllergen());
+			vegBox.setChecked(pref.isVegeterian());
+			spicyBox.setChecked(pref.isSpicy());
+			
+		} 
+		
 		final Button saveButton = (Button) findViewById(R.id.saveButton);
 		saveButton.setOnClickListener(new View.OnClickListener(){
 			public void onClick(View v) {
@@ -59,15 +76,24 @@ public class PreferenceManagerView extends Activity
 				
 				Preference currentPreference = new Preference(userEmail, budgetOption, allergenBool, spicyBool, vegBool);
 				
-				if (Preference.isTherePref(currentPreference)){
+				Context context = getApplicationContext();
+				Toast toast;
+				
+				if (Preference.isTherePref(userEmail)){
+					System.out.println("old pref = "+Preference.getPrefByUserEmail(userEmail));
 					Preference.updatePreference(currentPreference);
+					System.out.println("new pref = "+Preference.getPrefByUserEmail(userEmail));
+					toast = Toast.makeText(context, "Vos préférences ont été modifiées.", Toast.LENGTH_SHORT);
+					
 				} else {
 					Preference.addPreference(currentPreference);
+					System.out.println("pref added = "+Preference.getPrefByUserEmail(userEmail));
+					toast = Toast.makeText(context, "Vos préférences ont été sauvées.", Toast.LENGTH_SHORT);
 				}
 				
-				Context context = getApplicationContext();
-				Toast toast = Toast.makeText(context, "budget = "+budgetOption+"\nallergen = "+allergenBool+"\nvegetarien = "+vegBool+"\nspicy = "+spicyBool, Toast.LENGTH_SHORT);
 				toast.show();
+				
+				
 			}
 		});
 		

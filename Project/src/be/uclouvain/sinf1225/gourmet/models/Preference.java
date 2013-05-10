@@ -29,11 +29,18 @@ public class Preference {
 		System.out.println("You updated a preference");
 	}
 	
-	public static boolean isTherePref(Preference pref){
+	public static boolean isTherePref(String email){
 		GourmetDatabase db = new GourmetDatabase();
-		boolean isIt = db.isTherePref(pref);
+		boolean isIt = db.isTherePref(email);
 		db.close();
 		return isIt;
+	}
+	
+	public static Preference getPrefByUserEmail(String userEmail){
+		GourmetDatabase db = new GourmetDatabase();
+		Preference pref = db.getPrefByUserEmail(userEmail);
+		db.close();
+		return pref;
 	}
 
 	public String getUserEmail() {
@@ -74,5 +81,9 @@ public class Preference {
 
 	public void setVegeterian(boolean vegeterian) {
 		this.vegeterian = vegeterian;
+	}
+	
+	public String toString(){
+		return "Budget = "+budget+", allergen = "+allergen+", vegeterian = "+vegeterian+", spicy = "+spicy;
 	}
 }

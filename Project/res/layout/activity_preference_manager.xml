@@ -4,7 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
     
-    <!-- Functionality to add : spicy, allergens, country food, budget, vegetarien  -->
 	  
     <TableRow
         android:id="@+id/tableRow1"
