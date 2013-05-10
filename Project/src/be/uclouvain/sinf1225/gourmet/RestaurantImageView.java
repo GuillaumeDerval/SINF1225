@@ -2,25 +2,21 @@ package be.uclouvain.sinf1225.gourmet;
 
 import java.util.Date;
 import java.text.SimpleDateFormat;
-import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Toast;
 import be.uclouvain.sinf1225.gourmet.models.Image;
 import be.uclouvain.sinf1225.gourmet.models.Restaurant;
 import be.uclouvain.sinf1225.gourmet.utils.GourmetFiles;
@@ -30,6 +26,7 @@ import be.uclouvain.sinf1225.gourmet.utils.GourmetUtils;
  * @author qeggerickx
  *
  */
+@SuppressLint("SimpleDateFormat")
 public class RestaurantImageView extends Activity
 {
 	private static int RESULT_LOAD_IMAGE = 1;

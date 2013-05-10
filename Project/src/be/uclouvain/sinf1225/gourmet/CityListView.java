@@ -52,6 +52,7 @@ public class CityListView extends Activity implements GourmetLocationReceiver
 	/**
 	 * Called on the creation of the activity
 	 */
+	@SuppressWarnings("static-access")
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{

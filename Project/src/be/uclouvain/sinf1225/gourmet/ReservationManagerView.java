@@ -33,6 +33,7 @@ public class ReservationManagerView extends Activity
 		return GourmetUtils.onMenuItemSelected(item, this);
 	}
 	
+	@SuppressWarnings("unused")
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{

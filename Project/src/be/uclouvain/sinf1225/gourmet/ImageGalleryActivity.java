@@ -1,8 +1,6 @@
 package be.uclouvain.sinf1225.gourmet;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.BitmapFactory;

@@ -4,15 +4,14 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,6 +28,7 @@ import be.uclouvain.sinf1225.gourmet.utils.GourmetUtils;
  * @author qeggerickx
  * 
  */
+@SuppressLint("SimpleDateFormat")
 public class ViewDishImage extends Activity
 {
 	Dish dish;

@@ -1,23 +1,16 @@
 package be.uclouvain.sinf1225.gourmet;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import be.uclouvain.sinf1225.gourmet.models.City;
-import be.uclouvain.sinf1225.gourmet.models.Image;
 import be.uclouvain.sinf1225.gourmet.models.Restaurant;
-import be.uclouvain.sinf1225.gourmet.utils.GourmetFiles;
 import be.uclouvain.sinf1225.gourmet.utils.GourmetLocationListener;
 import be.uclouvain.sinf1225.gourmet.utils.GourmetLocationReceiver;
 import be.uclouvain.sinf1225.gourmet.utils.GourmetUtils;
 import android.app.Activity;
 import android.content.Intent;
-import android.database.Cursor;
 import android.location.Location;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
@@ -57,6 +50,7 @@ public class RestaurantListView extends Activity implements GourmetLocationRecei
 		return GourmetUtils.onMenuItemSelected(item, this);
 	}
 
+	@SuppressWarnings("static-access")
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
