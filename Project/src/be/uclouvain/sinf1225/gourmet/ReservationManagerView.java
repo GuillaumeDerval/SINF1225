@@ -23,6 +23,8 @@ import android.widget.Toast;
 
 public class ReservationManagerView extends Activity
 {	
+	String restoName;
+	
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
 	    GourmetUtils.createMenu(menu, this, R.id.reservations);
@@ -56,7 +58,7 @@ public class ReservationManagerView extends Activity
           String date = oneRsv.getDateText();
           String[] dateTime = parseDateTime(date);
           
-          String restoName = oneRsv.getRestaurant().getName();
+          restoName = oneRsv.getRestaurant().getName();
           restoName = restoName.length() <= 18 ? restoName : restoName.substring(0,18)+"..." ; //Droping last letters if too long, not to destroy GUI
           String nbPeople = ""+oneRsv.getnbrReservation();
 
@@ -64,6 +66,10 @@ public class ReservationManagerView extends Activity
           setRow(row ,dateTime[1], dateTime[0], restoName, nbPeople);
           rsv_tab.addView(row);
           registerForContextMenu(row);
+          
+          View.OnClickListener handler_edit = new ReservationRowListener(oneRsv.getId());
+          
+          row.setOnClickListener(handler_edit);
         }
 		
 		

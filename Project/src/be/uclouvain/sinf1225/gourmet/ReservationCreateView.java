@@ -183,7 +183,6 @@ public class ReservationCreateView extends Activity
 	 */
 	public void sendReservation(View view)
 	{
-		System.out.println("SENDING RESERVATION");
 
 		/* variables for the toast */
 		Context context = getApplicationContext();
