@@ -48,30 +48,28 @@ public class ReservationManagerView extends Activity
 		//TODO clicklistener must open reservation edit view and fills informations with the row which has focus.
 		User currentUser = User.getUserConnected();
 		List<Reservation> userReservations = Reservation.getReservationByUser(currentUser);
+		System.out.println("SIZE OF RSV LIST : " + userReservations.size());
 
 		Iterator<Reservation> it = userReservations.iterator();
 		while(it.hasNext()) {
           Reservation oneRsv=(Reservation) it.next();
-          String name = User.getUserConnected().getName();
-          name = name.length() <= 10 ? name : name.substring(0,10)+"..." ;
+          System.out.println("LOADING INFORMATION OF ONE RESERVATION");
+          
+          String initial = User.getUserConnected().getName().substring(0,1)+". ";
+          String name = initial + User.getUserConnected().getSurname(); //Initial of firstname + name (F. Name)
+          name = name.length() <= 10 ? name : name.substring(0,10)+"..." ; //Droping last letters if too long, not to destroy GUI
+          
           Date date = oneRsv.getDate();
           String[] dateTime = parseDateTime(date);
+          
           String restoName = oneRsv.getRestaurant().getName();
-          restoName = restoName.length() <= 18 ? restoName : restoName.substring(0,18)+"..." ;
+          restoName = restoName.length() <= 18 ? restoName : restoName.substring(0,18)+"..." ; //Droping last letters if too long, not to destroy GUI
           String nbPeople = ""+oneRsv.getnbrReservation();
 
           TableRow row = (TableRow) ( (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.reservation_manager_row, null);
           setRow(row, name ,dateTime[1], dateTime[0], restoName, nbPeople);
           rsv_tab.addView(row);
         }
-		
-		
-		/*TableRow row = (TableRow) ( (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.reservation_manager_row, null);
-		rsv_tab.addView(row);
-		setRow(row,"Horgnies","12-05-13", "18:30", "Le sot l'y laisse", "5");
-		TableRow row2 = (TableRow) ( (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.reservation_manager_row, null);
-		rsv_tab.addView(row2);
-		setRow(row2,"Legrand","11-05-13", "20:30", "L'o à la bouche", "2");*/
 		
 		//button to edit the selection
 		Button edit = (Button) findViewById(R.id.rsvEdit);

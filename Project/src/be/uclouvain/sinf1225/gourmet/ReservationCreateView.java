@@ -183,6 +183,8 @@ public class ReservationCreateView extends Activity
 	 */
 	public void sendReservation(View view)
 	{
+		System.out.println("SENDING RESERVATION");
+		
 		/* variables for the toast */
 		Context context = getApplicationContext();
 		String text = "";
@@ -192,8 +194,6 @@ public class ReservationCreateView extends Activity
 		/* Variables for the reservation */
 		String email = User.getUserConnected().getEmail();
 		Date date = dateTime.getTime();
-		System.out.println(date);
-		System.out.println(dateTime);
 
 		/* Manage Exception */
 		try{nbrResv = Integer.parseInt(nbrReservation.getText().toString());}
