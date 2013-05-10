@@ -39,35 +39,7 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
 		cal.set(Calendar.HOUR_OF_DAY, hourOfDay);
 		cal.set(Calendar.MINUTE, minute);
 		
-		//TODO to implement more seriously ^
-		
-		/* low bound */
-		/* LOW = ReservationCreateView.dateTime;
-		
-		System.out.println("LOW : " + LOW.getTime().toString() );
-		
-		LOW.set(Calendar.HOUR_OF_DAY, 10);
-		LOW.set(Calendar.MINUTE, 0);
-		LOW.set(Calendar.SECOND, 0);
-		
-		System.out.println("LOW : " + LOW.getTime().toString() ); */
-		
-		/* High bound */
-		/*HIGH = ReservationCreateView.dateTime;
-		
-		System.out.println("HIGH : " + HIGH.getTime().toString() );
-		
-		HIGH.set(Calendar.HOUR_OF_DAY, 23);
-		HIGH.set(Calendar.MINUTE, 59);
-		HIGH.set(Calendar.SECOND, 0);
-		
-		System.out.println("HIGH : " + HIGH.getTime().toString() );
-
-		System.out.println("current : "+cal.after(Calendar.getInstance()) );
-		System.out.println("LOW : "+cal.after(LOW));
-		System.out.println("HIGH : "+cal.before(HIGH)); */
-		
-		if (cal.after(Calendar.getInstance()) && hourOfDay >= 10 && hourOfDay <= 23)
+		if (cal.after(Calendar.getInstance()))
 		{
 			ReservationCreateView.dateTime.set(Calendar.HOUR_OF_DAY, hourOfDay);
 			ReservationCreateView.dateTime.set(Calendar.MINUTE, minute);

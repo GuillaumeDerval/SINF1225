@@ -87,8 +87,14 @@ public class TimeTable {
 		for ( int i = 0; i<7; i++){
 			timeTable.add(new TimeTable("00:00", "00:00", "00:00", "00:00", semaine[i], 1, restoId));
 		}
-		
 		return timeTable;
+	}
+	public static List<TimeTable> getFullTimeTable(int restoId)
+	{
+		GourmetDatabase db = new GourmetDatabase();
+		List<TimeTable> table = db.getFullTimeTable(restoId);
+		db.close();
+		return table;
 	}
 
 }
