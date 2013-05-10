@@ -145,13 +145,13 @@ CREATE TABLE "horaire"
 	"restoId" integer NOT NULL,
 	"close" integer NOT NULL
 );
-INSERT INTO "horaire" VALUES ('lundi','11:45', '14:45','16:45', '23:45', 1, 0);
-INSERT INTO "horaire" VALUES ('mardi','11:45', '14:45','16:45', '23:45', 1, 0);
-INSERT INTO "horaire" VALUES ('mercredi','11:45', '14:45','16:45', '23:45', 1, 0);
-INSERT INTO "horaire" VALUES ('jeudi','11:45', '14:45','16:45', '23:45', 1, 0);
-INSERT INTO "horaire" VALUES ('vendredi','11:45', '14:45','16:45', '23:45', 1, 0);
-INSERT INTO "horaire" VALUES ('samedi','11:45', '14:45','16:45', '23:45', 1, 0);
-INSERT INTO "horaire" VALUES ('dimanche','11:45', '14:45','16:45', '23:45', 1, 1);
+INSERT INTO "horaire" VALUES ('Lundi','11:45', '14:45','16:45', '23:45', 1, 0);
+INSERT INTO "horaire" VALUES ('Mardi','11:45', '14:45','16:45', '23:45', 1, 0);
+INSERT INTO "horaire" VALUES ('Mercredi','11:45', '14:45','16:45', '23:45', 1, 0);
+INSERT INTO "horaire" VALUES ('Jeudi','11:45', '14:45','16:45', '23:45', 1, 0);
+INSERT INTO "horaire" VALUES ('Vendredi','11:45', '14:45','16:45', '23:45', 1, 0);
+INSERT INTO "horaire" VALUES ('Samedi','11:45', '14:45','16:45', '23:45', 1, 0);
+INSERT INTO "horaire" VALUES ('Dimanche','11:45', '14:45','16:45', '23:45', 1, 1);
 DROP TABLE IF EXISTS "users";
 CREATE TABLE "users"
 (

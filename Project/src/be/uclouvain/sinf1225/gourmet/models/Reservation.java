@@ -31,7 +31,6 @@ public class Reservation
 		this.nbrReservation = nbrReservation;
 		this.dishes = new ArrayList<Integer>();
 		this.date = date;
-		this.updateReservation(); //will set id.
 	}
 	
 	/**

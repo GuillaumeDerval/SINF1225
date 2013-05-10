@@ -3,6 +3,8 @@ package be.uclouvain.sinf1225.gourmet.models;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -27,7 +29,7 @@ import be.uclouvain.sinf1225.gourmet.utils.GourmetUtils;
  */
 class GourmetDatabase extends SQLiteOpenHelper
 {
-	private static final int DATABASE_VERSION = 88;
+	private static final int DATABASE_VERSION = 91;
     private static final String DATABASE_NAME = "gourmet";
     private Context context;
     
@@ -831,6 +833,8 @@ class GourmetDatabase extends SQLiteOpenHelper
 	    values1.put("restoId", reservation.getRestaurant().getId());
 	    values1.put("nbrReservation", Integer.toString(reservation.getnbrReservation()));
 	    values1.put("date", reservation.getDate().toString());
+
+
 	    
 	    long resvId = db.insert("reservation", null, values1);
 	    

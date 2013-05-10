@@ -57,6 +57,7 @@ public class TimeTableAdapter extends ArrayAdapter<TimeTable>{
 			viewIds = (ViewIds) row.getTag();
 		}
 		if( table.getClose() != 0) viewIds.day.setTextColor(0xffff0000);
+		else viewIds.day.setTextColor(0xff00ff00);
 		viewIds.day.setText(table.getDay());
 		viewIds.opening1.setText(table.getMorningOpening());
 		viewIds.closing1.setText(table.getMorningClosing());
