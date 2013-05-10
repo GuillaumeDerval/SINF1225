@@ -61,10 +61,8 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
 		int hour = ReservationCreateView.dateTime.get(Calendar.HOUR_OF_DAY);
 		int minute = ReservationCreateView.dateTime.get(Calendar.MINUTE);
 		
-		//TODO DELETE THAT WHEN NOT NEEDED ANYMORE
 		System.out.println(hour + " : " + minute);
 
-		// Create a new instance of TimePickerDialog and return it
 		return new TimePickerDialog(getActivity(), this, hour, minute, DateFormat.is24HourFormat(getActivity()));
 	}
 }

@@ -59,10 +59,6 @@ public class DishView extends Activity
 		((TextView) findViewById(R.id.DishViewDescription)).setText(dish.getDescription());
 		((TextView) findViewById(R.id.DishViewPrice)).setText("" + dish.getPrice());
 
-
-		// ((TextView)findViewById(R.id.RestaurantListDistance)).setText(new
-		// DecimalFormat("#.##").format(city.getLocation().distanceTo(locationListener.getLastLocation())/1000));
-
 		// Checkboxes non modifiables pour afficher les booléens
 		final CheckBox ViewSpicy = (CheckBox) findViewById(R.id.DishViewSpicy);
 		final CheckBox ViewVegan = (CheckBox) findViewById(R.id.DishViewVegan);
