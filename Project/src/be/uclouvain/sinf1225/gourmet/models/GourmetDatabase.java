@@ -973,10 +973,12 @@ class GourmetDatabase extends SQLiteOpenHelper
 		    return null;
 		}
 		
+		System.out.println("Cursor length = "+cursor.getCount());
+		
 		cursor.moveToFirst();
 
 		List<Reservation> reservations = new ArrayList<Reservation>();
-		//*
+		
 		for(int j = 0; j < cursor.getCount(); j++)
 		{
 			//getting all necessary informations to construct a reservation object.
@@ -996,8 +998,9 @@ class GourmetDatabase extends SQLiteOpenHelper
 			reservations.add(rsv);
 			cursor.moveToNext();
 
-		}//*/
-			
+		}
+		cursor.close();
+		db.close();
 		return reservations;
 	}
 	public void updateTimeTable(TimeTable table)
