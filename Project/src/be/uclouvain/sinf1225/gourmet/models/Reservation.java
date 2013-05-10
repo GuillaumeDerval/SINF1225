@@ -148,4 +148,8 @@ public class Reservation
 		db.deleteReservation(this);
 		db.close();
 	}
+	
+	public String toString(){
+		return "DATE = "+date.toString()+", DISHES = toStringMissing, ID ="+id+", NBRRESERVATION = "+nbrReservation+", Restaurant =" + restaurant.getName() + ", USERMAIL = "+userEmail;
+	}
 }

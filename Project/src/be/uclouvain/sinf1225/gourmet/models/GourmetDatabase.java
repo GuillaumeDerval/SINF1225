@@ -991,7 +991,9 @@ class GourmetDatabase extends SQLiteOpenHelper
 			int nbrReservation = cursor.getInt(3);
 			List<Integer> dishes = null; //TODO GET DISHES
 			String dateText = cursor.getString(4);
-		    Date date = new Date(dateText);
+			
+		    @SuppressWarnings("deprecation")
+			Date date = new Date(dateText);
 			Reservation rsv = new Reservation(resvId,userEmail,restaurant,nbrReservation,dishes,date);
 
 			reservations.add(rsv);
