@@ -849,6 +849,24 @@ class GourmetDatabase extends SQLiteOpenHelper
 
 		return (int) resvId;
 	}
+	
+	public void addPreference(Preference pref){
+		SQLiteDatabase db = this.getWritableDatabase();
+		ContentValues values = new ContentValues();
+		//1 means true, 0 means false
+		int valueAllergen = pref.isAllergen() ? 1 : 0 ;
+		int valueSpicy = pref.isSpicy() ? 1 : 0 ;
+		int valueVegeterian = pref.isVegeterian() ? 1 : 0 ;
+		
+		values.put("email",pref.getUserEmail());
+		values.put("budget",pref.getBudget());
+		values.put("allergen",valueAllergen);
+		values.put("vegetarian",valueVegeterian);
+		values.put("spicy",valueSpicy);
+		
+		db.insert("preferences",null,values);
+		db.close();
+	}
 
 	/**
 	 * Remove the reservation from the database
@@ -887,6 +905,53 @@ class GourmetDatabase extends SQLiteOpenHelper
 			values.put("resvId", reservation.getId());
 			db.insert("reservationDish", null, values);
 		}
+		db.close();
+	}
+	
+	public boolean isTherePref(Preference pref){
+		SQLiteDatabase db = this.getReadableDatabase();
+
+		Cursor cursor = db.query(true,"preferences", //table to select on
+				new String[]{"email"}, //column to get
+				"`email` = ?", 
+				new String[]{pref.getUserEmail()}, 
+				null,
+				null,
+				null,
+				null);
+		
+		if (cursor.getCount() == 1) {
+			cursor.close();
+			db.close();
+			return true;
+		}else if(cursor.getCount() == 0) {
+			cursor.close();
+			db.close();
+			return false;
+		} else { 
+			cursor.close();
+			db.close();
+			System.err.println("SHOULD BE 0 OR 1 NOT : "+cursor.getCount());
+			System.exit(-1);
+			return false;
+		}
+	}
+	
+	public void updatePreference(Preference pref){
+		SQLiteDatabase db = this.getWritableDatabase();
+		ContentValues values = new ContentValues();
+		
+		int valueAllergen = pref.isAllergen() ? 1 : 0 ;
+		int valueSpicy = pref.isSpicy() ? 1 : 0 ;
+		int valueVegeterian = pref.isVegeterian() ? 1 : 0 ;
+
+		values.put("budget",pref.getBudget());
+		values.put("allergen",valueAllergen);
+		values.put("vegetarian",valueVegeterian);
+		values.put("spicy",valueSpicy);
+		
+		db.update("preferences", values, "`email` = ?", new String[] {pref.getUserEmail()});
+		
 		db.close();
 	}
 

@@ -1,5 +1,7 @@
 package be.uclouvain.sinf1225.gourmet;
 
+import be.uclouvain.sinf1225.gourmet.models.Preference;
+import be.uclouvain.sinf1225.gourmet.models.User;
 import be.uclouvain.sinf1225.gourmet.utils.GourmetUtils;
 import android.app.Activity;
 import android.content.Context;
@@ -42,17 +44,29 @@ public class PreferenceManagerView extends Activity
 		saveButton.setOnClickListener(new View.OnClickListener(){
 			public void onClick(View v) {
 				
+				final String userEmail = User.getUserConnected().getEmail();
+				
+				int budgetOption = budgetSpinner.getSelectedItemPosition() + 1;
 				
 				final CheckBox allergenBox = (CheckBox) findViewById(R.id.allergen_checkbox);
-				final CheckBox vegBox = (CheckBox) findViewById(R.id.veg_checkbox);
-				final CheckBox spicyBox = (CheckBox) findViewById(R.id.spicy_checkbox);
 				boolean allergenBool = allergenBox.isChecked();
+				
+				final CheckBox vegBox = (CheckBox) findViewById(R.id.veg_checkbox);
 				boolean vegBool = vegBox.isChecked();
+
+				final CheckBox spicyBox = (CheckBox) findViewById(R.id.spicy_checkbox);
 				boolean spicyBool = spicyBox.isChecked();
-				String budgetText = budgetSpinner.getSelectedItem().toString();
+				
+				Preference currentPreference = new Preference(userEmail, budgetOption, allergenBool, spicyBool, vegBool);
+				
+				if (Preference.isTherePref(currentPreference)){
+					Preference.updatePreference(currentPreference);
+				} else {
+					Preference.addPreference(currentPreference);
+				}
 				
 				Context context = getApplicationContext();
-				Toast toast = Toast.makeText(context, "budget = "+budgetText+"\nallergen = "+allergenBool+"\nvegetarien = "+vegBool+"\nspicy = "+spicyBool, Toast.LENGTH_SHORT);
+				Toast toast = Toast.makeText(context, "budget = "+budgetOption+"\nallergen = "+allergenBool+"\nvegetarien = "+vegBool+"\nspicy = "+spicyBool, Toast.LENGTH_SHORT);
 				toast.show();
 			}
 		});

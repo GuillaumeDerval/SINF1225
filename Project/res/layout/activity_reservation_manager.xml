@@ -14,8 +14,8 @@
 	  <TableRow>
 	   
 	   <TextView
-	  	android:id="@+id/rsvDate"
-	    android:textColor="@android:color/white"
+	  	android:id="@+id/rsvDate"	   
+	  	android:textColor="@android:color/white"
 	    android:gravity="center_horizontal"
 	    android:layout_weight="1"
 	    android:layout_margin="1dp"

@@ -2,7 +2,7 @@ package be.uclouvain.sinf1225.gourmet.models;
 
 public class Preference {
 	private String userEmail;
-	private int budget; // 1 is the cheapest, 5 the most expensive
+	private int budget; // 1 is the cheapest, 6 the most expensive
 	private boolean allergen;
 	private boolean spicy;
 	private boolean vegeterian;
@@ -13,6 +13,27 @@ public class Preference {
 		this.allergen = allergen;
 		this.spicy = spicy;
 		this.vegeterian = vegeterian;
+	}
+	
+	public static void addPreference(Preference preference){
+			GourmetDatabase db = new GourmetDatabase();
+			db.addPreference(preference);
+			db.close();
+			System.out.println("You added a preference");
+	}
+	
+	public static void updatePreference(Preference pref){
+		GourmetDatabase db = new GourmetDatabase();
+		db.updatePreference(pref);
+		db.close();
+		System.out.println("You updated a preference");
+	}
+	
+	public static boolean isTherePref(Preference pref){
+		GourmetDatabase db = new GourmetDatabase();
+		boolean isIt = db.isTherePref(pref);
+		db.close();
+		return isIt;
 	}
 
 	public String getUserEmail() {

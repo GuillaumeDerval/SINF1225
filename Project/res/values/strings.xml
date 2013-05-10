@@ -77,13 +77,6 @@
         <item >&gt; 100 €</item>
     </string-array>
     <string name="pref_spicy">Épicé :</string>
-    <string-array name="pref_spicy_list">
-        <item >Pas du tout</item>
-        <item >Un peu</item>
-        <item >Moyennement</item>
-        <item >Beaucoups</item>
-        <item >Diablement</item>
-    </string-array>
     <string name="rsv_name">Nom</string>
     <string name="rsv_date">Date</string>
     <string name="rsv_time">Heure</string>
