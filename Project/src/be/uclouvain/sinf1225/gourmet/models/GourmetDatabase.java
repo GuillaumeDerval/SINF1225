@@ -1,8 +1,6 @@
 package be.uclouvain.sinf1225.gourmet.models;
 
-import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -28,7 +26,7 @@ import be.uclouvain.sinf1225.gourmet.utils.GourmetUtils;
  */
 class GourmetDatabase extends SQLiteOpenHelper
 {
-	private static final int DATABASE_VERSION = 80;
+	private static final int DATABASE_VERSION = 86;
     private static final String DATABASE_NAME = "gourmet";
     private Context context;
     
@@ -363,7 +361,7 @@ class GourmetDatabase extends SQLiteOpenHelper
 	public void deleteDish(Dish dish)
 	{
 		SQLiteDatabase db = this.getWritableDatabase();
-	    int i = db.delete("dish", "`dishId` = ?", new String[] {Integer.toString(dish.getDishId())});
+		db.delete("dish", "`dishId` = ?", new String[] {Integer.toString(dish.getDishId())});
 	    db.close();
 	}
 	
@@ -1088,4 +1086,21 @@ class GourmetDatabase extends SQLiteOpenHelper
 	    
 		return timeTable;
 	}
+	public void addTimeTable(TimeTable table)
+	{
+		SQLiteDatabase db = this.getWritableDatabase();
+		 
+	    ContentValues values = new ContentValues();
+	    values.put("day", table.getDay());
+	    values.put("morningopening", table.getMorningOpening());
+	    values.put("morningclosing", table.getMorningClosing());
+	    values.put("eveningopening", table.getEveningOpening());
+	    values.put("eveningclosing", table.getEveningClosing());
+	    values.put("restoId", table.getRestoId());
+	    values.put("close", table.getClose());
+	    db.insert("horaire", null, values);
+	    
+	    db.close(); // Closing database connection
+	}
+	
 }

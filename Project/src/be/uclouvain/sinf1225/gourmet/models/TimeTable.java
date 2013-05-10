@@ -1,5 +1,8 @@
 package be.uclouvain.sinf1225.gourmet.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TimeTable {
 	private String morningOpening;
 	private String morningClosing;
@@ -25,6 +28,15 @@ public class TimeTable {
 	{
 		GourmetDatabase db = new GourmetDatabase();
 		db.updateTimeTable(table);
+		db.close();
+	}
+	public static void addTimeTable(List<TimeTable> table)
+	{
+		GourmetDatabase db = new GourmetDatabase();
+		for(TimeTable timetable:table){
+			System.out.println("helo");
+			db.addTimeTable(timetable);
+		}
 		db.close();
 	}
 	public String getMorningOpening() {
@@ -68,6 +80,15 @@ public class TimeTable {
 	}
 	public void setRestoId(int restoId) {
 		this.restoId = restoId;
+	}
+	public static List<TimeTable> newTimeTable(int restoId){
+		List<TimeTable> timeTable = new ArrayList<TimeTable>();
+		String[] semaine = {"Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi","Dimanche"}; 
+		for ( int i = 0; i<7; i++){
+			timeTable.add(new TimeTable("00:00", "00:00", "00:00", "00:00", semaine[i], 1, restoId));
+		}
+		
+		return timeTable;
 	}
 
 }

@@ -1,25 +1,19 @@
 package be.uclouvain.sinf1225.gourmet;
 
-import java.text.NumberFormat.Field;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
-import be.uclouvain.sinf1225.gourmet.models.City;
 import be.uclouvain.sinf1225.gourmet.models.Dish;
-import be.uclouvain.sinf1225.gourmet.models.Restaurant;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
-import android.location.Location;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
 import android.widget.Filter;
 import android.widget.TextView;
 

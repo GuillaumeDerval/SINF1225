@@ -28,7 +28,6 @@ import be.uclouvain.sinf1225.gourmet.models.User;
 
 public class ReservationCreateView extends Activity
 {
-
 	/* date and time */
 	protected static Calendar dateTime = Calendar.getInstance();
 	// TODO check if we should use SimpleDateFormat.getDate/TimeInstance() or not.

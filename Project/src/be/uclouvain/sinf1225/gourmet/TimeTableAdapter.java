@@ -1,24 +1,16 @@
 package be.uclouvain.sinf1225.gourmet;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
-import be.uclouvain.sinf1225.gourmet.ImageAdapter.ViewIds;
-import be.uclouvain.sinf1225.gourmet.models.Image;
 import be.uclouvain.sinf1225.gourmet.models.TimeTable;
-import be.uclouvain.sinf1225.gourmet.utils.GourmetFiles;
 
 public class TimeTableAdapter extends ArrayAdapter<TimeTable>{
 	
@@ -64,7 +56,7 @@ public class TimeTableAdapter extends ArrayAdapter<TimeTable>{
 		{
 			viewIds = (ViewIds) row.getTag();
 		}
-		if( table.getClose() != 0) {viewIds.day.setTextColor(0xffff0000); Log.d("",table.getDay()+"<----------------------" );}
+		if( table.getClose() != 0) viewIds.day.setTextColor(0xffff0000);
 		viewIds.day.setText(table.getDay());
 		viewIds.opening1.setText(table.getMorningOpening());
 		viewIds.closing1.setText(table.getMorningClosing());

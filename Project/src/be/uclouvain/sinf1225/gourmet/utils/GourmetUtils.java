@@ -15,7 +15,6 @@ import be.uclouvain.sinf1225.gourmet.LoginView;
 import be.uclouvain.sinf1225.gourmet.PreferenceManagerView;
 import be.uclouvain.sinf1225.gourmet.R;
 import be.uclouvain.sinf1225.gourmet.ReservationManagerView;
-import be.uclouvain.sinf1225.gourmet.TestView;
 import be.uclouvain.sinf1225.gourmet.models.User;
 
 import android.app.Activity;
@@ -99,11 +98,6 @@ public class GourmetUtils
         	User.logoutUser();
         	Intent intent = new Intent(view, LoginView.class);
 			view.startActivity(intent);
-		}
-		else if(item.getItemId() == R.id.test)
-		{
-			Intent intent = new Intent(view, TestView.class);
-		    view.startActivity(intent);
 		}
 		else
 			return false;
