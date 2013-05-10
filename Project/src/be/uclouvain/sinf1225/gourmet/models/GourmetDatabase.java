@@ -958,10 +958,6 @@ class GourmetDatabase extends SQLiteOpenHelper
 	 * @param user The user from who you want all the reservations
 	 * */
 	public List<Reservation> getReservationByUser(User user) {
-		//Adrien : I'm working on this one right now, DO NO TOUCH
-		
-
-		
 		SQLiteDatabase db = this.getReadableDatabase();
 		
 		Cursor cursor = db.query(true,"reservation", //table to select on
@@ -995,6 +991,7 @@ class GourmetDatabase extends SQLiteOpenHelper
 		    @SuppressWarnings("deprecation")
 			Date date = new Date(dateText);
 			Reservation rsv = new Reservation(resvId,userEmail,restaurant,nbrReservation,dishes,date);
+			System.out.println(rsv);
 
 			reservations.add(rsv);
 			cursor.moveToNext();
