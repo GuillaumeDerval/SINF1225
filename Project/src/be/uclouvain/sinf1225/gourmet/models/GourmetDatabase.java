@@ -883,7 +883,6 @@ class GourmetDatabase extends SQLiteOpenHelper
 	    	values.put("resvId", reservation.getId());
 	    	db.insert("reservationDish", null, values);
 	    }
-	    
 	    db.close();
 	}
 
