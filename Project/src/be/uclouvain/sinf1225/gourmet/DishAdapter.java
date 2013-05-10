@@ -224,7 +224,7 @@ public class DishAdapter extends ArrayAdapter<Dish>
 		}
 
 		Dish dish = filteredDishes.get(position);
-		viewIds.name.setText(dish.getName());
+		viewIds.name.setText("  " + dish.getName());
 		viewIds.menu.setText(dish.getCategory().toString());
 		viewIds.price.setText("Prix: " + String.valueOf(dish.getPrice()) + "\u20ac");
 		return row;

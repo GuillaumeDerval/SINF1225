@@ -217,7 +217,8 @@ public class ReservationCreateView extends Activity
 			for(int id : dish_id_list){resv.addDish(id);}
 			
 			/* add the reservation into the database */
-			exception = ( Reservation.addReservation(resv)  == -1);
+			int ans = Reservation.addReservation(resv);
+			exception = ( ans  == -1);
 			
 			/* check if the reservation passed */
 			if (exception) text = "Reservation échouée";

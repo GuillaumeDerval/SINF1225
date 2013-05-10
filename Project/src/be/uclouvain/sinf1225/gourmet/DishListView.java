@@ -62,20 +62,7 @@ public class DishListView extends Activity
 		
 		List<Dish> dishes = restaurant.getDishes();
 		//TO FIX
-		final CheckBox ViewVegan = (CheckBox) findViewById(R.id.DishListViewVegan);
-		final CheckBox ViewAllergen = (CheckBox) findViewById(R.id.DishListViewAllergen);
-		for(int i=0;i<dishes.size();i++)
-		{
-			if(ViewVegan.isChecked() && dishes.get(i).getVegan()==1)
-			{
-				dishes.remove(i);
-			}
-			if(ViewAllergen.isChecked() && dishes.get(i).getAllergen()==1)
-			{
-				dishes.remove(i);
-			}
-		}
-		//MARKER
+				//MARKER
 
 		//On recupere les boutons pour le tri
 		final Spinner sortType = (Spinner) findViewById(R.id.DishListSort);
