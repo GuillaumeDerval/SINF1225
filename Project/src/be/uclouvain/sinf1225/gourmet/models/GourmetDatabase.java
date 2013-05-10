@@ -1,5 +1,6 @@
 package be.uclouvain.sinf1225.gourmet.models;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -26,7 +27,7 @@ import be.uclouvain.sinf1225.gourmet.utils.GourmetUtils;
  */
 class GourmetDatabase extends SQLiteOpenHelper
 {
-	private static final int DATABASE_VERSION = 86;
+	private static final int DATABASE_VERSION = 88;
     private static final String DATABASE_NAME = "gourmet";
     private Context context;
     
@@ -826,7 +827,6 @@ class GourmetDatabase extends SQLiteOpenHelper
 	{
 		SQLiteDatabase db = this.getWritableDatabase();
 	    ContentValues values1 = new ContentValues();
-	    
 	    values1.put("userEmail", reservation.getUserEmail());
 	    values1.put("restoId", reservation.getRestaurant().getId());
 	    values1.put("nbrReservation", Integer.toString(reservation.getnbrReservation()));
@@ -991,10 +991,7 @@ class GourmetDatabase extends SQLiteOpenHelper
 			int nbrReservation = cursor.getInt(3);
 			List<Integer> dishes = null; //TODO GET DISHES
 			String dateText = cursor.getString(4);
-			@SuppressWarnings("deprecation")
-			Date date = new Date(dateText);
-			
-			
+		    Date date = new Date(dateText);
 			Reservation rsv = new Reservation(resvId,userEmail,restaurant,nbrReservation,dishes,date);
 
 			reservations.add(rsv);

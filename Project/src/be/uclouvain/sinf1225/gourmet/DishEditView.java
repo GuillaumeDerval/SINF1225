@@ -147,5 +147,11 @@ public class DishEditView extends Activity
 	{
 		super.onResume();
 	}
+	public void onBackPressed() {
+		Intent returnIntent = new Intent();
+		returnIntent.putExtra("deleted","notdone");
+		setResult(RESULT_OK,returnIntent);
+		finish();
+	 }
 
 }

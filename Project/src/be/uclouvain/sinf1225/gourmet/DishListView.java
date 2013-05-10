@@ -30,6 +30,7 @@ import be.uclouvain.sinf1225.gourmet.utils.GourmetUtils;
 public class DishListView extends Activity 
 {
 	private Restaurant restaurant = null;
+	ListView DishListEntree;
 
 
 	/* true if the ReservationCreateView launches the activity */
@@ -81,7 +82,7 @@ public class DishListView extends Activity
 		final RadioGroup sortDirection = (RadioGroup) findViewById(R.id.DishListSortDirection);
 
 		// On recupere la vue "liste"
-		ListView DishListEntree = (ListView) this.findViewById(R.id.DishListView);
+		DishListEntree = (ListView) this.findViewById(R.id.DishListView);
 
 		// On cree un adapter qui va mettre dans la liste les donnes adequates des plats
 		DishAdapter adapter = new DishAdapter(this, R.layout.dish_list_row, dishes);
