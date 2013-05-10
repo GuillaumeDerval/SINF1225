@@ -45,6 +45,7 @@ public class RestaurantMapView extends Activity implements GourmetLocationReceiv
 		{
 			markerToRestaurant = new HashMap<Marker,Restaurant>();
 			map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+			//List<Restaurant> restaurants = Restaurant.getAllRestaurants(City.getCity("Louvain-la-Neuve","Belgique"));
 			List<Restaurant> restaurants = Restaurant.getAllRestaurants(City.getCity(getIntent().getExtras().getString("name"),getIntent().getExtras().getString("country")));
 			for(Restaurant restaurant : restaurants)
 			{

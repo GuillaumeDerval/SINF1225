@@ -82,6 +82,10 @@
             android:label="@string/app_name" >
         </activity>
         <activity
+            android:name="be.uclouvain.sinf1225.gourmet.RestaurantMapView"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
             android:name="be.uclouvain.sinf1225.gourmet.RestaurantView"
             android:label="@string/app_name" >
         </activity>
