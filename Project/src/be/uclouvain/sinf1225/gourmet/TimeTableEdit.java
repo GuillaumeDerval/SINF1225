@@ -5,6 +5,7 @@ import java.util.Date;
 
 import be.uclouvain.sinf1225.gourmet.models.TimeTable;
 import be.uclouvain.sinf1225.gourmet.utils.GourmetUtils;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+@SuppressLint("SimpleDateFormat")
 @SuppressWarnings("unused")
 public class TimeTableEdit extends Activity{
 
@@ -70,11 +72,11 @@ public class TimeTableEdit extends Activity{
 					Date d = sdf.parse(morning1.getText().toString());
 					d = sdf.parse(morning2.getText().toString());
 					d = sdf.parse(evening1.getText().toString());
-					d = sdf.parse(evening1.getText().toString());
+					d = sdf.parse(evening2.getText().toString());
 					TimeSheetRestaurantEdit.onClic.setMorningOpening(morning1.getText().toString());
 					TimeSheetRestaurantEdit.onClic.setMorningClosing(morning2.getText().toString());
 					TimeSheetRestaurantEdit.onClic.setEveningOpening(evening1.getText().toString());
-					TimeSheetRestaurantEdit.onClic.setEveningClosing(evening1.getText().toString());
+					TimeSheetRestaurantEdit.onClic.setEveningClosing(evening2.getText().toString());
 					TimeSheetRestaurantEdit.onClic.setClose(0);
 					finish();
 				}

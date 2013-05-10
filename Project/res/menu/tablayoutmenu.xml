@@ -12,7 +12,4 @@
     <item android:id="@+id/logout"
           android:title="@string/logout" android:showAsAction="ifRoom">
     </item>
-    <item android:id="@+id/test"
-          android:title="Test" android:showAsAction="never">
-    </item>
 </menu>
