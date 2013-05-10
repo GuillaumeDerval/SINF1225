@@ -15,6 +15,7 @@ public class Reservation
 	private int nbrReservation;
 	private List<Integer> dishes;
 	private Date date;
+	private String dateText;
 	
 	/**
 	 * Create a new reservation, to be saved to database
@@ -52,6 +53,25 @@ public class Reservation
 		this.date = date;
 	}
 	
+	/**
+	 * Create a new reservation, from database.
+	 * @param id
+	 * @param userEmail
+	 * @param restaurant
+	 * @param nbrReservation
+	 * @param dishes
+	 * @param dateText
+	 */
+	public Reservation(int id, String userEmail, Restaurant restaurant, int nbrReservation, List<Integer> dishes, String dateText)
+	{
+		this.id = id;
+		this.userEmail = userEmail;
+		this.restaurant = restaurant;
+		this.nbrReservation = nbrReservation;
+		this.dishes = dishes;
+		this.dateText = dateText;
+	}
+	
 	/* Lecture des variables d'instances*/
 	public int getId() { return this.id; }
 	public String getUserEmail() {return this.userEmail;}
@@ -59,6 +79,7 @@ public class Reservation
 	public int getnbrReservation() {return this.nbrReservation;}
 	public List<Integer> getDish() {return this.dishes;}
 	public Date getDate() {return this.date;}
+	public String getDateText() {return this.dateText;}
 	
 	/* Modification des variables d'instances */
 	public void setRestaurant (Restaurant resto) {this.restaurant = resto;}
@@ -149,6 +170,7 @@ public class Reservation
 	}
 	
 	public String toString(){
-		return "DATE = "+date.toString()+", DISHES = toStringMissing, ID ="+id+", NBRRESERVATION = "+nbrReservation+", Restaurant =" + restaurant.getName() + ", USERMAIL = "+userEmail;
+		String date = this.date != null ? this.date.toString() : this.dateText;
+		return "DATE = "+date+", DISHES = toStringMissing, ID ="+id+", NBRRESERVATION = "+nbrReservation+", Restaurant =" + restaurant.getName() + ", USERMAIL = "+userEmail;
 	}
 }

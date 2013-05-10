@@ -964,7 +964,7 @@ class GourmetDatabase extends SQLiteOpenHelper
 		SQLiteDatabase db = this.getReadableDatabase();
 		
 		Cursor cursor = db.query(true,"reservation", //table to select on
-				new String[]{"resvId","userEmail", "restoId", "nbrReservation","date"}, //column to get WARNING MISSING TIME
+				new String[]{"resvId","userEmail", "restoId", "nbrReservation","date"}, //column to get
 				"`UserEmail` = ?", 
 				new String[]{user.getEmail()}, 
 				null,
@@ -975,8 +975,6 @@ class GourmetDatabase extends SQLiteOpenHelper
 		{
 		    return null;
 		}
-		
-		System.out.println("Cursor length = "+cursor.getCount());
 		
 		cursor.moveToFirst();
 
@@ -993,10 +991,7 @@ class GourmetDatabase extends SQLiteOpenHelper
 			List<Integer> dishes = null; //TODO GET DISHES
 			String dateText = cursor.getString(4);
 			
-		    @SuppressWarnings("deprecation")
-			Date date = new Date(dateText);
-			Reservation rsv = new Reservation(resvId,userEmail,restaurant,nbrReservation,dishes,date);
-			System.out.println(rsv);
+			Reservation rsv = new Reservation(resvId,userEmail,restaurant,nbrReservation,dishes,dateText);
 
 			reservations.add(rsv);
 			cursor.moveToNext();

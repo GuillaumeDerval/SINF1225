@@ -59,7 +59,7 @@ public class ReservationManagerView extends Activity
           String name = initial + User.getUserConnected().getSurname(); //Initial of firstname + name (F. Name)
           name = name.length() <= 10 ? name : name.substring(0,10)+"..." ; //Droping last letters if too long, not to destroy GUI
           
-          Date date = oneRsv.getDate();
+          String date = oneRsv.getDateText();
           String[] dateTime = parseDateTime(date);
           
           String restoName = oneRsv.getRestaurant().getName();
@@ -103,10 +103,9 @@ public class ReservationManagerView extends Activity
 	 * @param date the date which you want a string representation
 	 * @return [0] is the time and [1] is the date
 	 * */
-	private static String[] parseDateTime(Date date){
+	private static String[] parseDateTime(String dateText){
 		String[] dateAndTime = new String[2];
-		String source = date.toString();
-		String[] parsedSource = source.split(" ");
+		String[] parsedSource = dateText.split(" ");
 		String day = parsedSource[2];
 		String month = abrToNum(parsedSource[1]);
 		String year = parsedSource[5].substring(2,4);//droping century
