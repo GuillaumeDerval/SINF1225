@@ -1,10 +1,8 @@
 package be.uclouvain.sinf1225.gourmet.models;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-<<<<<<< HEAD
-=======
 import java.util.Calendar;
->>>>>>> alex :D
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
