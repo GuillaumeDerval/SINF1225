@@ -88,7 +88,7 @@ public class ReservationCreateView extends Activity
 
 		/* Receive the data */
 		getDataTransfer(getIntent());
-		
+
 		/* set the hint - number of remaining seats */
 		nbrReservation.setHint("Nbr max ("+ Restaurant.getRestaurant(resto_id).getSeats() + ")");
 
@@ -195,14 +195,17 @@ public class ReservationCreateView extends Activity
 		catch (Exception e) {exception = true;	text = "Nombre de rŽsevertions non remplies";}
 
 		if(!exception && nbrResv > Restaurant.getRestaurant(resto_id).getSeats())
-		{exception = true; text = "Nombres de plat trop grand";}
+		{exception = true; text = "Nbr trop grand";}
 		if(!exception && nbrResv <= 0)
 		{exception = true; text = "Nbr incorrect";}
 
 		/* Check if the reservation does not exists yet */
-		if ( !exception && Reservation.getReservation(email, resto_id, date) != null)
+		if (!fromEdit)
 		{
-			exception = true; text = "Vous avez dŽjˆ une rŽservation ˆ cette date";
+			if ( !exception && Reservation.getReservation(email, resto_id, date) != null)
+			{
+				exception = true; text = "Vous avez dŽjˆ une rŽservation ˆ cette date";
+			}
 		}
 
 		if(!exception && checkDateTime()) 
@@ -221,8 +224,15 @@ public class ReservationCreateView extends Activity
 			for(int id : dish_id_list){resv.addDish(id);}
 
 			/* add the reservation into the database */
-
-			int ans = Reservation.addReservation(resv);
+			int ans = 0;
+			if (fromEdit) 
+			{
+				resv.updateReservation();
+				Intent intent = new Intent(ReservationCreateView.this, ReservationManagerView.class);
+				setResult(RESULT_OK, intent);
+				finish();
+			}
+			else ans = Reservation.addReservation(resv);
 			exception = (ans == -1);
 
 			/* check if the reservation passed */
@@ -261,12 +271,12 @@ public class ReservationCreateView extends Activity
 
 		int resvId = intent.getIntExtra("resvId", 0);
 		fromEdit = intent.hasExtra("resvId");
-		
+
 		if (resvId != 0)
 		{
 			Reservation resv = Reservation.getReservation(resvId);
 			nbrReservation.setText(Integer.toString(resv.getnbrReservation()));
-			
+
 			Dish dish;
 			for (int id : resv.getDish())
 			{
@@ -283,11 +293,11 @@ public class ReservationCreateView extends Activity
 			}
 			/* update the price */
 			price_view.setText("" + Double.toString( Math.round(price*100)/100.0) + " \u20ac");
-			
+
 			/* update the adapter*/
 			adapter.notifyDataSetChanged();
 		}
-		
+
 		if (dish_id != 0)
 		{
 			/* add item to the dish_name_list */
@@ -407,5 +417,18 @@ public class ReservationCreateView extends Activity
 			}
 		}
 		return exception;
+	}
+
+	@Override
+	public void onBackPressed() 
+	{
+		if(fromEdit)
+		{
+			Intent intent = new Intent( ReservationCreateView.this, ReservationManagerView.class);
+			setResult(RESULT_CANCELED, intent);
+			finish();
+		}
+		else {super.onBackPressed();}
+		return;
 	}
 }
