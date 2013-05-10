@@ -219,7 +219,7 @@ public class ReservationCreateView extends Activity
 			/* add the reservation into the database */
 
 			int ans = Reservation.addReservation(resv);
-			exception = ( ans  == -1);
+			exception = (ans == -1);
 			
 			/* check if the reservation passed */
 			if (exception) text = "Reservation échouée";
