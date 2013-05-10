@@ -217,6 +217,7 @@ public class ReservationCreateView extends Activity
 			for(int id : dish_id_list){resv.addDish(id);}
 			
 			/* add the reservation into the database */
+
 			int ans = Reservation.addReservation(resv);
 			exception = ( ans  == -1);
 			
@@ -224,6 +225,7 @@ public class ReservationCreateView extends Activity
 			if (exception) text = "Reservation échouée";
 			else 
 			{
+
 				/* remove the places booked */
 				Restaurant resto = Restaurant.getRestaurant(resto_id);
 				resto.setSeats(resto.getSeats() - nbrResv);
@@ -233,8 +235,7 @@ public class ReservationCreateView extends Activity
 				text = "Reservation envoyée";
 				
 				/* REFRESH ACTIVITY */
-				finish(); startActivity(getIntent());
-			}
+				finish();
 		}
 
 		/* display the toast */
