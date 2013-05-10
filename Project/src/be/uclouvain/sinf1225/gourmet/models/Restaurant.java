@@ -207,17 +207,6 @@ public class Restaurant
 		this.stars = stars;
 	}
 
-	public List<Reservation> getReservations()
-	{
-		if (reservations == null)
-		{
-			GourmetDatabase db = new GourmetDatabase();
-			reservations = db.getReservationInRestaurant(this);
-			db.close();
-		}
-		return reservations;
-	}
-
 	public static List<Restaurant> getAllRestaurants(City city)
 	{
 		GourmetDatabase db = new GourmetDatabase();

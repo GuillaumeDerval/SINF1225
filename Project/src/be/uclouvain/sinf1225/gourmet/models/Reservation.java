@@ -86,6 +86,7 @@ public class Reservation
 	public void setNbrReservation (int nbr) {this.nbrReservation = nbr;}
 	public void setDate (Date date) {this.date = date;}
 	public void setId (int id) {this.id = id;}
+	public void setDishes (List<Integer> dishesId) {this.dishes = dishesId;}
 	
 	/**
 	 * Ajout d'un plat à la réservation
@@ -167,6 +168,14 @@ public class Reservation
 		GourmetDatabase db = new GourmetDatabase();
 		db.deleteReservation(this);
 		db.close();
+	}
+	
+	public static Reservation getReservation(int resvId)
+	{
+		GourmetDatabase db = new GourmetDatabase();
+		Reservation resv = db.getReservation(resvId);
+		db.close();
+		return resv;
 	}
 	
 	public String toString(){

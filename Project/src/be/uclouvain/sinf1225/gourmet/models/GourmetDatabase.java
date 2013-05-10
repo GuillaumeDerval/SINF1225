@@ -1,8 +1,13 @@
 package be.uclouvain.sinf1225.gourmet.models;
 
 import java.util.ArrayList;
+<<<<<<< HEAD
+=======
+import java.util.Calendar;
+>>>>>>> alex :D
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.StringTokenizer;
 
 import android.content.ContentValues;
@@ -1014,9 +1019,74 @@ class GourmetDatabase extends SQLiteOpenHelper
 		return resv;
 	}
 
+	
+	public List<Integer> getReservationDish (int resvId)
+	{
+		SQLiteDatabase db = this.getReadableDatabase();
+		Cursor cursor = db.query("reservationDish", 	//table to select on
+				new String[]{"dishId"}, 				//column to get
+				"`resvId` = ?", 						//where clause, ?s will be replaced by...
+				new String[]{Integer.toString(resvId)}, //... these values
+				null, 									//group by
+				null, 									//having
+				null); 									//orderby
 
-	// TODO
-	public List<Reservation> getReservationInRestaurant(Restaurant restaurant) { return null; }
+
+		if(cursor == null || cursor.getCount() == 0)
+		{
+			db.close();
+			return null;
+		}
+
+		cursor.moveToFirst();
+		List<Integer> list = new ArrayList<Integer>();
+		for(int i = 0; i<cursor.getCount(); i++)
+		{
+			list.add(cursor.getInt(0));
+			cursor.moveToNext();
+		}
+
+		db.close();
+		return list;
+	}
+	
+	public Reservation getReservation(int resvId)
+	{
+		SQLiteDatabase db = this.getReadableDatabase();
+
+		Cursor cursor = db.query("reservation", //table to select on
+				new String[]{"restoId","userEmail","nbrReservation","date"},//column to get
+				"`resvId` = ?", //where clause, ?s will be replaced by...
+				new String[]{Integer.toString(resvId)}, //... these values
+				null, //group by
+				null, //having
+				null); //orderby
+
+		if(cursor == null || cursor.getCount() == 0)
+		{
+			db.close();
+			return null;
+		}
+		cursor.moveToFirst();
+
+		List<Integer> dishes = getReservationDish(resvId);
+
+		int restoId = cursor.getInt(0);
+		String email = cursor.getString(1);
+		int nbr = cursor.getInt(2);
+		String date_string = cursor.getString(3);
+
+		Date date = null;
+		SimpleDateFormat format = new SimpleDateFormat("dow mon dd hh:mm:ss zzz yyyy", Locale.getDefault());
+		try {date = format.parse(date_string);}
+		catch (Exception e){date = Calendar.getInstance().getTime();}  // set the current time
+
+		Reservation resv = new Reservation(email, Restaurant.getRestaurant(restoId), nbr, date);
+		resv.setDishes(dishes);
+		
+		db.close();
+		return resv;
+	}
 
 	/**
 	 * 
@@ -1158,10 +1228,10 @@ class GourmetDatabase extends SQLiteOpenHelper
 
 		db.close(); // Closing database connection
 	}
-	
+
 	public int getNbrSeats (int restoId, Date date)
 	{
-		
+
 		return 0;
 	}
 
@@ -1191,7 +1261,5 @@ class GourmetDatabase extends SQLiteOpenHelper
 		db.close();
 		return new Preference(userEmail, budget, allergen, spicy, vegetarian);
 	}
-	
-	
 
 }

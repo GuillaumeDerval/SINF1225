@@ -31,12 +31,12 @@ public class ReservationCreateView extends Activity
 {
 	/* date and time */
 	protected static Calendar dateTime = Calendar.getInstance();
-	// TODO check if we should use SimpleDateFormat.getDate/TimeInstance() or not.
 	protected static SimpleDateFormat dateFormatter = new SimpleDateFormat("EEE, dd MMM yyyy", Locale.getDefault());
 	protected static SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm", Locale.getDefault());
 	protected static Button datePicker;
 	protected static Button timePicker;
 	protected static int resto_id;
+	protected static boolean fromEdit;
 
 	/* input Controls */
 	private ListView list;
@@ -75,9 +75,10 @@ public class ReservationCreateView extends Activity
 		/* input items */
 		list = (ListView) findViewById(R.id.listDish);
 		restaurant = (TextView) findViewById(R.id.restaurant);
-		nbrReservation = (EditText) findViewById(R.id.nbrReservation);
 		price_view = (TextView) findViewById(R.id.price);
+		nbrReservation = (EditText) findViewById(R.id.nbrReservation);
 
+		/* the list of dishId and dishName */
 		dish_name_list = new ArrayList<String>();
 		dish_id_list = new ArrayList<Integer>();
 
@@ -87,9 +88,15 @@ public class ReservationCreateView extends Activity
 
 		/* Receive the data */
 		getDataTransfer(getIntent());
-
+		
+		/* set the hint - number of remaining seats */
 		nbrReservation.setHint("Nbr max ("+ Restaurant.getRestaurant(resto_id).getSeats() + ")");
 
+		/* set the text on the button send ¨*/
+		Button send = (Button) findViewById(R.id.send_reservation);
+		if (fromEdit) send.setText("Editer");
+
+		/* remove a dish from the list of dishes */
 		list.setOnItemClickListener(new OnItemClickListener()
 		{
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id)
@@ -141,13 +148,11 @@ public class ReservationCreateView extends Activity
 	{
 		super.onActivityResult(requestCode, resultCode, data);
 		Context context = getApplicationContext();
-		Toast toast;
+		String text = "";
 
 		/* add the id into the list of dishes */
 		int dish_id = data.getIntExtra("dishId",0);
-
-		if (dish_id == 0) toast = Toast.makeText(context, "aucun plat ajoutÈ", Toast.LENGTH_SHORT);
-		else
+		if (dish_id != 0)
 		{
 			/* add the dish into the list of dish_id */
 			dish_id_list.add(dish_id);
@@ -164,9 +169,9 @@ public class ReservationCreateView extends Activity
 			/* update the adapter*/
 			adapter.notifyDataSetChanged();
 
-			toast = Toast.makeText(context, "plat ajouté", Toast.LENGTH_SHORT);
+			text = "plat ajouté";
 		}
-		toast.show();
+		Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
 	}
 
 	/**
@@ -205,6 +210,7 @@ public class ReservationCreateView extends Activity
 			exception = true;
 			Intent intent=new Intent(this,TimeSheetRestaurant.class);
 			intent.putExtra("restoId", resto_id);
+			text = "Horaire du restaurant";
 			startActivity(intent);				
 		}
 
@@ -253,8 +259,36 @@ public class ReservationCreateView extends Activity
 		int dish_id = intent.getIntExtra(DISH, 0);
 		price = 0;
 
-		if ((dish_id == 0 && resto_id == 0) || (dish_id != 0 && resto_id != 0)) {finish();}
-		else if (dish_id != 0)
+		int resvId = intent.getIntExtra("resvId", 0);
+		fromEdit = intent.hasExtra("resvId");
+		
+		if (resvId != 0)
+		{
+			Reservation resv = Reservation.getReservation(resvId);
+			nbrReservation.setText(Integer.toString(resv.getnbrReservation()));
+			
+			Dish dish;
+			for (int id : resv.getDish())
+			{
+				/* add the dish into the list of dish_id */
+				dish_id_list.add(id);
+
+				dish = Dish.getDish(id);
+
+				/* add the dish into the listView */
+				dish_name_list.add(dish.getName());
+
+				/* set price */
+				price += dish.getPrice();				
+			}
+			/* update the price */
+			price_view.setText("" + Double.toString( Math.round(price*100)/100.0) + " \u20ac");
+			
+			/* update the adapter*/
+			adapter.notifyDataSetChanged();
+		}
+		
+		if (dish_id != 0)
 		{
 			/* add item to the dish_name_list */
 			dish_name_list.add(Dish.getDish(dish_id).getName());
@@ -285,11 +319,12 @@ public class ReservationCreateView extends Activity
 		SimpleDateFormat format = new SimpleDateFormat("hh:mm",Locale.getDefault());
 		List<TimeTable> timeTable = TimeTable.getFullTimeTable(resto_id);
 		boolean exception = false;
+
 		if (timeTable != null && timeTable.size() > 0)
 		{
 			Context context = getApplicationContext();
 			String text = ""; Toast toast;
-	
+
 			Calendar date1 = Calendar.getInstance();
 			Calendar date2 = Calendar.getInstance();
 			Calendar date3 = Calendar.getInstance();
@@ -309,6 +344,7 @@ public class ReservationCreateView extends Activity
 			}
 
 			TimeTable time_date = null;
+			System.out.println(journame);
 			for (TimeTable time : timeTable)
 			{
 				if (time.getDay().equals(journame)) time_date = time;
@@ -324,7 +360,7 @@ public class ReservationCreateView extends Activity
 				date1.setTime(format.parse(time_date.getMorningOpening()));
 				date2.setTime(format.parse(time_date.getMorningClosing()));
 				date3.setTime(format.parse(time_date.getEveningOpening()));
-				date4.setTime(format.parse(time_date.getMorningClosing()));
+				date4.setTime(format.parse(time_date.getEveningClosing()));
 			}
 			catch (Exception e)
 			{
@@ -332,23 +368,33 @@ public class ReservationCreateView extends Activity
 				exception = true;
 			}
 
-			int heure = dateTime.get(Calendar.HOUR_OF_DAY);
-			int minute = dateTime.get(Calendar.MINUTE);
-			
-			System.out.println("*** "+heure + " : "+ minute + " ***");
-			System.out.println(date1.get(Calendar.HOUR_OF_DAY));
-			
-			if (!exception)
-			{ 
-				if (
-						!(( heure >= date1.get(Calendar.HOUR_OF_DAY) && minute >= date1.get(Calendar.MINUTE) &&
-						heure <= date2.get(Calendar.HOUR_OF_DAY) && minute <= date2.get(Calendar.MINUTE)
-						) 
-						||
-						( heure >= date3.get(Calendar.HOUR_OF_DAY) && minute >= date3.get(Calendar.MINUTE) &&
-						heure <= date4.get(Calendar.HOUR_OF_DAY) && minute <= date4.get(Calendar.MINUTE)
-						))			
-					)
+			if(!exception)
+			{
+				boolean low1 = false;
+				boolean low2 = false;
+				boolean up1 = false;
+				boolean up2 = false;
+
+				int heure = dateTime.get(Calendar.HOUR_OF_DAY);
+				int minute = dateTime.get(Calendar.MINUTE);
+
+				if ( heure > date1.get(Calendar.HOUR_OF_DAY) ) low1 = true;
+				if ( heure == date1.get(Calendar.HOUR_OF_DAY)  && minute >= date1.get(Calendar.MINUTE) ) low1 = true;
+				if ( heure < date2.get(Calendar.HOUR_OF_DAY) ) up1 = true;
+				if ( heure == date2.get(Calendar.HOUR_OF_DAY) && minute <= date2.get(Calendar.MINUTE) ) up1 = true;
+
+				if ( heure > date3.get(Calendar.HOUR_OF_DAY) ) low2 = true;
+				if ( heure == date3.get(Calendar.HOUR_OF_DAY)  && minute >= date3.get(Calendar.MINUTE) ) low2 = true;
+				if ( heure < date4.get(Calendar.HOUR_OF_DAY) ) up2 = true;
+				if ( heure == date4.get(Calendar.HOUR_OF_DAY) && minute <= date4.get(Calendar.MINUTE) ) up2 = true;
+
+				System.out.println(low1);
+				System.out.println(up1);
+				System.out.println(low2);
+				System.out.println(up2);
+
+				if ( (low1 && up1) || (low2 && up2) ) exception = false;
+				else 
 				{
 					text = "Le restaurant n'est pas ouvert à cette heure la";
 					exception = true;
