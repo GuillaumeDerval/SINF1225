@@ -151,10 +151,8 @@ public class RestaurantImageView extends Activity
 
 			Image.addImage(img); // ajoute l'image dans la DB
 			resto.addImage(img);
-			//adapter.updateImages(resto.getImages());
 			adapter = new ImageAdapter(this, R.layout.restaurant_image_list_row, resto.getImages());
 			imageList.setAdapter(adapter);
-			//myImage.setImageBitmap(BitmapFactory.decodeFile(GourmetFiles.getRealPath(finalFilePath)));
 		}
 		if (requestCode == RESULT_DELETE_IMAGE)
 		{

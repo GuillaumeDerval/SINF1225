@@ -1,6 +1,5 @@
 package be.uclouvain.sinf1225.gourmet;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import android.app.DatePickerDialog;
@@ -8,7 +7,6 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.os.Bundle;
 import android.widget.DatePicker;
-import be.uclouvain.sinf1225.gourmet.models.TimeTable;
 
 public class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener
 {

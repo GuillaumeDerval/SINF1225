@@ -1,13 +1,8 @@
 package be.uclouvain.sinf1225.gourmet;
 
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-import be.uclouvain.sinf1225.gourmet.models.Reservation;
-import be.uclouvain.sinf1225.gourmet.models.User;
-import be.uclouvain.sinf1225.gourmet.utils.GourmetUtils;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
@@ -15,11 +10,13 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
+import be.uclouvain.sinf1225.gourmet.models.Reservation;
+import be.uclouvain.sinf1225.gourmet.models.User;
+import be.uclouvain.sinf1225.gourmet.utils.GourmetUtils;
 
 public class ReservationManagerView extends Activity
 {	
@@ -36,7 +33,6 @@ public class ReservationManagerView extends Activity
 		return GourmetUtils.onMenuItemSelected(item, this);
 	}
 	
-	@SuppressWarnings("unused")
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
@@ -45,9 +41,6 @@ public class ReservationManagerView extends Activity
 		
 		//linking current layout
 		TableLayout rsv_tab = (TableLayout)findViewById(R.id.rsv_manager_table);
-		
-		//TODO each row much contains one reservation and be able to get the focus and show it got the focus.
-		//TODO clicklistener must open reservation edit view and fills informations with the row which has focus.
 		User currentUser = User.getUserConnected();
 		List<Reservation> userReservations = Reservation.getReservationByUser(currentUser);
 

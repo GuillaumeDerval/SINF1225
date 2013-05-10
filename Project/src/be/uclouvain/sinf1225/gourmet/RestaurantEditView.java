@@ -120,9 +120,9 @@ public class RestaurantEditView extends Activity
 				resto.setSeats(Integer.parseInt(EditSeats.getText().toString()));
 				resto.setDescription(EditDescription.getText().toString());
 				resto.setWebsite(EditWebsite.getText().toString());
-				resto.setStars((int) Stars.getRating()); // to be checked
+				resto.setStars((int) Stars.getRating()); 
 				resto.setPriceCategory(PriceCategory.fromString(EditPriceCat.getSelectedItem().toString()));
-				resto.updateRestaurant(); // to be checked
+				resto.updateRestaurant();
 				finish();
 			}
 		});
