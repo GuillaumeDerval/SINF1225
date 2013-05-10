@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -14,6 +15,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
+import be.uclouvain.sinf1225.gourmet.models.Dish;
 import be.uclouvain.sinf1225.gourmet.models.Reservation;
 import be.uclouvain.sinf1225.gourmet.models.User;
 import be.uclouvain.sinf1225.gourmet.utils.GourmetUtils;
@@ -59,9 +61,12 @@ public class ReservationManagerView extends Activity
           setRow(row ,dateTime[1], dateTime[0], restoName, nbPeople);
           rsv_tab.addView(row);
           registerForContextMenu(row);
+
+ 
+          Intent intent = new Intent(ReservationManagerView.this, ReservationCreateView.class);
+          intent.putExtra("resvId", oneRsv.getId());
           
-          View.OnClickListener handler_edit = new ReservationRowListener(oneRsv.getId());
-          
+          View.OnClickListener handler_edit = new ReservationRowListener(intent);
           row.setOnClickListener(handler_edit);
         }
 		
@@ -134,5 +139,17 @@ public class ReservationManagerView extends Activity
 			return "12";
 		}
 		return "FAIL IN METHOD abrToNum";
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data)
+	{
+		super.onActivityResult(requestCode, resultCode, data);
+		finish();
+		startActivity(data);
+		//TODO REFRESH MY PAGE
+	}
+	
+	public void askingEditing(int resvId){
 	}
 }
