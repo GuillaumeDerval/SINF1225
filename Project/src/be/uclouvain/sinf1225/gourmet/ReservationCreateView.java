@@ -53,7 +53,7 @@ public class ReservationCreateView extends Activity
 	private ArrayList<Integer> dish_id_list;
 	private List<String> dish_name_list;
 	private static int resto_id;
-	
+
 	/* Price */
 	private double price;
 
@@ -65,12 +65,12 @@ public class ReservationCreateView extends Activity
 
 		/* if the date is incorrect, set 08:00:00 */
 		if (dateTime.get(Calendar.HOUR_OF_DAY) < 8) 
-			{
-				dateTime.set(Calendar.HOUR_OF_DAY, 8);
-				dateTime.set(Calendar.MINUTE,0);
-				dateTime.set(Calendar.SECOND,0);
-			}
-		
+		{
+			dateTime.set(Calendar.HOUR_OF_DAY, 8);
+			dateTime.set(Calendar.MINUTE,0);
+			dateTime.set(Calendar.SECOND,0);
+		}
+
 		/* date picker - choose the date of the reservation */
 		datePicker = (Button) findViewById(R.id.datepicker);
 		datePicker.setText(dateFormatter.format(dateTime.getTime()));
@@ -91,12 +91,12 @@ public class ReservationCreateView extends Activity
 		/* adapter for the list of dishes */
 		adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_activated_1, dish_name_list);
 		list.setAdapter(adapter);
-		
+
 		/* Receive the data */
 		getDataTransfer(getIntent());
-		
+
 		nbrReservation.setHint("Nbr max ("+ Restaurant.getRestaurant(resto_id).getSeats() + ")");
-		
+
 		list.setOnItemClickListener(new OnItemClickListener()
 		{
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id)
@@ -106,7 +106,7 @@ public class ReservationCreateView extends Activity
 				adapter.notifyDataSetChanged(); 			/* update the adapter */
 
 				Dish dish = Dish.getDish(ID);
-				
+
 				/* set the price */
 				price -= dish.getPrice();
 				price_view.setText("" + Double.toString( Math.round(price*100)/100.0) + " \u20ac");
@@ -116,7 +116,7 @@ public class ReservationCreateView extends Activity
 				dish.updateDish();
 			}
 		});
-		
+
 	}
 
 	public void showTimePickerDialog(View v)
@@ -141,7 +141,7 @@ public class ReservationCreateView extends Activity
 		Intent intent=new Intent(this,DishListView.class);
 		intent.putExtra("restoId", resto_id);
 		intent.putExtra("key","ComeBack");
-	    startActivityForResult(intent, 1);
+		startActivityForResult(intent, 1);
 	}
 
 	@Override
@@ -161,14 +161,14 @@ public class ReservationCreateView extends Activity
 			dish_id_list.add(dish_id);
 
 			Dish dish = Dish.getDish(dish_id);
-			
+
 			/* add the dish into the listView */
 			dish_name_list.add(dish.getName());
-			
+
 			/* set price */
 			price += dish.getPrice();
 			price_view.setText("" + Double.toString( Math.round(price*100)/100.0) + " \u20ac");
-			
+
 			/* update the adapter*/
 			adapter.notifyDataSetChanged();
 
@@ -184,7 +184,7 @@ public class ReservationCreateView extends Activity
 	public void sendReservation(View view)
 	{
 		System.out.println("SENDING RESERVATION");
-		
+
 		/* variables for the toast */
 		Context context = getApplicationContext();
 		String text = "";
@@ -198,7 +198,7 @@ public class ReservationCreateView extends Activity
 		/* Manage Exception */
 		try{nbrResv = Integer.parseInt(nbrReservation.getText().toString());}
 		catch (Exception e) {exception = true;	text = "Nbr non rempli";}
-		
+
 		if(!exception && nbrResv > Restaurant.getRestaurant(resto_id).getSeats())
 		{exception = true; text = "Nbr trop grand";}
 		if(!exception && nbrResv <= 0)
@@ -215,12 +215,12 @@ public class ReservationCreateView extends Activity
 		{
 			Reservation resv = new Reservation(email, Restaurant.getRestaurant(resto_id), nbrResv, date);			
 			for(int id : dish_id_list){resv.addDish(id);}
-			
+
 			/* add the reservation into the database */
 
 			int ans = Reservation.addReservation(resv);
 			exception = (ans == -1);
-			
+
 			/* check if the reservation passed */
 			if (exception) text = "Reservation ŽchouŽe";
 			else 
@@ -230,17 +230,18 @@ public class ReservationCreateView extends Activity
 				Restaurant resto = Restaurant.getRestaurant(resto_id);
 				resto.setSeats(resto.getSeats() - nbrResv);
 				resto.updateRestaurant();
-				
+
 				/* all the insertion into the dataBase passed */
 				text = "Reservation envoyŽe";
-				
+
 				/* REFRESH ACTIVITY */
 				finish();
-		}
+			}
 
-		/* display the toast */
-		Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
-		toast.show();
+			/* display the toast */
+			Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
+			toast.show();
+		}
 	}
 
 	/**
@@ -260,18 +261,18 @@ public class ReservationCreateView extends Activity
 			/* add item to the dish_name_list */
 			dish_name_list.add(Dish.getDish(dish_id).getName());
 			adapter.notifyDataSetChanged();
-			
+
 			/* information for the user */
 			Context context = getApplicationContext();
 			Toast toast = Toast.makeText(context, "plat ajoutŽ", Toast.LENGTH_SHORT);
 			toast.show();
-			
+
 			/* add to the list of dishId */
 			dish_id_list.add(dish_id);
 
 			/* get restoID */
 			resto_id = Dish.getDish(dish_id).getRestoId();
-			
+
 			/* set the price */
 			price = Dish.getDish(dish_id).getPrice();
 		}
