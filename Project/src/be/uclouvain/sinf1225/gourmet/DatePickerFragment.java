@@ -1,5 +1,6 @@
 package be.uclouvain.sinf1225.gourmet;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import android.app.DatePickerDialog;
@@ -7,6 +8,7 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.os.Bundle;
 import android.widget.DatePicker;
+import be.uclouvain.sinf1225.gourmet.models.TimeTable;
 
 public class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener
 {
@@ -32,9 +34,10 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
 
 	public void onDateSet(DatePicker view, int year, int month, int day)
 	{
+		/* Calendar the day choose */
 		Calendar cal = Calendar.getInstance();
 		cal.set(year,month,day);
-		
+
 		if (cal.after(Calendar.getInstance()))
 		{
 			ReservationCreateView.dateTime.set(Calendar.YEAR, year);
