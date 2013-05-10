@@ -136,22 +136,6 @@ public class RestaurantListView extends Activity implements GourmetLocationRecei
 		}
 	});
 
-	final Button mapActivate = (Button) findViewById(R.id.RestaurantListMapActivate);
-	if(!GourmetUtils.hasGooglePlayServicesLib())
-		mapActivate.setVisibility(View.GONE);
-
-	mapActivate.setOnClickListener(new OnClickListener()
-	{
-		@Override
-		public void onClick(View v)
-		{
-			Intent intent = new Intent(RestaurantListView.this, RestaurantMapView.class);
-			intent.putExtra("name", getIntent().getExtras().getString("name")); 
-			intent.putExtra("country", getIntent().getExtras().getString("country"));
-			startActivity(intent);
-		}
-	});
-
 	sortType.setOnItemSelectedListener(new OnItemSelectedListener()
 	{
 		@Override

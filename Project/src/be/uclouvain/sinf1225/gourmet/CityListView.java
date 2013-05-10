@@ -134,20 +134,6 @@ public class CityListView extends Activity implements GourmetLocationReceiver
 			}
 		});
 		
-		final Button mapActivate = (Button) findViewById(R.id.CityListMapActivate);
-		if(!GourmetUtils.hasGooglePlayServicesLib())
-			mapActivate.setVisibility(View.GONE);
-		
-		mapActivate.setOnClickListener(new OnClickListener()
-		{
-			@Override
-			public void onClick(View v)
-			{
-				Intent intent = new Intent(CityListView.this, CityMapView.class);
-			    startActivity(intent);
-			}
-		});
-		
 		sortType.setOnItemSelectedListener(new OnItemSelectedListener()
 		{
 			@Override
