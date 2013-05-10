@@ -5,7 +5,7 @@
     android:orientation="vertical" >
     
     <!-- Functionality to add : spicy, allergens, country food, budget, vegetarien  -->
-
+	  
     <TableRow
         android:id="@+id/tableRow1"
         android:layout_width="match_parent"
@@ -36,9 +36,10 @@
             android:text="@string/pref_allergen" />
 
         <CheckBox
-            android:id="@+id/checkBox2"
+            android:id="@+id/allergen_checkbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="right"
             android:text="" />
 
     </TableRow>
@@ -74,7 +75,7 @@
             android:text="@string/pref_spicy" />
 
         <CheckBox
-            android:id="@+id/checkBox1"
+            android:id="@+id/spicy_checkbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="" />
