@@ -33,7 +33,7 @@ public class PreferenceManagerView extends Activity
 		setContentView(R.layout.activity_preference_manager);
 		
 		//Ajout des options sur le budget_spinner
-		Spinner budgetSpinner = (Spinner) findViewById(R.id.budget_spinner);
+		final Spinner budgetSpinner = (Spinner) findViewById(R.id.budget_spinner);
 		ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this, R.array.pref_budget_list, android.R.layout.simple_spinner_item);
 		adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		budgetSpinner.setAdapter(adapter1);
@@ -42,15 +42,17 @@ public class PreferenceManagerView extends Activity
 		saveButton.setOnClickListener(new View.OnClickListener(){
 			public void onClick(View v) {
 				
+				
 				final CheckBox allergenBox = (CheckBox) findViewById(R.id.allergen_checkbox);
 				final CheckBox vegBox = (CheckBox) findViewById(R.id.veg_checkbox);
 				final CheckBox spicyBox = (CheckBox) findViewById(R.id.spicy_checkbox);
 				boolean allergenBool = allergenBox.isChecked();
 				boolean vegBool = vegBox.isChecked();
 				boolean spicyBool = spicyBox.isChecked();
+				String budgetText = budgetSpinner.getSelectedItem().toString();
 				
 				Context context = getApplicationContext();
-				Toast toast = Toast.makeText(context, "allergen = "+allergenBool+"\nvegetarien = "+vegBool+"\nspicy = "+spicyBool, Toast.LENGTH_SHORT);
+				Toast toast = Toast.makeText(context, "budget = "+budgetText+"\nallergen = "+allergenBool+"\nvegetarien = "+vegBool+"\nspicy = "+spicyBool, Toast.LENGTH_SHORT);
 				toast.show();
 			}
 		});
