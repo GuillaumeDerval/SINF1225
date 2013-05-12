@@ -3,15 +3,13 @@ package be.uclouvain.sinf1225.gourmet.models;
 public class Preference {
 	private String userEmail;
 	private int budget; // 1 is the cheapest, 6 the most expensive
-	private boolean allergen;
-	private boolean spicy;
+	private String allergens;
 	private boolean vegeterian;
 	
-	public Preference(String userEmail, int budget, boolean allergen, boolean spicy, boolean vegeterian){
+	public Preference(String userEmail, int budget, String allergen, boolean vegeterian){
 		this.userEmail = userEmail;
 		this.budget = budget;
-		this.allergen = allergen;
-		this.spicy = spicy;
+		this.allergens = allergen;
 		this.vegeterian = vegeterian;
 	}
 	
@@ -57,31 +55,28 @@ public class Preference {
 		this.budget = budget;
 	}
 
-	public boolean isAllergen() {
-		return allergen;
+	public String getAllergensText()
+	{
+		return this.allergens;
+	}
+	
+	public String[] getAllergens()
+	{
+		return this.allergens.split(",");
 	}
 
-	public void setAllergen(boolean allergen) {
-		this.allergen = allergen;
+	public void setAllergens(String allergens)
+	{
+		this.allergens = allergens;
 	}
 
-	public boolean isSpicy() {
-		return spicy;
-	}
-
-	public void setSpicy(boolean spicy) {
-		this.spicy = spicy;
-	}
-
-	public boolean isVegeterian() {
+	public boolean isVegeterian()
+	{
 		return vegeterian;
 	}
 
-	public void setVegeterian(boolean vegeterian) {
+	public void setVegeterian(boolean vegeterian)
+	{
 		this.vegeterian = vegeterian;
-	}
-	
-	public String toString(){
-		return "Budget = "+budget+", allergen = "+allergen+", vegeterian = "+vegeterian+", spicy = "+spicy;
 	}
 }

@@ -277,13 +277,12 @@ public class ReservationCreateView extends Activity
 			Reservation resv = Reservation.getReservation(resvId);
 			nbrReservation.setText(Integer.toString(resv.getnbrReservation()));
 
-			Dish dish;
 			for (int id : resv.getDish())
 			{
 				/* add the dish into the list of dish_id */
 				dish_id_list.add(id);
 
-				dish = Dish.getDish(id);
+				Dish dish = Dish.getDish(id);
 
 				/* add the dish into the listView */
 				dish_name_list.add(dish.getName());

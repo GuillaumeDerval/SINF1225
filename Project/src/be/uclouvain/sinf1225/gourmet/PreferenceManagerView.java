@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -45,15 +46,12 @@ public class PreferenceManagerView extends Activity
 		if (Preference.isTherePref(userEmail)){
 			Preference pref = Preference.getPrefByUserEmail(userEmail);
 			
-			final CheckBox allergenBox = (CheckBox) findViewById(R.id.allergen_checkbox);
+			final EditText allergenEdit = (EditText) findViewById(R.id.allergen_edit);
 			final CheckBox vegBox = (CheckBox) findViewById(R.id.veg_checkbox);
-			final CheckBox spicyBox = (CheckBox) findViewById(R.id.spicy_checkbox);
 			
 			budgetSpinner.setSelection(pref.getBudget()-1);
-			allergenBox.setChecked(pref.isAllergen());
+			allergenEdit.setText(pref.getAllergensText());
 			vegBox.setChecked(pref.isVegeterian());
-			spicyBox.setChecked(pref.isSpicy());
-			
 		} 
 		
 		final Button saveButton = (Button) findViewById(R.id.saveButton);
@@ -64,16 +62,13 @@ public class PreferenceManagerView extends Activity
 				
 				int budgetOption = budgetSpinner.getSelectedItemPosition() + 1;
 				
-				final CheckBox allergenBox = (CheckBox) findViewById(R.id.allergen_checkbox);
-				boolean allergenBool = allergenBox.isChecked();
+				final EditText allergenEdit = (EditText) findViewById(R.id.allergen_edit);
+				String allergenValue = allergenEdit.getText().toString();
 				
 				final CheckBox vegBox = (CheckBox) findViewById(R.id.veg_checkbox);
 				boolean vegBool = vegBox.isChecked();
-
-				final CheckBox spicyBox = (CheckBox) findViewById(R.id.spicy_checkbox);
-				boolean spicyBool = spicyBox.isChecked();
 				
-				Preference currentPreference = new Preference(userEmail, budgetOption, allergenBool, spicyBool, vegBool);
+				Preference currentPreference = new Preference(userEmail, budgetOption, allergenValue, vegBool);
 				
 				Context context = getApplicationContext();
 				Toast toast;

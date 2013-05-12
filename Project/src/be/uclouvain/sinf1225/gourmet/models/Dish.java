@@ -11,7 +11,7 @@ public class Dish
 	private int spicy;
 	private int vegan;
 	private int available;
-	private int allergen;
+	private String allergens;
 	private String category;
 	private Restaurant restaurant;
 	private Image img; // 1 dish = 1 picture
@@ -31,7 +31,7 @@ public class Dish
 	 * @param restaurant
 	 * @param img
 	 */
-	public Dish(int dishId, String name, int restoId, String description, double price, int spicy, int vegan, int available, int allergen, String category, Restaurant restaurant, Image img)
+	public Dish(int dishId, String name, int restoId, String description, double price, int spicy, int vegan, int available, String allergens, String category, Restaurant restaurant, Image img)
 	{
 		super();
 		this.dishId = dishId;
@@ -42,16 +42,17 @@ public class Dish
 		this.spicy = spicy;
 		this.vegan = vegan;
 		this.available = available;
-		this.allergen = allergen;
+		this.allergens = allergens;
 		this.category = category;
 		this.restaurant = restaurant;
 		this.img = img;
 	}
-
-	public Dish() {
-		// TODO Auto-generated constructor stub
+	
+	public Dish()
+	{
+		//TODO Delete this. This is an awful technique to economize lines in AddDishView. Bad.
 	}
-
+	
 	/**
 	 * Delete dish in database
 	 */
@@ -160,14 +161,19 @@ public class Dish
 		this.available = available;
 	}
 
-	public int getAllergen()
+	public String getAllergensText()
 	{
-		return allergen;
+		return allergens;
 	}
 
-	public void setAllergen(int allergen)
+	public String[] getAllergens()
 	{
-		this.allergen = allergen;
+		return this.allergens.split(",");
+	}
+	
+	public void setAllergen(String allergens)
+	{
+		this.allergens = allergens;
 	}
 
 	public String getName()
@@ -215,7 +221,9 @@ public class Dish
 		return restoId;
 	}
 
-	public void setRestoId(int restoId) {
+	public void setRestoId(int restoId)
+	{
 		this.restoId = restoId;
+		this.restaurant = Restaurant.getRestaurant(restoId);
 	}
 }

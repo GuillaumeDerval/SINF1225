@@ -30,7 +30,7 @@ import be.uclouvain.sinf1225.gourmet.utils.GourmetUtils;
  */
 class GourmetDatabase extends SQLiteOpenHelper
 {
-	private static final int DATABASE_VERSION = 92;
+	private static final int DATABASE_VERSION = 93;
 	private static final String DATABASE_NAME = "gourmet";
 	private Context context;
 
@@ -329,7 +329,7 @@ class GourmetDatabase extends SQLiteOpenHelper
 		values.put("spicy", dish.getSpicy());
 		values.put("vegan", dish.getVegan());
 		values.put("available", dish.getAvailable());
-		values.put("allergen", dish.getAllergen());
+		values.put("allergen", dish.getAllergensText());
 		db.insert("dish", null, values);
 
 		db.close(); // Closing database connection
@@ -351,7 +351,7 @@ class GourmetDatabase extends SQLiteOpenHelper
 		values.put("spicy", dish.getSpicy());
 		values.put("vegan", dish.getVegan());
 		values.put("available", dish.getAvailable());
-		values.put("allergen", dish.getAllergen());
+		values.put("allergen", dish.getAllergensText());
 		values.put("restoId", dish.getRestoId());
 		db.update("dish", values, "`dishId`= ? " , new String[] {Integer.toString(dish.getDishId())});
 
@@ -405,7 +405,7 @@ class GourmetDatabase extends SQLiteOpenHelper
 				cursor.getInt(5), //spicy
 				cursor.getInt(6), //vegan
 				cursor.getInt(7), //available
-				cursor.getInt(8), //allergen
+				cursor.getString(8), //allergen
 				cursor.getString(9),//category
 				resto, // restaurant
 				img); // image
@@ -444,7 +444,7 @@ class GourmetDatabase extends SQLiteOpenHelper
 				cursor.getInt(5), //spicy
 				cursor.getInt(6), //vegan
 				cursor.getInt(7), //available
-				cursor.getInt(8), //allergen
+				cursor.getString(8), //allergen
 				cursor.getString(9),//category
 				resto, // restaurant
 				img); // image
@@ -500,7 +500,7 @@ class GourmetDatabase extends SQLiteOpenHelper
 					cursor.getInt(5), 
 					cursor.getInt(6), 
 					cursor.getInt(7), 
-					cursor.getInt(8),
+					cursor.getString(8),
 					cursor.getString(9), 
 					restaurant,
 					img);
@@ -855,15 +855,13 @@ class GourmetDatabase extends SQLiteOpenHelper
 		SQLiteDatabase db = this.getWritableDatabase();
 		ContentValues values = new ContentValues();
 		//1 means true, 0 means false
-		int valueAllergen = pref.isAllergen() ? 1 : 0 ;
-		int valueSpicy = pref.isSpicy() ? 1 : 0 ;
+		String valueAllergen = pref.getAllergensText();
 		int valueVegeterian = pref.isVegeterian() ? 1 : 0 ;
 		
 		values.put("email",pref.getUserEmail());
 		values.put("budget",pref.getBudget());
 		values.put("allergen",valueAllergen);
 		values.put("vegetarian",valueVegeterian);
-		values.put("spicy",valueSpicy);
 		
 		db.insert("preferences",null,values);
 		db.close();
@@ -942,14 +940,12 @@ class GourmetDatabase extends SQLiteOpenHelper
 		SQLiteDatabase db = this.getWritableDatabase();
 		ContentValues values = new ContentValues();
 		
-		int valueAllergen = pref.isAllergen() ? 1 : 0 ;
-		int valueSpicy = pref.isSpicy() ? 1 : 0 ;
+		String valueAllergen = pref.getAllergensText();
 		int valueVegeterian = pref.isVegeterian() ? 1 : 0 ;
 
 		values.put("budget",pref.getBudget());
 		values.put("allergen",valueAllergen);
 		values.put("vegetarian",valueVegeterian);
-		values.put("spicy",valueSpicy);
 		
 		db.update("preferences", values, "`email` = ?", new String[] {pref.getUserEmail()});
 		
@@ -1237,7 +1233,7 @@ class GourmetDatabase extends SQLiteOpenHelper
 		SQLiteDatabase db = this.getReadableDatabase();
 
 		Cursor cursor = db.query(true,"preferences", //table to select on
-				new String[]{"budget","allergen", "vegetarian", "spicy"}, //column to get
+				new String[]{"budget","allergen", "vegetarian"}, //column to get
 				"`email` = ?", 
 				new String[]{userEmail}, 
 				null,
@@ -1251,13 +1247,12 @@ class GourmetDatabase extends SQLiteOpenHelper
 		cursor.moveToFirst();
 
 		int budget = cursor.getInt(0);
-		boolean allergen = cursor.getInt(1) == 1;
+		String allergen = cursor.getString(1);
 		boolean vegetarian = cursor.getInt(2) == 1;
-		boolean spicy = cursor.getInt(3) == 1;
 
 		cursor.close();
 		db.close();
-		return new Preference(userEmail, budget, allergen, spicy, vegetarian);
+		return new Preference(userEmail, budget, allergen, vegetarian);
 	}
 
 }

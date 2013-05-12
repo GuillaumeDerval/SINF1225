@@ -77,6 +77,19 @@
         	android:text="Description">  
     		</EditText>
 
+            <TextView
+    	    android:id="@+id/textView2"
+    	    android:layout_width="wrap_content"
+    	    android:layout_height="wrap_content"
+    	    android:text="Allergènes" />
+            <EditText  
+        	android:id="@+id/EditDishAllergen"  
+        	android:layout_height="wrap_content"  
+        	android:layout_width="fill_parent"
+         	android:lines="2"  
+        	android:text="séparés par des virgules">  
+    		</EditText>
+    		
             <CheckBox
                 android:id="@+id/EditDishSpicy"
                 android:layout_width="wrap_content"
@@ -87,11 +100,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Vegetarien" />
-            <CheckBox
-                android:id="@+id/EditDishAllergen"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Présence d'allergene" />
 
             <LinearLayout
                 android:layout_width="match_parent"

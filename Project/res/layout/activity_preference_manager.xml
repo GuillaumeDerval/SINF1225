@@ -34,12 +34,15 @@
             android:layout_height="wrap_content"
             android:text="@string/pref_allergen" />
 
-        <CheckBox
-            android:id="@+id/allergen_checkbox"
+        <EditText
+            android:id="@+id/allergen_edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:text="" />
+            android:ems="10"
+            android:hint="Allergènes séparés par des virgules" >
+
+            <requestFocus />
+        </EditText>
 
     </TableRow>
 

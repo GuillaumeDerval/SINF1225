@@ -50,7 +50,7 @@ public class DishEditView extends Activity
 
 		final CheckBox EditSpicy = (CheckBox) findViewById(R.id.EditDishSpicy);
 		final CheckBox EditVegan = (CheckBox) findViewById(R.id.EditDishVegan);
-		final CheckBox EditAllergen = (CheckBox) findViewById(R.id.EditDishAllergen);
+		final EditText EditAllergen = (EditText) findViewById(R.id.EditDishAllergen);
 
 		final Button ApplyButton = (Button) findViewById(R.id.buttonDishApply);
 		final Button DeleteButton = (Button) findViewById(R.id.buttonDishDelete);
@@ -79,11 +79,8 @@ public class DishEditView extends Activity
 		else
 			EditVegan.setChecked(false);
 
-		if (dish.getAllergen() == 1)
-			EditAllergen.setChecked(true);
-		else
-			EditAllergen.setChecked(false);
-
+		EditAllergen.setText(dish.getAllergensText());
+		
 		ApplyButton.setOnClickListener(new View.OnClickListener()
 		{
 			public void onClick(View v)
@@ -104,11 +101,8 @@ public class DishEditView extends Activity
 				else
 					dish.setVegan(0);
 
-				if (EditAllergen.isChecked())
-					dish.setAllergen(1);
-				else
-					dish.setAllergen(0);
-
+				dish.setAllergen(EditAllergen.getText().toString());
+				
 				dish.updateDish();
 				Intent returnIntent = new Intent();
 				returnIntent.putExtra("deleted","notdone");

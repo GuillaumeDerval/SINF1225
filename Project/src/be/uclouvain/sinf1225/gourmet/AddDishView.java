@@ -49,7 +49,7 @@ public class AddDishView extends Activity
 
 		final CheckBox EditSpicy = (CheckBox) findViewById(R.id.EditDishSpicy);
 		final CheckBox EditVegan = (CheckBox) findViewById(R.id.EditDishVegan);
-		final CheckBox EditAllergen = (CheckBox) findViewById(R.id.EditDishAllergen);
+		final EditText EditAllergen = (EditText) findViewById(R.id.EditDishAllergen);
 
 		final Button ApplyButton = (Button) findViewById(R.id.buttonDishApply);
 		final Button DeleteButton = (Button) findViewById(R.id.buttonDishDelete);
@@ -79,12 +79,8 @@ public class AddDishView extends Activity
 					dish.setVegan(1);
 				else
 					dish.setVegan(0);
-
-				if (EditAllergen.isChecked())
-					dish.setAllergen(1);
-				else
-					dish.setAllergen(0);
 				
+				dish.setAllergen(EditAllergen.getText().toString());
 				dish.setRestoId(resto.getId());
 				dish.addDish();
 				finish();
@@ -118,10 +114,7 @@ public class AddDishView extends Activity
 				else
 					dish.setVegan(0);
 
-				if (EditAllergen.isChecked())
-					dish.setAllergen(1);
-				else
-					dish.setAllergen(0);
+				dish.setAllergen(EditAllergen.getText().toString());
 
 				dish.addDish();
 				String name = dish.getName();

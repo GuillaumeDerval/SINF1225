@@ -48,14 +48,13 @@
       android:clickable="false"
       android:longClickable="false"
       android:text="Végétarien" />
-   <CheckBox
+  
+   <TextView
       android:id="@+id/DishViewAllergen"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_alignParentLeft="true"
       android:layout_below="@+id/DishViewVegan"
-      android:clickable="false"
-      android:longClickable="false"
       android:text="Présence d'allergènes" />
 
   <ImageView
