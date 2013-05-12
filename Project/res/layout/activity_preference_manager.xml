@@ -66,25 +66,6 @@
     </TableRow>
 
     <TableRow
-        android:id="@+id/spicy_row"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <TextView
-            android:id="@+id/spicy_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/pref_spicy" />
-
-        <CheckBox
-            android:id="@+id/spicy_checkbox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="" />
-
-    </TableRow>
-
-    <TableRow
         android:id="@+id/tableRow2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
