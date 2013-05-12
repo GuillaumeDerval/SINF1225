@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -58,7 +59,8 @@ public class ReservationManagerView extends Activity
           String nbPeople = ""+oneRsv.getnbrReservation();
 
           TableRow row = (TableRow) ( (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.reservation_manager_row, null);
-          setRow(row ,dateTime[1], dateTime[0], restoName, nbPeople);
+          setRow(row, oneRsv.getRestaurant().getId(), dateTime[1], dateTime[0], restoName, nbPeople);
+          
           rsv_tab.addView(row);
           registerForContextMenu(row);
 
@@ -67,11 +69,20 @@ public class ReservationManagerView extends Activity
 		
 	}
 	
-	private void setRow(TableRow row, String date, String time, String restaurant, String effectif){
+	private void setRow(TableRow row, final int restoId, String date, String time, String restaurant, String effectif)
+	{
 		((TextView)row.findViewById(R.id.rsvDate)).setText(date);
 		((TextView)row.findViewById(R.id.rsvTime)).setText(time);
 		((TextView)row.findViewById(R.id.rsvRest)).setText(restaurant);
 		((TextView)row.findViewById(R.id.rsvNbPeople)).setText(effectif);
+		row.setOnClickListener(new OnClickListener()
+		{
+			@Override
+			public void onClick(View arg0)
+			{
+				askingEditing(restoId);
+			}
+		});
 	}
 	
 
@@ -122,7 +133,7 @@ public class ReservationManagerView extends Activity
 		}else if(monthAbr.equals("Dec")){
 			return "12";
 		}
-		return "FAIL IN METHOD abrToNum";
+		return "An error occured";
 	}
 	
 	@Override
@@ -134,6 +145,13 @@ public class ReservationManagerView extends Activity
 		//TODO REFRESH MY PAGE
 	}
 	
-	public void askingEditing(int resvId){
+	public void askingEditing(int resvId)
+	{
+		Intent intent = new Intent(this, ReservationCreateView.class);
+		Reservation res = Reservation.getReservation(resvId);
+		intent.putExtra("restoId", res.getRestaurant().getId());
+		intent.putExtra("resvId", res.getId());
+		startActivity(intent);
+		finish();
 	}
 }

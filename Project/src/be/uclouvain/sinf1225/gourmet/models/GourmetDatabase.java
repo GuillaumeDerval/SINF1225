@@ -1,5 +1,6 @@
 package be.uclouvain.sinf1225.gourmet.models;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -1075,12 +1076,11 @@ class GourmetDatabase extends SQLiteOpenHelper
 		String date_string = cursor.getString(3);
 
 		Date date = null;
-		SimpleDateFormat format = new SimpleDateFormat("dow mon dd hh:mm:ss zzz yyyy", Locale.getDefault());
+		SimpleDateFormat format = new SimpleDateFormat("E M d H:m:s z y", Locale.getDefault());
 		try {date = format.parse(date_string);}
 		catch (Exception e){date = Calendar.getInstance().getTime();}  // set the current time
 
-		Reservation resv = new Reservation(email, Restaurant.getRestaurant(restoId), nbr, date);
-		resv.setDishes(dishes);
+		Reservation resv = new Reservation(resvId, email, Restaurant.getRestaurant(restoId), nbr, dishes, date);
 		
 		db.close();
 		return resv;
