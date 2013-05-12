@@ -181,8 +181,7 @@ CREATE TABLE "preferences"
 	"email" text NOT NULL,
 	"budget" integer,
 	"allergen" text,
-	"vegetarian" interger,
-	"spicy" integer,
+	"vegetarian" interger
 	PRIMARY KEY("email")
 );
 

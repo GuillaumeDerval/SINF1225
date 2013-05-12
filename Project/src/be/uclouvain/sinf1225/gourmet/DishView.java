@@ -65,12 +65,12 @@ public class DishView extends Activity
 		final CheckBox ViewAvailable = (CheckBox) findViewById(R.id.DishViewAvailable);
 		final TextView ViewAllergen = (TextView) findViewById(R.id.DishViewAllergen);
 
-		if (dish.getSpicy() == 1)
+		if (dish.getSpicy())
 			ViewSpicy.setChecked(true); // to be checked, true equals 1 or 0
 		else
 			ViewSpicy.setChecked(false);
 
-		if (dish.getVegan() == 1)
+		if (dish.getVegan())
 			ViewVegan.setChecked(true);
 		else
 			ViewVegan.setChecked(false);

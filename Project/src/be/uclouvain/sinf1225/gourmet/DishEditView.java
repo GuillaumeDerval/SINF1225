@@ -69,15 +69,9 @@ public class DishEditView extends Activity
 		EditDescription.setText(dish.getDescription());
 		EditCategory.setSelection(position);
 
-		if (dish.getSpicy() == 1)
-			EditSpicy.setChecked(true); // to be checked, true equals 1 or 0
-		else
-			EditSpicy.setChecked(false);
+		EditSpicy.setChecked(dish.getSpicy());
 
-		if (dish.getVegan() == 1)
-			EditVegan.setChecked(true);
-		else
-			EditVegan.setChecked(false);
+		EditVegan.setChecked(dish.getVegan());
 
 		EditAllergen.setText(dish.getAllergensText());
 		
@@ -91,15 +85,9 @@ public class DishEditView extends Activity
 				dish.setAvailable(Integer.parseInt(EditAvailable.getText().toString()));
 				dish.setDescription(EditDescription.getText().toString());
 
-				if (EditSpicy.isChecked())
-					dish.setSpicy(1);
-				else
-					dish.setSpicy(0);
+				dish.setSpicy(EditSpicy.isChecked());
 
-				if (EditVegan.isChecked())
-					dish.setVegan(1);
-				else
-					dish.setVegan(0);
+				dish.setVegan(EditVegan.isChecked());
 
 				dish.setAllergen(EditAllergen.getText().toString());
 				

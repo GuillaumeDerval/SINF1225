@@ -70,15 +70,10 @@ public class AddDishView extends Activity
 				dish.setAvailable(Integer.parseInt(EditAvailable.getText().toString()));
 				dish.setDescription(EditDescription.getText().toString());
 				dish.setRestoId(restaurantId);
-				if (EditSpicy.isChecked())
-					dish.setSpicy(1);
-				else
-					dish.setSpicy(0);
+				
+				dish.setSpicy(EditSpicy.isChecked());
 
-				if (EditVegan.isChecked())
-					dish.setVegan(1);
-				else
-					dish.setVegan(0);
+				dish.setVegan(EditVegan.isChecked());
 				
 				dish.setAllergen(EditAllergen.getText().toString());
 				dish.setRestoId(resto.getId());
@@ -104,15 +99,9 @@ public class AddDishView extends Activity
 				dish.setAvailable(Integer.parseInt(EditAvailable.getText().toString()));
 				dish.setDescription(EditDescription.getText().toString());
 				dish.setRestoId(restaurantId);
-				if (EditSpicy.isChecked())
-					dish.setSpicy(1);
-				else
-					dish.setSpicy(0);
+				dish.setSpicy(EditSpicy.isChecked());
 
-				if (EditVegan.isChecked())
-					dish.setVegan(1);
-				else
-					dish.setVegan(0);
+				dish.setVegan(EditVegan.isChecked());
 
 				dish.setAllergen(EditAllergen.getText().toString());
 

@@ -8,8 +8,8 @@ public class Dish
 	private int restoId;
 	private String description;
 	private double price;
-	private int spicy;
-	private int vegan;
+	private boolean spicy;
+	private boolean vegan;
 	private int available;
 	private String allergens;
 	private String category;
@@ -31,7 +31,7 @@ public class Dish
 	 * @param restaurant
 	 * @param img
 	 */
-	public Dish(int dishId, String name, int restoId, String description, double price, int spicy, int vegan, int available, String allergens, String category, Restaurant restaurant, Image img)
+	public Dish(int dishId, String name, int restoId, String description, double price, boolean spicy, boolean vegan, int available, String allergens, String category, Restaurant restaurant, Image img)
 	{
 		super();
 		this.dishId = dishId;
@@ -131,22 +131,22 @@ public class Dish
 		this.price = price;
 	}
 
-	public int getSpicy()
+	public boolean getSpicy()
 	{
 		return spicy;
 	}
 
-	public void setSpicy(int spicy)
+	public void setSpicy(boolean spicy)
 	{
 		this.spicy = spicy;
 	}
 
-	public int getVegan()
+	public boolean getVegan()
 	{
 		return vegan;
 	}
 
-	public void setVegan(int vegan)
+	public void setVegan(boolean vegan)
 	{
 		this.vegan = vegan;
 	}
@@ -168,6 +168,8 @@ public class Dish
 
 	public String[] getAllergens()
 	{
+		if(this.allergens.equals(""))
+			return new String[]{};
 		return this.allergens.split(",");
 	}
 	

@@ -1,5 +1,6 @@
 package be.uclouvain.sinf1225.gourmet;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
@@ -23,7 +24,9 @@ import android.widget.Spinner;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 import be.uclouvain.sinf1225.gourmet.models.Dish;
+import be.uclouvain.sinf1225.gourmet.models.Preference;
 import be.uclouvain.sinf1225.gourmet.models.Restaurant;
+import be.uclouvain.sinf1225.gourmet.models.User;
 import be.uclouvain.sinf1225.gourmet.utils.GourmetUtils;
 
 public class DishListView extends Activity 
@@ -47,9 +50,8 @@ public class DishListView extends Activity
 		return GourmetUtils.onMenuItemSelected(item, this);
 	}
 
-	public void onLetsGo(Bundle savedInstanceState)
+	public void onLetsGo()
 	{
-		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_dish_list);
 
 		// Initialisation des services de localisation
@@ -60,9 +62,29 @@ public class DishListView extends Activity
 		goToReservation = getIntent().hasExtra("key");
 		
 		List<Dish> dishes = restaurant.getDishes();
-		//TO FIX
-				//MARKER
-
+		Preference prefs = Preference.getPrefByUserEmail(User.getUserConnected().getEmail());
+		if(prefs != null)
+		{
+			String[] allergens = prefs.getAllergens();
+			List<Dish> finalDishes = new ArrayList<Dish>();
+			for(Dish dish: dishes)
+			{
+				String[] dish_allergens = dish.getAllergens();
+				boolean ok = prefs.isVegeterian() && !dish.getVegan();
+				for(int i = 0; i < dish_allergens.length && ok; i++)
+				{
+					for(int j = 0; j < allergens.length && ok; j++)
+					{
+						if(dish_allergens[i].equals(allergens[j]))
+							ok = false;
+					}
+				}
+				if(ok)
+					finalDishes.add(dish);
+			}
+			dishes = finalDishes;
+		}
+		
 		//On recupere les boutons pour le tri
 		final Spinner sortType = (Spinner) findViewById(R.id.DishListSort);
 		final RadioGroup sortDirection = (RadioGroup) findViewById(R.id.DishListSortDirection);
@@ -183,12 +205,12 @@ public class DishListView extends Activity
 	}
 
 	@Override
-	public void onCreate(Bundle savedInstanceState){
-		this.onLetsGo(savedInstanceState);
+	public void onCreate(Bundle savedInstanceState)
+	{
+		super.onCreate(savedInstanceState);
+		this.onLetsGo();
 	}
-	public void onResume(Bundle savedInstanceState){
-		this.onLetsGo(savedInstanceState);
-	}
+	
 	@Override
 	public void onPause()
 	{
@@ -205,6 +227,7 @@ public class DishListView extends Activity
 	public void onResume()
 	{
 		super.onResume();
+		this.onLetsGo();
 	}
 	
 	@Override

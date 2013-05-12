@@ -402,8 +402,8 @@ class GourmetDatabase extends SQLiteOpenHelper
 				cursor.getInt(2), // restoId
 				cursor.getString(3), //description
 				cursor.getDouble(4), //price
-				cursor.getInt(5), //spicy
-				cursor.getInt(6), //vegan
+				cursor.getInt(5) == 1, //spicy
+				cursor.getInt(6) == 1, //vegan
 				cursor.getInt(7), //available
 				cursor.getString(8), //allergen
 				cursor.getString(9),//category
@@ -441,8 +441,8 @@ class GourmetDatabase extends SQLiteOpenHelper
 				cursor.getInt(2), // restoId
 				cursor.getString(3), //description
 				cursor.getDouble(4), //price
-				cursor.getInt(5), //spicy
-				cursor.getInt(6), //vegan
+				cursor.getInt(5) == 1, //spicy
+				cursor.getInt(6) == 1, //vegan
 				cursor.getInt(7), //available
 				cursor.getString(8), //allergen
 				cursor.getString(9),//category
@@ -497,8 +497,8 @@ class GourmetDatabase extends SQLiteOpenHelper
 					cursor.getInt(2), 
 					cursor.getString(3),
 					cursor.getDouble(4),
-					cursor.getInt(5), 
-					cursor.getInt(6), 
+					cursor.getInt(5) == 1, 
+					cursor.getInt(6) == 1, 
 					cursor.getInt(7), 
 					cursor.getString(8),
 					cursor.getString(9), 
@@ -1240,7 +1240,7 @@ class GourmetDatabase extends SQLiteOpenHelper
 				null,
 				null,
 				null);
-		if(cursor == null)
+		if(cursor == null || cursor.getCount() == 0)
 		{
 			return null;
 		}
