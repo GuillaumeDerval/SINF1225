@@ -6,7 +6,7 @@
     android:orientation="vertical" >
 
     <!-- List Divider -->
-        
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,14 +16,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="horizontal">
+            android:orientation="horizontal" >
 
             <EditText
                 android:id="@+id/CityListFilter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="10"
                 android:layout_weight="2"
+                android:ems="10"
                 android:hint="Filtrer" >
             </EditText>
 
@@ -35,8 +35,6 @@
                 android:text="Sort"
                 android:textOff="Trier"
                 android:textOn="Trier" />
-            
-
         </LinearLayout>
 
         <LinearLayout
@@ -68,16 +66,15 @@
                     android:layout_height="wrap_content"
                     android:checked="true"
                     android:text="Asc"
-                    android:textSize="12sp"/>
+                    android:textSize="12sp" />
 
                 <RadioButton
                     android:id="@+id/CityListSortDirectionDesc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Desc"
-                    android:textSize="12sp"/>
+                    android:textSize="12sp" />
             </RadioGroup>
-
         </LinearLayout>
     </LinearLayout>
 

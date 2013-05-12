@@ -26,7 +26,7 @@ public class Dish
 	 * @param spicy
 	 * @param vegan
 	 * @param available
-	 * @param allergen
+	 * @param allergens
 	 * @param category
 	 * @param restaurant
 	 * @param img
@@ -47,22 +47,23 @@ public class Dish
 		this.restaurant = restaurant;
 		this.img = img;
 	}
-	
+
 	public Dish()
 	{
-		//TODO Delete this. This is an awful technique to economize lines in AddDishView. Bad.
+		// TODO Delete this. This is an awful technique to economize lines in AddDishView. Bad.
 	}
-	
+
 	/**
 	 * Delete dish in database
 	 */
-	
+
 	public void addDish()
 	{
 		GourmetDatabase db = new GourmetDatabase();
 		db.addDish(this);
 		db.close();
 	}
+
 	public void deleteDish()
 	{
 		GourmetDatabase db = new GourmetDatabase();
@@ -93,7 +94,8 @@ public class Dish
 		db.close();
 		return dish;
 	}
-	public static Dish getDish(String name,int restoId)
+
+	public static Dish getDish(String name, int restoId)
 	{
 		GourmetDatabase db = new GourmetDatabase();
 		Dish dish = db.getDish(name, restoId);
@@ -168,11 +170,11 @@ public class Dish
 
 	public String[] getAllergens()
 	{
-		if(this.allergens.equals(""))
-			return new String[]{};
+		if (this.allergens.equals(""))
+			return new String[] {};
 		return this.allergens.split(",");
 	}
-	
+
 	public void setAllergen(String allergens)
 	{
 		this.allergens = allergens;

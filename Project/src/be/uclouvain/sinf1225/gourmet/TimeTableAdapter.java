@@ -12,8 +12,9 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import be.uclouvain.sinf1225.gourmet.models.TimeTable;
 
-public class TimeTableAdapter extends ArrayAdapter<TimeTable>{
-	
+public class TimeTableAdapter extends ArrayAdapter<TimeTable>
+{
+
 	static class ViewIds
 	{
 		TextView day;
@@ -22,9 +23,11 @@ public class TimeTableAdapter extends ArrayAdapter<TimeTable>{
 		TextView closing1;
 		TextView closing2;
 	}
+
 	private Context context;
 	private int layoutResourceId;
 	protected List<TimeTable> timeTable = null;
+
 	public TimeTableAdapter(Context context, int layoutResourceId, List<TimeTable> timeTable)
 	{
 		super(context, layoutResourceId, new ArrayList<TimeTable>(timeTable));
@@ -32,6 +35,8 @@ public class TimeTableAdapter extends ArrayAdapter<TimeTable>{
 		this.context = context;
 		this.timeTable = timeTable;
 	}
+
+	@Override
 	public View getView(int position, View convertView, ViewGroup p)
 	{
 		View row = convertView;
@@ -45,7 +50,7 @@ public class TimeTableAdapter extends ArrayAdapter<TimeTable>{
 			LayoutInflater inflater = ((Activity) context).getLayoutInflater();
 			row = inflater.inflate(layoutResourceId, p, false);
 			viewIds = new ViewIds();
-			viewIds.day= (TextView) row.findViewById(R.id.date_day);
+			viewIds.day = (TextView) row.findViewById(R.id.date_day);
 			viewIds.opening1 = (TextView) row.findViewById(R.id.date_time1);
 			viewIds.closing1 = (TextView) row.findViewById(R.id.date_time2);
 			viewIds.opening2 = (TextView) row.findViewById(R.id.date_time3);
@@ -56,15 +61,17 @@ public class TimeTableAdapter extends ArrayAdapter<TimeTable>{
 		{
 			viewIds = (ViewIds) row.getTag();
 		}
-		if( table.getClose() != 0) viewIds.day.setTextColor(0xffff0000);
-		else viewIds.day.setTextColor(0xff00ff00);
+		if (table.getClose() != 0)
+			viewIds.day.setTextColor(0xffff0000);
+		else
+			viewIds.day.setTextColor(0xff00ff00);
 		viewIds.day.setText(table.getDay());
 		viewIds.opening1.setText(table.getMorningOpening());
 		viewIds.closing1.setText(table.getMorningClosing());
 		viewIds.opening2.setText(table.getEveningOpening());
 		viewIds.closing2.setText(table.getEveningClosing());
 		return row;
-		
+
 	}
 
 }

@@ -1,5 +1,6 @@
 package be.uclouvain.sinf1225.gourmet;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,23 +14,25 @@ import android.widget.Spinner;
 import be.uclouvain.sinf1225.gourmet.models.Dish;
 import be.uclouvain.sinf1225.gourmet.models.Restaurant;
 import be.uclouvain.sinf1225.gourmet.utils.GourmetUtils;
-import android.app.Activity;
 
 public class AddDishView extends Activity
 {
 	int restaurantId;
 	Dish dish;
+
+	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
-	    GourmetUtils.createMenu(menu, this, R.id.search);
-	    return true;
+		GourmetUtils.createMenu(menu, this, R.id.search);
+		return true;
 	}
-	
+
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
 		return GourmetUtils.onMenuItemSelected(item, this);
 	}
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
@@ -37,7 +40,7 @@ public class AddDishView extends Activity
 
 		setContentView(R.layout.activity_dish_edit);
 
-		restaurantId = getIntent().getExtras().getInt("restaurantId");		
+		restaurantId = getIntent().getExtras().getInt("restaurantId");
 		final Restaurant resto = Restaurant.getRestaurant(restaurantId);
 		dish = new Dish();
 		// button's creation
@@ -55,26 +58,26 @@ public class AddDishView extends Activity
 		final Button DeleteButton = (Button) findViewById(R.id.buttonDishDelete);
 		final Button imageButton = (Button) findViewById(R.id.dishImageButton);
 
-		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-		        R.array.dish_category, android.R.layout.simple_spinner_item);
+		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.dish_category, android.R.layout.simple_spinner_item);
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		EditCategory.setAdapter(adapter);
 
 		ApplyButton.setOnClickListener(new View.OnClickListener()
 		{
+			@Override
 			public void onClick(View v)
-			{	
+			{
 				dish.setName(EditName.getText().toString());
 				dish.setCategory(EditCategory.getSelectedItem().toString());
 				dish.setPrice(Double.parseDouble(EditPrice.getText().toString()));
 				dish.setAvailable(Integer.parseInt(EditAvailable.getText().toString()));
 				dish.setDescription(EditDescription.getText().toString());
 				dish.setRestoId(restaurantId);
-				
+
 				dish.setSpicy(EditSpicy.isChecked());
 
 				dish.setVegan(EditVegan.isChecked());
-				
+
 				dish.setAllergen(EditAllergen.getText().toString());
 				dish.setRestoId(resto.getId());
 				dish.addDish();
@@ -83,6 +86,7 @@ public class AddDishView extends Activity
 		});
 		DeleteButton.setOnClickListener(new View.OnClickListener()
 		{
+			@Override
 			public void onClick(View v)
 			{
 				dish.deleteDish();
@@ -91,6 +95,7 @@ public class AddDishView extends Activity
 		});
 		imageButton.setOnClickListener(new View.OnClickListener()
 		{
+			@Override
 			public void onClick(View v)
 			{
 				dish.setName(EditName.getText().toString());
@@ -115,16 +120,16 @@ public class AddDishView extends Activity
 		});
 	}
 
+	@Override
 	public void onPause()
 	{
 		super.onStop();
 	}
 
+	@Override
 	public void onResume()
 	{
 		super.onResume();
 	}
 
 }
-
-

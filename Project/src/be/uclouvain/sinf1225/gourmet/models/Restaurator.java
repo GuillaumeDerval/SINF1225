@@ -5,9 +5,10 @@ import java.util.List;
 public class Restaurator extends User
 {
 	private List<Integer> restoIds;
-	
+
 	/**
 	 * Init a restaurator
+	 * 
 	 * @param name
 	 * @param surname
 	 * @param email
@@ -19,9 +20,10 @@ public class Restaurator extends User
 		super(name, surname, email, passwordHash);
 		this.restoIds = restoIds;
 	}
-	
+
 	/**
 	 * Return if a user has or not the rights to manage a restaurant
+	 * 
 	 * @param resto
 	 * @return true if the user has the rights.
 	 */
@@ -29,7 +31,7 @@ public class Restaurator extends User
 	{
 		return restoIds.contains(resto.getId());
 	}
-	
+
 	/**
 	 * Return list of restoIds
 	 */

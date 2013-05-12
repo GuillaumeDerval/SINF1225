@@ -9,17 +9,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
-import be.uclouvain.sinf1225.gourmet.Gourmet;
-import android.graphics.BitmapFactory;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
+import be.uclouvain.sinf1225.gourmet.Gourmet;
 
 public class GourmetFiles
 {
 	/**
-	 * Copy image to disk, in png format. 
-	 * @param newFilePath new file path. File type should be .png. Will be converted to system-independant path.
-	 * @param existingFilePath existing image from api. (path is system-independant)
+	 * Copy image to disk, in png format.
+	 * 
+	 * @param newFilePath
+	 *            new file path. File type should be .png. Will be converted to system-independant path.
+	 * @param existingFilePath
+	 *            existing image from api. (path is system-independant)
 	 */
 	public static void copyImageToDisk(String newFilePath, String existingFilePath)
 	{
@@ -27,12 +30,16 @@ public class GourmetFiles
 		String fileName = dbPathToSystemIndependantPath(newFilePath, subDirTree);
 		copyImageToDisk(subDirTree, fileName, existingFilePath);
 	}
-	
+
 	/**
-	 * Copy image to disk, in png format. 
-	 * @param subdirTree system-independant path to the dir of the new file.
-	 * @param fileName new filename. Should be a png.
-	 * @param existingFilePath existing image from api.
+	 * Copy image to disk, in png format.
+	 * 
+	 * @param subdirTree
+	 *            system-independant path to the dir of the new file.
+	 * @param fileName
+	 *            new filename. Should be a png.
+	 * @param existingFilePath
+	 *            existing image from api.
 	 */
 	private static void copyImageToDisk(List<String> subdirTree, String fileName, String existingFilePath)
 	{
@@ -57,12 +64,16 @@ public class GourmetFiles
 			Log.w("ExternalStorage", "Error writing " + file, e);
 		}
 	}
-	
+
 	/**
-	 * Export a file from ressource 
-	 * @param subdirTree system-independant path to the dir of the file.
-	 * @param fileName filename
-	 * @param res ressource of the file
+	 * Export a file from ressource
+	 * 
+	 * @param subdirTree
+	 *            system-independant path to the dir of the file.
+	 * @param fileName
+	 *            filename
+	 * @param res
+	 *            ressource of the file
 	 */
 	private static void exportFileFromResToDisk(List<String> subdirTree, String fileName, int res)
 	{
@@ -70,11 +81,11 @@ public class GourmetFiles
 		// storage.
 		File dir = Gourmet.getAppContext().getFilesDir();
 		String subdir = "";
-		for(String subdirT: subdirTree)
-			subdir += File.separator+subdirT;
-		if(!subdir.equals(""))
-			new File(dir+subdir).mkdirs();
-		File file = new File(dir+subdir, fileName);
+		for (String subdirT : subdirTree)
+			subdir += File.separator + subdirT;
+		if (!subdir.equals(""))
+			new File(dir + subdir).mkdirs();
+		File file = new File(dir + subdir, fileName);
 
 		try
 		{
@@ -93,10 +104,12 @@ public class GourmetFiles
 	}
 
 	/**
-	 * Export a file from ressource
-	 * Convert DB path to android path.
-	 * @param path unix-style path to the file.
-	 * @param res Ressource of the file
+	 * Export a file from ressource Convert DB path to android path.
+	 * 
+	 * @param path
+	 *            unix-style path to the file.
+	 * @param res
+	 *            Ressource of the file
 	 */
 	public static void exportFileFromResToDisk(String path, int res)
 	{
@@ -104,26 +117,30 @@ public class GourmetFiles
 		String fileName = dbPathToSystemIndependantPath(path, subDirTree);
 		exportFileFromResToDisk(subDirTree, fileName, res);
 	}
-	
+
 	/**
 	 * Delete a file from storage
-	 * @param subdirTree system-independant path to the dir of the file.
-	 * @param fileName filename.
+	 * 
+	 * @param subdirTree
+	 *            system-independant path to the dir of the file.
+	 * @param fileName
+	 *            filename.
 	 */
 	private static void deleteExternalStoragePrivateFile(List<String> subdirTree, String fileName)
 	{
 		String subdir = "";
-		for(String subdirT: subdirTree)
-			subdir += File.separator+subdirT;
-		File file = new File(Gourmet.getAppContext().getFilesDir()+subdir, fileName);
+		for (String subdirT : subdirTree)
+			subdir += File.separator + subdirT;
+		File file = new File(Gourmet.getAppContext().getFilesDir() + subdir, fileName);
 		if (file != null)
 			file.delete();
 	}
-	
+
 	/**
-	 * Delete a file from storage
-	 * Convert DB path to android path.
-	 * @param path unix-style path to the file.
+	 * Delete a file from storage Convert DB path to android path.
+	 * 
+	 * @param path
+	 *            unix-style path to the file.
 	 */
 	public static void deleteExternalStoragePrivateFile(String path)
 	{
@@ -131,20 +148,20 @@ public class GourmetFiles
 		String fileName = dbPathToSystemIndependantPath(path, subDirTree);
 		deleteExternalStoragePrivateFile(subDirTree, fileName);
 	}
-	
+
 	private static String dbPathToSystemIndependantPath(String basePath, List<String> futureSubDirTree)
 	{
 		StringTokenizer st = new StringTokenizer(basePath, "/");
 		List<String> subdirTreeList = new ArrayList<String>();
-		while(st.hasMoreElements())
+		while (st.hasMoreElements())
 		{
 			String t = st.nextToken();
 			subdirTreeList.add(t);
 		}
-		futureSubDirTree.addAll(subdirTreeList.subList(0, subdirTreeList.size()-1));
-		return subdirTreeList.get(subdirTreeList.size()-1);
+		futureSubDirTree.addAll(subdirTreeList.subList(0, subdirTreeList.size() - 1));
+		return subdirTreeList.get(subdirTreeList.size() - 1);
 	}
-	
+
 	/**
 	 * Convert db file path to real filepath in SD card
 	 */
@@ -152,11 +169,11 @@ public class GourmetFiles
 	{
 		StringTokenizer st = new StringTokenizer(path, "/");
 		String rpath = "";
-		while(st.hasMoreElements())
+		while (st.hasMoreElements())
 		{
 			String t = st.nextToken();
-			rpath += File.separator+t;
+			rpath += File.separator + t;
 		}
-		return Gourmet.getAppContext().getFilesDir()+rpath;
+		return Gourmet.getAppContext().getFilesDir() + rpath;
 	}
 }

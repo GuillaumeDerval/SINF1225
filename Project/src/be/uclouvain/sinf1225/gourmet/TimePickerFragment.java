@@ -8,6 +8,7 @@ import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.widget.TimePicker;
+
 @SuppressWarnings("unused")
 public class TimePickerFragment extends DialogFragment implements TimePickerDialog.OnTimeSetListener
 {
@@ -33,12 +34,13 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
 		return Default();
 	}
 
+	@Override
 	public void onTimeSet(TimePicker view, int hourOfDay, int minute)
 	{
 		Calendar cal = ReservationCreateView.dateTime;
 		cal.set(Calendar.HOUR_OF_DAY, hourOfDay);
 		cal.set(Calendar.MINUTE, minute);
-		
+
 		if (cal.after(Calendar.getInstance()))
 		{
 			ReservationCreateView.dateTime.set(Calendar.HOUR_OF_DAY, hourOfDay);
@@ -60,7 +62,7 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
 	{
 		int hour = ReservationCreateView.dateTime.get(Calendar.HOUR_OF_DAY);
 		int minute = ReservationCreateView.dateTime.get(Calendar.MINUTE);
-		
+
 		System.out.println(hour + " : " + minute);
 
 		return new TimePickerDialog(getActivity(), this, hour, minute, DateFormat.is24HourFormat(getActivity()));

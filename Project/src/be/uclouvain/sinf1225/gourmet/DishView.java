@@ -1,6 +1,5 @@
 package be.uclouvain.sinf1225.gourmet;
 
-
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
@@ -33,12 +32,14 @@ public class DishView extends Activity
 	private Dish dish = null;
 	private static int RESULT_EDIT_DISH = 1;
 
+	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
 		GourmetUtils.createMenu(menu, this, R.id.search);
 		return true;
 	}
 
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
 		return GourmetUtils.onMenuItemSelected(item, this);
@@ -75,16 +76,16 @@ public class DishView extends Activity
 		else
 			ViewVegan.setChecked(false);
 
-		if (dish.getAvailable() >0)
+		if (dish.getAvailable() > 0)
 			ViewAvailable.setChecked(true);
 		else
 			ViewAvailable.setChecked(false);
 
-		if(dish.getAllergensText().equals(""))
+		if (dish.getAllergensText().equals(""))
 			ViewAllergen.setText("");
 		else
 			ViewAllergen.setText("Allerg�nes:" + dish.getAllergensText());
-		
+
 		// Bouton pour créer une nouvelle réservation contenant ce plat
 		Button book = (Button) findViewById(R.id.DishViewReservation);
 		book.setOnClickListener(new OnClickListener()
@@ -101,7 +102,7 @@ public class DishView extends Activity
 				{
 					Intent intent = new Intent(DishView.this, ReservationCreateView.class);
 					intent.putExtra("dishId", dish.getDishId());
-					
+
 					/* decrement the values of available */
 					dish.setAvailable(dish.getAvailable() - 1);
 					dish.updateDish();
@@ -116,8 +117,8 @@ public class DishView extends Activity
 		User user = User.getUserConnected();
 
 		// Visible seulement par le restaurateur
-		if(user instanceof Restaurator && ((Restaurator)user).hasRightsForRestaurant(restaurant))
-			editdish.setVisibility(View.VISIBLE);	
+		if (user instanceof Restaurator && ((Restaurator) user).hasRightsForRestaurant(restaurant))
+			editdish.setVisibility(View.VISIBLE);
 		else
 			editdish.setVisibility(View.INVISIBLE);
 
@@ -135,23 +136,26 @@ public class DishView extends Activity
 		// Affichage de l'image associée au plat si elle existe
 		Image image = dish.getImg();
 		ImageView imageView = (ImageView) findViewById(R.id.DishViewImage);
-		if(image != null)
+		if (image != null)
 			imageView.setImageBitmap(BitmapFactory.decodeFile(GourmetFiles.getRealPath(image.getPath())));
 		else
-			imageView.setVisibility(ImageView.GONE);
+			imageView.setVisibility(View.GONE);
 	}
+
+	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
 		super.onActivityResult(requestCode, resultCode, data);
 
 		if (requestCode == RESULT_EDIT_DISH)
 		{
-			String result=data.getStringExtra("deleted");
-			if(result.equals("done")) finish();
+			String result = data.getStringExtra("deleted");
+			if (result.equals("done"))
+				finish();
 			else
 			{
 				super.onRestart();
-				Intent i = new Intent(this, DishView.class);  //your class
+				Intent i = new Intent(this, DishView.class); // your class
 				i.putExtra("dishId", dish.getDishId());
 				startActivity(i);
 				finish();

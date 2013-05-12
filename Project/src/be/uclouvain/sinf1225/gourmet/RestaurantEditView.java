@@ -11,9 +11,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.Spinner;
+import be.uclouvain.sinf1225.gourmet.enums.PriceCategory;
 import be.uclouvain.sinf1225.gourmet.models.Restaurant;
 import be.uclouvain.sinf1225.gourmet.utils.GourmetUtils;
-import be.uclouvain.sinf1225.gourmet.enums.PriceCategory;
 
 /**
  * 
@@ -48,7 +48,7 @@ public class RestaurantEditView extends Activity
 		final EditText EditName = (EditText) this.findViewById(R.id.EditName);
 		final EditText EditPhone = (EditText) this.findViewById(R.id.EditPhoneNumber);
 		final EditText EditAdress = (EditText) this.findViewById(R.id.EditAdress);
-		final Spinner EditPriceCat =(Spinner) findViewById(R.id.edit_restaurant_price_cat);
+		final Spinner EditPriceCat = (Spinner) findViewById(R.id.edit_restaurant_price_cat);
 		final EditText EditEmail = (EditText) this.findViewById(R.id.EditEmail);
 		final EditText EditSeats = (EditText) this.findViewById(R.id.EditSeats);
 		final EditText EditDescription = (EditText) this.findViewById(R.id.EditDescription);
@@ -58,8 +58,7 @@ public class RestaurantEditView extends Activity
 		final Button imageButton = (Button) this.findViewById(R.id.seeImageRestaurant);
 		final Button timeTable = (Button) this.findViewById(R.id.editTableTableButton);
 
-		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-		        R.array.restaurant_price_category, android.R.layout.simple_spinner_item);
+		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.restaurant_price_category, android.R.layout.simple_spinner_item);
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		EditPriceCat.setAdapter(adapter);
 		int position = adapter.getPosition(resto.getPriceCategory().toString());
@@ -120,7 +119,7 @@ public class RestaurantEditView extends Activity
 				resto.setSeats(Integer.parseInt(EditSeats.getText().toString()));
 				resto.setDescription(EditDescription.getText().toString());
 				resto.setWebsite(EditWebsite.getText().toString());
-				resto.setStars((int) Stars.getRating()); 
+				resto.setStars((int) Stars.getRating());
 				resto.setPriceCategory(PriceCategory.fromString(EditPriceCat.getSelectedItem().toString()));
 				resto.updateRestaurant();
 				finish();

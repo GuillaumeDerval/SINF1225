@@ -6,8 +6,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
-import be.uclouvain.sinf1225.gourmet.models.Dish;
-
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -16,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Filter;
 import android.widget.TextView;
+import be.uclouvain.sinf1225.gourmet.models.Dish;
 
 /**
  * Adapter for displaying Dishes in DishesListActivity Hello
@@ -28,16 +27,17 @@ public class DishAdapter extends ArrayAdapter<Dish>
 		TextView menu;
 		TextView price;
 	}
+
 	private class DishComparator implements Comparator<Dish>
 	{
 		@Override
 		public int compare(Dish dish1, Dish dish2)
 		{
 			int ret = 0;
-			if(orderby.equals("name"))
+			if (orderby.equals("name"))
 			{
 				ret = dish1.getName().compareTo(dish2.getName());
-				if(dish1.getCategory().toString().compareTo(dish2.getCategory().toString())!=0)
+				if (dish1.getCategory().toString().compareTo(dish2.getCategory().toString()) != 0)
 				{
 
 					ret = 0;
@@ -45,28 +45,30 @@ public class DishAdapter extends ArrayAdapter<Dish>
 				}
 
 			}
-			if(orderby.equals("price"))
+			if (orderby.equals("price"))
 			{
-				ret = Double.valueOf(dish1.getPrice()).compareTo((double)dish2.getPrice());
-				if(dish1.getCategory().toString().compareTo(dish2.getCategory().toString())!=0)
+				ret = Double.valueOf(dish1.getPrice()).compareTo(dish2.getPrice());
+				if (dish1.getCategory().toString().compareTo(dish2.getCategory().toString()) != 0)
 				{
-					ret= 0;
+					ret = 0;
 
 				}
 
 			}
-			if(orderby.equals("menu"))
+			if (orderby.equals("menu"))
 			{
 				ret = dish1.getCategory().toString().compareTo(dish2.getCategory().toString());
 				ret = -ret;
 			}
-			if(!orderasc && !orderby.equals("menu")) ret = -ret;
+			if (!orderasc && !orderby.equals("menu"))
+				ret = -ret;
 			return ret;
 		}
 	}
 
 	/**
 	 * Filter dishes
+	 * 
 	 * @author Guillaume Derval alias l'homme au mille visages
 	 */
 	private class DishFilter extends Filter
@@ -108,19 +110,20 @@ public class DishAdapter extends ArrayAdapter<Dish>
 		@Override
 		protected void publishResults(CharSequence constraint, FilterResults results)
 		{
-			filteredDishes = (ArrayList<Dish>)results.values;
-			
+			filteredDishes = (ArrayList<Dish>) results.values;
+
 			clear();
 			int count = filteredDishes.size();
-			for (int i=0; i<count; i++)
+			for (int i = 0; i < count; i++)
 				add(filteredDishes.get(i));
 
 			sort();
 		}
 
 	}
-	private Context context; 
-	private int layoutResourceId;    
+
+	private Context context;
+	private int layoutResourceId;
 	protected List<Dish> dishes = null;
 	protected List<Dish> filteredDishes = null;
 	private Filter filter;
@@ -129,9 +132,13 @@ public class DishAdapter extends ArrayAdapter<Dish>
 
 	/**
 	 * Create a new DishAdapter
-	 * @param context Context associated with this Adapter
-	 * @param layoutResourceId Ressource of the layout of a line
-	 * @param dishes dishes to display
+	 * 
+	 * @param context
+	 *            Context associated with this Adapter
+	 * @param layoutResourceId
+	 *            Ressource of the layout of a line
+	 * @param dishes
+	 *            dishes to display
 	 */
 	public DishAdapter(Context context, int layoutResourceId, List<Dish> dishes)
 	{
@@ -150,8 +157,6 @@ public class DishAdapter extends ArrayAdapter<Dish>
 
 		return filter;
 	}
-	
-
 
 	/**
 	 * re-sort lines
@@ -161,13 +166,15 @@ public class DishAdapter extends ArrayAdapter<Dish>
 		Collections.sort(filteredDishes, new DishComparator());
 		clear();
 		int count = filteredDishes.size();
-		for (int i=0; i<count; i++)
+		for (int i = 0; i < count; i++)
 			add(filteredDishes.get(i));
 	}
 
 	/**
 	 * Sort lines
-	 * @param sort Type of sort. Must be "distance","restaurants" or "name"
+	 * 
+	 * @param sort
+	 *            Type of sort. Must be "distance","restaurants" or "name"
 	 */
 	public void setSort(String sort)
 	{
@@ -177,8 +184,11 @@ public class DishAdapter extends ArrayAdapter<Dish>
 
 	/**
 	 * Sort lines
-	 * @param sort Type of sort. Must be "distance","restaurants" or "name"
-	 * @param sortorder true if order is Asc
+	 * 
+	 * @param sort
+	 *            Type of sort. Must be "distance","restaurants" or "name"
+	 * @param sortorder
+	 *            true if order is Asc
 	 */
 	public void setSort(String sort, boolean sortorder)
 	{
@@ -189,7 +199,9 @@ public class DishAdapter extends ArrayAdapter<Dish>
 
 	/**
 	 * Sort lines
-	 * @param sort true if order is Asc
+	 * 
+	 * @param sort
+	 *            true if order is Asc
 	 */
 	public void setSortOrder(boolean sort)
 	{
@@ -197,30 +209,29 @@ public class DishAdapter extends ArrayAdapter<Dish>
 		sort();
 	}
 
-
 	@Override
 	public View getView(int position, View convertView, ViewGroup p)
 	{
 		View row = convertView;
 		ViewIds viewIds = null;
 
-		//Si il n'y a pas encore de lignes
-		if(row == null)
+		// Si il n'y a pas encore de lignes
+		if (row == null)
 		{
-			//Créons une nouvelle ligne
-			LayoutInflater inflater = ((Activity)context).getLayoutInflater();
+			// Créons une nouvelle ligne
+			LayoutInflater inflater = ((Activity) context).getLayoutInflater();
 			row = inflater.inflate(layoutResourceId, p, false);
 
-			//Et une correspondance entre cette ligne et les champs de texte
+			// Et une correspondance entre cette ligne et les champs de texte
 			viewIds = new ViewIds();
-			viewIds.name = (TextView)row.findViewById(R.id.DishListName);
-			viewIds.menu = (TextView)row.findViewById(R.id.DishListMenu);
-			viewIds.price = (TextView)row.findViewById(R.id.DishListPrice);
+			viewIds.name = (TextView) row.findViewById(R.id.DishListName);
+			viewIds.menu = (TextView) row.findViewById(R.id.DishListMenu);
+			viewIds.price = (TextView) row.findViewById(R.id.DishListPrice);
 			row.setTag(viewIds);
 		}
 		else
 		{
-			viewIds = (ViewIds)row.getTag();
+			viewIds = (ViewIds) row.getTag();
 		}
 
 		Dish dish = filteredDishes.get(position);

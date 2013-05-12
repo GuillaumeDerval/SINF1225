@@ -1,14 +1,16 @@
 package be.uclouvain.sinf1225.gourmet.models;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 /**
  * Reservation
+ * 
  * @author Alexandre Laterre
  */
 public class Reservation
-{	
+{
 	private int id;
 	private String userEmail;
 	private Restaurant restaurant;
@@ -16,9 +18,10 @@ public class Reservation
 	private List<Integer> dishes;
 	private Date date;
 	private String dateText;
-	
+
 	/**
 	 * Create a new reservation, to be saved to database
+	 * 
 	 * @param userEmail
 	 * @param restaurant
 	 * @param nbrReservation
@@ -33,9 +36,10 @@ public class Reservation
 		this.dishes = new ArrayList<Integer>();
 		this.date = date;
 	}
-	
+
 	/**
 	 * Create a new reservation, from database.
+	 * 
 	 * @param id
 	 * @param userEmail
 	 * @param restaurant
@@ -52,9 +56,10 @@ public class Reservation
 		this.dishes = dishes;
 		this.date = date;
 	}
-	
+
 	/**
 	 * Create a new reservation, from database.
+	 * 
 	 * @param id
 	 * @param userEmail
 	 * @param restaurant
@@ -71,58 +76,106 @@ public class Reservation
 		this.dishes = dishes;
 		this.dateText = dateText;
 	}
-	
-	/* Lecture des variables d'instances*/
-	public int getId() { return this.id; }
-	public String getUserEmail() {return this.userEmail;}
-	public Restaurant getRestaurant () {return this.restaurant;}
-	public int getnbrReservation() {return this.nbrReservation;}
-	public List<Integer> getDish() {return this.dishes;}
-	public Date getDate() {return this.date;}
-	public String getDateText() {return this.dateText;}
-	
+
+	/* Lecture des variables d'instances */
+	public int getId()
+	{
+		return this.id;
+	}
+
+	public String getUserEmail()
+	{
+		return this.userEmail;
+	}
+
+	public Restaurant getRestaurant()
+	{
+		return this.restaurant;
+	}
+
+	public int getnbrReservation()
+	{
+		return this.nbrReservation;
+	}
+
+	public List<Integer> getDish()
+	{
+		return this.dishes;
+	}
+
+	public Date getDate()
+	{
+		return this.date;
+	}
+
+	public String getDateText()
+	{
+		return this.dateText;
+	}
+
 	/* Modification des variables d'instances */
-	public void setRestaurant (Restaurant resto) {this.restaurant = resto;}
-	public void setNbrReservation (int nbr) {this.nbrReservation = nbr;}
-	public void setDate (Date date) {this.date = date;}
-	public void setId (int id) {this.id = id;}
-	public void setDishes (List<Integer> dishesId) {this.dishes = dishesId;}
-	
+	public void setRestaurant(Restaurant resto)
+	{
+		this.restaurant = resto;
+	}
+
+	public void setNbrReservation(int nbr)
+	{
+		this.nbrReservation = nbr;
+	}
+
+	public void setDate(Date date)
+	{
+		this.date = date;
+	}
+
+	public void setId(int id)
+	{
+		this.id = id;
+	}
+
+	public void setDishes(List<Integer> dishesId)
+	{
+		this.dishes = dishesId;
+	}
+
 	/**
 	 * Ajout d'un plat à la réservation
-	 * @param dish plat à ajouter
-	 * @param nbr nombre d'exemplaire souhaité
+	 * 
+	 * @param dishId plat à ajouter
 	 */
-	public void addDish (int dishId)
+	public void addDish(int dishId)
 	{
 		dishes.add(dishId);
 	}
 
 	/**
 	 * Suppression d'un plat commandé
-	 * @param dish plat à supprimer de la réservation
+	 * 
+	 * @param dishId plat à supprimer de la réservation
 	 */
-	public void delete (int dishId)
+	public void delete(int dishId)
 	{
-		for(int id : this.dishes)
-		{ 
-			if (id == dishId) this.dishes.remove(id);
+		for (int id : this.dishes)
+		{
+			if (id == dishId)
+				this.dishes.remove(id);
 		}
 	}
 
 	/********************* DATABASE *********************/
-	
-	
+
 	public static int addReservation(Reservation reservation)
 	{
 		GourmetDatabase db = new GourmetDatabase();
 		int ans = db.addReservation(reservation);
 		db.close();
-	    return ans;
+		return ans;
 	}
-	
+
 	/**
 	 * Get reservation from database
+	 * 
 	 * @param userEmail
 	 * @param restaurantId
 	 * @param date
@@ -135,31 +188,33 @@ public class Reservation
 		db.close();
 		return resv;
 	}
-	
-	public static List<Reservation> getReservationByUser(User user){
+
+	public static List<Reservation> getReservationByUser(User user)
+	{
 		GourmetDatabase db = new GourmetDatabase();
 		List<Reservation> reservations = db.getReservationByUser(user);
 		db.close();
 		return reservations;
 	}
-	
+
 	/**
 	 * Update this reservation in database
 	 */
 	public void updateReservation()
 	{
 		GourmetDatabase db = new GourmetDatabase();
-		if(id == -1) //add
+		if (id == -1) // add
 		{
 			id = db.addReservation(this);
 		}
-		else //update
+		else
+		// update
 		{
 			db.updateReservation(this);
 		}
 		db.close();
 	}
-	
+
 	/**
 	 * Delete reservation from database
 	 */
@@ -169,7 +224,7 @@ public class Reservation
 		db.deleteReservation(this);
 		db.close();
 	}
-	
+
 	public static Reservation getReservation(int resvId)
 	{
 		GourmetDatabase db = new GourmetDatabase();
@@ -177,9 +232,11 @@ public class Reservation
 		db.close();
 		return resv;
 	}
-	
-	public String toString(){
+
+	@Override
+	public String toString()
+	{
 		String date = this.date != null ? this.date.toString() : this.dateText;
-		return "DATE = "+date+", DISHES = toStringMissing, ID ="+id+", NBRRESERVATION = "+nbrReservation+", Restaurant =" + restaurant.getName() + ", USERMAIL = "+userEmail;
+		return "DATE = " + date + ", DISHES = toStringMissing, ID =" + id + ", NBRRESERVATION = " + nbrReservation + ", Restaurant =" + restaurant.getName() + ", USERMAIL = " + userEmail;
 	}
 }

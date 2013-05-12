@@ -82,6 +82,7 @@ public class Restaurant
 		db.close();
 		return resto;
 	}
+
 	public static List<TimeTable> getTimeTable(int restoId)
 	{
 		GourmetDatabase db = new GourmetDatabase();
@@ -89,6 +90,7 @@ public class Restaurant
 		db.close();
 		return resto;
 	}
+
 	public static List<TimeTable> getTFullTimeTable(int restoId)
 	{
 		GourmetDatabase db = new GourmetDatabase();
@@ -235,10 +237,10 @@ public class Restaurant
 	{
 		getImages().remove(image);
 	}
-	
+
 	public List<Image> getImages()
 	{
-		if(images == null)
+		if (images == null)
 		{
 			GourmetDatabase db = new GourmetDatabase();
 			images = db.getImages(this);
@@ -247,7 +249,7 @@ public class Restaurant
 		return images;
 	}
 
-	//public void setImages(List<Image> images) {
-	//	this.images = images;
-	//}
+	// public void setImages(List<Image> images) {
+	// this.images = images;
+	// }
 }

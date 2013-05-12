@@ -30,11 +30,12 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
 		return Default();
 	}
 
+	@Override
 	public void onDateSet(DatePicker view, int year, int month, int day)
 	{
 		/* Calendar the day choose */
 		Calendar cal = Calendar.getInstance();
-		cal.set(year,month,day);
+		cal.set(year, month, day);
 
 		if (cal.after(Calendar.getInstance()))
 		{

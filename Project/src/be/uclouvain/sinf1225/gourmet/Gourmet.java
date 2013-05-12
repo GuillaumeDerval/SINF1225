@@ -10,14 +10,15 @@ public class Gourmet extends Application
 {
 	private static Context context;
 
-    public void onCreate()
-    {
-        super.onCreate();
-        Gourmet.context = getApplicationContext();
-    }
+	@Override
+	public void onCreate()
+	{
+		super.onCreate();
+		Gourmet.context = getApplicationContext();
+	}
 
-    public static Context getAppContext()
-    {
-        return Gourmet.context;
-    }
+	public static Context getAppContext()
+	{
+		return Gourmet.context;
+	}
 }

@@ -1,12 +1,9 @@
 package be.uclouvain.sinf1225.gourmet;
 
-import android.widget.ArrayAdapter;
-import be.uclouvain.sinf1225.gourmet.models.Image;
-import be.uclouvain.sinf1225.gourmet.utils.GourmetFiles;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -14,8 +11,11 @@ import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import be.uclouvain.sinf1225.gourmet.models.Image;
+import be.uclouvain.sinf1225.gourmet.utils.GourmetFiles;
 
 /**
  * 
@@ -83,7 +83,9 @@ public class ImageAdapter extends ArrayAdapter<Image>
 		}
 		return row;
 	}
-	public void updateImages(List<Image>images){
+
+	public void updateImages(List<Image> images)
+	{
 		this.images = images;
 		notifyDataSetChanged();
 	}
