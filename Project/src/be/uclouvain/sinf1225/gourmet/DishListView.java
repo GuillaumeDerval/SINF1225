@@ -71,7 +71,7 @@ public class DishListView extends Activity
 			for (Dish dish : dishes)
 			{
 				String[] dish_allergens = dish.getAllergens();
-				boolean ok = prefs.isVegeterian() && !dish.getVegan();
+				boolean ok = !prefs.isVegeterian() || (prefs.isVegeterian() && !dish.getVegan());
 				for (int i = 0; i < dish_allergens.length && ok; i++)
 				{
 					for (int j = 0; j < allergens.length && ok; j++)
