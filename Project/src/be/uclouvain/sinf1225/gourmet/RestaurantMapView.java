@@ -42,7 +42,7 @@ public class RestaurantMapView extends Activity
 			List<Restaurant> restaurants = Restaurant.getAllRestaurants(City.getCity(getIntent().getExtras().getString("name"), getIntent().getExtras().getString("country")));
 			for (Restaurant restaurant : restaurants)
 			{
-				Marker marker = getMap().addMarker(new MarkerOptions().position(new LatLng(restaurant.getLocation().getLatitude(), restaurant.getLocation().getLongitude())).title(restaurant.getName()));
+				Marker marker = getMap().addMarker(new MarkerOptions().position(new LatLng(restaurant.getLocation().getLongitude(), restaurant.getLocation().getLatitude())).title(restaurant.getName()));
 				markerToRestaurant.put(marker, restaurant);
 			}
 			
@@ -53,8 +53,8 @@ public class RestaurantMapView extends Activity
 				{
 					Restaurant restaurant = markerToRestaurant.get(arg0);
 
-					Intent intent = new Intent(RestaurantMapView.this, RestaurantListView.class);
-					intent.putExtra("name", restaurant.getName());
+					Intent intent = new Intent(RestaurantMapView.this, RestaurantView.class);
+					intent.putExtra("restoId", restaurant.getId());
 					startActivity(intent);
 
 					return true;
