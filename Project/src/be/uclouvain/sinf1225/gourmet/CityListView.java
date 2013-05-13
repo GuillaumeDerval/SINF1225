@@ -11,9 +11,11 @@ import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -140,7 +142,21 @@ public class CityListView extends Activity implements GourmetLocationReceiver
 				layout.setVisibility(isChecked ? ToggleButton.VISIBLE : ToggleButton.GONE);
 			}
 		});
-
+		
+		final Button mapActivate = (Button) findViewById(R.id.CityListMapActivate);
+		if(!GourmetUtils.hasGooglePlayServicesLib())
+			mapActivate.setVisibility(View.GONE);
+		
+		mapActivate.setOnClickListener(new OnClickListener()
+		{
+			@Override
+			public void onClick(View v)
+			{
+				Intent intent = new Intent(CityListView.this, CityMapView.class);
+			    startActivity(intent);
+			}
+		});
+		
 		sortType.setOnItemSelectedListener(new OnItemSelectedListener()
 		{
 			@Override

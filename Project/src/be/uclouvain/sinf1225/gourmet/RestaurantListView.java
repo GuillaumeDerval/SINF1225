@@ -11,9 +11,11 @@ import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -141,6 +143,22 @@ public class RestaurantListView extends Activity implements GourmetLocationRecei
 			}
 		});
 
+		final Button mapActivate = (Button) findViewById(R.id.RestaurantListMapActivate);
+		if(!GourmetUtils.hasGooglePlayServicesLib())
+			mapActivate.setVisibility(View.GONE);
+
+		mapActivate.setOnClickListener(new OnClickListener()
+		{
+			@Override
+			public void onClick(View v)
+			{
+				Intent intent = new Intent(RestaurantListView.this, RestaurantMapView.class);
+				intent.putExtra("name", getIntent().getExtras().getString("name")); 
+				intent.putExtra("country", getIntent().getExtras().getString("country"));
+				startActivity(intent);
+			}
+		});
+		
 		sortType.setOnItemSelectedListener(new OnItemSelectedListener()
 		{
 			@Override
