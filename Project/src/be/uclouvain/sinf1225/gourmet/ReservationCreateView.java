@@ -36,6 +36,7 @@ public class ReservationCreateView extends Activity
 	protected static Button datePicker;
 	protected static Button timePicker;
 	protected static int resto_id;
+	protected static int resvId;
 	protected static boolean fromEdit;
 
 	/* input Controls */
@@ -239,22 +240,19 @@ public class ReservationCreateView extends Activity
 		if (!exception)
 		{
 			Reservation resv = new Reservation(email, Restaurant.getRestaurant(resto_id), nbrResv, date);
-			for (int id : dish_id_list)
-			{
-				resv.addDish(id);
-			}
+			for (int id : dish_id_list){resv.addDish(id);}
 
 			/* add the reservation into the database */
 			int ans = 0;
 			if (fromEdit)
 			{
+				resv.setId(resvId);
 				resv.updateReservation();
 				Intent intent = new Intent(ReservationCreateView.this, ReservationManagerView.class);
 				setResult(RESULT_OK, intent);
 				finish();
 			}
-			else
-				ans = Reservation.addReservation(resv);
+			else{ans = Reservation.addReservation(resv);}
 			exception = (ans == -1);
 
 			/* check if the reservation passed */
@@ -262,11 +260,13 @@ public class ReservationCreateView extends Activity
 				text = "Reservation échouée";
 			else
 			{
-
-				/* remove the places booked */
-				Restaurant resto = Restaurant.getRestaurant(resto_id);
-				resto.setSeats(resto.getSeats() - nbrResv);
-				resto.updateRestaurant();
+				if(!fromEdit)
+				{
+					/* remove the places booked */
+					Restaurant resto = Restaurant.getRestaurant(resto_id);
+					resto.setSeats(resto.getSeats() - nbrResv);
+					resto.updateRestaurant();
+				}
 
 				/* all the insertion into the dataBase passed */
 				text = "Reservation envoyée";
@@ -293,7 +293,7 @@ public class ReservationCreateView extends Activity
 		int dish_id = intent.getIntExtra(DISH, 0);
 		price = 0;
 
-		int resvId = intent.getIntExtra("resvId", 0);
+		resvId = intent.getIntExtra("resvId", 0);
 		fromEdit = intent.hasExtra("resvId");
 
 		if (resvId != 0)
